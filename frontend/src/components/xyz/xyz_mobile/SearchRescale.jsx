@@ -25,7 +25,7 @@ function SearchRescale() {
 
     return (
         <div>
-            <div className="flex items-center justify-center flex-col">
+            <div className="flex items-center justify-center flex-col relative">
                 <div>
                     <p className='text-3xl secondary font-bold mb-1 mt-5'>Rescaling</p>
                     <p className='secondary mb-1'>Find Package ID to rescale</p>
