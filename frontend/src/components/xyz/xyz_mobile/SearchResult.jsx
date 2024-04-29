@@ -1,5 +1,6 @@
 import React from 'react';
 import box from '../../../assets/xyz/package.svg';
+import '../../../style/xyz/xyz_mobile/FindRescalePackage.css';
 
 function SearchResult({ searchResult }) {
     const formatDateTime = (dateTimeString) => {
@@ -16,11 +17,14 @@ function SearchResult({ searchResult }) {
     return (
         <div className='items-center justify-center relative'>
             {searchResult.map(item => (
-                <div key={item.id} className="bg-white mb-3 w-3/4 py-4 px-5 mx-auto rounded-lg">
-                    {/* Render each item of the search result */}
-                    <img src={box} alt="box" className="absolute"/>
-                    <p className="mb-1 ml-5 primary font-bold text-sm ml-10">Package ID #{item.packageID}</p>
-                    <p className="primary ml-5 text-sm ml-10">{formatDateTime(item.dateTime)}</p>
+                <div key={item.id} className="bg-white mb-3 w-3/4 py-4 px-5 mx-auto rounded-lg hover:bg-secondary hover:text-white primary img-hover">
+                    <a href=""  className="block hover:bg-secondary hover:text-white">
+                        <img src={box} alt="box" className="absolute"/>
+                        <div className="ml-10">
+                            <p className="mb-1 font-bold text-sm">Package ID #{item.packageID}</p>
+                            <p className="text-sm">{formatDateTime(item.dateTime)}</p>
+                        </div>
+                    </a>
                 </div>
             ))}
         </div>
