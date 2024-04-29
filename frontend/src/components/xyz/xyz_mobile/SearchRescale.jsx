@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'  
-import '../../../style/xyz/xyz_mobile/Rescale.css';
+import '../../../style/xyz/xyz_mobile/FindRescalePackage.css';
 import { AiOutlineSearch } from 'react-icons/ai';
 import SearchResult from './SearchResult';
 import jsonData from '../../../../data.json';
