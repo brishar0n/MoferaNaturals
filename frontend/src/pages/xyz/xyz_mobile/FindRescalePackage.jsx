@@ -1,7 +1,7 @@
 import NavbarXYZ from '../../../components/xyz/xyz_mobile/NavbarXYZ.jsx'
 import SearchRescale from '../../../components/xyz/xyz_mobile/SearchRescale.jsx'
 
-function Rescale() {
+function FindRescalePackage() {
     return (
         <div className='bg-quaternary w-screen h-screen overflow-y-scroll'>
             <SearchRescale />
@@ -10,4 +10,4 @@ function Rescale() {
     )
 }
 
-export default Rescale;
+export default FindRescalePackage;
