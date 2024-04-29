@@ -24,7 +24,7 @@ function SearchRescale() {
     }
 
     return (
-        <div>
+        <div className='pb-36'>
             <div className="flex items-center justify-center flex-col relative">
                 <div>
                     <p className='text-3xl secondary font-bold mb-1 mt-5'>Rescaling</p>
