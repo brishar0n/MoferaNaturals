@@ -26,3 +26,8 @@
         margin-left: 50px !important;
     }
 }
+
+.img-hover:hover img {
+    filter: brightness(0) invert(1);
+    /* Change the image to white when hovered */
+}
