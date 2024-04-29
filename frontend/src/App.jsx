@@ -1,16 +1,24 @@
 import './style/App.css'
 import Homepage from './pages/Homepage';
 import Login from './components/auth/Login';
+import Verification from './components/auth/Verification';
+import ResetPassword from './components/auth/ResetPassword';
 import WelcomeBack from './pages/WelcomeBack';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Register from './components/auth/Register';
+import Notify from './components/notif/notify';
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Homepage />} exact />
-        <Route path="/login" element={<Login />} exact />
         <Route path="/welcomeback" element={<WelcomeBack />} exact />
+        <Route path="/login" element={<Login />} exact />
+        <Route path="/register" element={<Register />} exact />
+        <Route path="/verification" element={<Verification />} exact/>
+        <Route path="/resetpass" element={<ResetPassword />} exact/>
+        <Route path="/notify" element={<Notify/>} exact/>
       </Routes>
     </Router>
   );

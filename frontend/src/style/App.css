@@ -17,3 +17,9 @@
     --color-quaternary: #DAE8D1;
     --color-quinary: #E6F1ED;
 }
+
+
+.underline {
+    text-decoration: underline;
+}
+
