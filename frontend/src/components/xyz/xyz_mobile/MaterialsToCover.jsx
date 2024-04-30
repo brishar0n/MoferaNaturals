@@ -3,7 +3,7 @@ import '../../../style/xyz/xyz_mobile/RescalePackage.css';
 
 function MaterialsToCover() {
     return (
-        <div className='bg-white mb-3 w-3/4 mx-auto py-4 px-5 rounded-2xl text-left relative'>
+        <div className='bg-white mb-5 w-3/4 mx-auto py-4 px-5 rounded-2xl text-left relative'>
             <p className='primary font-bold text-center mb-2'>Materials to Cover</p>
             <p className='items-start primary text-xs mb-1 font-medium'>Materials:</p>
             <div className='flex flex-col text-xs primary'>
