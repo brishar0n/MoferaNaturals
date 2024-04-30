@@ -7,6 +7,7 @@ import RescaleHeader from '../../../components/xyz/xyz_mobile/RescaleHeader.jsx'
 import PackageDetails from '../../../components/xyz/xyz_mobile/PackageDetails.jsx'
 import MaterialsToCover from '../../../components/xyz/xyz_mobile/MaterialsToCover.jsx'
 import '../../../style/xyz/xyz_mobile/RescalePackage.css'
+import rescaleBg from '../../../assets/xyz/bgrescale.svg'
 
 // function RescalingPackage() {
 
@@ -63,12 +64,15 @@ function RescalingPackage() {
         <div className='bg-quaternary w-screen h-screen overflow-y-scroll'>
             {isMobile && (
                 <>
-                    <div className="pb-36">
+                    <div className='h-screen absolute inset-0 flex justify-end z-0'>
+                        <img src={rescaleBg} alt="rescaleBg"/>
+                    </div>
+                    <div className="pb-36 z-10">
                         <RescaleHeader handleBack={handleBack} />
                         <form>
                             <PackageDetails packageData={packageData} />
                             <MaterialsToCover />
-                            <div>
+                            <div className='relative'>
                                 <button className='bg-secondary text-white rounded-lg px-5 py-3 font-medium hover:bg-primary'>Rescale</button>
                             </div>
                         </form>
