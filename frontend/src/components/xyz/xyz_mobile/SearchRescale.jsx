@@ -3,10 +3,12 @@ import '../../../style/xyz/xyz_mobile/FindRescalePackage.css';
 import { AiOutlineSearch } from 'react-icons/ai';
 import SearchResult from './SearchResult';
 import jsonData from '../../../../data.json';
+import { useNavigate } from 'react-router-dom';
 
 function SearchRescale() {
     const [input, setInput] = useState("");
     const [searchResult, setSearchResult] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         // Set initial search result to full jsonData when component mounts
@@ -21,6 +23,10 @@ function SearchRescale() {
         } else {
             setSearchResult(jsonData);
         }
+    }
+
+    function handlePackageClick(packageId) {
+        navigate(`/rescalepackage/${packageId}`);
     }
 
     return (
@@ -40,8 +46,8 @@ function SearchRescale() {
                     <AiOutlineSearch/>
                 </button>
             </div>
-            <SearchResult searchResult={searchResult} />
-        </div>
+            <SearchResult searchResult={searchResult} onPackageClick={handlePackageClick}/>
+        </div>  
         
     )
 }
