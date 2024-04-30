@@ -1,6 +1,7 @@
 import NavbarXYZ from '../../../components/xyz/xyz_mobile/NavbarXYZ.jsx'
 import SearchRescale from '../../../components/xyz/xyz_mobile/SearchRescale.jsx'
 import { useState, useEffect } from 'react'
+import rescaleBg from '../../../assets/xyz/bgrescale.svg'
 
 function FindRescalePackage() {
     const [isMobile, setIsMobile] = useState(false);
@@ -26,6 +27,9 @@ function FindRescalePackage() {
         <div className='bg-quaternary w-screen h-screen overflow-y-scroll'>
             {isMobile && (
                 <>
+                    <div className='h-screen absolute inset-0 flex justify-end'>
+                        <img src={rescaleBg} alt="rescaleBg"/>
+                    </div>
                     <SearchRescale />
                     <NavbarXYZ />
                 </>
