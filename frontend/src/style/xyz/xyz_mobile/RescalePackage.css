@@ -1,5 +1,11 @@
 @media (max-width: 429px) {
     .text-position {
+        width: 40%;
+    }
+}
+
+@media (max-width: 405px) {
+    .text-position {
         position: absolute;
         top: 66%;
         left: 0;
@@ -9,15 +15,12 @@
         text-align: center;
         /* Center the text horizontally */
     }
-    .leading-normal {
+    .leading-norm {
         line-height: 20px;
     }
     .h-96 {
         height: 22rem;
     }
-}
-
-@media (max-width: 390px) {
     .vector {
         margin-left: 5px;
     }
