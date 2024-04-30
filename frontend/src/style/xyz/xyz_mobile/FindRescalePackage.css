@@ -21,8 +21,8 @@
     border-radius: 20px;
 }
 
-@media (max-width: 359px) {
-    .ml-10 {
+@media (max-width: 390px) {
+    .mleft-10 {
         margin-left: 50px !important;
     }
 }
