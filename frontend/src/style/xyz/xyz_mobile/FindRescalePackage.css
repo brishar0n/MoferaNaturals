@@ -27,7 +27,12 @@
     }
 }
 
-.img-hover:hover img {
+.box img {
     filter: brightness(0) invert(1);
+    /* Change the image to white when hovered */
+}
+
+.box:hover img {
+    filter: brightness(1);
     /* Change the image to white when hovered */
 }
