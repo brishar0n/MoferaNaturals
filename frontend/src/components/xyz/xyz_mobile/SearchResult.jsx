@@ -17,8 +17,8 @@ function SearchResult({ searchResult, onPackageClick }) {
     return (
         <div className='items-center justify-center relative'>
             {searchResult.map(item => (
-                <div key={item.id} className="bg-white mb-3 w-3/4 py-4 px-5 mx-auto rounded-2xl hover:bg-secondary hover:text-white primary img-hover">
-                    <a href="#"  className="block hover:bg-secondary hover:text-white" onClick={() => onPackageClick(item.packageID)}>
+                <div key={item.id} className="bg-secondary mb-3 w-3/4 py-4 px-5 mx-auto rounded-2xl hover:bg-white hover:text-primary text-white box ">
+                    <a href="#"  className="block hover:bg-white hover:primary" onClick={() => onPackageClick(item.packageID)}>
                         <img src={box} alt="box" className="absolute"/>
                         <div className="mleft-10">
                             <p className="mb-1 font-bold text-sm">Package ID #{item.packageID}</p>
