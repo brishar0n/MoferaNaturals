@@ -7,6 +7,8 @@ import WelcomeBack from './pages/WelcomeBack';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Register from './components/auth/Register';
 import Notify from './components/notif/notify';
+import FindRescalePackage from './pages/xyz/xyz_mobile/FindRescalePackage';
+import RescalingPackage from './pages/xyz/xyz_mobile/RescalingPackage';
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
         <Route path="/verification" element={<Verification />} exact/>
         <Route path="/resetpass" element={<ResetPassword />} exact/>
         <Route path="/notify" element={<Notify/>} exact/>
+        <Route path="/findrescale" element={<FindRescalePackage />} exact />
+        <Route path="/rescalepackage/:packageId" element={<RescalingPackage />} exact />
       </Routes>
     </Router>
   );

@@ -1,0 +1,71 @@
+@media (max-width: 429px) {
+    .text-position {
+        width: 40%;
+    }
+}
+
+@media (max-width: 405px) {
+    .text-position {
+        position: absolute;
+        top: 66%;
+        left: 0;
+        width: 100%;
+        padding: 0 1rem;
+        /* Adjust padding as needed */
+        text-align: center;
+        /* Center the text horizontally */
+    }
+    .leading-norm {
+        line-height: 20px;
+    }
+    .h-96 {
+        height: 22rem;
+    }
+    .vector {
+        margin-left: 5px;
+    }
+}
+
+@media (max-width: 340px) {
+    .vector {
+        margin-left: 0px;
+    }
+}
+
+@media (max-width: 330px) {
+    .title {
+        margin-left: 10px;
+    }
+}
+
+input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+
+/* Style the custom radio button */
+
+input[type="radio"]::before {
+    content: "";
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 3px solid #016B45;
+    /* Default border color */
+    background-color: #fff;
+    /* Default background color */
+    margin-right: 8px;
+}
+
+
+/* Style the custom radio button when checked */
+
+input[type="radio"]:checked::before {
+    background-color: #016B45;
+    /* Change background color when checked */
+    border-color: #016B45;
+    /* Change border color when checked */
+}
