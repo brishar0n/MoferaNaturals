@@ -4,7 +4,7 @@ import React from "react"
 function NavigationBar(props) {
     return (
         <>
-             <div className='bg-secondary w-screen h-24 bottom-0 rounded-t-3xl fixed bottom-0 flex justify-evenly'>
+             <div className='bg-secondary w-screen h-24 bottom-0 rounded-t-3xl fixed bottom-0 flex justify-evenly z-10'>
               <div className='flex gap-11'>
                 <img src="src/assets/notifications/home.svg" className='w-7'></img>
                 <img src="src/assets/notifications/expedition.svg" className='w-7'></img>
