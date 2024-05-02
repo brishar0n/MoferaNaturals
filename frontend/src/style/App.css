@@ -16,6 +16,8 @@
     --color-tertiary: #9CCC7F;
     --color-quaternary: #DAE8D1;
     --color-quinary: #E6F1ED;
+    --color-senary: #BFBFBF;
+    --color-septenary: #07744E;
 }
 
 
@@ -23,3 +25,6 @@
     text-decoration: underline;
 }
 
+.underline2 {
+    text-decoration: underline;
+}
