@@ -9,6 +9,8 @@ import Register from './components/auth/Register';
 import Notify from './components/notif/notify';
 import FindRescalePackage from './pages/xyz/xyz_mobile/FindRescalePackage';
 import RescalingPackage from './pages/xyz/xyz_mobile/RescalingPackage';
+import History from './pages/centra/History';
+
 
 function App() {
   return (
@@ -18,6 +20,7 @@ function App() {
         <Route path="/welcomeback" element={<WelcomeBack />} exact />
         <Route path="/login" element={<Login />} exact />
         <Route path="/register" element={<Register />} exact />
+        <Route path="/history" element={<History/>} exact />
         <Route path="/verification" element={<Verification />} exact/>
         <Route path="/resetpass" element={<ResetPassword />} exact/>
         <Route path="/notify" element={<Notify/>} exact/>
