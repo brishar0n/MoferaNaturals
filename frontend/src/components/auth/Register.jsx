@@ -1,12 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 import "../../style/App.css";
 import { useNavigate } from "react-router-dom";
 import Card from "./Card";
 
 function Register() {
-  const [isMobile, setIsMobile] = React.useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  // const [username, setUsername] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [password, setPassword] = useState('');
+  // const [registrationError, setRegistrationError] = useState('');
   const navigate = useNavigate();
-  const [formData, setFormData] = React.useState({
+  const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     password: "",
@@ -29,12 +34,52 @@ function Register() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(formData);
-    navigate("/welcomeback");
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   console.log(formData);
+  //   navigate("/welcomeback");
+  // };
+
+  const handleSignup = async (event) => {
+    event.preventDefault();
+    try {
+
+      /* Make sure to use port 8000 or change to your port, my port is 8000 */
+
+      const response = await axios.post('http://localhost:8000/auth/', {
+        username: formData.fullName,
+        email: formData.email,
+        password: formData.password,
+      });
+      console.log('Signup successful', response.data);
+      /*This verification will be included later */
+     /*  if (response.data.verification_link) {
+        await axios.post('http://localhost:8000/auth/send-verification-email', {
+          email: email,
+          verification_link: response.data.verification_link, 
+        });
+      } */
+  
+      /* navigate('/UserVerification'); */
+
+      /* once the admin page is set up, we can navigate to the UserVerification, for now navigate to the Login */
+      navigate('/Login');
+    } catch (error) {
+      console.error('Signup failed', error.response.data);
+      if (error.response.status === 400 && error.response.data.email) {
+        setRegistrationError('A user with this email already exists.');
+      } else {
+        setRegistrationError('A user with this email already exists.');
+      }
+    }
   };
 
+
+  const navigatetoLogin = () => {
+    console.log('Navigating to login page...');
+    navigate('/login');
+  };
+  
   return (
     <div className="bg-quaternary h-screen">
       {isMobile && (
@@ -98,7 +143,7 @@ function Register() {
             </div>
 
             <div className='mt-8'>
-                <button className='rounded-full bg-secondary text-white font-bold px-4 py-2 w-36 btn-login' onClick={handleSubmit}>
+                <button className='rounded-full bg-secondary text-white font-bold px-4 py-2 w-36 btn-login' onClick={handleSignup}>
                   Sign Up 
                 </button>
             </div>
@@ -111,6 +156,13 @@ function Register() {
               <img src="src/assets/common/fb.svg" className=''/>
               <img src="src/assets/common/apple.svg" className=''/>
               <img src="src/assets/common/google.svg" className=''/>
+            </div>
+            {/* Navigate to login section */}
+            <div className="text-xs flex items-center justify-center gap-1 mt-5">
+              <p> Already have an account? </p>
+              <p className="text-primary font-bold underline" onClick={navigatetoLogin}>
+                Login here
+              </p>
             </div>
 
             <div className='absolute bottom-0'>
