@@ -31,10 +31,12 @@ function Login() {
   const handleLogin = async (event) => {
     event.preventDefault();
 
-    const formData = new FormData();
-    formData.append('username', email);
-    formData.append('password', password);
+    
 
+    const formData = new FormData();
+    formData.append('email', email);
+    formData.append('password', password);
+    
     try {
       const response = await axios.post('http://localhost:8000/auth/token', formData, {
         headers: {
