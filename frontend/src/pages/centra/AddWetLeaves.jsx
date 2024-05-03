@@ -49,13 +49,13 @@ function AddWetLeaves() {
 
             <div className="content flex flex-col items-center">
             <div class="inline-flex">
-              <button class="bg-green-600 text-white font-medium py-2 px-16 rounded-l-2xl">
+              <button class="bg-green-600 text-white font-medium py-2 px-12 rounded-l-2xl z-50">
                 Add
               </button>
-              <button onClick={handleWash} class="bg-white text-gray-800 font-medium py-2 px-16 rounded-r-2xl">
+              <button onClick={handleWash} class="bg-white text-gray-800 font-medium py-2 px-12 z-50">
                 Wash
               </button>
-              <button onClick={handleDry} class="bg-white text-gray-800 font-medium py-2 px-16 rounded-r-2xl">
+              <button onClick={handleDry} class="bg-white text-gray-800 font-medium py-2 px-12 rounded-r-2xl z-50">
                 Dry
               </button>
             </div>
