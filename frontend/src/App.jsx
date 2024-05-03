@@ -11,6 +11,7 @@ import FindRescalePackage from './pages/xyz/xyz_mobile/FindRescalePackage';
 import RescalingPackage from './pages/xyz/xyz_mobile/RescalingPackage';
 import History from './pages/centra/History';
 import AddDryLeaves from './pages/centra/AddDryLeaves';
+import AddWetLeaves from './pages/centra/AddWetLeaves';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/register" element={<Register />} exact />
         <Route path="/history" element={<History/>} exact />
         <Route path="/adddryleaves" element={<AddDryLeaves />} exact />
+        <Route path="/addwetleaves" element={<AddWetLeaves />} exact />
         <Route path="/verification" element={<Verification />} exact/>
         <Route path="/resetpass" element={<ResetPassword />} exact/>
         <Route path="/notify" element={<Notify/>} exact/>
