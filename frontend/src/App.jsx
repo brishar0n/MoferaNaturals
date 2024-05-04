@@ -13,7 +13,7 @@ import History from './pages/centra/History';
 import AddDryLeaves from './pages/centra/AddDryLeaves';
 import AddWetLeaves from './pages/centra/AddWetLeaves';
 import AddMachine from './pages/centra/AddMachine';
-
+import { ShippingInfo } from './pages/centra/ShippingInfo';
 function App() {
   return (
     <Router>
@@ -28,6 +28,7 @@ function App() {
         <Route path="/addmachine" element={<AddMachine />} exact />
         <Route path="/verification" element={<Verification />} exact/>
         <Route path="/resetpass" element={<ResetPassword />} exact/>
+        <Route path="/shippinginfo" element={<ShippingInfo />} exact/>
         <Route path="/notify" element={<Notify/>} exact/>
         <Route path="/findrescale" element={<FindRescalePackage />} exact />
         <Route path="/rescalepackage/:packageId" element={<RescalingPackage />} exact />
