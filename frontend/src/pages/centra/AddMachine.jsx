@@ -44,50 +44,52 @@ function AddMachine() {
       {isMobile && (
         <>
           <div className="overflow-auto h-[calc(100vh-6rem)] md:h-auto bg-quaternary min-h-screen flex flex-col items-center overflow-auto resize-none pb-24">
-            <img src={"src/assets/common/addCurveLeft.svg"} className="w-screen absolute"/>
-            <img src={"src/assets/common/addCurveRight.svg"} className="w-screen absolute"/>
-
-            <button onClick={handleBack} className="relative -top-5 -left-40 text-gray-600 text-sm font-semibold z-10 mt-8 md-flex">
+            <img src="src/assets/AddPage/frameAdd.svg" alt="frameAdd" className="absolute w-screen"/>
+            <img src="src/assets/AddPage/mascotAdd.svg" alt="mascotAdd" className="absolute right-72 pt-96 top-12 z-20 "/>
+            <button onClick={handleBack} className="relative -top-5 -left-40 text-gray-600 text-sm font-semibold z-10 mt-8 md-flex ">
                     <img src={"src/assets/history/back.svg"} alt="back" className="w-8 mt-8 " />
             </button>
-            <h1 className="text-3xl font-bold text-green-900 z-10 relative -top-14 -bottom-20">Machine</h1>
+            <h1 className="text-3xl font-bold text-green-900 z-10 relative -top-14 -bottom-20 ">Machine</h1>
 
             <div className="content flex flex-col items-center">
-            <div class="inline-flex">
-              <button class="bg-green-600 text-white font-medium py-2 px-16 rounded-l-2xl">
+            <div class="inline-flex relative -top-12 mt-2">
+              <button class="bg-green-600 text-white font-medium py-2 px-16 rounded-l-full ">
                 Add
               </button>
-              <button onClick={handleEdit} class="bg-white text-gray-800 font-medium py-2 px-16 rounded-r-2xl">
+              <button onClick={handleEdit} class="bg-white text-gray-800 font-medium py-2 px-16 rounded-r-full ">
                 Edit
               </button>
             </div>
 
               <div>
-                <p className="items-center p-3 font-semibold text-green-700 mt-4">
+                <p className="items-center p-3 font-semibold text-green-700 -mt-10 text-2xl">
                   Add a New Machine
                 </p>
               </div>
 
-              <div className="total-dried-leaves-daily bg-white p-4 rounded-xl shadow-md z-50">
-                <div className="weight flex-column items-center">
-                <span className="text-gray-500 p-2">Machine Type:</span>
-                    <Dropdown
-                        value={selectedMachine}
-                        onChange={(e) => setSelectedMachine(e.value)}
-                        optionLabel="label"
-                        options={machines}
-                        placeholder="Select a machine"
-                        className="bg-green-700 bg-opacity-20 text-green-800 rounded-lg px-4 py-1 mr-2"
-                    />
+              <div className="total-dried-leaves-daily bg-white p-4 rounded-xl shadow-md z-50 w-80  mt-4">
+                <div className="weight flex-column items-center justify-left">
+                <span className="text-gray-500 p-2 flex">
+                  Machine Type:
+                </span>
+                  <Dropdown
+                      value={selectedMachine}
+                      onChange={(e) => setSelectedMachine(e.value)}
+                      optionLabel="label"
+                      options={machines}
+                      placeholder="Drying"
+                      className="bg-green-700 bg-opacity-20 text-green-800 rounded-lg p-1 flex w-24 "
+                      />
 
-                <br/>   
+                    
 
-                <span className="text-gray-500 p-2 mt-5">Weight Capacity:</span>
+                  <br />
+                <span className="text-gray-500 -mt-2 flex">Weight Capacity:</span>
                   <input
                     type="number"
                     value={weight}
                     onChange={handleWeightChange}
-                    className="bg-green-700 bg-opacity-20 rounded-lg px-2 py-1 mr-2 mt-4"
+                    className="bg-green-700 bg-opacity-20 rounded-lg px-10 py-1 mr-2 mt-2 flex"
                   />
                 </div>
                 
@@ -96,10 +98,7 @@ function AddMachine() {
                 </button>
               </div>
 
-              <img src={"src/assets/centra/topcurve.svg"} className="w-screen absolute mt-52"/>
-              <img src={"src/assets/centra/midcurve.svg"} className="w-screen absolute mt-72"/>
-              <img src={"src/assets/centra/botcurve.svg"} className="w-screen absolute mt-80"/>
-              <img src={"src/assets/centra/mascotCent.svg"} className="absolute mr-80 mt-52 z-50 -rotate-6"/>
+             
 
             </div>
           </div>
