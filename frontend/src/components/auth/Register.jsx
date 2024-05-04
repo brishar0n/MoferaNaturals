@@ -148,27 +148,27 @@ function Register() {
               ></input>
             </div>
 
-            <div className='mt-8'>
-                <button className='rounded-full bg-secondary text-white font-bold px-4 py-2 w-36 btn-login' onClick={handleSignup}>
-                  Sign Up 
-                </button>
-            </div>
-
-            <div className='flex justify-center items-center mt-7'>
-              <img src="src/assets/common/component.svg" className='w-3/4'></img>
-            </div>
-
-            <div className='flex items-center mt-5 justify-center gap-6'>
-              <img src="src/assets/common/fb.svg" className=''/>
-              <img src="src/assets/common/apple.svg" className=''/>
-              <img src="src/assets/common/google.svg" className=''/>
-            </div>
-            {/* Navigate to login section */}
-            <div className="text-xs flex items-center justify-center gap-1 mt-5">
-              <p> Already have an account? </p>
-              <p className="text-primary font-bold underline" onClick={navigatetoLogin}>
-                Login here
-              </p>
+            <div className="relative z-20">
+              <div className='mt-8'>
+                  <button className='rounded-full bg-secondary text-white font-bold px-4 py-2 w-36 btn-login' onClick={handleSignup}>
+                    Sign Up
+                  </button>
+              </div>
+              <div className='flex justify-center items-center mt-7'>
+                <img src="src/assets/common/component.svg" className='w-3/4'></img>
+              </div>
+              <div className='flex items-center mt-5 justify-center gap-6'>
+                <img src="src/assets/common/fb.svg" className=''/>
+                <img src="src/assets/common/apple.svg" className=''/>
+                <img src="src/assets/common/google.svg" className=''/>
+              </div>
+              {/* Navigate to login section */}
+              <div className="text-xs flex items-center justify-center gap-1 mt-5">
+                <p> Already have an account? </p>
+                <p className="text-primary font-bold underline" onClick={navigatetoLogin}>
+                  Login here
+                </p>
+              </div>
             </div>
 
             
