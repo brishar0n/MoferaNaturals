@@ -6,17 +6,18 @@ import Card from "./Card";
 
 function Register() {
   const [isMobile, setIsMobile] = useState(false);
-  // const [username, setUsername] = useState('');
-  // const [email, setEmail] = useState('');
-  // const [password, setPassword] = useState('');
-  // const [registrationError, setRegistrationError] = useState('');
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [registrationError, setRegistrationError] = useState('');
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
+  // const [formData, setFormData] = useState({
+  //   fullName: "",
+  //   email: "",
+  //   password: "",
+  //   confirmPassword: "",
+  // });
 
   useEffect(() => {
     const handleResize = () => {
@@ -42,14 +43,19 @@ function Register() {
 
   const handleSignup = async (event) => {
     event.preventDefault();
+    console.log("button clicked")
+    if(password !== confirmPassword){
+      setRegistrationError("Please match the confirmation password");
+    }
+
     try {
 
       /* Make sure to use port 8000 or change to your port, my port is 8000 */
 
       const response = await axios.post('http://localhost:8000/auth/', {
-        username: formData.fullName,
-        email: formData.email,
-        password: formData.password,
+        username: username,
+        email: email,
+        password: password,
       });
       console.log('Signup successful', response.data);
       /*This verification will be included later */
@@ -100,8 +106,8 @@ function Register() {
                 className='border border-gray-300 rounded-md w-5/6 px-3 py-1.5 bg-quinary' 
                 name='fullname' 
                 id='fullname' 
-                value={formData.fullName} 
-                onChange={handleChange} 
+                value={username} 
+                onChange={(e) => setUsername(e.target.value)}
                 required
               ></input>
             </div>
@@ -112,8 +118,8 @@ function Register() {
                 className='border border-gray-300 rounded-md w-5/6 px-3 py-1.5 bg-quinary' 
                 name='fullname' 
                 id='fullname' 
-                value={formData.email} 
-                onChange={handleChange} 
+                value={email} 
+                onChange={(e) => setEmail(e.target.value)} 
                 required
               ></input>
             </div>
@@ -124,8 +130,8 @@ function Register() {
                 className='border border-gray-300 rounded-md w-5/6 px-3 py-1.5 bg-quinary' 
                 name='fullname' 
                 id='fullname' 
-                value={formData.password} 
-                onChange={handleChange} 
+                value={password} 
+                onChange={(e) => setPassword(e.target.value)} 
                 required
               ></input>
             </div>
@@ -136,8 +142,8 @@ function Register() {
                 className='border border-gray-300 rounded-md w-5/6 px-3 py-1.5 bg-quinary' 
                 name='fullname' 
                 id='fullname' 
-                value={formData.confirmPassword} 
-                onChange={handleChange} 
+                value={confirmPassword} 
+                onChange={(e) => setConfirmPassword(e.target.value)} 
                 required
               ></input>
             </div>
@@ -165,9 +171,9 @@ function Register() {
               </p>
             </div>
 
-            <div className='absolute bottom-0'>
-              <img src='src/assets/register/bottomframe.svg' className='w-screen'/>
-            </div>
+            
+            <img src='src/assets/register/bottomframe.svg' className='w-screen absolute bottom-0'/>
+            
           </Card>
         </div>
       )}
