@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react'
 import React from 'react'
+import axios from 'axios'
 import '../../style/App.css'
 import { useNavigate } from 'react-router-dom';
 import Card from './Card';
@@ -34,7 +35,7 @@ function Login() {
     
 
     const formData = new FormData();
-    formData.append('email', email);
+    formData.append('username', email);
     formData.append('password', password);
     
     try {
@@ -50,7 +51,7 @@ function Login() {
 
       navigate('/welcomeback');
     } catch (error) {
-      console.error('Login failed:', error.response);
+      console.error('Login failed:', error);
       setLoginError('Wrong password. Please try again.'); 
     }
   };
