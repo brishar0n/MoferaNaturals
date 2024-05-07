@@ -4,7 +4,7 @@ import axios from 'axios'
 import '../../style/App.css'
 import { useNavigate } from 'react-router-dom';
 import Card from './Card';
-
+import '../../style/auth/Login.css';
 
 function Login() {
   const [isMobile, setIsMobile] = useState(false);
@@ -67,69 +67,66 @@ function Login() {
           <div className='h-screen'>
             <img src="src/assets/common/topframe.svg" className='w-screen absolute '/>
 
-            <img src="src/assets/common/mascot.svg" className='absolute top-11 right-7 '/>
+            <img src="src/assets/common/mascot.svg" className='absolute top-11 right-7 mascot'/>
 
-            <p className='text-white text-4xl font-bold absolute text-left top-32 right-48'> Welcome <br></br> Back!</p>
+            <p className='text-white text-4xl font-bold absolute text-left top-32 left-12 text'> Welcome <br></br> Back!</p>
 
             <Card>
               
-              <form onSubmit={handleLogin}>
-                <p className='text-primary font-bold text-4xl text-left mt-16 ml-16'> Login </p>
+              <form onSubmit={handleLogin} className="relative">
+                <div className='py-3 bg-white flex flex-col w-3/4 mx-auto mt-16'>
+                <p className='text-primary font-bold text-4xl text-left mb-2 -mt-10'> Login </p>
+                  <label htmlFor='email' className='text-left text-primary'> Email <br></br></label>
+                    <input
+                      type="email"
+                      name="email"
+                      id="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="border border-gray-300 rounded-md px-3 py-1.5 bg-quinary border-none"
+                    />
 
-                <div className='text-left ml-16 mt-5'>
-                  <label htmlFor='email' className='text-primary font-medium'> Email <br></br></label>
-                  <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="border border-gray-300 rounded-md w-5/6 px-3 py-1.5 bg-quinary"
-                  />
-                </div>
+                  <label htmlFor='password' className='text-left text-primary'> Password <br></br></label>
+                    <input
+                      type="password"
+                      name="password"
+                      id="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className={`border border-gray-300 rounded-md px-3 py-1.5 bg-quinary border-none ${loginError && 'border-red-500'}`}
+                    />
+                    {loginError && <p className="text-red-500 mt-1">{loginError}</p>}
+    
+                  <div className='mt-2 flex'>
+                    <input type="checkbox" className='grow-0'></input>
+                    <label className='text-xs text-primary ml-2 font-medium grow text-left'>Remember me?</label> 
+                    <p className='text-xs text-senary font-medium grow-0'>Forgot Password?</p>
+                  </div>
 
-                <div className='text-left ml-16 mt-5'>
-                  <label htmlFor='password' className='text-primary font-medium'> Password <br></br></label>
-                  <input
-                    type="password"
-                    name="password"
-                    id="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className={`border border-gray-300 rounded-md w-5/6 px-3 py-1.5 bg-quinary ${loginError && 'border-red-500'}`}
-                  />
-                  {loginError && <p className="text-red-500 mt-1">{loginError}</p>}
-                </div>
-
-                <div className='flex items-center ml-16 mt-1.5'>
-                  <input type="checkbox" className=''></input>
-                  <label className='text-xs text-primary font-medium ml-1 mr-20'>Remember me?</label> 
-                  <p className='text-xs text-senary font-medium'>Forgot Password?</p>
-                </div>
-
-                <div className='mt-8'>
-                  <button className='rounded-full bg-secondary text-white font-bold px-4 py-2 w-36 btn-login'> Login </button>
+                  <div className='mt-8'>
+                    <button className='rounded-full bg-secondary text-white font-bold px-4 py-2 w-36 btn-login'> Login </button>
+                  </div>
                 </div>
               </form>
 
-              <div className='flex justify-center items-center mt-7'>
+              <div className='flex justify-center items-center mt-7 relative z-20'>
                 <img src="src/assets/common/component.svg" className='w-3/4'></img>
               </div>
 
-              <div className='flex items-center mt-5 justify-center gap-6'>
+              <div className='flex items-center mt-5 justify-center gap-6 z-20 relative'>
                 <img src="src/assets/common/fb.svg" className=''/>
                 <img src="src/assets/common/apple.svg" className=''/>
                 <img src="src/assets/common/google.svg" className=''/>
               </div>
 
-              <div className='text-xs flex items-center justify-center gap-1 mt-5'>
+              <div className='text-xs flex items-center justify-center gap-1 mt-5 z-20 relative mb-5'>
                 <p> Don't have an account? </p>
                 <p className='text-primary font-bold underline' onClick={navigatetoSignup}> Sign Up</p>
               </div>
 
-              <div className='absolute bottom-0'>
-                <img src='src/assets/login/bottomframe.svg' className='w-screen'/>
-              </div>
+              {/* <div className='absolute bottom-0'> */}
+                <img src='src/assets/login/bottomframe.svg' className='w-screen absolute bottom-0'/>
+              {/* </div> */}
             </Card>
           </div>
         </>
