@@ -6,7 +6,7 @@ import '../../../style/xyz/xyz_mobile/RescalePackage.css';
 function RescaleHeader({ handleBack }) {
     return (
         <div>
-            <div className="flex place-items-end flex-col pt-3 px-3 text-right relative h-96">
+            <div className="flex place-items-end flex-col pt-3 px-3 text-right relative h-60 ht-96">
                 <button className='absolute bg-tertiary p-2 rounded-full left-5 text-white top-5' onClick={handleBack}>
                     <GoChevronLeft className='w-6 h-6'/>
                 </button>
