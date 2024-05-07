@@ -14,6 +14,9 @@ import AddDryLeaves from './pages/centra/AddDryLeaves';
 import AddWetLeaves from './pages/centra/AddWetLeaves';
 import AddMachine from './pages/centra/AddMachine';
 import { ShippingInfo } from './pages/centra/ShippingInfo';
+import ReceptionPackage from './pages/xyz/xyz_mobile/ReceptionPackage';
+import ReceptionDocument from './pages/xyz/xyz_mobile/ReceptionDocument';
+
 function App() {
   return (
     <Router>
@@ -32,6 +35,8 @@ function App() {
         <Route path="/notify" element={<Notify/>} exact/>
         <Route path="/findrescale" element={<FindRescalePackage />} exact />
         <Route path="/rescalepackage/:packageId" element={<RescalingPackage />} exact />
+        <Route path="/receptionpackage" element={<ReceptionPackage />} exact />
+        <Route path="/receptiondocument" element={<ReceptionDocument />} exact />
       </Routes>
     </Router>
   );

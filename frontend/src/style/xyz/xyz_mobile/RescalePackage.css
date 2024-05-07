@@ -7,7 +7,7 @@
 @media (max-width: 405px) {
     .text-position {
         position: absolute;
-        top: 66%;
+        margin-top: 20px;
         left: 0;
         width: 100%;
         padding: 0 1rem;
@@ -18,7 +18,7 @@
     .leading-norm {
         line-height: 20px;
     }
-    .h-96 {
+    .ht-96 {
         height: 22rem;
     }
     .vector {
@@ -30,11 +30,20 @@
     .vector {
         margin-left: 0px;
     }
+    .title {
+        margin-left: 20px;
+    }
+    .text-position {
+        margin-top: 10%;
+    }
 }
 
 @media (max-width: 330px) {
     .title {
-        margin-left: 10px;
+        margin-left: 20px;
+    }
+    .text-position {
+        margin-top: 2%;
     }
 }
 

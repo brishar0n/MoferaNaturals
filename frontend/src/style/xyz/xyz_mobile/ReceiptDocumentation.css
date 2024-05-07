@@ -1,0 +1,19 @@
+@media (max-width: 379px) {
+    .text-size {
+        font-size: 1.5rem;
+    }
+    .button {
+        width: 0.75rem;
+        height: 0.75rem;
+    }
+}
+
+.top {
+    top: 38rem;
+    overflow: auto;
+}
+
+.bottom {
+    top: 86rem;
+    overflow: auto;
+}
