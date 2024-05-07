@@ -3,7 +3,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import '../../style/App.css'
 import Card from './Card';
-
+import '../../style/auth/Register.css';
 
 function Verification() {
   const [isMobile, setIsMobile] = useState(false);
@@ -32,31 +32,30 @@ function Verification() {
           <div className='h-screen'>
             <img src="src/assets/common/topframe.svg" className='w-screen absolute '/>
 
-            <img src="src/assets/common/mascot.svg" className='absolute top-11 right-7 '/>
+            <img src="src/assets/common/mascot.svg" className='absolute top-11 right-7 mascot'/>
 
-            <img src="src/assets/verification/backbutton.svg" className="absolute mt-14 ml-8"/>
+            <img src="src/assets/verification/backbutton.svg" className="absolute mt-14 ml-8 btn"/>
 
-            <p className='text-white text-4xl font-bold absolute text-left top-32 right-48'> Forgot <br></br> Password?</p>
+            <p className='text-white text-4xl font-bold absolute text-left top-32 left-14 text'> Forgot <br></br> Password</p>
 
             <Card>
-                <p className='text-primary font-bold text-4xl text-left mt-16 ml-16'> Verify Your <br></br>Email Below:</p>
-                
-                <div className='text-left ml-16 mt-16'>
-                    <label htmlFor='email' className='text-primary font-medium'> Email <br></br></label>
-                    <input 
-                        name='email' 
-                        id='email' 
-                        className='border border-gray-300 rounded-md w-5/6 px-3 py-1.5 bg-quinary'
-                    />
-                </div>
+              <div className='py-3 flex flex-col w-3/4 mx-auto mt-16 relative z-20'>
+                <p className='text-primary font-bold text-4xl text-left mb-2 -mt-10'> Verify Your <br></br>Email Below:</p>
 
-                <div className='mt-16'>
+                <label htmlFor='email' className='text-primary text-left mt-8'> Email <br></br></label>
+                <input 
+                    name='email' 
+                    id='email' 
+                    className='border border-gray-300 rounded-md px-3 py-1.5 bg-quinary border-none mt-1'
+                />
+              </div>
+              
+
+                <div className='mt-16  relative z-20'>
                     <button className='rounded-full bg-secondary text-white font-bold px-4 py-2 w-36 btn-login'> Continue </button>
                 </div>
 
-                <div className='absolute bottom-0'>
-                    <img src='src/assets/verification/bottomframe.svg' className='w-screen'/>
-                </div>
+                <img src='src/assets/verification/bottomframe.svg' className='w-screen absolute bottom-0'/>
             </Card>
           </div>
         </>
