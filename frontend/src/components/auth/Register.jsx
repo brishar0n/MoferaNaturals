@@ -3,6 +3,7 @@ import axios from 'axios';
 import "../../style/App.css";
 import { useNavigate } from "react-router-dom";
 import Card from "./Card";
+import '../../style/auth/Register.css';
 
 function Register() {
   const [isMobile, setIsMobile] = useState(false);
@@ -92,15 +93,15 @@ function Register() {
         <div className="h-screen">
           <img src="src/assets/common/topframe.svg" className='w-screen absolute'/>
 
-          <img src="src/assets/common/mascot.svg" className='absolute top-11 right-7 '/>
+          <img src="src/assets/common/mascot.svg" className='absolute top-11 right-7 mascot'/>
 
-          <img src="src/assets/verification/backbutton.svg" className="absolute mt-14 ml-8" onClick={() => {navigate("/login");}}/>
+          <img src="src/assets/verification/backbutton.svg" className="absolute mt-14 ml-8 btn" onClick={() => {navigate("/login");}}/>
 
-          <p className='text-white text-4xl font-bold absolute text-left top-32 left-14 '> Create <br></br> Account</p>
+          <p className='text-white text-4xl font-bold absolute text-left top-32 left-14 text'> Create <br></br> Account</p>
 
           <Card>
 
-            <div className='text-left ml-16 mt-11'>
+            <div className='text-left ml-16 mt-11 name'>
               <label htmlFor='fullname' className='text-primary font-medium'> Full Name <br></br></label>
               <input 
                 className='border border-gray-300 rounded-md w-5/6 px-3 py-1.5 bg-quinary' 
