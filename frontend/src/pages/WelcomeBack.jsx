@@ -4,10 +4,12 @@ import logo from '../assets/logo.svg'
 import welcomeBg1 from '../assets/welcomeback/welcomebg1.svg'
 import welcomeBg2 from '../assets/welcomeback/welcomebg2.svg'
 import welcomeBg3 from '../assets/welcomeback/welcomebg3.svg'
+import { useNavigate } from "react-router-dom";
 
 function WelcomeBack() {
   const [isMobile, setIsMobile] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleResize = () => {
@@ -25,6 +27,16 @@ function WelcomeBack() {
     // Cleanup timeout
     return () => clearTimeout(timeout);
   }, []);
+
+  const navigatetoLogin = () => {
+    console.log('Navigating to login page...');
+    navigate('/login');
+  };
+
+  const navigatetoRegister = () => {
+    console.log('Navigating to register page...');
+    navigate('/register');
+  };
 
   return (
     <div className="bg-white h-screen flex items-center flex-col">
@@ -45,8 +57,8 @@ function WelcomeBack() {
                 <p className='primary font-medium'>We're happy to see you here</p>
             </div>
             <div className='relative mt-5 top-3/4 flex flex-col justify-center fade-in'>
-                <button className='secondary w-64 font-bold bg-white p-3 rounded-3xl border border-secondary btn-welcome mb-2'>Create Account</button>
-                <button className='secondary w-64 font-bold bg-white p-3 rounded-3xl border border-secondary btn-welcome'>Log in</button>
+                <button className='secondary w-64 font-bold bg-white p-3 rounded-3xl border border-secondary btn-welcome mb-2' onClick={navigatetoRegister}>Create Account</button>
+                <button className='secondary w-64 font-bold bg-white p-3 rounded-3xl border border-secondary btn-welcome' onClick={navigatetoLogin}>Log in</button>
             </div>
         </>
       )}
