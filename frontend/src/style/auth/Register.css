@@ -30,8 +30,10 @@
         line-height: 34px;
     }
     .mascot {
+        top: -40px;
         right: 10px;
-        top: -20px;
+        width: 40%;
+        height: 40%;
     }
     .btn {
         margin-top: 20px;
@@ -44,6 +46,20 @@
         position: absolute;
         bottom: 0;
         height: auto;
+    }
+}
+
+@media (max-height: 640px) {
+    .mascot {
+        width: 30%;
+        height: 30%;
+        right: 40px;
+        top: -20px;
+    }
+    .text {
+        top: 30px;
+        font-size: 25px;
+        left: 65px;
     }
 }
 
