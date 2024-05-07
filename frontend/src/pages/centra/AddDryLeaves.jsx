@@ -1,105 +1,98 @@
-import React, { useEffect, useState } from "react";
-import "../../style/App.css";
+import React from "react";
+import "../../style/App.css"
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import NavigationBar from "../../components/Navbar.jsx";
+import NavigationBar from "../../components/Navbar";
 
-function AddDryLeaves() {
-  const [weight, setWeight] = useState(0);
-  const [date, setDate] = useState(new Date());
-  const [isMobile, setIsMobile] = React.useState(false);
-  const navigate = useNavigate();
+function AddDryLeaves(){
+    const [weight, setWeight] = useState(0);
+    const [date, setDate] = useState(new Date());
+    const [isMobile, setIsMobile] = React.useState(false);
+    const navigate = useNavigate();
 
-  const handleWeightChange = (event) => {
-    setWeight(event.target.value);
-  };
+    const handleWeightChange = (event) => {
+        setWeight(event.target.value);
+    };
 
-  const handleDateChange = (event) => {
-    setDate(event.target.value);
-  };
+    const handleDateChange = (event) => {
+        setDate(event.target.value);
+    };
 
-  useEffect(() => {
-    function handleResize() {
-      setIsMobile(window.innerWidth < 600);
-    }
+    useEffect(() => {
+        function handleResize() {
+        setIsMobile(window.innerWidth < 600);
+        }
 
-    handleResize();
-    window.addEventListener("resize", handleResize);
+        handleResize();
+        window.addEventListener("resize", handleResize);
 
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
-  const handleBack = () => navigate("/dashboard");
+    const handleBack = () => navigate("/dashboard");
 
-  const handleFlour = () => navigate("/flourdryleaves");
+    const handleFlour = () => navigate("/flourdryleaves");
+    
+    return (
+      <div>
+        {isMobile && (
+          <>
+            <div className="overflow-auto h-[calc(100vh-6rem)] md:h-auto bg-quaternary min-h-screen flex flex-col items-center overflow-auto resize-none pb-24">
+                <img src="src/assets/AddPage/frameAdd.svg" className="absolute top-100vh w-screen z-0"></img>
+                <img src="src/assets/AddPage/mascotAdd.svg" className="absolute right-72 pt-96 pr-4 top-16 z-40"></img>
 
-  return (
-    <div>
-      {isMobile && (
-        <>
-          <div className="overflow-auto h-[calc(100vh-6rem)] md:h-auto bg-quaternary min-h-screen flex flex-col items-center overflow-auto resize-none pb-24">
-            <img src={"src/assets/common/addCurveLeft.svg"} className="w-screen absolute"/>
-            <img src={"src/assets/common/addCurveRight.svg"} className="w-screen absolute"/>
-
-            <button onClick={handleBack} className="relative -top-5 -left-40 text-gray-600 text-sm font-semibold z-10 mt-8 md-flex">
-                    <img src={"src/assets/history/back.svg"} alt="back" className="w-8 mt-8 " />
-            </button>
-            <h1 className="text-3xl font-bold text-green-900 z-10 relative -top-14 -bottom-20">Dry Leaves</h1>
-
-            <div className="content flex flex-col items-center">
-            <div class="inline-flex">
-              <button class="bg-green-600 text-white font-medium py-2 px-16 rounded-l-2xl">
-                Add
-              </button>
-              <button onClick={handleFlour} class="bg-white text-gray-800 font-medium py-2 px-16 rounded-r-2xl">
-                Flour
-              </button>
-            </div>
-
-              <div>
-                <p className="items-center p-3 font-semibold text-green-700 mt-4">
-                  Total Dried Leaves Daily
-                </p>
-              </div>
-
-              <div className="total-dried-leaves-daily bg-white p-4 rounded-xl shadow-md z-50">
-                <div className="weight flex items-center mb-4">
-                <span className="text-gray-500 p-2">Weight:</span>
-                  <input
-                    type="number"
-                    value={weight}
-                    onChange={handleWeightChange}
-                    className="bg-green-700 bg-opacity-20 rounded-lg px-2 py-1 mr-2"
-                  />
+                <div className="flex pt-16 gap-11 pr-20 z-10">
+                    <img src="src/assets/common/backarrow.svg" onClick={handleBack}></img>
+                    <p className="font-bold text-primary text-3xl"> Dry Leaves </p>
                 </div>
-                <div className="date flex items-center">
-                <span className="text-gray-500 p-2">Date:</span>
-                  <input
-                    type="date"
-                    value={date.toISOString().substring(0, 10)}
-                    onChange={handleDateChange}
-                    className="bg-green-700 bg-opacity-20 rounded-lg px-2 py-1 mr-2"
-                  />
+
+                <br></br>
+
+                <div className="bg-white w-2/3 rounded-full z-20">
+                    <div className="flex text-s gap-1 font-medium p-1">
+                        <p className="w-48 bg-tertiary rounded-full text-white p-1"> Add </p>
+                        <p className="w-48 rounded-full p-1" onClick={handleFlour}> Flour </p>
+                    </div>
                 </div>
-                <button className="bg-green-700 hover:bg-green-700 text-white font-bold py-2 px-12 rounded-2xl mt-3">
-                  Add
-                </button>
-              </div>
 
-              <img src={"src/assets/centra/topcurve.svg"} className="w-screen absolute mt-52"/>
-              <img src={"src/assets/centra/midcurve.svg"} className="w-screen absolute mt-72"/>
-              <img src={"src/assets/centra/botcurve.svg"} className="w-screen absolute mt-80"/>
-              <img src={"src/assets/centra/mascotCent.svg"} className="absolute mr-80 mt-52 z-50 -rotate-6"/>
+                <br></br>
 
+                <p className="text-lg text-septenary font-semibold"> Total Dried Leaves Daily </p>
+
+                <br></br>
+
+                <div className="bg-white w-2/3 h-1/4 rounded-2xl z-30">
+                    <div className="flex flex-col justify-center items-center pt-5">
+                        <label htmlFor="weight" className="font-medium text-sm pr-44 mb-1">Weight:</label>
+                        <input 
+                        type="number" 
+                        value={weight} 
+                        onChange={handleWeightChange}
+                        className="w-4/5 bg-quinary rounded-md pl-2"></input>
+                    </div>
+
+                    <div className="flex flex-col justify-center items-center pt-4">
+                        <label htmlFor="date" className="font-medium text-sm pr-48 mb-1">Date:</label>
+                        <input 
+                        type="date" 
+                        value={date.toISOString().substring(0, 10)} 
+                        onChange={handleDateChange}
+                        className="w-4/5 bg-quinary rounded-md pl-2"></input>
+                    </div>
+
+                    <br></br>
+
+                    <button className="bg-secondary pl-8 pr-8 pt-2 pb-2 rounded-full text-white font-semibold -mt-2"> ADD </button>
+
+                </div>
             </div>
-          </div>
-          
-          <NavigationBar/>
-        </>
-
-      )}
-
-    </div>
-  );
+            
+            <NavigationBar></NavigationBar>
+          </>
+        )}
+  
+      </div>
+    );
 }
 
 export default AddDryLeaves;

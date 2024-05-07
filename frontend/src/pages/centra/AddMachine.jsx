@@ -1,115 +1,115 @@
-import React, { useEffect, useState } from "react";
-import "../../style/App.css";
+import React from "react";
+import "../../style/App.css"
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import NavigationBar from "../../components/Navbar";
 import { Dropdown } from 'primereact/dropdown';
-import NavigationBar from "../../components/Navbar.jsx";
 
-function AddMachine() {
-  const [weight, setWeight] = useState(0);
-  const [date, setDate] = useState(new Date());
-  const [isMobile, setIsMobile] = React.useState(false);
-  const [selectedMachine, setSelectedMachine] = useState(null);
-  const navigate = useNavigate();
+function AddMachine(){
+    const [weight, setWeight] = useState(0);
+    const [date, setDate] = useState(new Date());
+    const [isMobile, setIsMobile] = React.useState(false);
+    const [selectedMachine, setSelectedMachine] = useState(null);
+    const navigate = useNavigate();
 
-  const handleWeightChange = (event) => {
-    setWeight(event.target.value);
-  };
+    const handleWeightChange = (event) => {
+        setWeight(event.target.value);
+    };
 
-  const handleDateChange = (event) => {
-    setDate(event.target.value);
-  };
+    const handleDateChange = (event) => {
+        setDate(event.target.value);
+    };
 
-  useEffect(() => {
-    function handleResize() {
-      setIsMobile(window.innerWidth < 600);
-    }
+    useEffect(() => {
+        function handleResize() {
+        setIsMobile(window.innerWidth < 600);
+        }
 
-    handleResize();
-    window.addEventListener("resize", handleResize);
+        handleResize();
+        window.addEventListener("resize", handleResize);
 
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
-  const handleBack = () => navigate("/dashboard");
+    const handleBack = () => navigate("/dashboard");
 
-  const handleEdit = () => navigate("/editmachine");
+    const handleFlour = () => navigate("/flourdryleaves");
 
-  const machines = [
-    { label: 'Drying', value: 'drying' },
-    { label: 'Flouring', value: 'flouring' },
-];
+    const handleEdit = () => navigate("/editmachine");
+ 
+    const machines = [
+      { label: 'Drying', value: 'drying' },
+      { label: 'Flouring', value: 'flouring' },
+    ];
 
-  return (
-    <div>
-      {isMobile && (
-        <>
-          <div className="overflow-auto h-[calc(100vh-6rem)] md:h-auto bg-quaternary min-h-screen flex flex-col items-center overflow-auto resize-none pb-24">
-            <img src="src/assets/AddPage/frameAdd.svg" alt="frameAdd" className="absolute w-screen"/>
-            <img src="src/assets/AddPage/mascotAdd.svg" alt="mascotAdd" className="absolute right-72 pt-96 top-12 z-20 "/>
-            <button onClick={handleBack} className="relative -top-5 -left-40 text-gray-600 text-sm font-semibold z-10 mt-8 md-flex ">
-                    <img src={"src/assets/history/back.svg"} alt="back" className="w-8 mt-8 " />
-            </button>
-            <h1 className="text-3xl font-bold text-green-900 z-10 relative -top-14 -bottom-20 ">Machine</h1>
+    return (
+      <div>
+        {isMobile && (
+          <>
+            <div className="overflow-auto h-[calc(100vh-6rem)] md:h-auto bg-quaternary min-h-screen flex flex-col items-center overflow-auto resize-none pb-24">
+                <img src="src/assets/AddPage/frameAdd.svg" className="absolute top-100vh w-screen z-0"></img>
+                <img src="src/assets/AddPage/mascotAdd.svg" className="absolute right-72 pt-96 pr-4 top-16 z-40"></img>
 
-            <div className="content flex flex-col items-center">
-            <div class="inline-flex relative -top-12 mt-2">
-              <button class="bg-green-600 text-white font-medium py-2 px-16 rounded-l-full ">
-                Add
-              </button>
-              <button onClick={handleEdit} class="bg-white text-gray-800 font-medium py-2 px-16 rounded-r-full ">
-                Edit
-              </button>
-            </div>
-
-              <div>
-                <p className="items-center p-3 font-semibold text-green-700 -mt-10 text-2xl">
-                  Add a New Machine
-                </p>
-              </div>
-
-              <div className="total-dried-leaves-daily bg-white p-4 rounded-xl shadow-md z-50 w-80  mt-4">
-                <div className="weight flex-column items-center justify-left">
-                <span className="text-gray-500 p-2 flex">
-                  Machine Type:
-                </span>
-                  <Dropdown
-                      value={selectedMachine}
-                      onChange={(e) => setSelectedMachine(e.value)}
-                      optionLabel="label"
-                      options={machines}
-                      placeholder="Drying"
-                      className="bg-green-700 bg-opacity-20 text-green-800 rounded-lg p-1 flex w-24 "
-                      />
-
-                    
-
-                  <br />
-                <span className="text-gray-500 -mt-2 flex">Weight Capacity:</span>
-                  <input
-                    type="number"
-                    value={weight}
-                    onChange={handleWeightChange}
-                    className="bg-green-700 bg-opacity-20 rounded-lg px-10 py-1 mr-2 mt-2 flex"
-                  />
+                <div className="flex pt-16 gap-16 pr-20 z-10">
+                    <img src="src/assets/common/backarrow.svg" onClick={handleBack}></img>
+                    <p className="font-bold text-primary text-3xl"> Machine </p>
                 </div>
-                
-                <button className="bg-green-700 hover:bg-green-700 text-white font-bold py-2 px-12 rounded-2xl mt-4">
-                  Add
-                </button>
-              </div>
 
-             
+                <br></br>
 
+                <div className="bg-white w-2/3 rounded-full z-20">
+                    <div className="flex text-s gap-1 font-medium p-1">
+                        <p className="w-48 bg-tertiary rounded-full text-white p-1"> Add </p>
+                        <p className="w-48 rounded-full p-1" onClick={handleFlour}> Edit </p>
+                    </div>
+                </div>
+
+                <br></br>
+
+                <p className="text-2xl text-primary font-semibold"> Add a new machine </p>
+
+                <br></br>
+
+                <div className="bg-white w-2/3 h-1/4 rounded-2xl z-30">
+                    <div className="flex flex-col justify-left pl-5 pt-5">
+                        <label htmlFor="weight" className="font-medium text-sm pr-40">Machine type:</label>
+                        {/* <input 
+                        type="number" 
+                        value={weight} 
+                        onChange={handleWeightChange}
+                        className="w-4/5 bg-quinary rounded-md"></input> */}
+                        <Dropdown
+                        value={selectedMachine}
+                        onChange={(e) => setSelectedMachine(e.value)}
+                        optionLabel="label"
+                        options={machines}
+                        placeholder="Drying"
+                        className="w-1/2 text-septenary text-sm font-medium bg-quinary rounded-md items-center pr-2 pt-1 pb-1"
+                        />
+                    </div>
+
+                    <div className="flex flex-col justify-left pl-5 pt-3">
+                        <label htmlFor="date" className="font-medium text-sm pr-36">Weight Capacity:</label>
+                        <input 
+                        type="date" 
+                        value={date.toISOString().substring(0, 10)} 
+                        onChange={handleDateChange}
+                        className="w-11/12 bg-quinary rounded-md text-sm pt-1 pb-1 text-start pl-2"></input>
+                    </div>
+
+                    <br></br>
+
+                    <button className="bg-secondary pl-8 pr-8 pt-2 pb-2 rounded-xl text-white font-semibold -mt-2"> ADD </button>
+
+                </div>
             </div>
-          </div>
-          
-          <NavigationBar/>
-        </>
-
-      )}
-
-    </div>
-  );
+            
+            <NavigationBar></NavigationBar>
+          </>
+        )}
+  
+      </div>
+    );
 }
-
+  
 export default AddMachine;
