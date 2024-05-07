@@ -13,6 +13,8 @@ import History from './pages/centra/History';
 import AddDryLeaves from './pages/centra/AddDryLeaves';
 import AddWetLeaves from './pages/centra/AddWetLeaves';
 import AddMachine from './pages/centra/AddMachine';
+import WashWetLeaves from './pages/centra/WashWetLeaves';
+import DryWetLeaves from './pages/centra/DryWetLeaves';
 import { ShippingInfo } from './pages/centra/ShippingInfo';
 import ReceptionPackage from './pages/xyz/xyz_mobile/ReceptionPackage';
 import ReceptionDocument from './pages/xyz/xyz_mobile/ReceptionDocument';
@@ -28,6 +30,8 @@ function App() {
         <Route path="/history" element={<History/>} exact />
         <Route path="/adddryleaves" element={<AddDryLeaves />} exact />
         <Route path="/addwetleaves" element={<AddWetLeaves />} exact />
+        <Route path="/washwetleaves" element={<WashWetLeaves />} exact />
+        <Route path="/drywetleaves" element={<DryWetLeaves />} exact />
         <Route path="/addmachine" element={<AddMachine />} exact />
         <Route path="/verification" element={<Verification />} exact/>
         <Route path="/resetpass" element={<ResetPassword />} exact/>
