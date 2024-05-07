@@ -15,6 +15,9 @@ import '../../style/Shipping.css'
 export const ShippingInfo = () => {
     const [weight, setWeight] = useState(0);
     const [date, setDate] = useState(new Date());
+    const [expedition, setExpedition] = useState("");
+    const [total, setTotal] = useState(0);
+
     const [isMobile, setIsMobile] = React.useState(false);
     const navigate = useNavigate();
   
@@ -26,6 +29,14 @@ export const ShippingInfo = () => {
       setDate(event.target.value);
     };
   
+    const handleExpeditionChange = (event) => {
+        setExpedition(event.target.value);
+    }
+
+    const handleTotalChange = (event) => {
+        setTotal(event.target.value)
+    }
+
     useEffect(() => {
       function handleResize() {
         setIsMobile(window.innerWidth < 600);
@@ -36,12 +47,6 @@ export const ShippingInfo = () => {
   
       return () => window.removeEventListener("resize", handleResize);
     }, []);
-  
-    const handleBack = () => navigate("/dashboard");
-  
-    const handleWash = () => navigate("/washwetleaves");
-  
-    const handleDry = () => navigate("/drywetleaves");
   
     return (
       <div>
@@ -75,7 +80,7 @@ export const ShippingInfo = () => {
                     <input
                       type="number"
                       value={weight}
-                      onChange={handleWeightChange}
+                      onChange={handleTotalChange}
                       className="bg-green-700 bg-opacity-20 rounded-lg px-2 py-1 mr-2"
                     />
                   </div>
@@ -85,7 +90,7 @@ export const ShippingInfo = () => {
                     <input
                       type="text"
                       value={weight}
-                      onChange={handleWeightChange}
+                      onChange={handleExpeditionChange}
                       className="bg-green-700 bg-opacity-20 rounded-lg px-2 py-1 mr-2"
                     />
                   </div>
