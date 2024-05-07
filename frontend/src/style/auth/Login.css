@@ -1,0 +1,38 @@
+@media (max-height: 870px) {
+    .text {
+        top: 100px;
+    }
+    .mascot {
+        top: 30px;
+    }
+}
+
+@media (max-height: 760px) {
+    .text {
+        top: 80px;
+    }
+    .mascot {
+        top: 20px;
+    }
+}
+
+@media (max-height: 680px) {
+    .text {
+        top: 60px;
+    }
+    .mascot {
+        top: -10px;
+    }
+}
+
+@media (max-width: 410px) {
+    .text {
+        left: 40px;
+    }
+    .mascot {
+        right: 10px;
+    }
+}
+
+
+/* 128 - 44 */
