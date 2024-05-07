@@ -73,27 +73,27 @@ function Login() {
 
             <Card>
               
-              <form onSubmit={handleLogin} className="relative">
-                <div className='py-3 bg-white flex flex-col w-3/4 mx-auto mt-16'>
+              <form onSubmit={handleLogin} className="relative z-20">
+                <div className='py-3 flex flex-col w-3/4 mx-auto mt-16'>
                 <p className='text-primary font-bold text-4xl text-left mb-2 -mt-10'> Login </p>
-                  <label htmlFor='email' className='text-left text-primary'> Email <br></br></label>
+                  <label htmlFor='email' className='text-left text-primary mt-2'> Email <br></br></label>
                     <input
                       type="email"
                       name="email"
                       id="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="border border-gray-300 rounded-md px-3 py-1.5 bg-quinary border-none"
+                      className="border border-gray-300 rounded-md px-3 py-1.5 bg-quinary border-none mt-1"
                     />
 
-                  <label htmlFor='password' className='text-left text-primary'> Password <br></br></label>
+                  <label htmlFor='password' className='text-left text-primary mt-2'> Password <br></br></label>
                     <input
                       type="password"
                       name="password"
                       id="password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      className={`border border-gray-300 rounded-md px-3 py-1.5 bg-quinary border-none ${loginError && 'border-red-500'}`}
+                      className={`border border-gray-300 rounded-md px-3 py-1.5 bg-quinary border-none ${loginError && 'border-red-500'} mt-1`}
                     />
                     {loginError && <p className="text-red-500 mt-1">{loginError}</p>}
     
@@ -103,7 +103,7 @@ function Login() {
                     <p className='text-xs text-senary font-medium grow-0'>Forgot Password?</p>
                   </div>
 
-                  <div className='mt-8'>
+                  <div className='mt-8 relative z-20'>
                     <button className='rounded-full bg-secondary text-white font-bold px-4 py-2 w-36 btn-login'> Login </button>
                   </div>
                 </div>

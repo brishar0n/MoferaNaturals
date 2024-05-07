@@ -102,9 +102,9 @@ function Register() {
           <Card>
 
             <div className='text-left ml-16 mt-11 name'>
-              <label htmlFor='fullname' className='text-primary font-medium'> Full Name <br></br></label>
+              <label htmlFor='fullname' className='text-primary'> Full Name <br></br></label>
               <input 
-                className='border border-gray-300 rounded-md w-5/6 px-3 py-1.5 bg-quinary' 
+                className='border border-gray-300 rounded-md w-5/6 px-3 py-1.5 bg-quinary border-none mt-1' 
                 name='fullname' 
                 id='fullname' 
                 value={username} 
@@ -113,10 +113,10 @@ function Register() {
               ></input>
             </div>
 
-            <div className='text-left ml-16 mt-5'>
-              <label htmlFor='email' className='text-primary font-medium'> Email <br></br></label>
+            <div className='text-left ml-16 mt-2'>
+              <label htmlFor='email' className='text-primary'> Email <br></br></label>
               <input 
-                className='border border-gray-300 rounded-md w-5/6 px-3 py-1.5 bg-quinary' 
+                className='border border-gray-300 rounded-md w-5/6 px-3 py-1.5 bg-quinary border-none mt-1' 
                 name='fullname' 
                 id='fullname' 
                 value={email} 
@@ -125,10 +125,10 @@ function Register() {
               ></input>
             </div>
 
-            <div className='text-left ml-16 mt-5'>
-              <label htmlFor='password' className='text-primary font-medium'> Password <br></br></label>
+            <div className='text-left ml-16 mt-2'>
+              <label htmlFor='password' className='text-primary'> Password <br></br></label>
               <input 
-                className='border border-gray-300 rounded-md w-5/6 px-3 py-1.5 bg-quinary' 
+                className='border border-gray-300 rounded-md w-5/6 px-3 py-1.5 bg-quinary border-none mt-1' 
                 name='fullname' 
                 id='fullname' 
                 value={password} 
@@ -137,10 +137,10 @@ function Register() {
               ></input>
             </div>
 
-            <div className='text-left ml-16 mt-5'>
-              <label htmlFor='confirmpass' className='text-primary font-medium'> Confirm Password <br></br></label>
+            <div className='text-left ml-16 mt-2 relative z-20'>
+              <label htmlFor='confirmpass' className='text-primary'> Confirm Password <br></br></label>
               <input 
-                className='border border-gray-300 rounded-md w-5/6 px-3 py-1.5 bg-quinary' 
+                className='border border-gray-300 rounded-md w-5/6 px-3 py-1.5 bg-quinary border-none mt-1' 
                 name='fullname' 
                 id='fullname' 
                 value={confirmPassword} 
