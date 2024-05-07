@@ -1,5 +1,4 @@
 import NavbarXYZ from '../../../components/xyz/xyz_mobile/NavbarXYZ.jsx'
-import RescalePackage from '../../../components/xyz/xyz_mobile/RescalePackage.jsx'
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom';
 import jsonData from '../../../../data.json'
@@ -8,23 +7,6 @@ import PackageDetails from '../../../components/xyz/xyz_mobile/PackageDetails.js
 import MaterialsToCover from '../../../components/xyz/xyz_mobile/MaterialsToCover.jsx'
 import '../../../style/xyz/xyz_mobile/RescalePackage.css'
 import rescaleBg from '../../../assets/xyz/bgrescale.svg'
-
-// function RescalingPackage() {
-
-
-//     return (
-//         <div className='bg-quaternary w-screen h-screen overflow-y-scroll'>
-//             {isMobile && (
-//                 <>
-//                     <RescalePackage />
-//                     <NavbarXYZ />
-//                 </>
-//             )}
-//         </div>
-//     )
-// }
-
-// export default RescalingPackage;
 
 function RescalingPackage() {
     const { packageId } = useParams();
@@ -73,11 +55,11 @@ function RescalingPackage() {
                             <PackageDetails packageData={packageData} />
                             <MaterialsToCover />
                             <div className='relative'>
-                                <button className='bg-secondary text-white rounded-lg px-5 py-3 font-medium hover:bg-primary'>Rescale</button>
+                                <button className='bg-secondary text-white rounded-3xl px-7 py-2 font-medium hover:bg-primary'>Rescale</button>
                             </div>
                         </form>
                     </div>
-                    <NavbarXYZ />
+                    <NavbarXYZ/>
                 </>
                 
             )}
