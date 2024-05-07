@@ -61,7 +61,7 @@ function History() {
                             
                             <div className="flex justify-evenly mt-1">
 
-                                <p className="text-white ">Time Collected: </p>
+                                <p className="text-white ">Time collected: </p>
                                 <input type="text" className="bg-transparent text-white" />
 
                             </div>
