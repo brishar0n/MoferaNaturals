@@ -26,17 +26,17 @@ function ReceptionDocument() {
     }, []);
 
     return (
-        <div className='overflow-auto h-[calc(100vh-6rem)] md:h-auto bg-quaternary min-h-screen flex flex-col items-center pt-4 resize-none pb-24"'>
+        <div className='overflow-auto md:h-auto bg-quaternary min-h-screen flex flex-col items-center pt-4 resize-none pb-24 h-screen'>
             {isMobile && (
                 <>
-                    <div className='relative'>
-                        <div className='absolute top-0 left-0'>
+                    <div className=''>
+                        <div className='fixed top-0 left-0'>
                             <img src={elementrecdoc1} alt="elementrecdoc1"/>
                         </div>
-                        <div className='absolute  right-0 top'>
+                        <div className='fixed  right-0 -bottom-3'>
                             <img src={elementrecdoc2} alt="elementrecdoc2"/>
                         </div>
-                        <div className='absolute  left-0 bottom'>
+                        <div className='fixed  left-0 bottom-0'>
                             <img src={elementrecdoc3} alt="elementrecdoc3"/>
                         </div>
                     </div>

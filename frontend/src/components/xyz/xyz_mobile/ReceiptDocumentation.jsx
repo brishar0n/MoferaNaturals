@@ -132,7 +132,7 @@ function ReceiptDocumentation() {
     }
 
     return (
-        <div className='pb-36'>
+        <div className=''>
             <div className="flex items-center justify-center flex-col relative p-5">
                 <button className='absolute bg-primary p-2 rounded-full left-5 text-white top-8' onClick={handleBack}>
                     <GoChevronLeft className='w-6 h-6 button'/>
@@ -311,7 +311,7 @@ function ReceiptDocumentation() {
                         <div className=''>
                             <button type="submit" className='bg-secondary text-white rounded-3xl px-10 py-2 font-semibold hover:bg-primary' onClick={handleSubmit}>Save</button>
                         </div>
-                        <div className=''>
+                        <div className='pb-10'>
                             <button type="submit" className='bg-secondary text-white rounded-3xl px-10 py-2 font-semibold hover:bg-primary'>Download as PDF</button>
                         </div>
                     </div>
