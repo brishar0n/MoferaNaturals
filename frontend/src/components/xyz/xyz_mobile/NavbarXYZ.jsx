@@ -9,7 +9,9 @@ function NavbarXYZ() {
                 <button><img src={rescale} alt="rescale" className='w-12'/></button>
             </Link>
         
-            <button><img src={reception} alt="reception" className='w-12'/></button>
+            <Link to="/receptionpackage">
+                <button><img src={reception} alt="reception" className='w-12'/></button>
+            </Link>
         </div>
     )
 }
