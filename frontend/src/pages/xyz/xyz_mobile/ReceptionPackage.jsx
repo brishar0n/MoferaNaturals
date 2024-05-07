@@ -2,6 +2,7 @@ import NavbarXYZ from '../../../components/xyz/xyz_mobile/NavbarXYZ.jsx'
 import PackageReception from '../../../components/xyz/xyz_mobile/PackageReception.jsx'
 import { useState, useEffect } from 'react'
 import receptionBg from '../../../assets/xyz/bgreception.svg'
+import '../../../style/xyz/xyz_mobile/ReceptionPackage.css'
 
 function ReceptionPackage() {
     const [isMobile, setIsMobile] = useState(false);

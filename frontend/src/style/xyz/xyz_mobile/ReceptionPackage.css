@@ -15,6 +15,16 @@
         text-align: center;
         /* Center the text horizontally */
     }
+    .reception-position {
+        position: absolute;
+        margin-top: 125px;
+        left: 0;
+        width: 100%;
+        padding: 0 1rem;
+        /* Adjust padding as needed */
+        text-align: center;
+        /* Center the text horizontally */
+    }
     .leading-norm {
         line-height: 20px;
     }
@@ -40,12 +50,20 @@
         position: absolute;
         margin-top: 60%;
     }
+    .reception-position {
+        position: absolute;
+        top: 10px;
+    }
 }
 
 @media (max-width: 360px) {
     .text-position {
         position: absolute;
         margin-top: 65%;
+    }
+    .reception-position {
+        position: absolute;
+        top: 0px;
     }
 }
 
@@ -56,5 +74,9 @@
     }
     .space {
         height: 16rem;
+    }
+    .reception-position {
+        position: absolute;
+        top: -20px;
     }
 }
