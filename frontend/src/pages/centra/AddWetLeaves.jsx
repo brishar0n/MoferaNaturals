@@ -3,13 +3,47 @@ import "../../style/App.css"
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavigationBar from "../../components/Navbar";
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 function AddWetLeaves(){
     const [weight, setWeight] = useState(0);
     const [date, setDate] = useState(new Date());
     const [isMobile, setIsMobile] = React.useState(false);
     const navigate = useNavigate();
-
+   
+    const checkWeight= () =>{
+        if (weight==30){
+            showSuccess()
+        }
+        else{
+            showError()
+        }
+    }
+    const showError = () => {
+        withReactContent(Swal).fire({
+            icon: "error",
+            title: "<p style='color:#016B4d'>Failed!</p>",
+            html: "<p style='color:#016B4d'>You have failed to wash the wet leaves. Complete and fill in the right amount of wet leaves!</p>",
+            confirmButtonText: 'Done',
+            confirmButtonColor: '#016B45',
+            customClass: {
+                confirmButton: 'sweet_confirmbuttonImportant',
+            }
+        })
+    }
+    const showSuccess = () => {
+        withReactContent(Swal).fire({
+            icon: "success",
+            title: "<p style='color:#016B4d'>Success!</p>",
+            html: "<p style='color:#016B4d'>You have successfully wash the wet leaves. Complete more wet leaves to get rewards!!</p>",
+            confirmButtonColor: '#016B45',
+            confirmButtonText: 'Done',
+            customClass: {
+                confirmButton: 'sweet_confirmbuttonImportant',
+            }
+        })
+    }
     const handleWeightChange = (event) => {
         setWeight(event.target.value);
     };
@@ -42,7 +76,7 @@ function AddWetLeaves(){
             <div className="overflow-auto h-[calc(100vh-6rem)] md:h-auto bg-quaternary min-h-screen flex flex-col items-center overflow-auto resize-none pb-24">
                 <img src="src/assets/AddPage/frameAdd.svg" className="absolute top-100vh w-screen z-0"></img>
                 <img src="src/assets/AddPage/mascotAdd.svg" className="absolute right-72 pt-96 pr-4 top-16 z-40"></img>
-
+                
                 <div className="flex pt-16 gap-11 pr-20 z-10">
                     <img src="src/assets/common/backarrow.svg" onClick={handleBack}></img>
                     <p className="font-bold text-primary text-3xl">Wet Leaves </p>
@@ -85,8 +119,7 @@ function AddWetLeaves(){
 
                     <br></br>
 
-                    <button className="bg-secondary pl-8 pr-8 pt-2 pb-2 rounded-full text-white font-semibold -mt-2"> ADD </button>
-
+                    <button onClick={checkWeight} className="bg-secondary pl-8 pr-8 pt-2 pb-2 rounded-full text-white font-semibold -mt-2"> ADD </button>
                 </div>
             </div>
             

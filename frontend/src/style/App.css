@@ -37,3 +37,14 @@
 .montserrat {
     font-family: 'Montserrat', sans-serif;
 }
+
+.sweet_confirmbuttonImportant{background-color: #016B45;
+    border: none;
+    color: #016B45;
+    padding: 10px 40px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 2px 2px;
+    cursor: pointer;
+    border-radius: 9999px !important;}
