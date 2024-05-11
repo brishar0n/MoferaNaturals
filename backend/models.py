@@ -3,6 +3,12 @@ from sqlalchemy import Column, Integer, String, Float, Date, ForeignKey, func, D
 from sqlalchemy.orm import relationship
 
 # Autn, admin, user
+class Admin(Base):
+    __tablename__ = "admin"
+
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String(length=500))
+    passwornd = Column(String(length=500))
 
 class Users(Base):
     __tablename__ = 'users'
@@ -11,6 +17,7 @@ class Users(Base):
     username = Column(String(length=500))
     email = Column(String(length=500), unique=True)
     hashed_password = Column(String(length=500))
+    
     refresh_tokens = relationship(
         "RefreshToken", back_populates="user", order_by="RefreshToken.expires_at.desc()")
 
@@ -42,6 +49,13 @@ class Centra(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     location = Column(String)
+    collection_id = Column(Integer, ForeignKey("collection.id"))
+    package_data_id = Column(Integer, ForeignKey("package_data.id"))
+    reception_package_id = Column(Integer, ForeignKey("reception_package.id"))
+
+    collection_centra = relationship("Collection", backref="centra")
+    package_data_centra = relationship("PackageData", backref="centra")
+    reception_package_centra = relationship("ReceptionPackage", backref="centra")
 
 class CheckpointData(Base):
     __tablename__ = "checkpoint_data"
@@ -49,6 +63,8 @@ class CheckpointData(Base):
     id = Column(Integer, primary_key=True, index=True)
     arrival_date = Column(Date)
     collection_id = Column(Integer, ForeignKey("shipping_collection.id"))
+
+    collection = relationship("ShippingCollection", backref="checkpoint_data")
 
 class Expedition(Base):
     __tablename__ = "expedition"
@@ -105,3 +121,38 @@ class ShippingCollection(Base):
     shipping_id = Column(Integer, ForeignKey("shipping.id"))
 
     shipping = relationship("Shipping", backref="shipping_collection")
+
+class GuardHarbor(Base):
+    __tablename__ = "guard_harbor"
+
+    id = Column(Integer, primary_key=True, index=True)
+    location = Column(String)
+    checkpoint_id = Column(Integer, ForeignKey("checkpoint_data.id"))
+
+    checkpoint = relationship("CheckpointData", backref="guard_harbor")
+
+class Collection(Base):
+    __tablename__ = "collection"
+
+    id = Column(Integer, primary_key=True, index=True)
+    retrieval_date = Column(Date)
+    weight = Column(Float)
+    centra_id = Column(Integer, ForeignKey("centra.id"))
+
+    centra = relationship("Centra", backref="collection")
+
+class Dry(Base):
+    __tablename__ = "dry"
+
+    id = Column(Integer, primary_key=True, index=True)
+    weight = Column(Float)
+    start_time = Column(DateTime)
+    exp_date = Column(Date)
+
+class Flour(Base):
+    __tablename__ = "flour"
+
+    id = Column(Integer, primary_key=True, index=True)
+    weight = Column(Float)
+    start_time = Column(DateTime)
+    finish_time = Column(Date)
