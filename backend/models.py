@@ -31,11 +31,11 @@ class Appointment(Base):
     __tablename__ = "appointment"
 
     id = Column(Integer, primary_key=True, index=True)
-    shipping_id = Column(Integer)
+    shipping_id = Column(Integer, ForeignKey("shipping.id"))
     receiver_name = Column(String)
     pickup_time = Column(Date)
 
-    shipping = relationship("Shipping", back_populates="appointment")
+    shipping = relationship("Shipping", backref="appointment")
 
 class Centra(Base):
     __tablename__ = "centra"
@@ -48,7 +48,7 @@ class CheckpointData(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     arrival_date = Column(Date)
-    collection_id = Column(Integer, ForeignKey("shipping_collectin.id"))
+    collection_id = Column(Integer, ForeignKey("shipping_collection.id"))
 
 class Expedition(Base):
     __tablename__ = "expedition"
@@ -64,7 +64,7 @@ class PackageData(Base):
     centra_id = Column(Integer, ForeignKey("centra.id"))
     weight = Column(Float)
 
-    centra_owner = relationship("Centra", back_populates="package_data")
+    centra_owner = relationship("Centra", backref="package_data")
 
 class RescaledPackageData(Base):
     __tablename__ = "rescaled_package_data"
@@ -73,7 +73,7 @@ class RescaledPackageData(Base):
     package_id = Column(Integer, ForeignKey("package_data.id"))
     rescaled_weight = Column(Float)
 
-    original_package = relationship("PackageData", back_populates="rescaled_package_data")
+    original_package = relationship("PackageData", backref="rescaled_package_data")
 
 class ReceptionPackage(Base):
     __tablename__ = "reception_package"
@@ -84,8 +84,8 @@ class ReceptionPackage(Base):
     receival_date = Column(Date)
     centra_id = Column(Integer, ForeignKey("centra.id"))
 
-    source_centra = relationship("Centra", back_populates="reception_package")
-    original_package = relationship("PackageData", back_populates="reception_package")
+    source_centra = relationship("Centra", backref="reception_package")
+    original_package = relationship("PackageData", backref="reception_package")
 
 class Shipping(Base):
     __tablename__ = "shipping"
@@ -94,7 +94,7 @@ class Shipping(Base):
     departure_date = Column(Date)
     expedition_id = Column(Integer, ForeignKey("expedition.id"))
 
-    expedition = relationship("Expedition", back_populates="shipping")
+    expedition = relationship("Expedition", backref="shipping")
 
 class ShippingCollection(Base):
     __tablename__ = "shipping_collection"
@@ -104,4 +104,4 @@ class ShippingCollection(Base):
     total_package = Column(Integer)
     shipping_id = Column(Integer, ForeignKey("shipping.id"))
 
-    shipping = relationship("Shipping", back_populates="shipping_collection")
+    shipping = relationship("Shipping", backref="shipping_collection")
