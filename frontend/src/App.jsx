@@ -18,6 +18,7 @@ import DryWetLeaves from './pages/centra/DryWetLeaves';
 import { ShippingInfo } from './pages/centra/ShippingInfo';
 import ReceptionPackage from './pages/xyz/xyz_mobile/ReceptionPackage';
 import ReceptionDocument from './pages/xyz/xyz_mobile/ReceptionDocument';
+import UserManagement from './pages/admin/UserManagement';
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
         <Route path="/rescalepackage/:packageId" element={<RescalingPackage />} exact />
         <Route path="/receptionpackage" element={<ReceptionPackage />} exact />
         <Route path="/receptiondocument" element={<ReceptionDocument />} exact />
+        <Route path="/usermanagement" element={<UserManagement />} exact />
       </Routes>
     </Router>
   );

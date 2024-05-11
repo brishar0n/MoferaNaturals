@@ -3,7 +3,7 @@ import "../../style/App.css"
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavigationBar from "../../components/Navbar";
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content'
 
 function AddWetLeaves(){
