@@ -45,8 +45,8 @@ function App() {
         <Route path="/washwetleaves" element={<WashWetLeaves />} exact />
         <Route path="/drywetleaves" element={<DryWetLeaves />} exact />
         <Route path="/addmachine" element={<AddMachine />} exact />
-        <Route path="/addpowder" element={<AddPowder />} exact />
         <Route path="/editmachine" element={<EditMachine />} exact />
+        <Route path="/addpowder" element={<AddPowder />} exact />
         <Route path="/shippinginfo" element={<ShippingInfo />} exact/>
         <Route path="/trackshipping" element={<TrackShipping />} exact/>
         <Route path="/notify" element={<Notify/>} exact/>
