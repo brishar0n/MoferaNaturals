@@ -22,6 +22,7 @@ import { ShippingInfo } from './pages/centra/ShippingInfo';
 import ReceptionPackage from './pages/xyz/xyz_mobile/ReceptionPackage';
 import ReceptionDocument from './pages/xyz/xyz_mobile/ReceptionDocument';
 import UserManagement from './pages/admin/UserManagement';
+import AddPowder from './pages/centra/AddPowder';
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
         <Route path="/washwetleaves" element={<WashWetLeaves />} exact />
         <Route path="/drywetleaves" element={<DryWetLeaves />} exact />
         <Route path="/addmachine" element={<AddMachine />} exact />
+        <Route path="/addpowder" element={<AddPowder />} exact />
         <Route path="/editmachine" element={<EditMachine />} exact />
         <Route path="/shippinginfo" element={<ShippingInfo />} exact/>
         <Route path="/trackshipping" element={<TrackShipping />} exact/>
