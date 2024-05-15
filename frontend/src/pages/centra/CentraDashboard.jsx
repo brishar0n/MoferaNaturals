@@ -2,7 +2,7 @@ import MenuDashboard from "./MenuDashboard";
 import { useState, useEffect } from "react";
 import BarChart from "./BarChart.jsx";
 
-function DashboardHomePage() {
+function CentraDashboardHomePage() {
   const [isMobile, setIsMobile] = useState(false);
   const handleClick = () => {
     alert('Button Search clicked!');
@@ -188,4 +188,4 @@ function DashboardHomePage() {
   );
 }
 
-export default DashboardHomePage;
+export default CentraDashboardHomePage;

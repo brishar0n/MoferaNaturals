@@ -8,7 +8,7 @@ import magnifyingglass from '../../assets/trackshipping/magnifying-glass.svg'
 import NavigationBar from "../../components/Navbar.jsx";
 import '../../style/Shipping.css'
 
-export const TrackShipping = () => {
+function TrackShipping() {
     const [weight, setWeight] = useState(0);
     const [date, setDate] = useState(new Date());
     const [expedition, setExpedition] = useState("");
@@ -133,3 +133,5 @@ export const TrackShipping = () => {
         </div>
     )
 }
+
+export default TrackShipping;
