@@ -2,7 +2,7 @@ import React from "react";
 import "../../style/App.css"
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import NavigationBar from "../../components/Navbar";
+import NavigationBar from "../../components/centra/CentraNavbar";
 
 function AddPowder(){
     const [weight, setWeight] = useState(0);
