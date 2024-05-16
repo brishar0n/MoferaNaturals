@@ -27,6 +27,8 @@ import AddCheckpoint from './pages/guard_harbour/AddCheckpoint';
 import ViewCheckpoint from './pages/guard_harbour/ViewCheckpoint';
 import ReceivedPackage from './pages/xyz/xyz_desktop/ReceivedPackage';
 import ShipmentNotification from './pages/guard_harbour/ShipmentNotification';
+import FlourDryLeaves from './pages/centra/FlourDryLeaves';
+import AdminPage from './pages/desktop/AdminManagement';
 
 function App() {
   return (
@@ -45,6 +47,7 @@ function App() {
         <Route path="/centradashboard" element={<CentraDashboardHomePage/>} exact />
         <Route path="/history" element={<History/>} exact />
         <Route path="/adddryleaves" element={<AddDryLeaves />} exact />
+        <Route path="/flourdryleaves" element={<FlourDryLeaves/>} exact />
         <Route path="/addwetleaves" element={<AddWetLeaves />} exact />
         <Route path="/washwetleaves" element={<WashWetLeaves />} exact />
         <Route path="/drywetleaves" element={<DryWetLeaves />} exact />
@@ -73,6 +76,7 @@ function App() {
 
         {/* Admin */}
         <Route path="/usermanagement" element={<UserManagement />} exact />
+        <Route path="/adminpage" element={<AdminPage />}/>
       </Routes>
     </Router>
   );
