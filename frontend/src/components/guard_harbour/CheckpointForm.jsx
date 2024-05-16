@@ -2,10 +2,14 @@ import { CgAdd } from "react-icons/cg";
 import { useNavigate } from "react-router-dom";
 import SuccessNotification from "../SuccessNotification";
 import { useState } from "react";
+import AddNotesModal from "./AddNotesModal";
 
 function CheckpointForm() {
     const navigate = useNavigate();
     const [formSubmitted, setFormSubmitted] = useState(false);
+
+    const [isOpen, setIsOpen] = useState(false);
+    const [notes, setNotes] = useState()
 
     function handleView() {
         navigate("/viewcheckpoint");
@@ -15,6 +19,20 @@ function CheckpointForm() {
         event.preventDefault();
         setFormSubmitted(true);
     }
+
+    function handleEdit() {
+        setNotes('');
+    }
+
+    function handleSave() {
+        setNotes(notes); // Update the saved notes with the edited notes
+        toggleModal(); // Close the modal
+    }
+
+    function toggleModal() {
+        setIsOpen(!isOpen);
+    };
+
 
     return (
         <div>
@@ -36,38 +54,51 @@ function CheckpointForm() {
 
 
             <div className='pb-36'>
-                <form className='bg-white mb-5 w-3/4 mx-auto py-5 px-7 rounded-2xl text-left relative mt-5 flex flex-col' onSubmit={handleSubmit}>
-                    <p className="text-center primary font-bold mb-5 text-3xl">Checkpoint Data</p>
+                <div className='bg-white mb-5 w-3/4 mx-auto py-5 px-7 rounded-2xl text-left relative mt-5 flex flex-col' onSubmit={handleSubmit}>
+                    <form>
+                        <p className="text-center primary font-bold mb-5 text-3xl">Checkpoint Data</p>
 
-                    <label htmlFor="shippingId" className='items-start text-xs mb-2 font-medium'>Shipping ID:</label>
-                    <input type="number" id="shippingId" className='mb-2 rounded-md bg-quinary px-2 py-1 w-full text-xs border-none' required/>
-                                
-                    <label htmlFor="totalPackagesSent" className='items-start text-xs mb-2 font-medium'>Total Packages Sent:</label>
-                    <input type="number" id="totalPackagesSent" className='mb-2 rounded-md bg-quinary px-2 py-1 w-full text-xs border-none' required/>
+                        <label htmlFor="shippingId" className='items-start text-xs mb-2 font-medium'>Shipping ID:</label>
+                        <input type="number" id="shippingId" className='mb-2 rounded-md bg-quinary px-2 py-1 w-full text-xs border-none' required/>
+                                    
+                        <label htmlFor="totalPackagesSent" className='items-start text-xs mb-2 font-medium'>Total Packages Sent:</label>
+                        <input type="number" id="totalPackagesSent" className='mb-2 rounded-md bg-quinary px-2 py-1 w-full text-xs border-none' required/>
 
-                    <label htmlFor="centra" className='items-start text-xs mb-2 font-medium'>Unit Centra:</label>
-                    <input type="number" id="centra" className='mb-2 rounded-md bg-quinary px-2 py-1 w-full text-xs border-none' required/>
+                        <label htmlFor="centra" className='items-start text-xs mb-2 font-medium'>Unit Centra:</label>
+                        <input type="number" id="centra" className='mb-2 rounded-md bg-quinary px-2 py-1 w-full text-xs border-none' required/>
 
-                    <label htmlFor="arrivalDate" className='items-start text-xs mb-2 font-medium'>Arrival Date:</label>
-                    <input type="date" className="rounded-md bg-quinary py-2 px-2 text-xs mb-3" required/>
+                        <label htmlFor="arrivalDate" className='items-start text-xs mb-2 font-medium'>Arrival Date:</label>
+                        <input type="date" className="rounded-md bg-quinary py-2 px-2 text-xs mb-3 w-full" required/>
 
-                    <label htmlFor="arrivalTime" className='items-start text-xs mb-2 font-medium'>Arrival Time:</label>
-                    <input type="time" className="rounded-md bg-quinary py-2 px-2 text-xs mb-3" required/>
+                        <label htmlFor="arrivalTime" className='items-start text-xs mb-2 font-medium'>Arrival Time:</label>
+                        <input type="time" className="rounded-md bg-quinary py-2 px-2 text-xs mb-3 w-full" required/>
 
-                    <label htmlFor="packageId" className='items-start text-xs mb-2 font-medium'>Package ID: </label>
-                    <input type="number" id="packageId" className='mb-2 rounded-md bg-quinary px-2 py-1 w-full text-xs border-none' required/>
+                        <label htmlFor="packageId" className='items-start text-xs mb-2 font-medium'>Package ID: </label>
+                        <input type="number" id="packageId" className='mb-2 rounded-md bg-quinary px-2 py-1 w-full text-xs border-none' required/>
 
-                    <label htmlFor="totalPackagesArrived" className='items-start text-xs mb-2 font-medium'>Total Packages Arrived: </label>
-                    <input type="number" id="totalPackagesArrived" className='mb-2 rounded-md bg-quinary px-2 py-1 w-full text-xs border-none' required/>
+                        <label htmlFor="totalPackagesArrived" className='items-start text-xs mb-2 font-medium'>Total Packages Arrived: </label>
+                        <input type="number" id="totalPackagesArrived" className='mb-2 rounded-md bg-quinary px-2 py-1 w-full text-xs border-none' required/>
 
-                    <div className='mx-auto mt-2'>
-                        <button className='bg-secondary text-white rounded-3xl px-7 py-2 font-medium hover:bg-primary flex gap-2 items-center' type="submit"><CgAdd />ADD</button>
-                    </div>
+                        <div className='mx-auto mt-2 flex justify-center'>
+                            <button className='bg-secondary text-white rounded-3xl px-7 py-2 font-medium hover:bg-primary flex gap-2 items-center' type="submit"><CgAdd />ADD</button>
+                        </div>
+                    </form>
 
                     <div className='mx-auto mt-2 mb-5'>
-                        <button className='bg-secondary text-white rounded-3xl px-7 py-2 font-medium hover:bg-primary items-center gap-2 flex'><CgAdd />ADD NOTES</button>
+                        <button className='bg-secondary text-white rounded-3xl px-7 py-2 font-medium hover:bg-primary items-center gap-2 flex' onClick={toggleModal}><CgAdd />ADD NOTES</button>
+
+                        <AddNotesModal
+                                isOpen={isOpen}
+                                toggleModal={toggleModal}
+                                handleEdit={handleEdit}
+                                handleSave={handleSave}
+                                savedNotes={notes}
+                            />
                     </div>
-                </form>
+                </div>
+                
+
+                
             </div>
         </div>
     
