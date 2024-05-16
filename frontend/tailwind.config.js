@@ -22,6 +22,7 @@ export default {
                 senary: 'var(--color-senary)',
                 septenary: 'var(--color-septenary)',
                 octonary: 'var(--color-octonary)',
+                nonary: 'var(--color-nonary)',
             },
         },
     },
