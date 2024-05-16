@@ -3,19 +3,63 @@ import "../../style/App.css";
 import { useNavigate } from "react-router-dom";
 import NavigationBar from "../../components/centra/CentraNavbar.jsx";
 import Datepicker from "react-tailwindcss-datepicker";
+import BatchBox from "../../components/centra/BatchBox";
 
 function History() {
     const [isMobile, setIsMobile] = React.useState(false);
     const navigate = useNavigate();
+
+    const batchCollector = [
+        {
+            "id": 1,
+            "weight": 10,
+            "dateCollected": "10-05-2024",
+            "timeCollected": "10:30 AM"
+        },
+        {
+            "id": 2,
+            "weight": 10,
+            "dateCollected": "10-05-2024",
+            "timeCollected": "11:30 AM"
+        },
+        {
+            "id": 3,
+            "weight": 10,
+            "dateCollected": "10-05-2024",
+            "timeCollected": "12:30 PM"
+        },
+        {
+            "id": 4,
+            "weight": 10,
+            "dateCollected": "11-05-2024",
+            "timeCollected": "10:30 AM"
+        },
+    ];
 
     const [value, setValue] = useState({ 
         startDate: null,
         endDate: null 
     }); 
 
+    const [filteredBatches, setFilteredBatches] = useState(batchCollector);
+
     const handleValueChange = (newValue) => {
-        console.log("newValue:", newValue); 
-        setValue(newValue); 
+        console.log("newValue:", newValue);
+        setValue(newValue);
+
+        if (newValue.startDate) {
+            const selectedDate = new Date(newValue.startDate);
+            const day = selectedDate.getDate();
+            const month = selectedDate.getMonth() + 1; // Months are zero-indexed
+            const year = selectedDate.getFullYear();
+
+            const formattedDate = `${day < 10 ? "0" + day : day}-${month < 10 ? "0" + month : month}-${year}`;
+
+            const filtered = batchCollector.filter(batch => batch.dateCollected === formattedDate);
+            setFilteredBatches(filtered);
+        } else {
+            setFilteredBatches(batchCollector);
+        }
     }
 
     useEffect(() => {
@@ -29,9 +73,7 @@ function History() {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    const handleBack = () => navigate("/dashboard");
-
-    const batches = [1, 2, 3, 4,5,6,7,8,9]; 
+    const handleBack = () => navigate("/centradashboard");
 
     return (
         <div className="overflow-auto h-[calc(100vh-6rem)] md:h-auto bg-quaternary min-h-screen flex flex-col items-center overflow-auto pt-4 resize-none pb-24">
@@ -44,37 +86,28 @@ function History() {
                 <h1 className="text-3xl font-bold text-primary z-10 relative -top-14">History</h1>
                 <div className="relative mr-auto ml-3 -mt-7 flex">
                     <p className="mr-2 font-medium primary">Date:</p>
-                    <Datepicker inputClassName='rounded-md bg-quinary p-1 w-full text-xs border-none' containerClassName='mb-3 relative z-20' toggleClassName='bg-quinary absolute h-full right-0 px-1 text-gray-500 rounded-r-md' primaryColor={"blue"} useRange={false} asSingle={true} value={value} onChange={handleValueChange} />
+                    <Datepicker inputClassName='rounded-md bg-quinary p-1 w-full text-xs border-none' containerClassName='mb-3 relative z-20' toggleClassName='absolute h-full right-0 px-1 text-gray-500 rounded-r-md' primaryColor={"blue"} useRange={false} asSingle={true} value={value} onChange={handleValueChange} />
                 </div>
                 <div className="w-full px-8 mt-8">
-                    {batches.map((batch, index) => (
-                    <div key={batch} className="mb-10 relative">
-                        {index !== 0 && (
-                        <div className="w-0.5 bg-primary h-48 absolute -left-6 ml-3 -top-32 -mt-20"></div>
-                        )}
-                        <div className="relative z-10">
-                        <div className="bg-primary p-4 rounded-3xl shadow-lg flex flex-col text-left">
-                            <div className="flex justify-evenly">
-                                <p className="text-white">Weight: </p>
-                                <input type="text" className="bg-transparent text-white"/>   
-                            </div>
-                            
-                            <div className="flex justify-evenly mt-1">
-
-                                <p className="text-white ">Time collected: </p>
-                                <input type="text" className="bg-transparent text-white" />
-
-                            </div>
-                            
-                            <div className="mt-8 py-2 px-4 bg-white rounded-full text-center">
-                                <p className="text-red-700 font-semibold">04:00:00</p>
-                            </div>
+                {filteredBatches.length > 0 ? 
+                    (filteredBatches.map((batch, index) => (
+                        <div key={batch.id} className="mb-10 relative">
+                            {index !== 0 && (
+                            <div className="w-0.5 bg-primary h-48 absolute -left-6 ml-3 -top-36 -mt-20"></div>
+                            )}
+                            <BatchBox 
+                                key={index}
+                                batch={index+1}
+                                weight={batch.weight}
+                                timeCollected={batch.timeCollected}
+                            />
                         </div>
-                        <div className="w-6 h-6 bg-primary rounded-full absolute -top-8 -left-6"></div>
-                        <p className="absolute text-xl -top-8 left-4 font-bold text-primary">Batch #{batch}</p>
-                        </div>
+                    ))
+                ) : (
+                    <div className="bg-primary p-4 rounded-3xl shadow-lg flex flex-col text-left relative w-3/4 mx-auto">
+                        <p className="text-white text-center">No batches found for the selected date.</p>
                     </div>
-                    ))}
+                )}
                 </div>
             
                 <NavigationBar/>
