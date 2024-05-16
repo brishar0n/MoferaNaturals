@@ -26,7 +26,7 @@ import AddPowder from './pages/centra/AddPowder';
 import AddCheckpoint from './pages/guard_harbour/AddCheckpoint';
 import ViewCheckpoint from './pages/guard_harbour/ViewCheckpoint';
 import ReceivedPackage from './pages/xyz/xyz_desktop/ReceivedPackage';
-
+import ShipmentNotification from './pages/guard_harbour/ShipmentNotification';
 
 function App() {
   return (
@@ -58,6 +58,7 @@ function App() {
         {/* Guard Harbour */}
         <Route path="/addcheckpoint" element={<AddCheckpoint/>} exact />
         <Route path="/viewcheckpoint" element={<ViewCheckpoint/>} exact />
+        <Route path="/shipmentnotification" element={<ShipmentNotification/>} exact />
 
         {/* XYZ Mobile */}
         <Route path="/findrescale" element={<FindRescalePackage />} exact />

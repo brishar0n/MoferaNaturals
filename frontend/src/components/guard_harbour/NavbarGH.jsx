@@ -7,15 +7,11 @@ import { Link } from "react-router-dom";
 function NavbarGH() {
     return (
         <div className="bg-secondary flex flex-row justify-evenly py-6 w-full h-24 bottom-0 rounded-t-3xl fixed">
-            <Link to="">
-                <button><img src={home} alt="home" className='w-10'/></button>
-            </Link>
-
             <Link to="/addcheckpoint">
                 <button><img src={box} alt="package" className='w-10'/></button>
             </Link>
         
-            <Link to="">
+            <Link to="/shipmentnotification">
                 <button><img src={notification} alt="notification" className='w-10'/></button>
             </Link>
 
