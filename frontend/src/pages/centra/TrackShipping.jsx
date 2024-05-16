@@ -5,7 +5,7 @@ import bgleft from '../../assets/trackshipping/bgleft.svg'
 import moped from '../../assets/trackshipping/moped.svg'
 import menu from '../../assets/trackshipping/menu.svg'
 import magnifyingglass from '../../assets/trackshipping/magnifying-glass.svg'
-import NavigationBar from "../../components/Navbar.jsx";
+import NavigationBar from "../../components/centra/CentraNavbar.jsx";
 import '../../style/Shipping.css'
 
 function TrackShipping() {

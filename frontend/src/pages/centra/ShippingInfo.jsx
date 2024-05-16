@@ -9,7 +9,7 @@ import bglowerright from '../../assets/shipping/bg_lower_right.svg'
 import menubar from '../../assets/shipping/menu_bar.svg'
 import mascot from '../../assets/shipping/mascot.svg'
 import ShippingCard from '../../components/centra/ShippingCard'
-import NavigationBar from "../../components/Navbar.jsx";
+import NavigationBar from "../../components/centra/CentraNavbar.jsx";
 import '../../style/Shipping.css'
 
 export const ShippingInfo = () => {

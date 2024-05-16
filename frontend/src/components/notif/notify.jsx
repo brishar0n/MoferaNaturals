@@ -1,7 +1,7 @@
 import React from "react";
 import {useState, useEffect} from 'react'
 import '../../style/App.css';
-import NavigationBar from "../Navbar";
+import NavigationBar from "../centra/CentraNavbar";
 
 
 function Notify() {
