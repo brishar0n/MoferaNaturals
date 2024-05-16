@@ -1,6 +1,6 @@
 import React from 'react'
 import Sidebar from '../../../components/xyz/Sidebar'
-import "../../../style/Desktop.css"
+import "../../../style/AdminDesktop.css"
 
 const CentraActivityMonitor = () => {
   return (
