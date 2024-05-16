@@ -1,15 +1,25 @@
 import { CgAdd } from "react-icons/cg";
 import { useNavigate } from "react-router-dom";
+import SuccessNotification from "../SuccessNotification";
+import { useState } from "react";
 
 function CheckpointForm() {
     const navigate = useNavigate();
+    const [formSubmitted, setFormSubmitted] = useState(false);
 
     function handleView() {
         navigate("/viewcheckpoint");
     }
 
+    function handleSubmit(event) {
+        event.preventDefault();
+        setFormSubmitted(true);
+    }
+
     return (
         <div>
+            {formSubmitted && <SuccessNotification htmlContent="You have successfully added checkpoint data." />}
+
             <div className="flex flex-col items-center">
                 <div className="flex pt-16 z-10 items-center justify-center mb-5">
                     <p className="font-bold text-primary text-3xl"> Checkpoints </p>
@@ -26,11 +36,11 @@ function CheckpointForm() {
 
 
             <div className='pb-36'>
-                <form className='bg-white mb-5 w-3/4 mx-auto py-5 px-7 rounded-2xl text-left relative mt-5 flex flex-col'>
+                <form className='bg-white mb-5 w-3/4 mx-auto py-5 px-7 rounded-2xl text-left relative mt-5 flex flex-col' onSubmit={handleSubmit}>
                     <p className="text-center primary font-bold mb-5 text-3xl">Checkpoint Data</p>
 
                     <label htmlFor="shippingId" className='items-start text-xs mb-2 font-medium'>Shipping ID:</label>
-                    <input type="text" id="shippingId" className='mb-2 rounded-md bg-quinary px-2 py-1 w-full text-xs border-none' required/>
+                    <input type="number" id="shippingId" className='mb-2 rounded-md bg-quinary px-2 py-1 w-full text-xs border-none' required/>
                                 
                     <label htmlFor="totalPackagesSent" className='items-start text-xs mb-2 font-medium'>Total Packages Sent:</label>
                     <input type="number" id="totalPackagesSent" className='mb-2 rounded-md bg-quinary px-2 py-1 w-full text-xs border-none' required/>
@@ -51,7 +61,7 @@ function CheckpointForm() {
                     <input type="number" id="totalPackagesArrived" className='mb-2 rounded-md bg-quinary px-2 py-1 w-full text-xs border-none' required/>
 
                     <div className='mx-auto mt-2'>
-                        <button className='bg-secondary text-white rounded-3xl px-7 py-2 font-medium hover:bg-primary flex gap-2 items-center'><CgAdd />ADD</button>
+                        <button className='bg-secondary text-white rounded-3xl px-7 py-2 font-medium hover:bg-primary flex gap-2 items-center' type="submit"><CgAdd />ADD</button>
                     </div>
 
                     <div className='mx-auto mt-2 mb-5'>
