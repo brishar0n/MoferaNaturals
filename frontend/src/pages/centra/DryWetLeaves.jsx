@@ -89,7 +89,7 @@ function DryWetLeaves(){
                     </div>
 
                     <br></br>
-                    <button className="bg-secondary pl-4 pr-4 pt-2 pb-2 rounded-full text-white font-semibold -mt-2"> WASHING.. </button>
+                    <button className="bg-secondary pl-4 pr-4 pt-2 pb-2 rounded-full text-white font-semibold -mt-2"> DRYING.. </button>
                 </div>
 
                 <br></br>
@@ -124,7 +124,7 @@ function DryWetLeaves(){
                 </div>
 
                 <br></br>
-                <button className="bg-secondary pl-4 pr-4 pt-2 pb-2 rounded-full text-white font-semibold -mt-2"> WASHING.. </button>
+                <button className="bg-secondary pl-4 pr-4 pt-2 pb-2 rounded-full text-white font-semibold -mt-2"> DRY </button>
                 </div>
                 </div>
             <NavigationBar></NavigationBar>
