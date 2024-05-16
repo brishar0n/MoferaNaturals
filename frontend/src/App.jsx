@@ -23,6 +23,8 @@ import ReceptionPackage from './pages/xyz/xyz_mobile/ReceptionPackage';
 import ReceptionDocument from './pages/xyz/xyz_mobile/ReceptionDocument';
 import UserManagement from './pages/admin/UserManagement';
 import AddPowder from './pages/centra/AddPowder';
+import AddCheckpoint from './pages/guard_harbour/AddCheckpoint';
+import ViewCheckpoint from './pages/guard_harbour/ViewCheckpoint';
 
 function App() {
   return (
@@ -52,6 +54,8 @@ function App() {
         <Route path="/notify" element={<Notify/>} exact/>
 
         {/* Guard Harbour */}
+        <Route path="/addcheckpoint" element={<AddCheckpoint/>} exact />
+        <Route path="/viewcheckpoint" element={<ViewCheckpoint/>} exact />
 
         {/* XYZ Mobile */}
         <Route path="/findrescale" element={<FindRescalePackage />} exact />

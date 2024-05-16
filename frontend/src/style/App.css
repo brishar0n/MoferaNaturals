@@ -38,7 +38,8 @@
     font-family: 'Montserrat', sans-serif;
 }
 
-.sweet_confirmbuttonImportant{background-color: #016B45;
+.sweet_confirmbuttonImportant {
+    background-color: #016B45;
     border: none;
     color: #016B45;
     padding: 10px 40px;
@@ -47,4 +48,5 @@
     display: inline-block;
     margin: 2px 2px;
     cursor: pointer;
-    border-radius: 9999px !important;}
+    border-radius: 9999px !important;
+}
