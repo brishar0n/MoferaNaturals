@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../../style/App.css";
 import { useNavigate } from "react-router-dom";
-import Select from "@mui/material/Select"
+import { Select } from "@mui/material"
 import NavigationBar from "../../components/centra/CentraNavbar.jsx";
 
 const machineTypes = [
