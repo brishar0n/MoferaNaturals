@@ -59,7 +59,7 @@ function Sidebar() {
                     <Link to="/dryleavesdashboard">Dry Leaves</Link>
                   </li>
                   <li className="bg-primary py-2 px-8 text-white hover:bg-white hover:text-green-800 cursor-pointer w-full">
-                    <Link to="/flourdashboard">Flour</Link>
+                    <Link to="/powderdashboard">Powder</Link>
                   </li>
                 </>
               )}
