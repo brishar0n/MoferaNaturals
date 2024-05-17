@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import desktoplogo from '../../assets/desktop/mofera-logo.svg';
 import hamburger from '../../assets/desktop/menu-bar.svg';
 import exit from '../../assets/desktop/exit.svg';
-import dashboardlogo from '../../assets/desktop/dashboardlogo.svg';
+import dashboardlogo from '../../assets/desktop/dashboard-logo.svg';
 import shipmentlogo from '../../assets/desktop/shipmentlogo.svg'
 import checkpointlogo from '../../assets/desktop/checkpointlogo.svg'
 import packagelogo from '../../assets/desktop/packagelogo.svg'
@@ -47,8 +47,8 @@ function Sidebar() {
                 onClick={toggleDropdown}
                 className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 font-medium cursor-pointer text-white"
               > 
-                <img src={dashboardlogo} className='mr-3'></img>
-                  &nbsp;&nbsp;&nbsp;Dashboard
+                <img src={dashboardlogo} className='mr-3 w-6 h-6'></img>
+                  &nbsp;&nbsp;Dashboard
               </li>
               {dashboardOpen && (
                 <>
