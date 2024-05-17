@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import desktoplogo from '../../assets/desktop/mofera-logo.svg';
 import hamburger from '../../assets/desktop/menu-bar.svg';
 import exit from '../../assets/desktop/exit.svg';
@@ -45,30 +46,30 @@ function Sidebar() {
               {dashboardOpen && (
                 <>
                   <li className="bg-primary py-2 px-8 text-white hover:bg-white hover:text-green-800 cursor-pointer w-full">
-                    Wet Leaves
+                    <Link to="/wetleavesdashboard">Wet Leaves</Link>
                   </li>
                   <li className="bg-primary py-2 px-8 text-white hover:bg-white hover:text-green-800 cursor-pointer w-full">
-                    Dry Leaves
+                    <Link to="/dryleavesdashboard">Dry Leaves</Link>
                   </li>
                   <li className="bg-primary py-2 px-8 text-white hover:bg-white hover:text-green-800 cursor-pointer w-full">
-                    Flour
+                    <Link to="/flourdashboard">Flour</Link>
                   </li>
                 </>
               )}
               <li className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 font-medium cursor-pointer text-white">
-                Shipment Tracker
+                <Link to="/shipementtracker">Shipment Tracker</Link>
               </li>
               <li className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 font-medium cursor-pointer text-white">
-                Checkpoint
+                <Link to="/checkpoint">Checkpoint</Link>
               </li>
               <li className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 font-medium cursor-pointer text-white">
-                Arrived Packages
+                <Link to="/arrivedpackages">Arrived Packages</Link>
               </li>
               <li className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 font-medium cursor-pointer text-white">
-                Notifications
+                <Link to="/notifications">Notifications</Link>
               </li>
               <li className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 font-medium cursor-pointer text-white">
-                Centra Activity Monitor
+                <Link to="/centraactivitymonitor">Centra Activity Monitor</Link>
               </li>
             </ul>
           </nav>
