@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react'
 import Sidebar from '../../../components/xyz/Sidebar';
-import ReceivedPackagesTable from '../../../components/xyz/ReceivedPackagesTable';
+import ArrivedPackagesTable from '../../../components/xyz/ArrivedPackagesTable';
 import bell from '../../../assets/xyz/bell.svg';
 
-const ReceivedPackage = ({ children }) => {
+const ArrivedPackages = ({ children }) => {
     return (
         <div className='bg-quaternary w-screen h-screen overflow-hidden flex flex-row'>
             <Sidebar/>
 
             <div className='flex-1 p-4'>
                 <p className='text-left md:text-4xl ml-8 mt-16 font-bold w-full'>
-                    Received Packages
+                    Arrived Packages
                 </p>
 
                 <button className='absolute top-8 right-24 px-2 py-2 bg-nonary rounded-full'>
@@ -18,11 +18,11 @@ const ReceivedPackage = ({ children }) => {
                 </button>
 
                 <div className='mt-20'>
-                    <ReceivedPackagesTable/>
+                    <ArrivedPackagesTable/>
                 </div>
             </div>
         </div>
     )
 }
 
-export default ReceivedPackage;
+export default ArrivedPackages;
