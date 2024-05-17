@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import desktoplogo from '../../assets/desktop/desktoplogo.svg';
-import hamburger from '../../assets/desktop/hamburger.svg';
-import desktoplogout from '../../assets/desktop/desktoplogout.svg';
+import desktoplogo from '../../assets/desktop/mofera-logo.svg';
+import hamburger from '../../assets/desktop/menu-bar.svg';
+import exit from '../../assets/desktop/exit.svg';
 
 function Sidebar() {
   const [dashboardOpen, setDashboardOpen] = useState(false);
@@ -80,7 +80,7 @@ function Sidebar() {
       <div className="bg-primary w-full col-span-10 flex flex-col justify-between">
         <button className="bg-primary mb-5">
           {!isMinimized && (
-            <img src={desktoplogout} className="bg-primary ml-6 mt-20" />
+            <img src={exit} className="bg-primary ml-6 mt-20" />
           )}
         </button>
       </div>
