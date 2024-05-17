@@ -25,10 +25,11 @@ import UserManagement from './pages/admin/UserManagement';
 import AddPowder from './pages/centra/AddPowder';
 import AddCheckpoint from './pages/guard_harbour/AddCheckpoint';
 import ViewCheckpoint from './pages/guard_harbour/ViewCheckpoint';
-import ReceivedPackage from './pages/xyz/xyz_desktop/ReceivedPackage';
+import ArrivedPackages from './pages/xyz/xyz_desktop/ArrivedPackages';
 import ShipmentNotification from './pages/guard_harbour/ShipmentNotification';
 import FlourDryLeaves from './pages/centra/FlourDryLeaves';
 import AdminPage from './pages/desktop/AdminManagement';
+import CentraActivityMonitor from './pages/xyz/xyz_desktop/CentraActivityMonitor';
 
 function App() {
   return (
@@ -72,7 +73,8 @@ function App() {
         {/* Authentication Desktop */}
 
         {/* XYZ Desktop */}
-        <Route path="/receivedpackage" element={<ReceivedPackage />} exact />
+        <Route path="/arrivedpackages" element={<ArrivedPackages />} exact />
+        <Route path="/centraactivitymonitor" element={<CentraActivityMonitor />} exact />
 
         {/* Admin */}
         <Route path="/usermanagement" element={<UserManagement />} exact />
