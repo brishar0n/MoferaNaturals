@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import desktoplogo from '../../assets/desktop/desktoplogo.svg';
 import hamburger from '../../assets/desktop/hamburger.svg';
 import desktoplogout from '../../assets/desktop/desktoplogout.svg';
 
 function Sidebar() {
-  const [isActive, setIsActive] = useState(false);
   const [dashboardOpen, setDashboardOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
 
@@ -18,7 +17,7 @@ function Sidebar() {
 
   return (
     <div
-      className={`bg-primary h-screen flex flex-col justify-between items-center ${
+      className={`bg-primary h-screen flex flex-col justify-between items-center transition-all duration-300 ${
         isMinimized ? 'w-16' : 'w-1/5'
       }`}
     >
@@ -63,7 +62,7 @@ function Sidebar() {
                 Checkpoint
               </li>
               <li className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 font-medium cursor-pointer text-white">
-                Arrived Package
+                Arrived Packages
               </li>
               <li className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 font-medium cursor-pointer text-white">
                 Notifications
@@ -80,9 +79,9 @@ function Sidebar() {
 
       <div className="bg-primary w-full col-span-10 flex flex-col justify-between">
         <button className="bg-primary mb-5">
-            {!isMinimized && (
-                <img src={desktoplogout} className="bg-primary ml-6 mt-20"/>
-            )}
+          {!isMinimized && (
+            <img src={desktoplogout} className="bg-primary ml-6 mt-20" />
+          )}
         </button>
       </div>
     </div>
