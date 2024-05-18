@@ -16,6 +16,7 @@ import AddWetLeaves from './pages/centra/AddWetLeaves';
 import AddMachine from './pages/centra/AddMachine';
 import EditMachine from './pages/centra/EditMachine';
 import TrackShipping from './pages/centra/TrackShipping';
+import TrackShippingTwo from './pages/centra/TrackShippingTwo';
 import WashWetLeaves from './pages/centra/WashWetLeaves';
 import DryWetLeaves from './pages/centra/DryWetLeaves';
 import { ShippingInfo } from './pages/centra/ShippingInfo';
@@ -57,6 +58,7 @@ function App() {
         <Route path="/addpowder" element={<AddPowder />} exact />
         <Route path="/shippinginfo" element={<ShippingInfo />} exact/>
         <Route path="/trackshipping" element={<TrackShipping />} exact/>
+        <Route path="/trackshippingtwo" element={<TrackShippingTwo />} exact/>
         <Route path="/notify" element={<Notify/>} exact/>
 
         {/* Guard Harbour */}
