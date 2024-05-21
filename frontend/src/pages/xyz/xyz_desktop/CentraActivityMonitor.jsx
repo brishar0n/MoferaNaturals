@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from '../../../components/xyz/Sidebar';
 import "../../../style/AdminDesktop.css";
-
 import profilepic from "../../../assets/desktop/profilepicdesktop.svg";
 import bell from "../../../assets/desktop/bellicon.svg";
 import CentraWetLeavesTable from '../../../components/xyz/CentraWetLeavesTable';
