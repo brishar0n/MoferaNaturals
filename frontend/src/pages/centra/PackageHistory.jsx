@@ -3,20 +3,21 @@ import "../../style/App.css"
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavigationBar from "../../components/centra/CentraNavbar";
+import PackageBox from "../../components/centra/PackageBox";
 
 function PackageHistory(){
-    const [weight, setWeight] = useState(0);
-    const [date, setDate] = useState(new Date());
     const [isMobile, setIsMobile] = React.useState(false);
+    const [statusFilter, setStatusFilter] = useState("ALL");
     const navigate = useNavigate();
 
-    const handleWeightChange = (event) => {
-        setWeight(event.target.value);
-    };
-
-    const handleDateChange = (event) => {
-        setDate(event.target.value);
-    };
+    const packages = [
+        { id: 200420, weight: 10, expDate: "2024-05-01", status: "READY TO SHIP", shippingDate: "" },
+        { id: 200421, weight: 5, expDate: "2024-06-15", status: "SHIPPING", shippingDate: "2024-04-15" },   // 
+        { id: 200422, weight: 0, expDate: "2024-06-19", status: "CANCELLED", shippingDate: "2024-04-19"  },  // not arrived in gh
+        { id: 200423, weight: 8, expDate: "2024-07-10", status: "CONFIRMED", shippingDate: "2024-04-21"  },  // confirmed by gh
+        { id: 200424, weight: 10, expDate: "2024-04-01", status: "ARRIVED", shippingDate: "2024-04-23"  },  // received by xyz
+        { id: 200425, weight: 5, expDate: "2024-06-15", status: "EXPIRED", shippingDate: "" }, // package not sent and expired
+      ];
 
     useEffect(() => {
         function handleResize() {
@@ -31,13 +32,15 @@ function PackageHistory(){
 
     const handleBack = () => navigate("/dashboard");
 
-    const handleAdd= () => navigate("/addpackage");
+    const handleAdd = () => navigate("/addpackage");
+
+    const filteredPackages = statusFilter === "ALL" ? packages : packages.filter(pkg => pkg.status === statusFilter);
     
     return (
       <div>
         {isMobile && (
           <>
-            <div className="overflow-auto h-[calc(100vh-6rem)] md:h-auto bg-quaternary min-h-screen flex flex-col items-center overflow-auto resize-none pb-24">
+            <div className="overflow-auto h-[calc(100vh-6rem)] md:h-auto bg-quaternary min-h-screen flex flex-col items-center overflow-auto resize-none pb-32">
                 <img src="src/assets/AddPage/frameAdd.svg" className="absolute top-100vh w-screen z-0"></img>
 
                 <div className="flex pt-16 gap-11 pr-20 z-10">
@@ -56,157 +59,32 @@ function PackageHistory(){
             
                 <br></br>
 
-                <div className="bg-white w-2/3 h-1/4 rounded-2xl z-30">
-                    <div className="flex flex-col justify-center items-center pt-5 -mt-2">
-                        <div className="flex items-end justify-end pr-7 w-full">
-                            <p className="font-medium text-slate-500 text-xxs">PKG#200420</p>
-                        </div>
-                        <label htmlFor="weight" className="font-medium text-sm pr-44 mb-0.5">Weight:</label>
-                        <input 
-                        type="number" 
-                        value={weight} 
-                        onChange={handleWeightChange}
-                        className="w-4/5 bg-quinary rounded-md pl-2"></input>
-                    </div>
-
-                    <div className="flex flex-col justify-center items-center pt-1">
-                        <label htmlFor="date" className="font-medium text-sm pr-48 mb-1">Date:</label>
-                        <input 
-                        type="date" 
-                        value={date.toISOString().substring(0, 10)} 
-                        onChange={handleDateChange}
-                        className="w-4/5 bg-quinary rounded-md pl-2"></input>
-                    </div>
-
-                    <br></br>
-                    
-                    <button className="bg-secondary pl-8 pr-8 pt-2 pb-2 rounded-full text-white font-semibold -mt-2"> READY TO SHIP </button>
-
-                    
-                </div>
-        
-                <br></br>
-
-                <div className="bg-white w-2/3 h-1/4 rounded-2xl z-30">
-                    <div className="flex flex-col justify-center items-center pt-5 -mt-2">
-                        <div className="flex items-end justify-end pr-7 w-full">
-                            <p className="font-medium text-slate-500 text-xxs">PKG#200420</p>
-                        </div>
-                        <label htmlFor="weight" className="font-medium text-sm pr-44 mb-0.5">Weight:</label>
-                        <input 
-                        type="number" 
-                        value={weight} 
-                        onChange={handleWeightChange}
-                        className="w-4/5 bg-quinary rounded-md pl-2"></input>
-                    </div>
-
-                    <div className="flex flex-col justify-center items-center pt-1">
-                        <label htmlFor="date" className="font-medium text-sm pr-48 mb-1">Date:</label>
-                        <input 
-                        type="date" 
-                        value={date.toISOString().substring(0, 10)} 
-                        onChange={handleDateChange}
-                        className="w-4/5 bg-quinary rounded-md pl-2"></input>
-                    </div>
-
-                    <br></br>
-                    
-                    <button className="bg-secondary pl-8 pr-8 pt-2 pb-2 rounded-full text-white font-semibold -mt-2"> SHIPPED </button>
-
+                <div className="relative"> 
+                    <label htmlFor="statusFilter" className="font-medium">Filter by Status:</label>
+                    <select id="statusFilter" onChange={(e) => setStatusFilter(e.target.value)} className="ml-3 z-100 rounded-3xl p-1">
+                        <option value="ALL">All</option>
+                        <option value="READY TO SHIP">Ready to Ship</option>
+                        <option value="SHIPPING">Shipping</option>
+                        <option value="CANCELLED">Cancelled</option>
+                        <option value="CONFIRMED">Confirmed</option>
+                        <option value="ARRIVED">Arrived</option>
+                        <option value="EXPIRED">Expired</option>
+                    </select>
                 </div>
 
                 <br></br>
 
-                <div className="bg-white w-2/3 h-1/4 rounded-2xl z-30">
-                    <div className="flex flex-col justify-center items-center pt-5 -mt-2">
-                        <div className="flex items-end justify-end pr-7 w-full">
-                            <p className="font-medium text-slate-500 text-xxs">PKG#200420</p>
-                        </div>
-                        <label htmlFor="weight1" className="font-medium text-sm pr-44 mb-0.5">Weight:</label>
-                        <input 
-                        type="number" 
-                        value={weight} 
-                        onChange={handleWeightChange}
-                        className="w-4/5 bg-quinary rounded-md pl-2"></input>
-                    </div>
-
-                    <div className="flex flex-col justify-center items-center pt-1">
-                        <label htmlFor="date" className="font-medium text-sm pr-48 mb-1">Date:</label>
-                        <input 
-                        type="date" 
-                        value={date.toISOString().substring(0, 10)} 
-                        onChange={handleDateChange}
-                        className="w-4/5 bg-quinary rounded-md pl-2"></input>
-                    </div>
-
-                    <br></br>
-                    
-                    <button className="bg-secondary pl-8 pr-8 pt-2 pb-2 rounded-full text-white font-semibold -mt-2"> CONFIRMED </button>
-
-                </div>
-
-                <br></br>
-
-                <div className="bg-white w-2/3 h-1/4 rounded-2xl z-30">
-                    <div className="flex flex-col justify-center items-center pt-5 -mt-2">
-                        <div className="flex items-end justify-end pr-7 w-full">
-                            <p className="font-medium text-slate-500 text-xxs">PKG#200420</p>
-                        </div>
-                        <label htmlFor="weight1" className="font-medium text-sm pr-44 mb-0.5">Weight:</label>
-                        <input 
-                        type="number" 
-                        value={weight} 
-                        onChange={handleWeightChange}
-                        className="w-4/5 bg-quinary rounded-md pl-2"></input>
-                    </div>
-
-                    <div className="flex flex-col justify-center items-center pt-1">
-                        <label htmlFor="date" className="font-medium text-sm pr-48 mb-1">Date:</label>
-                        <input 
-                        type="date" 
-                        value={date.toISOString().substring(0, 10)} 
-                        onChange={handleDateChange}
-                        className="w-4/5 bg-quinary rounded-md pl-2"></input>
-                    </div>
-
-                    <br></br>
-                    
-                    <button className="bg-secondary pl-8 pr-8 pt-2 pb-2 rounded-full text-white font-semibold -mt-2"> ARRIVED </button>
-                
-                </div>
-
-                <br></br>
-
-                <div className="bg-white w-2/3 h-1/4 rounded-2xl z-30">
-                    <div className="flex flex-col justify-center items-center pt-5 -mt-2">
-                        <div className="flex items-end justify-end pr-7 w-full">
-                            <p className="font-medium text-slate-500 text-xxs">PKG#200420</p>
-                        </div>
-                        <label htmlFor="weight1" className="font-medium text-sm pr-44 mb-0.5">Weight:</label>
-                        <input 
-                        type="number" 
-                        value={weight} 
-                        onChange={handleWeightChange}
-                        className="w-4/5 bg-quinary rounded-md pl-2"></input>
-                    </div>
-
-                    <div className="flex flex-col justify-center items-center pt-1">
-                        <label htmlFor="date" className="font-medium text-sm pr-48 mb-1">Date:</label>
-                        <input 
-                        type="date" 
-                        value={date.toISOString().substring(0, 10)} 
-                        onChange={handleDateChange}
-                        className="w-4/5 bg-quinary rounded-md pl-2"></input>
-                    </div>
-
-                    <br></br>
-                    
-                    <button className="bg-secondary pl-8 pr-8 pt-2 pb-2 rounded-full text-white font-semibold -mt-2"> EXPIRED </button>
-                
-                </div>
-                
+                {filteredPackages.map((pkg) => (
+                    <PackageBox 
+                        key={pkg.id} 
+                        weight={pkg.weight} 
+                        expDate={pkg.expDate} 
+                        status={pkg.status} 
+                        id={pkg.id}
+                        shippingDate={pkg.shippingDate}
+                    />
+                ))}
             </div>
-
             <NavigationBar></NavigationBar>
           </>
         )}
