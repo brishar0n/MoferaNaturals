@@ -1,0 +1,129 @@
+import { useNavigate } from "react-router-dom";
+import SuccessNotification from "../SuccessNotification";
+import { useState } from "react";
+import PackageIDInput from "./PackageIDInput";
+
+import AddShipmentHeader from "./AddShipmentHeader";
+
+function ShippingForm() {
+    const navigate = useNavigate();
+    const [formSubmitted, setFormSubmitted] = useState(false);
+
+    const [weight, setWeight] = useState(0);
+    const [total, setTotal] = useState(0);
+    const [expedition, setExpedition] = useState("");
+    const [shippingDate, setShippingDate] = useState("");
+    const [shippingTime, setShippingTime] = useState("");
+
+    const packageData = {
+        123: { weight: 10 },
+        127: { weight: 5 },
+        102: { weight: 15 },
+        19: { weight: 20 },
+        40: { weight: 7 },
+        51: { weight: 12 },
+        63: { weight: 8 }
+    };
+
+    function handlePackageIDChange(selectedPackageIDs) {
+        let totalWeight = 0;
+        selectedPackageIDs.forEach(id => {
+            const packageInfo = packageData[id];
+            if (packageInfo) {
+                totalWeight += packageInfo.weight;
+            }
+        });
+
+        setWeight(totalWeight);
+        setTotal(selectedPackageIDs.length);  
+    };
+
+    function handleView() {
+        navigate("/viewcheckpoint");
+    }
+
+    function handleSubmit(event) {
+        event.preventDefault();
+        setFormSubmitted(true);
+    }
+
+    // const handleWeightChange = (event) => {
+    //     setWeight(event.target.value);
+    // };
+    
+    const handleShippingDateChange = (event) => {
+        setShippingDate(event.target.value);
+    };
+
+    const handleShippingTimeChange = (event) => {
+        setShippingTime(event.target.value);
+    };
+    
+    const handleExpeditionChange = (event) => {
+        setExpedition(event.target.value);
+    }
+  
+    // const handleTotalChange = (event) => {
+    //     setTotal(event.target.value)
+    // }
+
+    return (
+        <div>
+            {formSubmitted && <SuccessNotification htmlContent="You have successfully added checkpoint data." />}
+
+            <AddShipmentHeader/>
+
+            <div className='pb-36 z-0'>
+                <div className='bg-white mb-5 w-5/6 mx-auto py-7 px-9 rounded-2xl text-left relative mt-5 flex flex-col' onSubmit={handleSubmit}>
+                    <form>
+
+                        <label htmlFor="packageId" className='items-start mb-2 text-xs font-medium'>Package IDs:</label>
+                        <PackageIDInput onPackageIDChange={handlePackageIDChange}/>
+                                    
+                        <label htmlFor="packageWeight" className='items-start text-xs mb-2 font-medium'>Package Weight:</label>
+                        <input type="number" id="packageWeight" className='mb-2 rounded-md bg-quinary px-2 py-2 w-full text-xs border-none' value={weight} readOnly required/>
+
+                        <label htmlFor="totalPackages" className='items-start text-xs mb-2 font-medium'>Total Packages:</label>
+                        <input type="number" id="totalPackages" className='mb-2 rounded-md bg-quinary px-2 py-2 w-full text-xs border-none' value={total} readOnly required/>
+
+                        <label htmlFor="expedition" className='items-start text-xs mb-2 font-medium'>Expedition:</label>
+                        {/* <input type="text" id="expedition" className="rounded-md bg-quinary py-2 px-2 text-xs mb-3 w-full" value={expedition} onChange={handleExpeditionChange} required/> */}
+                        <select id="expedition" className="rounded-md bg-quinary py-2 px-2 text-xs mb-3 w-full" onChange={handleExpeditionChange} value={expedition} required>
+                            <option value="">Choose an expedtion</option>
+                            <option value="JNE Express">JNE Express</option>
+                            <option value="JNT Express">JNT Express</option>
+                            <option value="SiCepat">SiCepat</option>
+                            <option value="Sentral Cargo">Sentral Cargo</option>
+                            <option value="Kitrans">Kitrans</option>
+                            <option value="Persero">PT Pelni (Persero)</option>
+                            <option value="POS Indonesia">POS Indonesia</option>
+                            <option value="Samudera Indonesia">Samudera Indonesia</option>
+                        </select>
+
+                        <label htmlFor="shippingDate" className='items-start text-xs mb-2 font-medium'>Shipping Date:</label>
+                        <input type="date" id="shippingDate" className="rounded-md bg-quinary py-2 px-2 text-xs mb-3 w-full" value={shippingDate} onChange={handleShippingDateChange} required/>
+
+                        <label htmlFor="shippingTime" className='items-start text-xs mb-2 font-medium'>Shipping Time: </label>
+                        <input type="time" id="shippingTime" className='mb-2 rounded-md bg-quinary px-2 py-2 w-full text-xs border-none' value={shippingTime} onChange={handleShippingTimeChange} required/>
+
+                        <div className='mx-auto mt-2 flex justify-center'>
+                            <button className='bg-secondary text-white rounded-3xl px-7 py-2 font-semibold hover:bg-primary flex gap-2 items-center' type="submit">SHIP</button>
+                        </div>
+
+                        <div className='mx-auto mt-4 flex justify-center'>
+                            <button className='bg-secondary text-white rounded-3xl px-7 py-2 font-semibold hover:bg-primary flex gap-2 items-center'>NOTIFY MOFERA</button>
+                        </div>
+                    </form>
+
+                    
+                </div>
+                
+
+                
+            </div>
+        </div>
+    
+    )
+}
+
+export default ShippingForm;
