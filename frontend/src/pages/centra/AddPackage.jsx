@@ -3,19 +3,22 @@ import "../../style/App.css"
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavigationBar from "../../components/centra/CentraNavbar";
+import PackageForm from "../../components/centra/PackageForm";
+import MenuDashboard from "./MenuDashboard";
 
 function AddPackage(){
     const [weight, setWeight] = useState(0);
-    const [date, setDate] = useState(new Date());
+    const [expDate, setExpDate] = useState(new Date());
     const [isMobile, setIsMobile] = React.useState(false);
+    const [formSubmitted, setFormSubmitted] = useState(false);
     const navigate = useNavigate();
 
     const handleWeightChange = (event) => {
         setWeight(event.target.value);
     };
 
-    const handleDateChange = (event) => {
-        setDate(event.target.value);
+    const handleExpDateChange = (event) => {
+        setExpDate(new Date(event.target.value));
     };
 
     useEffect(() => {
@@ -32,6 +35,11 @@ function AddPackage(){
     const handleBack = () => navigate("/dashboard");
 
     const handleHistory = () => navigate("/packagehistory");
+
+    function handleSubmit(event) {
+        event.preventDefault();
+        setFormSubmitted(true);
+    }
     
     return (
       <div>
@@ -39,7 +47,7 @@ function AddPackage(){
           <>
             <div className="overflow-auto h-[calc(100vh-6rem)] md:h-auto bg-quaternary min-h-screen flex flex-col items-center overflow-auto resize-none pb-24">
                 <img src="src/assets/AddPage/frameAdd.svg" className="absolute top-100vh w-screen z-0"></img>
-                <img src="src/assets/AddPage/mascotAdd.svg" className="absolute right-72 pt-96 pr-4 top-16 z-40"></img>
+                <img src="src/assets/AddPage/mascotAdd.svg" className="absolute left-6 top-96 pt-20 z-40"></img>
 
                 <div className="flex pt-16 gap-11 pr-20 z-10">
                     <img src="src/assets/common/backarrow.svg" onClick={handleBack}></img>
@@ -61,33 +69,17 @@ function AddPackage(){
 
                 <br></br>
 
-                <div className="bg-white w-2/3 h-1/4 rounded-2xl z-30">
-                    <div className="flex flex-col justify-center items-center pt-5">
-                        <label htmlFor="weight" className="font-medium text-sm pr-44 mb-1">Weight:</label>
-                        <input 
-                        type="number" 
-                        value={weight} 
-                        onChange={handleWeightChange}
-                        className="w-4/5 bg-quinary rounded-md pl-2"></input>
-                    </div>
-
-                    <div className="flex flex-col justify-center items-center pt-4">
-                        <label htmlFor="date" className="font-medium text-sm pr-40 mb-1">Exp Date:</label>
-                        <input 
-                        type="date" 
-                        value={date.toISOString().substring(0, 10)} 
-                        onChange={handleDateChange}
-                        className="w-4/5 bg-quinary rounded-md pl-2"></input>
-                    </div>
-
-                    <br></br>
-
-                    <button className="bg-secondary pl-8 pr-8 pt-2 pb-2 rounded-full text-white font-semibold -mt-2"> ADD </button>
-
-                </div>
+                <PackageForm 
+                    weight={weight}
+                    handleWeightChange={handleWeightChange}
+                    expDate={expDate}
+                    handleExpDateChange={handleExpDateChange}
+                    handleSubmit={handleSubmit}
+                    formSubmitted={formSubmitted}
+                />
             </div>
             
-            <NavigationBar></NavigationBar>
+            <MenuDashboard />
           </>
         )}
   
