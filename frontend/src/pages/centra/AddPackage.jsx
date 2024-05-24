@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavigationBar from "../../components/centra/CentraNavbar";
 import PackageForm from "../../components/centra/PackageForm";
-import MenuDashboard from "./MenuDashboard";
 
 function AddPackage(){
     const [weight, setWeight] = useState(0);
@@ -79,7 +78,7 @@ function AddPackage(){
                 />
             </div>
             
-            <MenuDashboard />
+            <NavigationBar />
           </>
         )}
   
