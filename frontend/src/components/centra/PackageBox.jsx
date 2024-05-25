@@ -14,7 +14,7 @@ function PackageBox({ weight, expDate, status, id, shippingDate}) {
                     type="number" 
                     value={weight} 
                     readOnly
-                    className="mb-2 rounded-md bg-quinary px-2 py-1 w-full text-xs border-none mt-1"
+                    className="mb-2 rounded-md bg-quinary px-2 py-1 w-full text-xs border-none"
                     required 
                 />
             <label htmlFor="expDate" className="items-start text-sm mb-2 font-medium">Expiry Date:</label>
@@ -22,7 +22,7 @@ function PackageBox({ weight, expDate, status, id, shippingDate}) {
                     type="date" 
                     value={expDate} 
                     readOnly
-                    className="mb-2 rounded-md bg-quinary px-2 py-1 w-full text-xs border-none mt-1"
+                    className="mb-2 rounded-md bg-quinary px-2 py-1 w-full text-xs border-none"
                     required 
                 />
             {shippingDate !== "" && (
