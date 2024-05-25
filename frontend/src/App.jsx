@@ -31,6 +31,8 @@ import ShipmentNotification from './pages/guard_harbour/ShipmentNotification';
 import FlourDryLeaves from './pages/centra/FlourDryLeaves';
 import AdminPage from './pages/desktop/AdminManagement';
 import CentraActivityMonitor from './pages/xyz/xyz_desktop/CentraActivityMonitor';
+import AddPackage from './pages/centra/AddPackage';
+import PackageHistory from './pages/centra/PackageHistory';
 
 function App() {
   return (
@@ -60,6 +62,8 @@ function App() {
         <Route path="/trackshipping" element={<TrackShipping />} exact/>
         <Route path="/trackshippingtwo" element={<TrackShippingTwo />} exact/>
         <Route path="/notify" element={<Notify/>} exact/>
+        <Route path="/addpackage" element={<AddPackage/>} exact/>
+        <Route path="/packagehistory" element={<PackageHistory/>} exact/>
 
         {/* Guard Harbour */}
         <Route path="/addcheckpoint" element={<AddCheckpoint/>} exact />

@@ -4,7 +4,6 @@ import "../../style/App.css";
 import { useNavigate } from "react-router-dom";
 import Card from "./Card";
 import '../../style/auth/Register.css';
-
 function Register() {
   const [isMobile, setIsMobile] = useState(false);
   const [username, setUsername] = useState('');
@@ -12,6 +11,7 @@ function Register() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [registrationError, setRegistrationError] = useState('');
+  const [role, setRole] = useState(''); // State for role selection
   const navigate = useNavigate();
   // const [formData, setFormData] = useState({
   //   fullName: "",
@@ -57,6 +57,7 @@ function Register() {
         username: username,
         email: email,
         password: password,
+        role: role,
       });
       console.log('Signup successful', response.data);
       /*This verification will be included later */
@@ -147,6 +148,22 @@ function Register() {
                 onChange={(e) => setConfirmPassword(e.target.value)} 
                 required
               ></input>
+            </div>
+            <div className="text-left ml-16 mt-2 relative z-20">
+              <label htmlFor="role" className="text-primary"> Role <br /></label>
+              <select
+                className="border border-gray-300 rounded-md w-5/6 px-3 py-1.5 bg-quinary border-none mt-1"
+                name="role"
+                id="role"
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                required
+              >
+                <option value="" disabled>Select a role</option>
+                <option value="centra">Centra</option>
+                <option value="guard_harbor">Guard Harbor</option>
+                <option value="xyz">XYZ</option>
+              </select>
             </div>
 
             <div className="relative z-20">
