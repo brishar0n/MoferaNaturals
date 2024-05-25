@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import NavigationBar from "../../components/centra/CentraNavbar";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content'
+import axios from "axios"
+import { postWetLeaves } from "../../../api/centraAPI"
 
 function AddWetLeaves(){
     const [weight, setWeight] = useState(0);
@@ -15,6 +17,11 @@ function AddWetLeaves(){
     const checkWeight= () =>{
         if (weight==30){
             showSuccess()
+            postWetLeaves({
+                weight,
+                "retrieval_date": date.toLocaleDateString().replace(/\//g, "-"),
+                "centra_id": 0
+            })
         }
         else{
             showError()
