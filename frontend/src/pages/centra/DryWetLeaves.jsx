@@ -61,7 +61,7 @@ function DryWetLeaves() {
               <div className="flex text-s gap-1 font-medium p-1">
                 <p className="w-24 rounded-full p-1" onClick={handleAdd}> Add </p>
                 <p className="w-24 rounded-full p-1" onClick={handleWash}> Wash </p>
-                <p className="w-24 bg-octonary text-white rounded-full p-1"> Dry </p>
+                <p className="w-24 bg-tertiary text-white rounded-full p-1"> Dry </p>
               </div>
             </div>
 

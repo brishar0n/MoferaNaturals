@@ -66,7 +66,7 @@ function WashWetLeaves() {
             <div className="bg-white w-2/3 rounded-full z-20">
               <div className="flex text-s gap-1 font-medium p-1">
                 <p className="w-24 rounded-full p-1" onClick={handleAdd}> Add </p>
-                <p className="w-24 bg-octonary text-white rounded-full p-1"> Wash </p>
+                <p className="w-24 bg-tertiary text-white rounded-full p-1"> Wash </p>
                 <p className="w-24 rounded-full p-1" onClick={handleDry}> Dry </p>
               </div>
             </div>
