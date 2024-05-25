@@ -84,7 +84,7 @@ function WetLeavesBox({ weight, date, id, status, finishedTime, handleWashOrDry,
                 <p className="text-lg text-primary font-medium z-100 mb-6">Wet Leaves - WET#{id}</p>
             </div>
             
-            <div className='bg-white mb-5 w-3/4 mx-auto py-5 px-7 rounded-2xl text-left relative flex flex-col'>
+            <div className='bg-white mb-5 w-2/3 mx-auto py-5 px-7 rounded-2xl text-left relative flex flex-col'>
                 {(status === "washing" || status === "drying") && finishedTime && (
                     <p className="text-xs pl-20 text-red-600 font-semibold text-right">Finished Time: {formatTime(finishedTime)}</p>
                 )}
