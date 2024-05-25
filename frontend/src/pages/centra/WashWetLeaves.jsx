@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../../style/App.css";
 import { useNavigate } from "react-router-dom";
 import NavigationBar from "../../components/centra/CentraNavbar";
-import LeavesBox from "../../components/centra/LeavesBox";
+import WetLeavesBox from "../../components/centra/WetLeavesBox";
 
 function WashWetLeaves() {
   const [isMobile, setIsMobile] = useState(false);
@@ -35,9 +35,7 @@ function WashWetLeaves() {
   const handleAdd = () => navigate("/addwetleaves");
   const handleDry = () => navigate("/drywetleaves");
 
-  const handleWash = (id, newStatus) => {
-    const newFinishedTime = newStatus === "washing" ? new Date(Date.now() + 10 * 60 * 1000) : null;
-
+  const handleWashOrDry = (id, newStatus, newFinishedTime) => {
     setWetLeavesData(prevData =>
       prevData.map(leaf => 
         leaf.id === id ? { ...leaf, status: newStatus, finishedTime: newFinishedTime } : leaf
@@ -88,14 +86,15 @@ function WashWetLeaves() {
             <br></br>
             
             {filteredWetLeaves.map((wetLeaves) => (
-              <LeavesBox 
+              <WetLeavesBox 
                 key={wetLeaves.id} 
                 weight={wetLeaves.weight} 
                 date={wetLeaves.collectedDate} 
                 status={wetLeaves.status} 
                 id={wetLeaves.id}
                 finishedTime={wetLeaves.finishedTime}
-                handleWash={handleWash}
+                handleWashOrDry={handleWashOrDry}
+                isWashingPage={true} // This indicates the washing page
               />
             ))}
           </div>
