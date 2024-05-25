@@ -1,129 +1,110 @@
-import React from "react";
-import "../../style/App.css"
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import "../../style/App.css";
 import { useNavigate } from "react-router-dom";
 import NavigationBar from "../../components/centra/CentraNavbar";
+import LeavesBox from "../../components/centra/LeavesBox";
 
-function WashWetLeaves(){
-    const [weight, setWeight] = useState(0);
-    const [date, setDate] = useState(new Date());
-    const [isMobile, setIsMobile] = React.useState(false);
-    const navigate = useNavigate();
+function WashWetLeaves() {
+  const [isMobile, setIsMobile] = useState(false);
+  const [statusFilter, setStatusFilter] = useState("ALL");
+  const [wetLeavesData, setWetLeavesData] = useState([
+    { id: 200420, weight: 10, collectedDate: "2024-05-01", status: null, finishedTime: null },
+    { id: 200421, weight: 5, collectedDate: "2024-06-15", status: null, finishedTime: null },   
+    { id: 200422, weight: 0, collectedDate: "2024-06-19", status: "washed", finishedTime: null },  
+    { id: 200423, weight: 8, collectedDate: "2024-07-10", status: null, finishedTime: null }
+  ]);
 
-    const handleWeightChange = (event) => {
-        setWeight(event.target.value);
-    };
+  const navigate = useNavigate();
 
-    const handleDateChange = (event) => {
-        setDate(event.target.value);
-    };
+  useEffect(() => {
+    function handleResize() {
+      setIsMobile(window.innerWidth < 600);
+    }
 
-    useEffect(() => {
-        function handleResize() {
-        setIsMobile(window.innerWidth < 600);
-        }
+    handleResize();
+    window.addEventListener("resize", handleResize);
 
-        handleResize();
-        window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
+  useEffect(() => {
+    console.log("Wet Leaves Data: ", wetLeavesData);
+  }, [wetLeavesData]);
 
-    const handleBack = () => navigate("/dashboard");
+  const handleBack = () => navigate("/dashboard");
+  const handleAdd = () => navigate("/addwetleaves");
+  const handleDry = () => navigate("/drywetleaves");
 
-    const handleAdd = () => navigate("/addwetleaves");
+  const handleWash = (id, newStatus) => {
+    const newFinishedTime = newStatus === "washing" ? new Date(Date.now() + 10 * 60 * 1000) : null;
 
-    const handleDry = () => navigate("/drywetleaves");
-    
-    return (
-      <div>
-        {isMobile && (
-          <>
-            <div className="overflow-auto h-[calc(100vh-6rem)] md:h-auto bg-quaternary min-h-screen flex flex-col items-center overflow-auto resize-none pb-24">
-                <img src="src/assets/AddPage/frameAdd.svg" className="absolute top-100vh w-screen z-0"></img>
-
-                <div className="flex pt-16 gap-11 pr-20 z-10">
-                    <img src="src/assets/common/backarrow.svg" onClick={handleBack}></img>
-                    <p className="font-bold text-primary text-3xl">Wet Leaves </p>
-                </div>
-
-                <br></br>
-
-                <div className="bg-white w-2/3 rounded-full z-20">
-                    <div className="flex text-s gap-1 font-medium p-1">
-                        <p className="w-24 rounded-full p-1" onClick={handleAdd}> Add </p>
-                        <p className="w-24 bg-octonary text-white rounded-full p-1"> Wash </p>
-                        <p className="w-24 rounded-full p-1" onClick={handleDry}> Dry </p>
-                    </div>
-                </div>
-
-                <br></br>
-                
-                <p className="text-lg text-primary font-semibold"> Wet Leaves - WET#123 </p>
-
-                <br></br>
-
-                <div className="bg-white w-2/3 h-1/4 rounded-2xl z-30">
-                    <div className="flex flex-col justify-center items-center pt-5 -mt-2">
-                        <p className="text-xxs pl-20 text-red-600 font-semibold">10m00s until done washing</p>
-                        <label htmlFor="weight" className="font-medium text-sm pr-44 mb-1">Weight:</label>
-                        <input 
-                        type="number" 
-                        value={weight} 
-                        onChange={handleWeightChange}
-                        className="w-4/5 bg-quinary rounded-md pl-2"></input>
-                    </div>
-
-                    <div className="flex flex-col justify-center items-center pt-4">
-                        <label htmlFor="date" className="font-medium text-sm pr-48 mb-1">Date:</label>
-                        <input 
-                        type="date" 
-                        value={date.toISOString().substring(0, 10)} 
-                        onChange={handleDateChange}
-                        className="w-4/5 bg-quinary rounded-md pl-2"></input>
-                    </div>
-
-                    <br></br>
-                    <button className="bg-secondary pl-4 pr-4 pt-2 pb-2 rounded-full text-white font-semibold -mt-2"> WASHING.. </button>
-                </div>
-
-                <br></br>
-
-                <p className="text-lg text-primary font-semibold z-20"> Wet Leaves - WET#124 </p>
-
-                <br></br>
-
-                <div className="bg-white w-2/3 h-1/4 rounded-2xl z-30">
-                    <div className="flex flex-col justify-center items-center pt-5">
-                        <label htmlFor="weight" className="font-medium text-sm pr-44 mb-1">Weight:</label>
-                        <input 
-                        type="number" 
-                        value={weight} 
-                        onChange={handleWeightChange}
-                        className="w-4/5 bg-quinary rounded-md pl-2"></input>
-                    </div>
-
-                    <div className="flex flex-col justify-center items-center pt-4">
-                        <label htmlFor="date" className="font-medium text-sm pr-48 mb-1">Date:</label>
-                        <input 
-                        type="date" 
-                        value={date.toISOString().substring(0, 10)} 
-                        onChange={handleDateChange}
-                        className="w-4/5 bg-quinary rounded-md pl-2"></input>
-                    </div>
-
-                    <br></br>
-
-                    <button className="bg-secondary pl-10 pr-10 pt-2 pb-2 rounded-full text-white font-semibold -mt-2 "> WASH </button>
-                </div>                
-            </div>
-            
-            <NavigationBar></NavigationBar>
-          </>
-        )}
-  
-      </div>
+    setWetLeavesData(prevData =>
+      prevData.map(leaf => 
+        leaf.id === id ? { ...leaf, status: newStatus, finishedTime: newFinishedTime } : leaf
+      )
     );
+  };
+
+  const filteredWetLeaves = wetLeavesData.filter(leaf => {
+    if (statusFilter === "ALL") return true;
+    if (statusFilter === "" && leaf.status === null) return true;
+    return leaf.status === statusFilter;
+  });
+
+  return (
+    <div>
+      {isMobile && (
+        <>
+          <div className="overflow-auto h-[calc(100vh-6rem)] md:h-auto bg-quaternary min-h-screen flex flex-col items-center overflow-auto resize-none pb-24">
+            <img src="src/assets/AddPage/frameAdd.svg" className="absolute top-100vh w-screen z-0"></img>
+
+            <div className="flex pt-16 gap-11 pr-20 z-10">
+              <img src="src/assets/common/backarrow.svg" onClick={handleBack}></img>
+              <p className="font-bold text-primary text-3xl">Wet Leaves</p>
+            </div>
+
+            <br></br>
+
+            <div className="bg-white w-2/3 rounded-full z-20">
+              <div className="flex text-s gap-1 font-medium p-1">
+                <p className="w-24 rounded-full p-1" onClick={handleAdd}> Add </p>
+                <p className="w-24 bg-octonary text-white rounded-full p-1"> Wash </p>
+                <p className="w-24 rounded-full p-1" onClick={handleDry}> Dry </p>
+              </div>
+            </div>
+
+            <br></br>
+
+            <div className="relative"> 
+                <label htmlFor="statusFilter" className="font-medium">Filter by Status:</label>
+                <select id="statusFilter" onChange={(e) => setStatusFilter(e.target.value)} className="ml-3 z-100 rounded-3xl p-1">
+                    <option value="ALL">All</option>
+                    <option value="">Ready to wash</option>
+                    <option value="washing">Washing</option>
+                    <option value="washed">Washed</option>
+                </select>
+            </div>
+
+            <br></br>
+            
+            {filteredWetLeaves.map((wetLeaves) => (
+              <LeavesBox 
+                key={wetLeaves.id} 
+                weight={wetLeaves.weight} 
+                date={wetLeaves.collectedDate} 
+                status={wetLeaves.status} 
+                id={wetLeaves.id}
+                finishedTime={wetLeaves.finishedTime}
+                handleWash={handleWash}
+              />
+            ))}
+          </div>
+          
+          <NavigationBar></NavigationBar>
+        </>
+      )}
+    </div>
+  );
 }
-  
+
 export default WashWetLeaves;
