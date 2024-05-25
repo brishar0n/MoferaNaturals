@@ -21,7 +21,7 @@ function AddWetLeaves(){
             showSuccess()
             postWetLeaves({
                 weight,
-                "retrieval_date": date.toLocaleDateString().replace(/\//g, "-"),
+                "retrieval_date": dateCollected.toLocaleDateString().replace(/\//g, "-"),
                 "centra_id": 0
             })
         }
@@ -80,6 +80,7 @@ function AddWetLeaves(){
 
     function handleSubmit(event) {
         event.preventDefault();
+        checkWeight()
         setFormSubmitted(true);
     }
     
