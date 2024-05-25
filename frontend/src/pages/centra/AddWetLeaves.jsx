@@ -101,7 +101,7 @@ function AddWetLeaves(){
 
                 <div className="bg-white w-2/3 rounded-full z-20">
                     <div className="flex text-s gap-1 font-medium p-1">
-                        <p className="w-24 bg-octonary rounded-full text-white p-1"> Add </p>
+                        <p className="w-24 bg-tertiary rounded-full text-white p-1"> Add </p>
                         <p className="w-24 rounded-full p-1" onClick={handleWash}> Wash </p>
                         <p className="w-24 rounded-full p-1" onClick={handleDry}> Dry </p>
                     </div>
