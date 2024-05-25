@@ -1,11 +1,33 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import '../../style/CentraMonTable.css';
+import Box from '@mui/material/Box';
 
 const columns = [
-  { field: 'packageid', headerName: 'Package ID', width: 120 },
-  { field: 'weight', headerName: 'Weight (in kg)', type: 'number', width: 100 },
-  { field: 'status', headerName: 'Status', width: 200 },
+  { 
+    field: 'packageid', 
+    headerClassName: 'super-app-theme--header', 
+    headerAlign: 'center', 
+    headerName: 'Package ID', 
+    width: 150,
+    cellClassName: 'super-app-theme--cell',
+  },
+  { 
+    field: 'weight', 
+    headerClassName: 'super-app-theme--header', 
+    headerAlign: 'center', 
+    headerName: 'Weight (in kg)', 
+    type: 'number', 
+    width: 150,
+    cellClassName: 'super-app-theme--cell',
+  },
+  { 
+    field: 'status', 
+    headerClassName: 'super-app-theme--header', 
+    headerAlign: 'center', 
+    headerName: 'Status', 
+    width: 240,
+    cellClassName: 'super-app-theme--cell',
+  },
 ];
 
 const rows = [
@@ -22,8 +44,20 @@ const rows = [
 
 export default function CentraWetLeavesTable() {
   return (
-    <div className="table-container" style={{ height: 300, width: '40%', marginLeft: '20px' }}>
+    <Box sx={{ height: 300, width: '48%', ml: 3, mb: 3 }}>
       <DataGrid
+        sx={{
+          fontFamily: 'Montserrat',
+          border: 1,
+          borderColor: 'rgba(15,109,72,255)',
+          '& .super-app-theme--header': {
+            backgroundColor: 'rgba(26,127,93,255)',
+            color: 'white',
+          },
+          '& .super-app-theme--cell': {
+            textAlign: 'center',
+          },
+        }}
         rows={rows}
         columns={columns}
         initialState={{
@@ -33,6 +67,6 @@ export default function CentraWetLeavesTable() {
         }}
         pageSizeOptions={[5, 10]}
       />
-    </div>
+    </Box>
   );
 }
