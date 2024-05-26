@@ -33,6 +33,7 @@ import AdminPage from './pages/desktop/AdminManagement';
 import CentraActivityMonitor from './pages/xyz/xyz_desktop/CentraActivityMonitor';
 import AddPackage from './pages/centra/AddPackage';
 import PackageHistory from './pages/centra/PackageHistory';
+import PowderHistory from './pages/centra/ViewPowder';
 
 function App() {
   return (
@@ -58,6 +59,7 @@ function App() {
         <Route path="/addmachine" element={<AddMachine />} exact />
         <Route path="/editmachine" element={<EditMachine />} exact />
         <Route path="/addpowder" element={<AddPowder />} exact />
+        <Route path="/viewpowder" element={<PowderHistory />} exact />
         <Route path="/shippinginfo" element={<ShippingInfo />} exact/>
         <Route path="/trackshipping" element={<TrackShipping />} exact/>
         <Route path="/trackshippingtwo" element={<TrackShippingTwo />} exact/>
