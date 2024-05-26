@@ -47,8 +47,8 @@ function DryWetLeaves() {
     <div>
       {isMobile && (
         <>
-          <div className="overflow-auto h-[calc(100vh-6rem)] md:h-auto bg-quaternary min-h-screen flex flex-col items-center overflow-auto resize-none pb-24">
-            <img src="src/assets/AddPage/frameAdd.svg" className="absolute top-100vh w-screen z-0"></img>
+          <div className="overflow-auto h-[calc(100vh-6rem)] md:h-auto bg-quaternary min-h-screen flex flex-col items-center overflow-auto resize-none pb-36">
+            <img src="src/assets/AddPage/frameAdd.svg" className="fixed w-screen z-0"></img>
 
             <div className="flex pt-16 gap-11 pr-20 z-10">
               <img src="src/assets/common/backarrow.svg" onClick={handleBack}></img>
