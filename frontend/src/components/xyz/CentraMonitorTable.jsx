@@ -17,7 +17,7 @@ const columns = [
     headerAlign: 'center', 
     headerName: 'Weight (in kg)', 
     type: 'number', 
-    width: 150,
+    width: 120,
     cellClassName: 'super-app-theme--cell',
   },
   { 
@@ -25,12 +25,12 @@ const columns = [
     headerClassName: 'super-app-theme--header', 
     headerAlign: 'center', 
     headerName: 'Status', 
-    width: 240,
+    width: 205,
     cellClassName: 'super-app-theme--cell',
   },
 ];
 
-export default function CentraWetLeavesTable({ dataType, handleDataTypeChange }) {
+export default function CentraMonitorTable({ dataType, handleDataTypeChange }) {
   let rows = [];
 
   // Sample data for wet leaves
