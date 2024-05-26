@@ -18,14 +18,14 @@ const MenuProps = {
   },
 };
 
-const packageIDs = [
-  123,
-  127,
-  102,
-  19,
-  40,
-  51,
-  63,
+const packageData = [
+  { packageId: 123, shippingId: null },
+  { packageId: 127, shippingId: 1 },
+  { packageId: 102, shippingId: 2 },
+  { packageId: 19, shippingId: 1 },
+  { packageId: 40, shippingId: 2 },
+  { packageId: 51, shippingId: null },
+  { packageId: 63, shippingId: 1 },
 ];
 
 function getStyles(id, packageID, theme) {
@@ -37,7 +37,7 @@ function getStyles(id, packageID, theme) {
   };
 }
 
-export default function PackageIDInput({ onPackageIDChange }) {
+export default function PackageIDInput({ shippingID, onPackageIDChange }) {
   const theme = useTheme();
   const [packageID, setPackageID] = React.useState([]);
 
@@ -53,6 +53,23 @@ export default function PackageIDInput({ onPackageIDChange }) {
       typeof value === 'string' ? value.split(',') : value,
     );
   };
+
+  React.useEffect(() => {
+    // Reset selected package IDs when shipping ID changes
+    setPackageID([]);
+  }, [shippingID]);
+
+  // Filter package IDs based on the selected shipping ID
+  const filteredPackageIDs = packageData
+    .filter((pkg) => pkg.shippingId === shippingID)
+    .map((pkg) => pkg.packageId);
+
+  // Filter package IDs that are either not shipped or belong to the selected shipping ID
+  const packageIDsToShow = shippingID 
+    ? filteredPackageIDs 
+    : packageData
+        .filter((pkg) => pkg.shippingId === null)
+        .map((pkg) => pkg.packageId);
 
   return (
     <div className='montserrat'>
@@ -78,7 +95,7 @@ export default function PackageIDInput({ onPackageIDChange }) {
             boxShadow: 'none', 
           }}
         >
-          {packageIDs.map((id) => (
+          {packageIDsToShow.map((id) => (
             <MenuItem
               key={id}
               value={id}
@@ -87,6 +104,7 @@ export default function PackageIDInput({ onPackageIDChange }) {
               {id}
             </MenuItem>
           ))}
+          
         </Select>
       </FormControl>
     </div>
