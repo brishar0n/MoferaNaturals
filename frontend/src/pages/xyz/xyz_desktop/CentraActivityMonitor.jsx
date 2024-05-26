@@ -3,7 +3,7 @@ import Sidebar from '../../../components/xyz/Sidebar';
 import "../../../style/AdminDesktop.css";
 import profilepic from "../../../assets/desktop/profilepicdesktop.svg";
 import bell from "../../../assets/desktop/bellicon.svg";
-import CentraWetLeavesTable from '../../../components/xyz/CentraWetLeavesTable';
+import CentraMonitorTable from '../../../components/xyz/CentraMonitorTable';
 
 const CentraActivityMonitor = () => {
   const [date, setDate] = useState(new Date());
@@ -38,7 +38,7 @@ const CentraActivityMonitor = () => {
         </div>
         <div className='bg-quaternary mt-4 ml-9 w-auto'>
           <h2 className='text-left font-medium text-xl p-6'>{dataType} Activity</h2>
-          <CentraWetLeavesTable dataType={dataType} handleDataTypeChange={handleDataTypeChange} />
+          <CentraMonitorTable dataType={dataType} handleDataTypeChange={handleDataTypeChange} />
         </div>
         <div className='bg-quaternary mt-4 ml-9 w-auto'>
           <h2 className='text-left font-medium text-xl p-6'>Statistics</h2>
