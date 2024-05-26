@@ -30,7 +30,7 @@ const columns = [
   },
 ];
 
-export default function CentraMonitorTable({ dataType, handleDataTypeChange }) {
+export default function CentraWetLeavesTable({ dataType, handleDataTypeChange }) {
   let rows = [];
 
   // Sample data for wet leaves
@@ -79,13 +79,20 @@ export default function CentraMonitorTable({ dataType, handleDataTypeChange }) {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, ml: 3, mb: 5 }}>
-      <div className="bg-white rounded-full w-1/2 z-20 mb-4 ml-96 flex items-center">
-        <p className={`w-48 rounded-full p-1 cursor-pointer hover:bg-octonary hover:text-white ${dataType === 'Wet Leaves' ? 'active' : ''}`} onClick={() => handleDataTypeChange('Wet Leaves')}> Wet Leaves </p>
-        <p className={`w-48 rounded-full p-1 cursor-pointer hover:bg-octonary hover:text-white ${dataType === 'Dry Leaves' ? 'active' : ''}`} onClick={() => handleDataTypeChange('Dry Leaves')}> Dry Leaves </p>
-        <p className={`w-48 rounded-full p-1 cursor-pointer hover:bg-octonary hover:text-white ${dataType === 'Powder' ? 'active' : ''}`} onClick={() => handleDataTypeChange('Powder')}> Powder </p>
-      </div>
-      <Box sx={{ display: 'flex', flexDirection: 'row', gap: 3 }}>
-        <Box sx={{ height: 300, width: '48%' }}>
+
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginRight: '38px' }}>
+        <span>
+          <h2 className='text-left font-medium text-xl mr-72 mt-9'>{dataType} Activity</h2>
+        </span>
+        <div className="bg-white rounded-full w-1/2 z-20 mb-4 mt-9 flex items-center">
+          <p className={`w-48 rounded-full p-1 cursor-pointer hover:bg-octonary hover:text-white ${dataType === 'Wet Leaves' ? 'active' : ''}`} onClick={() => handleDataTypeChange('Wet Leaves')}> Wet Leaves </p>
+          <p className={`w-48 rounded-full p-1 cursor-pointer hover:bg-octonary hover:text-white ${dataType === 'Dry Leaves' ? 'active' : ''}`} onClick={() => handleDataTypeChange('Dry Leaves')}> Dry Leaves </p>
+          <p className={`w-48 rounded-full p-1 cursor-pointer hover:bg-octonary hover:text-white ${dataType === 'Powder' ? 'active' : ''}`} onClick={() => handleDataTypeChange('Powder')}> Powder </p>
+        </div>
+      </Box>
+      
+      <Box sx={{ display: 'flex', flexDirection: 'row', gap: 3, marginBottom: '30px' }}>
+        <Box sx={{ height: 300, width: '47%' }}>
           <DataGrid
             sx={{
               fontFamily: 'Montserrat',
