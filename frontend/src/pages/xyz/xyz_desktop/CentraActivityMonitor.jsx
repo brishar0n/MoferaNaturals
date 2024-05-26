@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
-
 import Sidebar from '../../../components/xyz/Sidebar';
 import "../../../style/AdminDesktop.css";
 import CentraMonitorTable from '../../../components/xyz/CentraMonitorTable';
 import CentraMonitorBar from '../../../components/xyz/CentraMonitorBar';
-
 import profilepic from "../../../assets/desktop/profilepicdesktop.svg";
 import bell from "../../../assets/desktop/bellicon.svg";
 
@@ -25,6 +23,8 @@ const CentraActivityMonitor = () => {
     setDataType(type);
   };
 
+  const handleShipmentTrack = () => navigate("/shipmenttracker");
+
   return (
     <div className='bg-primary w-screen h-screen overflow-hidden flex flex-row'>
       <Sidebar />
@@ -43,9 +43,32 @@ const CentraActivityMonitor = () => {
           <CentraMonitorTable dataType={dataType} handleDataTypeChange={handleDataTypeChange} />
         </div>
 
-        <div className='bg-quinary rounded-xl mt-4 ml-9 mr-9 mb-4 w-auto'>
-          <h2 className='text-left font-medium text-xl pt-6 ml-6'>Statistics</h2>
-          <CentraMonitorBar />
+        <div className='flex flex-row justify-between mt-4 ml-9 mr-9 mb-4'>
+          <div className='bg-quinary rounded-xl w-2/3 mr-2'>
+            <h2 className='text-left font-medium text-xl pt-6 ml-6'>Statistics</h2>
+            <CentraMonitorBar />
+          </div>
+          <div className='bg-quinary rounded-xl w-1/3 ml-2 p-4'>
+            <h2 className='text-left font-medium text-xl pt-2 ml-2'>Shipped Packages</h2>
+            <div className='mt-4 ml-2'>
+              <p className='text-left mt-10'>Total Packages Sent: </p>
+              <p className='text-left text-xl font-medium mt-4'>300 </p>
+
+              <br></br>
+
+              <p className='text-left'>Pending Packages: </p>
+              <p className='text-left text-xl font-medium mt-4'>105</p>
+
+              <br></br>
+
+              <p className='text-left'>Packages Arrived: </p>
+              <p className='text-left text-xl font-medium mt-4'>195</p>
+
+              <br></br>
+
+              <button className='mt-4 bg-nonary rounded-3xl text-white py-2 px-4' onClick={handleShipmentTrack}>View Shipment Tracker</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
