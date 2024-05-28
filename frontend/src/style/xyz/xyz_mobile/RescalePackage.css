@@ -1,12 +1,24 @@
+@media (max-width: 600px) {
+    .ht-96 {
+        height: 15rem;
+    }
+}
+
+@media (max-width: 460px) {
+    .text-position {
+        width: 200px;
+    }
+}
+
 @media (max-width: 429px) {
     .text-position {
-        width: 40%;
+        width: 20px;
     }
 }
 
 @media (max-width: 405px) {
     .text-position {
-        position: absolute;
+        position: relative;
         margin-top: 20px;
         left: 0;
         width: 100%;
@@ -14,6 +26,7 @@
         /* Adjust padding as needed */
         text-align: center;
         /* Center the text horizontally */
+        z-index: 100;
     }
     .leading-norm {
         line-height: 20px;
@@ -26,12 +39,27 @@
     }
 }
 
-@media (max-width: 340px) {
+@media (max-width: 380px) {
     .vector {
-        margin-left: 0px;
+        left: 10px;
     }
     .title {
         margin-left: 20px;
+    }
+    .text-position {
+        margin-top: 10%;
+    }
+    .ht-96 {
+        height: 21rem;
+    }
+}
+
+@media (max-width: 340px) {
+    .vector {
+        left: 4px;
+    }
+    .title {
+        margin-left: 30px;
     }
     .text-position {
         margin-top: 10%;

@@ -9,33 +9,83 @@ function CheckpointSearch(){
     const checkpoints = [
         {
             "id": 101,
-            "sentFromCentra": 4,
-            "quantityWeight": "25 kg",
+            "shippingId": 4,
+            "totalPackagesArrived": 3,
             "arrivedDate": "10-05-2024",
             "arrivedTime": "10:30 AM"
         },
         {
             "id": 102,
-            "sentFromCentra": 2,
-            "quantityWeight": "29 kg",
+            "shippingId": 3,
+            "totalPackagesArrived": 5,
             "arrivedDate": "09-05-2024",
             "arrivedTime": "10:30 AM"
         },
         {
             "id": 103,
-            "sentFromCentra": 1,
-            "quantityWeight": "30 kg",
+            "shippingId": 2,
+            "totalPackagesArrived": 6,
             "arrivedDate": "08-05-2024",
             "arrivedTime": "10:30 AM"
         },
         {
             "id": 104,
-            "sentFromCentra": 10,
-            "quantityWeight": "30 kg",
+            "shippingId": 1,
+            "totalPackagesArrived": 2,
             "arrivedDate": "08-05-2024",
             "arrivedTime": "10:20 AM"
         }
     ];
+
+    const shippingData = [
+        { "id": 1 },
+        { "id": 2 },
+        { "id": 3 },
+        { "id": 4 },
+    ]
+
+    const packageData = [
+        {
+            "id": 129,
+            "centraId": 4,
+            "shippingId": 1,
+        },
+        {
+            "id": 101,
+            "centraId": 4,
+            "shippingId": 1,
+        },
+        {
+            "id": 90,
+            "centraId": 20,
+            "shippingId": 2,
+        },
+        {
+            "id": 87,
+            "centraId": 20,
+            "shippingId": 2,
+        },
+        {
+            "id": 10,
+            "centraId": 14,
+            "shippingId": 3,
+        },
+        {
+            "id": 26,
+            "centraId": 14,
+            "shippingId": 3,
+        },
+        {
+            "id": 100,
+            "centraId": 32,
+            "shippingId": 4,
+        },
+        {
+            "id": 109,
+            "centraId": 32,
+            "shippingId": 4,
+        },
+    ]
 
     const navigate = useNavigate();
     const [input, setInput] = useState("");
@@ -46,6 +96,17 @@ function CheckpointSearch(){
         // Set initial search result to full jsonData when component mounts
         setSearchResult(checkpoints);
     }, []);
+
+    // Function to get total packages sent based on shippingID
+    function getTotalPackagesSent(shippingID) {
+        return packageData.filter(pkg => pkg.shippingId === shippingID).length;
+    };
+
+    // Function to get unitCentra based on shippingID
+    function getUnitCentra(shippingID) {
+        const packageWithShippingID = packageData.find(pkg => pkg.shippingId === shippingID);
+        return packageWithShippingID ? packageWithShippingID.centraId : ''; // Check if packageWithShippingID is not undefined before accessing its properties
+    };
 
     function handleSearch(e) {
         setInput(e);
@@ -121,8 +182,9 @@ function CheckpointSearch(){
                                 <CheckpointBox
                                     key={checkpoint.id}
                                     id={checkpoint.id}
-                                    fromCentra={checkpoint.sentFromCentra}
-                                    quantity={checkpoint.quantityWeight}
+                                    fromCentra={getUnitCentra(checkpoint.shippingId)}
+                                    totalPackagesSent={getTotalPackagesSent(checkpoint.shippingId)}
+                                    totalPackagesArrived={checkpoint.totalPackagesArrived}
                                     arrivedTime={checkpoint.arrivedTime}
                                 />
                             ))}
