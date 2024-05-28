@@ -4,10 +4,13 @@ import {URL} from "./APIconst"
 export const postWetLeaves = (WetLeaves) => {
     WetLeaves = {...WetLeaves, "centra_id" : 1}
     console.log(WetLeaves)
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    // console.log(axios.defaults.headers.common["Authorization"])
     axios.post(URL + "/centra/new_wet_leaves", WetLeaves)
     .catch((error) => {
         console.error(error);
     });
+    console.log("success")
 }
 
 export const postDryLeaves = (DryLeaves) => {
