@@ -5,7 +5,6 @@ export const postWetLeaves = (WetLeaves) => {
     WetLeaves = {...WetLeaves, "centra_id" : 1}
     console.log(WetLeaves)
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
-    // console.log(axios.defaults.headers.common["Authorization"])
     axios.post(URL + "/centra/new_wet_leaves", WetLeaves)
     .catch((error) => {
         console.error(error);
@@ -26,6 +25,30 @@ export const postFlour = (Flour) => {
     Flour = {...Flour, "centra_id" : 1}
     console.log(Flour)
     axios.post(URL + "/centra/new_Flour", Flour)
+    .catch((error) => {
+        console.error(error);
+    });
+}
+
+export const washWetLeaves = (Data) => {
+    console.log(Data)
+    axios.put(URL + "/centra/wash_wet_leaves/" + Data.id, {"date": Data.date})
+    .catch((error) => {
+        console.error(error);
+    });
+}
+
+export const dryWetLeaves = (Data) => {
+    console.log(Data)
+    axios.put(URL + "/centra/dry_wet_leaves/" + Data.id, {"date": Data.date})
+    .catch((error) => {
+        console.error(error);
+    });
+}
+
+export const flourDryLeaves = (Data) => {
+    console.log(Data)
+    axios.put(URL + "/centra/flour_dry_leaves/" + Data.id, {"date": Data.date})
     .catch((error) => {
         console.error(error);
     });
