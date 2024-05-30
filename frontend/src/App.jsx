@@ -34,6 +34,7 @@ import CentraActivityMonitor from './pages/xyz/xyz_desktop/CentraActivityMonitor
 import AddPackage from './pages/centra/AddPackage';
 import PackageHistory from './pages/centra/PackageHistory';
 import PowderHistory from './pages/centra/ViewPowder';
+import ShipmentTracker from './pages/xyz/xyz_desktop/ShipmentTracker';
 
 function App() {
   return (
@@ -82,6 +83,7 @@ function App() {
 
         {/* XYZ Desktop */}
         <Route path="/arrivedpackages" element={<ArrivedPackages />} exact />
+        <Route path="/shipmenttracker" element={<ShipmentTracker />} exact />
         <Route path="/centraactivitymonitor" element={<CentraActivityMonitor />} exact />
 
         {/* Admin */}
