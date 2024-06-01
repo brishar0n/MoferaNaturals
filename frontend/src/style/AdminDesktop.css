@@ -27,6 +27,12 @@
     background-color: --color--primary;
 }
 
+.underline {
+    text-decoration: underline;
+}
 
+.red {
+    background-color: #D2042D;
+}
 
 

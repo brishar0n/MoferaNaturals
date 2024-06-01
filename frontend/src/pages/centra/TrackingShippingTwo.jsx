@@ -17,7 +17,7 @@ const progressStages = [
   { timestamp: '2023-01-05 09:00 AM', detail: 'Delivered', completed: false },
 ];
 
-const TrackShipping = (etaDate, etaTime) => {
+const TrackShippingTwo = (etaDate, etaTime) => {
     const [details, setDetails] = useState([]);
     const [isMobile, setIsMobile] = React.useState(false);
     const navigate = useNavigate();
@@ -63,4 +63,4 @@ const TrackShipping = (etaDate, etaTime) => {
     );
 };
 
-export default TrackShipping;
+export default TrackShippingTwo;

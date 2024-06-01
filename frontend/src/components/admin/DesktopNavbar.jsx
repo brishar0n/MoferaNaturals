@@ -51,7 +51,7 @@ function DesktopNavbar() {
                 <p> Checkpoint Data </p>
             </div>
 
-            <div className="flex justify-center pt-52">
+            <div className="flex justify-center">
                 <img src="src/assets/desktop/underline.svg" alt="" className="w-5/6"/>
             </div>
 

@@ -26,10 +26,16 @@ module.exports = {
         senary: 'var(--color-senary)',
         septenary: 'var(--color-septenary)',
         octonary: 'var(--color-octonary)',
-	nonary: 'var(--color-nonary)',
+	      nonary: 'var(--color-nonary)',
       },
       height: {
+        '95vh':'95vh',
         '97vh': '97vh', // Custom height value set to 90% of the viewport height
+        '99.999vh' : '99.999vh',
+      },
+
+      width: {
+        '22.5vh' : '22.5vh'
       },
     },
   },

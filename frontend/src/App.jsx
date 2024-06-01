@@ -16,7 +16,7 @@ import AddWetLeaves from './pages/centra/AddWetLeaves';
 import AddMachine from './pages/centra/AddMachine';
 import EditMachine from './pages/centra/EditMachine';
 import TrackShipping from './pages/centra/TrackShipping';
-import TrackShippingTwo from './pages/centra/TrackShippingTwo';
+import TrackShippingTwo from './pages/centra/TrackingShippingTwo';
 import WashWetLeaves from './pages/centra/WashWetLeaves';
 import DryWetLeaves from './pages/centra/DryWetLeaves';
 import { ShippingInfo } from './pages/centra/ShippingInfo';
@@ -31,6 +31,13 @@ import ShipmentNotification from './pages/guard_harbour/ShipmentNotification';
 import FlourDryLeaves from './pages/centra/FlourDryLeaves';
 import AdminPage from './pages/desktop/AdminManagement';
 import CentraActivityMonitor from './pages/xyz/xyz_desktop/CentraActivityMonitor';
+import GetStartedDesktop from './pages/auth-desktop/GetStartedDesktop';
+import WelcomeDesktop from './pages/auth-desktop/WelcomeDesktop';
+import LoginDesktop from './pages/auth-desktop/LoginDesktop';
+import AdminTable from './components/admin/AdminTable';
+import AddUserButton from './components/admin/AddUserButton';
+import NavbarAdmin from './components/admin/NavbarAdmin';
+import EditUserButton from './components/admin/EditUserButton';
 
 function App() {
   return (
@@ -73,6 +80,9 @@ function App() {
         <Route path="/receptiondocument" element={<ReceptionDocument />} exact />
 
         {/* Authentication Desktop */}
+        <Route path="/getstarteddesktop" element={<GetStartedDesktop/>} exact/>
+        <Route path="/logindesktop" element={<LoginDesktop/>} exact/>
+        <Route path="/welcomedesktop" element={<WelcomeDesktop/>} exact/>
 
         {/* XYZ Desktop */}
         <Route path="/arrivedpackages" element={<ArrivedPackages />} exact />
@@ -81,7 +91,11 @@ function App() {
         {/* Admin */}
         <Route path="/usermanagement" element={<UserManagement />} exact />
         <Route path="/adminpage" element={<AdminPage />}/>
-      </Routes>
+        <Route path="/admintable" element={<AdminTable />}/>
+        <Route path="/adduserbutton" element={<AddUserButton/>}/>
+        <Route path="/navbaradmin" element={<NavbarAdmin/>}/>
+        <Route path="/edituserbutton" element={<EditUserButton/>}/>
+      </Routes> 
     </Router>
   );
 }
