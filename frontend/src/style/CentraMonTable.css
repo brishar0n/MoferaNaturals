@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
+
+.table-container {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.table-container .MuiDataGrid-root .MuiDataGrid-colCell {
+  background-color: #016B45; /* Change header background color */
+  color: white; /* Change header text color */
+}
+
+/* Apply Styles to DataGrid Body */
+.table-container .MuiDataGrid-root .MuiDataGrid-row {
+  border-bottom: 1px solid black; /* Add border to rows */
+}

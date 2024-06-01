@@ -1,0 +1,10 @@
+@media (max-width: 400px) {
+    .boxsize {
+        width: 34%;
+        right: 6%;
+        top: 45%;
+    }
+    .text {
+        font-size: 1.75rem;
+    }
+}

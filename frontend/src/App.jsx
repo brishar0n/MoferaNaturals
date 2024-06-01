@@ -38,6 +38,10 @@ import AdminTable from './components/admin/AdminTable';
 import AddUserButton from './components/admin/AddUserButton';
 import NavbarAdmin from './components/admin/NavbarAdmin';
 import EditUserButton from './components/admin/EditUserButton';
+import AddPackage from './pages/centra/AddPackage';
+import PackageHistory from './pages/centra/PackageHistory';
+import PowderHistory from './pages/centra/ViewPowder';
+import ShipmentTracker from './pages/xyz/xyz_desktop/ShipmentTracker';
 
 function App() {
   return (
@@ -63,10 +67,13 @@ function App() {
         <Route path="/addmachine" element={<AddMachine />} exact />
         <Route path="/editmachine" element={<EditMachine />} exact />
         <Route path="/addpowder" element={<AddPowder />} exact />
+        <Route path="/viewpowder" element={<PowderHistory />} exact />
         <Route path="/shippinginfo" element={<ShippingInfo />} exact/>
         <Route path="/trackshipping" element={<TrackShipping />} exact/>
         <Route path="/trackshippingtwo" element={<TrackShippingTwo />} exact/>
         <Route path="/notify" element={<Notify/>} exact/>
+        <Route path="/addpackage" element={<AddPackage/>} exact/>
+        <Route path="/packagehistory" element={<PackageHistory/>} exact/>
 
         {/* Guard Harbour */}
         <Route path="/addcheckpoint" element={<AddCheckpoint/>} exact />
@@ -86,6 +93,7 @@ function App() {
 
         {/* XYZ Desktop */}
         <Route path="/arrivedpackages" element={<ArrivedPackages />} exact />
+        <Route path="/shipmenttracker" element={<ShipmentTracker />} exact />
         <Route path="/centraactivitymonitor" element={<CentraActivityMonitor />} exact />
 
         {/* Admin */}

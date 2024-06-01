@@ -3,11 +3,11 @@ import "../../style/App.css"
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavigationBar from "../../components/centra/CentraNavbar";
-import LeavesForm from "../../components/centra/LeavesForm";
+import PackageForm from "../../components/centra/PackageForm";
 
-function AddDryLeaves(){
+function AddPackage(){
     const [weight, setWeight] = useState(0);
-    const [driedDate, setDriedDate] = useState(new Date());
+    const [expDate, setExpDate] = useState(new Date());
     const [isMobile, setIsMobile] = React.useState(false);
     const [formSubmitted, setFormSubmitted] = useState(false);
     const navigate = useNavigate();
@@ -16,8 +16,8 @@ function AddDryLeaves(){
         setWeight(event.target.value);
     };
 
-    const handleDateChange = (event) => {
-        setDriedDate(event.target.value);
+    const handleExpDateChange = (event) => {
+        setExpDate(new Date(event.target.value));
     };
 
     useEffect(() => {
@@ -33,7 +33,7 @@ function AddDryLeaves(){
 
     const handleBack = () => navigate("/dashboard");
 
-    const handleFlour = () => navigate("/flourdryleaves");
+    const handleHistory = () => navigate("/packagehistory");
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -46,11 +46,11 @@ function AddDryLeaves(){
           <>
             <div className="overflow-auto h-[calc(100vh-6rem)] md:h-auto bg-quaternary min-h-screen flex flex-col items-center overflow-auto resize-none pb-24">
                 <img src="src/assets/AddPage/frameAdd.svg" className="absolute top-100vh w-screen z-0"></img>
-                <img src="src/assets/AddPage/mascotAdd.svg" className="absolute left-6 top-96 pt-10 z-40"></img>
+                <img src="src/assets/AddPage/mascotAdd.svg" className="absolute left-6 top-96 pt-20 z-40"></img>
 
                 <div className="flex pt-16 gap-11 pr-20 z-10">
                     <img src="src/assets/common/backarrow.svg" onClick={handleBack}></img>
-                    <p className="font-bold text-primary text-3xl"> Dry Leaves </p>
+                    <p className="font-bold text-primary text-3xl"> Package </p>
                 </div>
 
                 <br></br>
@@ -58,29 +58,27 @@ function AddDryLeaves(){
                 <div className="bg-white w-2/3 rounded-full z-20">
                     <div className="flex text-s gap-1 font-medium p-1">
                         <p className="w-48 bg-tertiary rounded-full text-white p-1"> Add </p>
-                        <p className="w-48 rounded-full p-1" onClick={handleFlour}> Flour </p>
+                        <p className="w-48 rounded-full p-1" onClick={handleHistory}> History </p>
                     </div>
                 </div>
 
                 <br></br>
 
-                <p className="text-lg text-septenary font-semibold"> Total Dried Leaves Daily </p>
+                <p className="text-lg text-septenary font-semibold"> Add New Package </p>
 
                 <br></br>
 
-                <LeavesForm 
+                <PackageForm 
                     weight={weight}
                     handleWeightChange={handleWeightChange}
-                    dateTitle="Dried Date"
-                    date={driedDate}
-                    handleDateChange={handleDateChange}
+                    expDate={expDate}
+                    handleExpDateChange={handleExpDateChange}
                     handleSubmit={handleSubmit}
                     formSubmitted={formSubmitted}
-                    leavesType="dry"
                 />
             </div>
             
-            <NavigationBar></NavigationBar>
+            <NavigationBar />
           </>
         )}
   
@@ -88,4 +86,4 @@ function AddDryLeaves(){
     );
 }
 
-export default AddDryLeaves;
+export default AddPackage;
