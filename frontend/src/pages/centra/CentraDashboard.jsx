@@ -1,6 +1,7 @@
 import MenuDashboard from "./MenuDashboard";
 import { useState, useEffect } from "react";
 import BarChart from "./BarChart.jsx";
+import NavigationBar from "../../components/centra/CentraNavbar";
 
 function CentraDashboardHomePage() {
   const [isMobile, setIsMobile] = useState(false);
@@ -181,7 +182,7 @@ function CentraDashboardHomePage() {
           </div>
           
 
-          <MenuDashboard></MenuDashboard>
+          <NavigationBar />
         </>
       )}
     </div>
