@@ -40,7 +40,7 @@ function Notify() {
                     <br></br>
                     <br></br>
 
-                    <img src="src/assets/notifications/bb-notif.svg" onClick={handleBack} className="absolute left-6 top-16 pt-2"></img>
+                    {/* <img src="src/assets/notifications/bb-notif.svg" onClick={handleBack} className="absolute left-6 top-16 pt-2"></img> */}
 
                     <div className="flex flex-col gap-2 justify-center pt-5 z-20">
                         <p className="font-semibold text-white text-3xl">Notifications </p>
