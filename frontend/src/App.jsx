@@ -16,7 +16,7 @@ import AddWetLeaves from './pages/centra/AddWetLeaves';
 import AddMachine from './pages/centra/AddMachine';
 import EditMachine from './pages/centra/EditMachine';
 import TrackShipping from './pages/centra/TrackShipping';
-import TrackShippingTwo from './pages/centra/TrackingShippingTwo';
+import TrackShippingTwo from './pages/centra/TrackShippingTwo';
 import WashWetLeaves from './pages/centra/WashWetLeaves';
 import DryWetLeaves from './pages/centra/DryWetLeaves';
 import { ShippingInfo } from './pages/centra/ShippingInfo';
