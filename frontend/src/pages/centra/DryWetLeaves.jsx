@@ -6,7 +6,7 @@ import WetLeavesBox from "../../components/centra/WetLeavesBox";
 
 function DryWetLeaves() {
   const [isMobile, setIsMobile] = useState(false);
-  const [statusFilter, setStatusFilter] = useState("ALL");
+  const [statusFilter, setStatusFilter] = useState("drying");
   const [wetLeavesData, setWetLeavesData] = useState([
     { id: 200420, weight: 10, collectedDate: "2024-05-01", status: "washed", finishedTime: null },
     { id: 200421, weight: 5, collectedDate: "2024-06-10", status: "washed", finishedTime: null },
@@ -70,9 +70,9 @@ function DryWetLeaves() {
             <div className="relative"> 
                 <label htmlFor="statusFilter" className="font-medium">Filter by Status:</label>
                 <select id="statusFilter" onChange={(e) => setStatusFilter(e.target.value)} className="ml-3 z-100 rounded-3xl p-1">
+                    <option value="drying">Drying</option>
                     <option value="ALL">All</option>
                     <option value="washed">Ready to dry</option>
-                    <option value="drying">Drying</option>
                     <option value="dried">Dried</option>
                 </select>
             </div>
