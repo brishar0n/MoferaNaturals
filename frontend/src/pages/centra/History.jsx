@@ -36,10 +36,18 @@ function History() {
         },
     ];
 
-    const [value, setValue] = useState({ 
-        startDate: null,
-        endDate: null 
-    }); 
+    const getTodayFormatted = () => {
+        const today = new Date();
+        const day = today.getDate();
+        const month = today.getMonth() + 1; // Months are zero-indexed
+        const year = today.getFullYear();
+        return `${year}-${month < 10 ? "0" + month : month}-${day < 10 ? "0" + day : day}`;
+    };
+
+    const [value, setValue] = useState({
+        startDate: getTodayFormatted(),
+        endDate: getTodayFormatted()
+    });
 
     const [filteredBatches, setFilteredBatches] = useState(batchCollector);
 
@@ -60,7 +68,7 @@ function History() {
         } else {
             setFilteredBatches(batchCollector);
         }
-    }
+    };
 
     useEffect(() => {
         function handleResize() {
@@ -74,6 +82,12 @@ function History() {
     }, []);
 
     const handleBack = () => navigate("/centradashboard");
+
+    useEffect(() => {
+        handleValueChange(value);
+    }, []);
+
+    const isToday = value.startDate === getTodayFormatted();
 
     return (
         <div className="overflow-auto h-[calc(100vh-6rem)] md:h-auto bg-quaternary min-h-screen flex flex-col items-center overflow-auto pt-4 resize-none pb-24">
@@ -105,7 +119,9 @@ function History() {
                     ))
                 ) : (
                     <div className="bg-primary p-4 rounded-3xl shadow-lg flex flex-col text-left relative w-3/4 mx-auto">
-                        <p className="text-white text-center">No batches found for the selected date.</p>
+                        <p className="text-white text-center">
+                            {isToday ? "No batches collected yet for today." : "No batches found for the selected date."}
+                        </p>
                     </div>
                 )}
                 </div>
