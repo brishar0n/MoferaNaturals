@@ -5,6 +5,10 @@ import '../../style/App.css'
 import { useNavigate } from 'react-router-dom';
 import Card from './Card';
 import '../../style/auth/Login.css';
+import tpsvg from '../../../src/assets/common/topframe.svg'
+import mascot from '../../../src/assets/common/mascot.svg'
+import component from '../../../src/assets/common/component.svg'
+import botFrame from '../../../src/assets/login/bottomframe.svg'
 
 function Login() {
   const [isMobile, setIsMobile] = useState(false);
@@ -39,7 +43,7 @@ function Login() {
     formData.append('password', password);
     
     try {
-      const response = await axios.post('http://localhost:8000/auth/token', formData, {
+      const response = await axios.post('https://mofera-backend-fork-six.vercel.app/auth/token', formData, {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
@@ -49,7 +53,7 @@ function Login() {
       localStorage.setItem('token', access_token);
       localStorage.setItem('username', username);
 
-      navigate('/welcomeback');
+      navigate('/centradashboard');
     } catch (error) {
       console.error('Login failed:', error);
       setLoginError('Wrong password. Please try again.'); 
@@ -65,9 +69,9 @@ function Login() {
       {isMobile && (
         <>
           <div className='h-screen'>
-            <img src="src/assets/common/topframe.svg" className='w-screen absolute '/>
+            <img src={tpsvg} className='w-screen absolute '/>
 
-            <img src="src/assets/common/mascot.svg" className='absolute top-11 right-7 mascot'/>
+            <img src={mascot} className='absolute top-11 right-7 mascot'/>
 
             <p className='text-white text-4xl font-bold absolute text-left top-32 left-12 text'> Welcome <br></br> Back!</p>
 
@@ -110,14 +114,9 @@ function Login() {
               </form>
 
               <div className='flex justify-center items-center mt-7 relative z-20'>
-                <img src="src/assets/common/component.svg" className='w-3/4'></img>
+                <img src={component} className='w-3/4'></img>
               </div>
 
-              <div className='flex items-center mt-5 justify-center gap-6 z-20 relative'>
-                <img src="src/assets/common/fb.svg" className=''/>
-                <img src="src/assets/common/apple.svg" className=''/>
-                <img src="src/assets/common/google.svg" className=''/>
-              </div>
 
               <div className='text-xs flex items-center justify-center gap-1 mt-5 z-20 relative mb-5'>
                 <p> Don't have an account? </p>
@@ -125,7 +124,7 @@ function Login() {
               </div>
 
               {/* <div className='absolute bottom-0'> */}
-                <img src='src/assets/login/bottomframe.svg' className='w-screen absolute bottom-0'/>
+                <img src={botFrame} className='w-screen absolute bottom-0'/>
               {/* </div> */}
             </Card>
           </div>
