@@ -11,7 +11,6 @@ import FindRescalePackage from './pages/xyz/xyz_mobile/FindRescalePackage';
 import RescalingPackage from './pages/xyz/xyz_mobile/RescalingPackage';
 import CentraDashboardHomePage from './pages/centra/CentraDashboard';
 import History from './pages/centra/History';
-import AddDryLeaves from './pages/centra/AddDryLeaves';
 import AddMachine from './pages/centra/AddMachine';
 import EditMachine from './pages/centra/EditMachine';
 import TrackShipping from './pages/centra/TrackShipping';
@@ -25,7 +24,6 @@ import AddCheckpoint from './pages/guard_harbour/AddCheckpoint';
 import ViewCheckpoint from './pages/guard_harbour/ViewCheckpoint';
 import ArrivedPackages from './pages/xyz/xyz_desktop/ArrivedPackages';
 import ShipmentNotification from './pages/guard_harbour/ShipmentNotification';
-import FlourDryLeaves from './pages/centra/FlourDryLeaves';
 import AdminPage from './pages/desktop/AdminManagement';
 import CentraActivityMonitor from './pages/xyz/xyz_desktop/CentraActivityMonitor';
 import GetStartedDesktop from './pages/auth-desktop/GetStartedDesktop';
@@ -40,6 +38,7 @@ import PackageHistory from './pages/centra/PackageHistory';
 import PowderHistory from './pages/centra/ViewPowder';
 import ShipmentTracker from './pages/xyz/xyz_desktop/ShipmentTracker';
 import WetLeavesManager from './pages/centra/WetLeaves/WetLeavesManager';
+import DryLeavesManager from './pages/centra/DryLeaves/DryLeavesManager';
 
 function App() {
   return (
@@ -57,9 +56,8 @@ function App() {
         {/* Centra */}
         <Route path="/centradashboard" element={<CentraDashboardHomePage/>} exact />
         <Route path="/history" element={<History/>} exact />
-        <Route path="/adddryleaves" element={<AddDryLeaves />} exact />
-        <Route path="/flourdryleaves" element={<FlourDryLeaves/>} exact />
         <Route path="/wetleaves" element={<WetLeavesManager />} exact />
+        <Route path="/dryleaves" element={<DryLeavesManager />} exact />
         <Route path="/addmachine" element={<AddMachine />} exact />
         <Route path="/editmachine" element={<EditMachine />} exact />
         <Route path="/addpowder" element={<AddPowder />} exact />
