@@ -4,6 +4,8 @@ import "../../style/App.css";
 import { useNavigate } from "react-router-dom";
 import Card from "./Card";
 import '../../style/auth/Register.css';
+import { register } from "../../../api/authAPI"
+
 function Register() {
   const [isMobile, setIsMobile] = useState(false);
   const [username, setUsername] = useState('');
@@ -48,38 +50,7 @@ function Register() {
     if(password !== confirmPassword){
       setRegistrationError("Please match the confirmation password");
     }
-
-    try {
-
-      /* Make sure to use port 8000 or change to your port, my port is 8000 */
-
-      const response = await axios.post('http://localhost:8000/auth/', {
-        username: username,
-        email: email,
-        password: password,
-        role: role,
-      });
-      console.log('Signup successful', response.data);
-      /*This verification will be included later */
-     /*  if (response.data.verification_link) {
-        await axios.post('http://localhost:8000/auth/send-verification-email', {
-          email: email,
-          verification_link: response.data.verification_link, 
-        });
-      } */
-  
-      /* navigate('/UserVerification'); */
-
-      /* once the admin page is set up, we can navigate to the UserVerification, for now navigate to the Login */
-      navigate('/Login');
-    } catch (error) {
-      console.error('Signup failed', error.response.data);
-      if (error.response.status === 400 && error.response.data.email) {
-        setRegistrationError('A user with this email already exists.');
-      } else {
-        setRegistrationError('A user with this email already exists.');
-      }
-    }
+    register({username, email, password, role})
   };
 
 
