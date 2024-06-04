@@ -4,6 +4,13 @@ import "../../style/App.css";
 import { useNavigate } from "react-router-dom";
 import Card from "./Card";
 import '../../style/auth/Register.css';
+// Importing images
+import topFrame from "../../../src/assets/common/topframe.svg";
+import mascot from "../../../src/assets/common/mascot.svg";
+import backButton from "../../../src/assets/verification/backbutton.svg";
+import componentImg from "../../../src/assets/common/component.svg";
+import bottomFrame from "../../../src/assets/register/bottomframe.svg";
+
 function Register() {
   const [isMobile, setIsMobile] = useState(false);
   const [username, setUsername] = useState('');
@@ -54,7 +61,7 @@ function Register() {
 
       /* Make sure to use port 8000 or change to your port, my port is 8000 */
 
-      const response = await axios.post('http://localhost:8000/auth/', {
+      const response = await axios.post('https://mofera-backend-fork-six.vercel.app/auth/', {
         username: username,
         email: email,
         password: password,
@@ -63,7 +70,7 @@ function Register() {
       console.log('Signup successful', response.data);
       /*This verification will be included later */
      /*  if (response.data.verification_link) {
-        await axios.post('http://localhost:8000/auth/send-verification-email', {
+        await axios.post('https://mofera-backend-fork-o1xucajgl-mofera-2.vercel.app/auth/send-verification-email', {
           email: email,
           verification_link: response.data.verification_link, 
         });
@@ -92,12 +99,12 @@ function Register() {
   return (
     <div className="bg-quaternary h-screen">
       {isMobile && (
-        <div className="">
-          <img src="src/assets/common/topframe.svg" className='w-screen absolute'/>
+        <div className="h-screen">
+          <img src={topFrame} className='w-screen absolute'/>
 
-          <img src="src/assets/common/mascot.svg" className='absolute top-11 right-7 mascot'/>
+          <img src={mascot} className='absolute top-11 right-7 mascot'/>
 
-          <img src="src/assets/verification/backbutton.svg" className="absolute mt-14 ml-8 btnn" onClick={() => {navigate("/login");}}/>
+          <img src={backButton} className="absolute mt-14 ml-8 btn" onClick={() => {navigate("/login");}}/>
 
           <p className='text-white text-4xl font-bold absolute text-left top-32 left-14 text'> Create <br></br> Account</p>
 
@@ -161,12 +168,12 @@ function Register() {
                 required
               >
                 <option value="" disabled>Select a role</option>
-                <option value="centra">Centra</option>
-                <option value="guard_harbor">Guard Harbor</option>
-                <option value="xyz">XYZ</option>
+                <option value="centra">centra</option>
+                <option value="guard_harbor">GuardHarbor</option>
+                <option value="xyz">xyz</option>
               </select>
             </div>
-
+            
             {role === 'centra' && (
               <div className="text-left ml-16 mt-3 relative z-20">
                 <label htmlFor="centraUnit" className="text-primary"> Centra Unit <br /></label>
@@ -193,12 +200,7 @@ function Register() {
                   </button>
               </div>
               <div className='flex justify-center items-center mt-7'>
-                <img src="src/assets/common/component.svg" className='w-3/4'></img>
-              </div>
-              <div className='flex items-center mt-5 justify-center gap-6'>
-                <img src="src/assets/common/fb.svg" className=''/>
-                <img src="src/assets/common/apple.svg" className=''/>
-                <img src="src/assets/common/google.svg" className=''/>
+                <img src={componentImg} className='w-3/4'></img>
               </div>
               {/* Navigate to login section */}
               <div className="text-xs flex items-center justify-center gap-1 mt-5 pb-24">
@@ -208,9 +210,11 @@ function Register() {
                 </p>
               </div>
             </div>
+
+            
           </Card>
 
-          <img src='src/assets/register/bottomframe.svg' className='fixed bottom-0'/>
+          <img src={bottomFrame} className='fixed bottom-0'/>
         </div>
       )}
     </div>
