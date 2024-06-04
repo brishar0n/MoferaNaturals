@@ -2,9 +2,10 @@ import {useState, useEffect} from 'react'
 import React from 'react'
 import axios from 'axios'
 import '../../style/App.css'
-import { useNavigate } from 'react-router-dom';
+import { Form, useNavigate } from 'react-router-dom';
 import Card from './Card';
 import '../../style/auth/Login.css';
+import {login} from "../../../api/authAPI"
 
 function Login() {
   const [isMobile, setIsMobile] = useState(false);
@@ -37,23 +38,8 @@ function Login() {
     const formData = new FormData();
     formData.append('username', email);
     formData.append('password', password);
-    
-    try {
-      const response = await axios.post('http://localhost:8000/auth/token', formData, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      });
-      console.log("Successful login", response.data);
-      const { access_token, username } = response.data;
-      localStorage.setItem('token', access_token);
-      localStorage.setItem('username', username);
 
-      navigate('/welcomeback');
-    } catch (error) {
-      console.error('Login failed:', error);
-      setLoginError('Wrong password. Please try again.'); 
-    }
+    login(formData)
   };
 
   const navigatetoSignup = () => {
