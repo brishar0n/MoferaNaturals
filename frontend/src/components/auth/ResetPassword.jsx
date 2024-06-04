@@ -60,7 +60,7 @@ function ResetPassword() {
                   <button className='rounded-full bg-secondary text-white font-bold px-4 py-2 w-36 btn-login'> Reset </button>
               </div>
 
-              <img src='src/assets/verification/bottomframe.svg' className='w-screen absolute bottom-0'/>
+              <img src='src/assets/verification/bottomframe.svg' className='w-screen fixed bottom-0'/>
             </Card>
           </div>
         </>
