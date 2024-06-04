@@ -12,6 +12,7 @@ function Register() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [registrationError, setRegistrationError] = useState('');
   const [role, setRole] = useState(''); // State for role selection
+  const [centraUnit, setCentraUnit] = useState(''); // State for centra number selection
   const navigate = useNavigate();
   // const [formData, setFormData] = useState({
   //   fullName: "",
@@ -91,12 +92,12 @@ function Register() {
   return (
     <div className="bg-quaternary h-screen">
       {isMobile && (
-        <div className="h-screen">
+        <div className="">
           <img src="src/assets/common/topframe.svg" className='w-screen absolute'/>
 
           <img src="src/assets/common/mascot.svg" className='absolute top-11 right-7 mascot'/>
 
-          <img src="src/assets/verification/backbutton.svg" className="absolute mt-14 ml-8 btn" onClick={() => {navigate("/login");}}/>
+          <img src="src/assets/verification/backbutton.svg" className="absolute mt-14 ml-8 btnn" onClick={() => {navigate("/login");}}/>
 
           <p className='text-white text-4xl font-bold absolute text-left top-32 left-14 text'> Create <br></br> Account</p>
 
@@ -166,6 +167,25 @@ function Register() {
               </select>
             </div>
 
+            {role === 'centra' && (
+              <div className="text-left ml-16 mt-3 relative z-20">
+                <label htmlFor="centraUnit" className="text-primary"> Centra Unit <br /></label>
+                <select
+                  className="border border-gray-300 rounded-md w-5/6 px-3 py-1.5 bg-quinary border-none mt-1"
+                  name="centraUnit"
+                  id="centraUnit"
+                  value={centraUnit}
+                  onChange={(e) => setCentraUnit(e.target.value)}
+                  required
+                >
+                  <option value="" disabled>Select a unit</option>
+                  {Array.from({ length: 32 }, (_, i) => i + 1).map((number) => (
+                    <option key={number} value={number}>{number}</option>
+                  ))}
+                </select>
+              </div>
+            )}
+
             <div className="relative z-20">
               <div className='mt-8'>
                   <button className='rounded-full bg-secondary text-white font-bold px-4 py-2 w-36 btn-login' onClick={handleSignup}>
@@ -181,18 +201,16 @@ function Register() {
                 <img src="src/assets/common/google.svg" className=''/>
               </div>
               {/* Navigate to login section */}
-              <div className="text-xs flex items-center justify-center gap-1 mt-5">
+              <div className="text-xs flex items-center justify-center gap-1 mt-5 pb-24">
                 <p> Already have an account? </p>
                 <p className="text-primary font-bold underline" onClick={navigatetoLogin}>
                   Login here
                 </p>
               </div>
             </div>
-
-            
-            <img src='src/assets/register/bottomframe.svg' className='w-screen absolute bottom-0'/>
-            
           </Card>
+
+          <img src='src/assets/register/bottomframe.svg' className='fixed bottom-0'/>
         </div>
       )}
     </div>
