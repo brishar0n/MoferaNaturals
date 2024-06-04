@@ -35,8 +35,8 @@
         width: 40%;
         height: 40%;
     }
-    .btn {
-        margin-top: 20px;
+    .btnn {
+        top: -30px;
         margin-left: 15px;
     }
     .name {
@@ -46,6 +46,13 @@
         position: absolute;
         bottom: 0;
         height: auto;
+    }
+}
+
+@media (max-height: 755px) {
+    .btnn {
+        top: -30px;
+        margin-left: 15px;
     }
 }
 
