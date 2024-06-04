@@ -12,13 +12,10 @@ import RescalingPackage from './pages/xyz/xyz_mobile/RescalingPackage';
 import CentraDashboardHomePage from './pages/centra/CentraDashboard';
 import History from './pages/centra/History';
 import AddDryLeaves from './pages/centra/AddDryLeaves';
-import AddWetLeaves from './pages/centra/AddWetLeaves';
 import AddMachine from './pages/centra/AddMachine';
 import EditMachine from './pages/centra/EditMachine';
 import TrackShipping from './pages/centra/TrackShipping';
 import TrackShippingTwo from './pages/centra/TrackShippingTwo';
-import WashWetLeaves from './pages/centra/WashWetLeaves';
-import DryWetLeaves from './pages/centra/DryWetLeaves';
 import { ShippingInfo } from './pages/centra/ShippingInfo';
 import ReceptionPackage from './pages/xyz/xyz_mobile/ReceptionPackage';
 import ReceptionDocument from './pages/xyz/xyz_mobile/ReceptionDocument';
@@ -42,6 +39,7 @@ import AddPackage from './pages/centra/AddPackage';
 import PackageHistory from './pages/centra/PackageHistory';
 import PowderHistory from './pages/centra/ViewPowder';
 import ShipmentTracker from './pages/xyz/xyz_desktop/ShipmentTracker';
+import WetLeavesManager from './pages/centra/WetLeaves/WetLeavesManager';
 
 function App() {
   return (
@@ -61,9 +59,7 @@ function App() {
         <Route path="/history" element={<History/>} exact />
         <Route path="/adddryleaves" element={<AddDryLeaves />} exact />
         <Route path="/flourdryleaves" element={<FlourDryLeaves/>} exact />
-        <Route path="/addwetleaves" element={<AddWetLeaves />} exact />
-        <Route path="/washwetleaves" element={<WashWetLeaves />} exact />
-        <Route path="/drywetleaves" element={<DryWetLeaves />} exact />
+        <Route path="/wetleaves" element={<WetLeavesManager />} exact />
         <Route path="/addmachine" element={<AddMachine />} exact />
         <Route path="/editmachine" element={<EditMachine />} exact />
         <Route path="/addpowder" element={<AddPowder />} exact />
