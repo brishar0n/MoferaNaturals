@@ -30,12 +30,11 @@ import AdminTable from './components/admin/AdminTable';
 import AddUserButton from './components/admin/AddUserButton';
 import NavbarAdmin from './components/admin/NavbarAdmin';
 import EditUserButton from './components/admin/EditUserButton';
-import AddPackage from './pages/centra/AddPackage';
-import PackageHistory from './pages/centra/PackageHistory';
 import ShipmentTracker from './pages/xyz/xyz_desktop/ShipmentTracker';
 import WetLeavesManager from './pages/centra/WetLeaves/WetLeavesManager';
 import DryLeavesManager from './pages/centra/DryLeaves/DryLeavesManager';
 import PowderManager from './pages/centra/Powder/PowderManager';
+import PackageManager from './pages/centra/Package/PackageManager';
 
 function App() {
   return (
@@ -56,12 +55,11 @@ function App() {
         <Route path="/wetleaves" element={<WetLeavesManager />} exact />
         <Route path="/dryleaves" element={<DryLeavesManager />} exact />
         <Route path="/powder" element={<PowderManager />} exact />
+        <Route path="/package" element={<PackageManager/>} exact/>
         <Route path="/shippinginfo" element={<ShippingInfo />} exact/>
         <Route path="/trackshipping" element={<TrackShipping />} exact/>
         <Route path="/trackshippingtwo" element={<TrackShippingTwo />} exact/>
         <Route path="/notify" element={<Notify/>} exact/>
-        <Route path="/addpackage" element={<AddPackage/>} exact/>
-        <Route path="/packagehistory" element={<PackageHistory/>} exact/>
 
         {/* Guard Harbour */}
         <Route path="/addcheckpoint" element={<AddCheckpoint/>} exact />
