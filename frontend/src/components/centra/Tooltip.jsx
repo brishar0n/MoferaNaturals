@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import "../../style/centra/Tooltip.css";
+import { motion } from 'framer-motion';
 
 const Tooltip = (props) => {
   const [active, setActive] = useState(false);
@@ -25,10 +26,24 @@ const Tooltip = (props) => {
     navigate(path);
   };
 
+  const tooltipVariants = {
+    hidden: { opacity: 0, y: 0 },
+    visible: { opacity: 1, y: 0},
+  };
+
   return (
     <div className="Tooltip-Wrapper" onClick={toggleTip}>
       {props.children}
       {active && (
+        <motion.div
+          
+          initial="hidden"
+          animate="visible"
+          exit="hidden"
+          variants={tooltipVariants}
+          transition={{ duration: 0.3 }}
+        >
+
         <div className={`Tooltip-Tip ${props.direction || "top"}`}>
           <div onClick={() => handleItemClick("/wetleaves")}>Add Wet Leaves</div>
           <div onClick={() => handleItemClick("/dryleaves")}>Add Dry Leaves</div>
@@ -36,6 +51,9 @@ const Tooltip = (props) => {
           <div onClick={() => handleItemClick("/shippinginfo")}>Add Shipping Info</div>
           <div onClick={() => handleItemClick("/package")}>Add Package</div>
         </div>
+
+        </motion.div>
+
       )}
     </div>
   );
