@@ -24,6 +24,7 @@ function ShippingSearchResult({ searchResult, onShippingClick, packageData }) {
                 const packages = getPackagesForShipping(item.shippingId);
                 const packageIds = packages.map(pkg => pkg.packageId).join(', ');
                 const totalWeight = packages.reduce((acc, pkg) => acc + pkg.weight, 0);
+                const unitCentra = packages[0].centraUnit;
 
                 return (
                     <div key={item.shippingId} className="bg-white mb-5 py-3 px-5 mx-auto rounded-2xl">
@@ -41,8 +42,19 @@ function ShippingSearchResult({ searchResult, onShippingClick, packageData }) {
                                     <input type="number" id="packageWeight" className='w-full mb-2 rounded-lg bg-quinary px-2 py-2 text-xs border-none' value={totalWeight} readOnly required/>
                                 </div>
                                 <div className='w-1/2 flex-1'>
-                                <label htmlFor="expedition" className='items-start text-xs mb-2 font-medium'>Expedition:</label>
+                                    <label htmlFor="expedition" className='items-start text-xs mb-2 font-medium'>Expedition:</label>
                                     <input type="text" id="expedition" className='w-full mb-2 rounded-lg bg-quinary px-2 py-2 text-xs border-none' value={item.expedition} readOnly required/>
+                                </div>
+                            </div>
+
+                            <div className='flex text-left gap-5'>
+                                <div className='w-1/2 flex-1'>
+                                    <label htmlFor="unitCentra" className='items-start text-xs mb-2 font-medium'>Unit Centra:</label>
+                                    <input type="number" id="unitCentra" className='w-full mb-2 rounded-lg bg-quinary px-2 py-2 text-xs border-none' value={unitCentra} readOnly required/>
+                                </div>
+                                <div className='w-1/2 flex-1'>
+                                    <label htmlFor="totalPackages" className='items-start text-xs mb-2 font-medium'>Total Packages:</label>
+                                    <input type="text" id="totalPackages" className='w-full mb-2 rounded-lg bg-quinary px-2 py-2 text-xs border-none' value={packages.length} readOnly required/>
                                 </div>
                             </div>
 
