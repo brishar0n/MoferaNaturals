@@ -109,17 +109,8 @@ function ShippingForm() {
                         <div className='mx-auto mt-2 flex justify-center'>
                             <button className='bg-secondary text-white rounded-3xl px-7 py-2 font-semibold hover:bg-primary flex gap-2 items-center' type="submit">SHIP</button>
                         </div>
-
-                        <div className='mx-auto mt-4 flex justify-center'>
-                            <button className='bg-secondary text-white rounded-3xl px-7 py-2 font-semibold hover:bg-primary flex gap-2 items-center'>NOTIFY MOFERA</button>
-                        </div>
                     </form>
-
-                    
                 </div>
-                
-
-                
             </div>
         </div>
     
