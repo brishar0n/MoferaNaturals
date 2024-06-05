@@ -34,7 +34,7 @@ const Tooltip = (props) => {
           <div onClick={() => handleItemClick("/dryleaves")}>Add Dry Leaves</div>
           <div onClick={() => handleItemClick("/powder")}>Add Powder</div>
           <div onClick={() => handleItemClick("/shippinginfo")}>Add Shipping Info</div>
-          <div onClick={() => handleItemClick("/addpackage")}>Add Package</div>
+          <div onClick={() => handleItemClick("/package")}>Add Package</div>
         </div>
       )}
     </div>
