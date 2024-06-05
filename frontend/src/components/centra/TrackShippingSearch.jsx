@@ -19,16 +19,16 @@ function TrackShippingSearch() {
     ]
 
     const packageData = [
-        {"packageId": 101, "shippingId": 1, "weight": 30},
-        {"packageId": 102, "shippingId": 1, "weight": 20},
-        {"packageId": 103, "shippingId": 2, "weight": 10},
-        {"packageId": 104, "shippingId": 2, "weight": 15},
-        {"packageId": 105, "shippingId": 3, "weight": 21},
-        {"packageId": 106, "shippingId": 3, "weight": 16},
-        {"packageId": 107, "shippingId": 4, "weight": 19},
-        {"packageId": 108, "shippingId": 4, "weight": 15},
-        {"packageId": 109, "shippingId": 1, "weight": 50},
-        {"packageId": 110, "shippingId": 1, "weight": 45}
+        {"packageId": 101, "shippingId": 1, "weight": 30, "centraUnit": 2},
+        {"packageId": 102, "shippingId": 1, "weight": 20, "centraUnit": 2},
+        {"packageId": 103, "shippingId": 2, "weight": 10, "centraUnit": 3},
+        {"packageId": 104, "shippingId": 2, "weight": 15, "centraUnit": 3},
+        {"packageId": 105, "shippingId": 3, "weight": 21, "centraUnit": 4},
+        {"packageId": 106, "shippingId": 3, "weight": 16, "centraUnit": 4},
+        {"packageId": 107, "shippingId": 4, "weight": 19, "centraUnit": 5},
+        {"packageId": 108, "shippingId": 4, "weight": 15, "centraUnit": 5},
+        {"packageId": 109, "shippingId": 1, "weight": 50, "centraUnit": 2},
+        {"packageId": 110, "shippingId": 1, "weight": 45, "centraUnit": 2}
     ]
 
     useEffect(() => {
