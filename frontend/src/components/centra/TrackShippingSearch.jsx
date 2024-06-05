@@ -6,30 +6,10 @@ import { useNavigate } from 'react-router-dom';
 import ShippingSearchResult from './ShippingSearchResult';
 import { motion } from "framer-motion";
 
-function TrackShippingSearch() {
+function TrackShippingSearch({shippingData, packageData}) {
     const [input, setInput] = useState("");
     const [searchResult, setSearchResult] = useState([]);
     const navigate = useNavigate();
-
-    const shippingData = [
-        {"shippingId": 1, "expedition": "JNE", "shippingDate": "26-05-2024", "shippingTime": "9:45 PM"},
-        {"shippingId": 2, "expedition": "JNT", "shippingDate": "27-05-2024", "shippingTime": "10:45 PM"},
-        {"shippingId": 3, "expedition": "SiCepat", "shippingDate": "28-05-2024", "shippingTime": "11:45 PM"},
-        {"shippingId": 4, "expedition": "JNE", "shippingDate": "29-05-2024", "shippingTime": "12:45 AM"}
-    ]
-
-    const packageData = [
-        {"packageId": 101, "shippingId": 1, "weight": 30},
-        {"packageId": 102, "shippingId": 1, "weight": 20},
-        {"packageId": 103, "shippingId": 2, "weight": 10},
-        {"packageId": 104, "shippingId": 2, "weight": 15},
-        {"packageId": 105, "shippingId": 3, "weight": 21},
-        {"packageId": 106, "shippingId": 3, "weight": 16},
-        {"packageId": 107, "shippingId": 4, "weight": 19},
-        {"packageId": 108, "shippingId": 4, "weight": 15},
-        {"packageId": 109, "shippingId": 1, "weight": 50},
-        {"packageId": 110, "shippingId": 1, "weight": 45}
-    ]
 
     useEffect(() => {
         // Set initial search result to full jsonData when component mounts
