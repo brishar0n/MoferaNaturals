@@ -35,6 +35,9 @@ import WetLeavesManager from './pages/centra/WetLeaves/WetLeavesManager';
 import DryLeavesManager from './pages/centra/DryLeaves/DryLeavesManager';
 import PowderManager from './pages/centra/Powder/PowderManager';
 import PackageManager from './pages/centra/Package/PackageManager';
+import DryDashboard from './pages/xyz/xyz_desktop/DryDashboard';
+import WetDashboard from './pages/xyz/xyz_desktop/WetDashboard';
+import PowderDashboard from './pages/xyz/xyz_desktop/PowderDashboard';
 
 function App() {
   return (
@@ -81,6 +84,10 @@ function App() {
         <Route path="/arrivedpackages" element={<ArrivedPackages />} exact />
         <Route path="/shipmenttracker" element={<ShipmentTracker />} exact />
         <Route path="/centraactivitymonitor" element={<CentraActivityMonitor />} exact />
+        <Route path="/dashboard" element={<WetDashboard />} exact />
+        <Route path="/dashboard-wet" element={<WetDashboard />} exact />
+        <Route path="/dashboard-dry" element={<DryDashboard />} exact />
+        <Route path="/dashboard-powder" element={<PowderDashboard />} exact />
 
         {/* Admin */}
         <Route path="/usermanagement" element={<UserManagement />} exact />

@@ -1,0 +1,58 @@
+/* src/RecentActivities.css */
+.recent-activities {
+  border-radius: 8px;
+  padding: 16px;
+  width: 100%;
+  
+}
+
+.recent-activities h2 {
+  margin-bottom: 16px;
+  font-size: 20px;
+  color: #333;
+}
+
+.recent-activities ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.recent-activities .activity-item {
+  border-bottom: 1px solid #eee;
+  padding: 8px 0;
+  display: flex;
+  align-items: center;
+}
+
+.recent-activities .activity-item:last-child {
+  border-bottom: none;
+}
+
+.recent-activities .activity-content {
+  display: flex;
+  align-items: center;
+}
+
+.recent-activities .activity-image {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-right: 12px;
+}
+
+.recent-activities .activity-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.recent-activities .activity-description {
+  margin: 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.recent-activities .activity-time {
+  font-size: 12px;
+  color: #999;
+  margin-top: 4px;
+}
