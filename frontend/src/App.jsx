@@ -12,7 +12,7 @@ import RescalingPackage from './pages/xyz/xyz_mobile/RescalingPackage';
 import CentraDashboardHomePage from './pages/centra/CentraDashboard';
 import History from './pages/centra/History';
 import TrackShipping from './pages/centra/TrackShipping';
-import TrackShippingTwo from './pages/centra/TrackShippingTwo';
+import TrackShippingID from './pages/centra/TrackShippingID';
 import { ShippingInfo } from './pages/centra/ShippingInfo';
 import ReceptionPackage from './pages/xyz/xyz_mobile/ReceptionPackage';
 import ReceptionDocument from './pages/xyz/xyz_mobile/ReceptionDocument';
@@ -58,7 +58,7 @@ function App() {
         <Route path="/package" element={<PackageManager/>} exact/>
         <Route path="/shippinginfo" element={<ShippingInfo />} exact/>
         <Route path="/trackshipping" element={<TrackShipping />} exact/>
-        <Route path="/trackshippingtwo" element={<TrackShippingTwo />} exact/>
+        <Route path="/trackshipping/:shippingId" element={<TrackShippingID />} exact/>
         <Route path="/notify" element={<Notify/>} exact/>
 
         {/* Guard Harbour */}
