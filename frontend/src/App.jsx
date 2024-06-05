@@ -11,15 +11,12 @@ import FindRescalePackage from './pages/xyz/xyz_mobile/FindRescalePackage';
 import RescalingPackage from './pages/xyz/xyz_mobile/RescalingPackage';
 import CentraDashboardHomePage from './pages/centra/CentraDashboard';
 import History from './pages/centra/History';
-import AddMachine from './pages/centra/AddMachine';
-import EditMachine from './pages/centra/EditMachine';
 import TrackShipping from './pages/centra/TrackShipping';
 import TrackShippingTwo from './pages/centra/TrackShippingTwo';
 import { ShippingInfo } from './pages/centra/ShippingInfo';
 import ReceptionPackage from './pages/xyz/xyz_mobile/ReceptionPackage';
 import ReceptionDocument from './pages/xyz/xyz_mobile/ReceptionDocument';
 import UserManagement from './pages/admin/UserManagement';
-import AddPowder from './pages/centra/AddPowder';
 import AddCheckpoint from './pages/guard_harbour/AddCheckpoint';
 import ViewCheckpoint from './pages/guard_harbour/ViewCheckpoint';
 import ArrivedPackages from './pages/xyz/xyz_desktop/ArrivedPackages';
@@ -35,10 +32,10 @@ import NavbarAdmin from './components/admin/NavbarAdmin';
 import EditUserButton from './components/admin/EditUserButton';
 import AddPackage from './pages/centra/AddPackage';
 import PackageHistory from './pages/centra/PackageHistory';
-import PowderHistory from './pages/centra/ViewPowder';
 import ShipmentTracker from './pages/xyz/xyz_desktop/ShipmentTracker';
 import WetLeavesManager from './pages/centra/WetLeaves/WetLeavesManager';
 import DryLeavesManager from './pages/centra/DryLeaves/DryLeavesManager';
+import PowderManager from './pages/centra/Powder/PowderManager';
 
 function App() {
   return (
@@ -58,10 +55,7 @@ function App() {
         <Route path="/history" element={<History/>} exact />
         <Route path="/wetleaves" element={<WetLeavesManager />} exact />
         <Route path="/dryleaves" element={<DryLeavesManager />} exact />
-        <Route path="/addmachine" element={<AddMachine />} exact />
-        <Route path="/editmachine" element={<EditMachine />} exact />
-        <Route path="/addpowder" element={<AddPowder />} exact />
-        <Route path="/viewpowder" element={<PowderHistory />} exact />
+        <Route path="/powder" element={<PowderManager />} exact />
         <Route path="/shippinginfo" element={<ShippingInfo />} exact/>
         <Route path="/trackshipping" element={<TrackShipping />} exact/>
         <Route path="/trackshippingtwo" element={<TrackShippingTwo />} exact/>
