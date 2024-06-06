@@ -28,9 +28,7 @@ function AddPowder(){
     
     return (
         <div className="w-full">
-            <img src="src/assets/AddPage/mascotAdd.svg" className="absolute left-6 top-96 pt-28 z-40"></img>
-
-            <br></br>
+            <img src="src/assets/AddPage/mascotAddSide.svg" className="absolute right-0 bottom-10 z-40"></img>
 
             <p className="text-base text-septenary font-semibold italic"> Add a new powder collection </p>
 
