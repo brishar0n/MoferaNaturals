@@ -4,6 +4,7 @@ import bglower from '../../assets/profile/element2.svg'
 import NavigationBar from "../../components/centra/CentraNavbar.jsx";
 import { motion } from "framer-motion";
 import EditProfileContent from '../../components/profile/EditProfileContent';
+import NavbarGH from '../../components/guard_harbour/NavbarGH';
 
 function EditProfile() {
     const [isMobile, setIsMobile] = React.useState(false);
@@ -59,7 +60,12 @@ function EditProfile() {
               
             </motion.div>
             
-            <NavigationBar/> 
+            {role === "centra" && (
+              <NavigationBar/> 
+            )}
+            {role === "guardHarbour" && (
+              <NavbarGH/> 
+            )}
           </>
         )}
       </div>
