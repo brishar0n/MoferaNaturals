@@ -133,7 +133,7 @@ function Register() {
               ></input>
             </div>
 
-            <div className='text-left ml-16 mt-2'>
+            <div className='text-left ml-16 mt-2 relative z-20'>
               <label htmlFor='password' className='text-primary'> Password <br></br></label>
               <input 
                 className='border border-gray-300 rounded-md w-5/6 px-3 py-1.5 bg-quinary border-none mt-1' 
