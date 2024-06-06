@@ -15,7 +15,7 @@ function NavbarGH() {
                 <button><img src={notification} alt="notification" className='w-10'/></button>
             </Link>
 
-            <Link to="">
+            <Link to="/profile">
                 <button><img src={profile} alt="profile" className='w-9'/></button>
             </Link>
         </div>
