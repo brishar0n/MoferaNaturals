@@ -4,10 +4,11 @@ import bglower from '../../assets/profile/element2.svg'
 import NavigationBar from "../../components/centra/CentraNavbar.jsx";
 import { motion } from "framer-motion";
 import ProfileContent from '../../components/profile/ProfileContent';
+import NavbarGH from '../../components/guard_harbour/NavbarGH';
 
 function Profile() {
     const [isMobile, setIsMobile] = React.useState(false);
-    const [role, setRole] = useState("centra");
+    const [role, setRole] = useState("guardHarbour");
     const [name, setName] = useState("Oowwwlaf");
 
     useEffect(() => {
@@ -44,7 +45,12 @@ function Profile() {
               
             </motion.div>
             
-            <NavigationBar/> 
+            {role === "centra" && (
+              <NavigationBar/> 
+            )}
+            {role === "guardHarbour" && (
+              <NavbarGH/> 
+            )}
           </>
         )}
       </div>
