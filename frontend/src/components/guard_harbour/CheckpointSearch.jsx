@@ -3,6 +3,7 @@ import CheckpointBox from "./CheckpointBox";
 import { AiOutlineSearch } from 'react-icons/ai';
 import '../../style/xyz/xyz_mobile/FindRescalePackage.css';
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
 function CheckpointSearch(){
     // Sample checkpoint data
@@ -163,18 +164,25 @@ function CheckpointSearch(){
                     </div>
                 </div>
 
-                <div className='search relative py-4 w-full'>
+                <div className='searchPackage relative py-4 w-full'>
                     <input type="search" placeholder='Search Checkpoint' value={input} onChange={(e) => handleSearch(e.target.value)}/>
                     <button className='absolute right-8 top-1/2 p-3 rounded-full -translate-y-1/2 text-white'>
                         <AiOutlineSearch/>
                     </button>
                 </div>
 
-                <div className='search relative py-4 mb-3 w-5/6'>
+                <div className='searchPackage relative py-4 mb-3 w-5/6'>
                     <input type="search" placeholder='Filter by Centra (1-36)' value={filter} onChange={handleFilter}/>
                 </div>
 
                 <div className="w-full">
+                    <motion.div
+                    key="add"
+                    initial={{ x: 300, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    exit={{ x: -300, opacity: 0 }}
+                    transition={{ duration: 0.5 }}
+                    >
                     {Object.entries(groupedCheckpoints).map(([date, checkpoints]) => (
                         <div key={date}>
                             <p className="font-medium text-white text-2xl font-semibold text-left relative ml-12">{date}</p>
@@ -190,6 +198,7 @@ function CheckpointSearch(){
                             ))}
                         </div>
                     ))}
+                    </motion.div>
                 </div>
                 
             </div>
