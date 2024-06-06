@@ -45,7 +45,7 @@ function NavigationBar(props) {
             </button>
           </Link>
 
-          <Link to="/centradashboard">
+          <Link to="/profile">
             <button>
               <img src="src/assets/notifications/profile.svg" className='w-6' alt='Profile'></img>
             </button>
