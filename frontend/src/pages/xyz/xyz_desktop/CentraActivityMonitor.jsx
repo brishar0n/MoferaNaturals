@@ -4,9 +4,11 @@ import CentraMonitorTable from '../../../components/xyz/CentraMonitorTable';
 import CentraMonitorBar from '../../../components/xyz/CentraMonitorBar';
 import profilepic from "../../../assets/desktop/profilepicdesktop.svg";
 import bell from "../../../assets/desktop/bellicon.svg";
+import { useNavigate } from 'react-router-dom'; 
 
 const CentraActivityMonitor = () => {
   const [date, setDate] = useState(new Date());
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -42,7 +44,7 @@ const CentraActivityMonitor = () => {
           <CentraMonitorTable dataType={dataType} handleDataTypeChange={handleDataTypeChange} />
         </div>
         <div className='flex flex-col lg:flex-row justify-between mt-4 mx-6 mb-4'>
-          <div className='bg-quinary rounded-xl lg:w-2/3 lg:mr-2 p-4 mb-4 lg:mb-0'>
+          <div className='bg-quinary rounded-xl lg:w-2/3 lg:mr-2 p-4 mb-4 lg:mb-0 flex-grow'>
             <h2 className='text-left font-medium text-xl ml-2 pt-2'>Statistics</h2>
             <CentraMonitorBar />
           </div>
