@@ -4,6 +4,7 @@ import { CgAdd } from "react-icons/cg";
 import SuccessNotification from "../SuccessNotification";
 import AddNotesModal from "./AddNotesModal";
 import PackageIDInput from "../centra/PackageIDInput";
+import { motion } from "framer-motion"
 
 function CheckpointForm() {
     const navigate = useNavigate();
@@ -93,6 +94,15 @@ function CheckpointForm() {
                 </div>
             </div>
 
+            <motion.div
+                key="add"
+                initial={{ x: 300, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                exit={{ x: -300, opacity: 0 }}
+                transition={{ duration: 0.5 }}
+                >
+                        
+            
             <div className='pb-36'>
                 <div className='bg-white mb-5 w-3/4 mx-auto py-5 px-7 rounded-2xl text-left relative mt-5 flex flex-col' onSubmit={handleSubmit}>
                     <form>
@@ -183,6 +193,7 @@ function CheckpointForm() {
                     </div>
                 </div>
             </div>
+            </motion.div>
         </div>
     );
 }
