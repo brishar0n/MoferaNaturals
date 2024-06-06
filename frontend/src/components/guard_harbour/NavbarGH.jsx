@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 function NavbarGH() {
     return (
-        <div className="bg-secondary flex flex-row justify-evenly py-6 w-full h-24 bottom-0 rounded-t-3xl fixed">
+        <div className="bg-secondary flex flex-row justify-evenly py-6 w-full h-24 bottom-0 rounded-t-3xl fixed z-50">
             <Link to="/addcheckpoint">
                 <button><img src={box} alt="package" className='w-10'/></button>
             </Link>
