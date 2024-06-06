@@ -39,6 +39,7 @@ import DryDashboard from './pages/xyz/xyz_desktop/DryDashboard';
 import WetDashboard from './pages/xyz/xyz_desktop/WetDashboard';
 import PowderDashboard from './pages/xyz/xyz_desktop/PowderDashboard';
 import Profile from './pages/centra/Profile';
+import EditProfile from './pages/centra/EditProfile';
 
 function App() {
   return (
@@ -65,6 +66,7 @@ function App() {
         <Route path="/trackshipping/:shippingId" element={<TrackShippingID />} exact/>
         <Route path="/notify" element={<Notify/>} exact/>
         <Route path="/profile" element={<Profile/>} exact/>
+        <Route path="/editprofile" element={<EditProfile/>} exact/>
 
         {/* Guard Harbour */}
         <Route path="/addcheckpoint" element={<AddCheckpoint/>} exact />
