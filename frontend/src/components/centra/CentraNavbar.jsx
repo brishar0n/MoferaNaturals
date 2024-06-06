@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import Tooltip from "./Tooltip";
+import { motion } from 'framer-motion';
 
 function NavigationBar(props) {
   const [overlay, setOverlay] = useState(false);
@@ -27,6 +28,7 @@ function NavigationBar(props) {
         </div>
 
         <div className='flex justify-center items-center'>
+          
           <Tooltip
             content="Add Wet Leaves &#010; Add Dry Leaves  &#010; Add Powder  &#010; Add Shipping Info  &#010;Add Package"
             direction="top"
@@ -52,8 +54,15 @@ function NavigationBar(props) {
       </div>
 
       {overlay && (
-        <div className="fixed top-0 left-0 w-full h-full bg-white opacity-50 z-40 pointer-events-none"/>
+        <motion.div 
+          className="fixed top-0 left-0 w-full h-full bg-white opacity-50 z-40 pointer-events-none"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.4 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+        />
       )}
+
 
       {props.children}
     </>

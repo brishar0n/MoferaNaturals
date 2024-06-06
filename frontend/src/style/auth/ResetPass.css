@@ -67,12 +67,19 @@
         top: -20px;
     }
     .btn {
-        margin-top: 20px;
+        top: -30px;
         margin-left: 15px;
     }
     .card {
         position: absolute;
         top: 22.5%;
+    }
+}
+
+@media (max-height: 755px) {
+    .btn {
+        top: -30px;
+        margin-left: 15px;
     }
 }
 

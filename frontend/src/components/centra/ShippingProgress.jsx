@@ -1,32 +1,43 @@
 import React from 'react';
 
-const ShippingProgress = ({ shippingId, progressStages }) => {
+const ShippingProgress = ({ formatDate, shippingId, shipmentData, packageData, checkpointData, receptionData }) => {
   return (
-    <div className="bg-white shadow-lg rounded-lg p-6 max-w-lg">
-      <div className="flex justify-between items-center mb-4">
-        <div className="text-lg font-semibold">Shipping ID</div>
-        <div className="text-lg font-semibold">{shippingId}</div>
+    <div className="mt-5 bg-white shadow-lg rounded-2xl p-6 w-full">
+      <div className="flex justify-between items-center mb-5">
+        <div className="text-sm font-semibold">Shipping ID</div>
+        <div className="text-sm font-semibold">SHPID{shippingId}</div>
       </div>
-      <div className="relative">
-        {progressStages.map((stage, index) => (
-          <div key={index} className="flex items-center mb-4">
-            <div className="flex flex-grow justify-between items-center">
-              <div className="flex flex-col items-center">
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center 
-                  ${stage.completed ? 'bg-green-500' : 'bg-gray-300'}`}>
-                  {stage.completed && <span className="text-white">✓</span>}
-                </div>
-                {index < progressStages.length - 1 && (
-                  <div className="w-px h-8 border-l border-gray-300"></div>
-                )}
-              </div>
-              <div className="flex flex-grow items-center ml-4">
-                <div className="text-sm text-gray-500 mr-4">{stage.timestamp}</div>
-                <div className="text-sm">{stage.detail}</div>
-              </div>
+
+      <div className="flex flex-col items-center py-5">
+          <div className="relative flex items-end">
+            <div className="w-32 text-right pr-4 text-xs text-primary font-medium">{formatDate(shipmentData.shippingDate)} <br></br>{shipmentData.shippingTime}</div>
+            <div className="flex flex-col items-center">
+                <div className="w-5 h-5 bg-primary rounded-full z-10"></div>
             </div>
+            <div className="w-32 text-left pl-4 text-xs text-primary font-medium">Package shipped from Centra {packageData.centraUnit}</div>
           </div>
-        ))}
+
+          {(packageData.status === "CONFIRMED" || packageData.status === "CANCELLED" || packageData.shippingId !== null || (checkpointData && checkpointData.length !== 0)) && checkpointData && (
+            <div className="relative flex items-end">
+              <div className="w-32 text-right pr-4 text-xs text-primary font-medium">{formatDate(checkpointData.checkpointDate)} <br></br>{checkpointData.checkpointTime}</div>
+              <div className="flex flex-col items-center">
+                  <div className="w-px h-16 border-dashed border border-primary"></div>
+                  <div className="w-5 h-5 bg-primary rounded-full z-10"></div>
+              </div>
+              <div className="w-32 text-left pl-4 text-xs text-primary font-medium">Package confirmed in the Harbour</div> 
+            </div>
+          )}
+
+          {(packageData.status === "ARRIVED" || packageData.shippingId !== null || packageData.xyz_id !== null || (checkpointData && checkpointData.length !== 0) || (receptionData && receptionData.length !== 0)) && checkpointData && receptionData && (
+            <div className="relative flex items-end">
+              <div className="w-32 text-right pr-4 text-xs text-primary font-medium">{formatDate(receptionData.arrivedDate)} <br></br>{receptionData.arrivedTime}</div>
+              <div className="flex flex-col items-center">
+                  <div className="w-px h-16 border-dashed border border-primary"></div>
+                  <div className="w-5 h-5 bg-primary rounded-full z-10"></div>
+              </div>
+              <div className="w-32 text-left pl-4 text-xs text-primary font-medium">Package arrived at XYZ</div> 
+            </div>
+          )}
       </div>
     </div>
   );

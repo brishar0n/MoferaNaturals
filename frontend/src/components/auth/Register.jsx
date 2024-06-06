@@ -19,6 +19,7 @@ function Register() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [registrationError, setRegistrationError] = useState('');
   const [role, setRole] = useState(''); // State for role selection
+  const [centraUnit, setCentraUnit] = useState(''); // State for centra number selection
   const navigate = useNavigate();
   // const [formData, setFormData] = useState({
   //   fullName: "",
@@ -172,6 +173,25 @@ function Register() {
                 <option value="xyz">xyz</option>
               </select>
             </div>
+            
+            {role === 'centra' && (
+              <div className="text-left ml-16 mt-3 relative z-20">
+                <label htmlFor="centraUnit" className="text-primary"> Centra Unit <br /></label>
+                <select
+                  className="border border-gray-300 rounded-md w-5/6 px-3 py-1.5 bg-quinary border-none mt-1"
+                  name="centraUnit"
+                  id="centraUnit"
+                  value={centraUnit}
+                  onChange={(e) => setCentraUnit(e.target.value)}
+                  required
+                >
+                  <option value="" disabled>Select a unit</option>
+                  {Array.from({ length: 32 }, (_, i) => i + 1).map((number) => (
+                    <option key={number} value={number}>{number}</option>
+                  ))}
+                </select>
+              </div>
+            )}
 
             <div className="relative z-20">
               <div className='mt-8'>
@@ -183,7 +203,7 @@ function Register() {
                 <img src={componentImg} className='w-3/4'></img>
               </div>
               {/* Navigate to login section */}
-              <div className="text-xs flex items-center justify-center gap-1 mt-5">
+              <div className="text-xs flex items-center justify-center gap-1 mt-5 pb-24">
                 <p> Already have an account? </p>
                 <p className="text-primary font-bold underline" onClick={navigatetoLogin}>
                   Login here
@@ -192,9 +212,9 @@ function Register() {
             </div>
 
             
-            <img src={bottomFrame} className='w-screen absolute bottom-0'/>
-            
           </Card>
+
+          <img src={bottomFrame} className='fixed bottom-0'/>
         </div>
       )}
     </div>

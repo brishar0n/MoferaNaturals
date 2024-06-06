@@ -127,12 +127,12 @@ export default function CentraMonitorTable({ dataType, handleDataTypeChange }) {
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, ml: 3, mb: 5 }}>
       <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginRight: '38px' }}>
         <span>
-          <h2 className='text-left font-medium text-xl mr-72 mt-9'>{dataType} Activity &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2>
+          <h2 className='text-left font-medium text-xl mr-72 mt-9'>{dataType} Activity &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2>
         </span>
         <div className="bg-neutral-100 rounded-full w-1/2 z-20 mb-4 mt-9 flex items-center">
-          <p className={`w-48 rounded-full p-1 cursor-pointer hover:bg-nonary hover:text-white ${dataType === 'Wet Leaves' ? 'active' : ''}`} onClick={() => handleDataTypeChange('Wet Leaves')}> Wet Leaves </p>
-          <p className={`w-48 rounded-full p-1 cursor-pointer hover:bg-nonary hover:text-white ${dataType === 'Dry Leaves' ? 'active' : ''}`} onClick={() => handleDataTypeChange('Dry Leaves')}> Dry Leaves </p>
-          <p className={`w-48 rounded-full p-1 cursor-pointer hover:bg-nonary hover:text-white ${dataType === 'Powder' ? 'active' : ''}`} onClick={() => handleDataTypeChange('Powder')}> Powder </p>
+          <p className={`w-48 rounded-full p-1 cursor-pointer hover:bg-primary hover:text-white ${dataType === 'Wet Leaves' ? 'active' : ''}`} onClick={() => handleDataTypeChange('Wet Leaves')}> Wet Leaves </p>
+          <p className={`w-48 rounded-full p-1 cursor-pointer hover:bg-primary hover:text-white ${dataType === 'Dry Leaves' ? 'active' : ''}`} onClick={() => handleDataTypeChange('Dry Leaves')}> Dry Leaves </p>
+          <p className={`w-48 rounded-full p-1 cursor-pointer hover:bg-primary hover:text-white ${dataType === 'Powder' ? 'active' : ''}`} onClick={() => handleDataTypeChange('Powder')}> Powder </p>
         </div>
       </Box>
       

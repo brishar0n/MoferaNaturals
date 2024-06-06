@@ -40,7 +40,7 @@ function SearchRescale() {
                     <img src="" alt="" />
                 </div>
             </div>
-            <div className='search relative py-4 mb-3'>
+            <div className='searchPackage relative py-4 mb-3'>
                 <input type="search" placeholder='Search Package ID...' value={input} onChange={(e) => handleSearch(e.target.value)}/>
                 <button className='absolute right-8 top-1/2 p-3 rounded-full -translate-y-1/2 text-white'>
                     <AiOutlineSearch/>

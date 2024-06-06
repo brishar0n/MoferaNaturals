@@ -1,11 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import statusStyles from "../StatusStyles";
 
 function PackageBox({ weight, expDate, status, id, shippingDate}) {
     const currentStatusStyle = statusStyles[status.toUpperCase()] || {};
 
     return (
-        <div className='bg-white mb-5 w-3/4 mx-auto py-5 px-7 rounded-2xl text-left relative flex flex-col'>
+        <div className='bg-white mb-5 mx-auto py-5 px-7 rounded-2xl text-left relative flex flex-col'>
             <div className="flex items-end justify-end w-full">
                 <p className="font-medium text-slate-500 text-xs">PKG#{id}</p>
             </div>
@@ -38,16 +39,31 @@ function PackageBox({ weight, expDate, status, id, shippingDate}) {
                 </>
             )}
             <div className='mx-auto mt-2 flex justify-center'>
-                <p 
-                    className='rounded-3xl px-7 py-2 font-semibold flex gap-2 items-center'
-                    style={{
-                        backgroundColor: currentStatusStyle.backgroundColor,
-                        color: currentStatusStyle.color,
-                        border: `1px solid ${currentStatusStyle.borderColor}`
-                    }}
+                {status.toUpperCase() === "READY TO SHIP" ? (
+                    <Link to="/shippinginfo">
+                        <p 
+                            className='rounded-3xl px-7 py-2 font-semibold flex gap-2 items-center'
+                            style={{
+                                backgroundColor: currentStatusStyle.backgroundColor,
+                                color: currentStatusStyle.color,
+                                border: `1px solid ${currentStatusStyle.borderColor}`
+                            }}
+                        >
+                            {status.toUpperCase()}
+                        </p>
+                    </Link>
+                ) : (
+                    <p 
+                        className='rounded-3xl px-7 py-2 font-semibold flex gap-2 items-center'
+                        style={{
+                            backgroundColor: currentStatusStyle.backgroundColor,
+                            color: currentStatusStyle.color,
+                            border: `1px solid ${currentStatusStyle.borderColor}`
+                        }}
                     >
-                    {status.toUpperCase()}
-                </p>
+                        {status.toUpperCase()}
+                    </p>
+                )}
             </div>
         </div>
     );
