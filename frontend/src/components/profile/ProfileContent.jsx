@@ -41,7 +41,9 @@ function ProfileContent({role, name}) {
             <img src={profile} className="w-screen relative z-40 w-44 h-44 mt-2"/>
 
             <div className='mt-3 flex justify-center'>
-                <p className='text-primary font-medium flex gap-1 items-center text-base underline'><CgAdd />Edit Profile</p>
+                <a href='/editprofile'>
+                    <p className='text-primary font-medium flex gap-1 items-center text-base underline'><CgAdd />Edit Profile</p>
+                </a>
             </div>
 
             <p className='text-primary text-3xl mt-1 font-medium'>{name}</p>
