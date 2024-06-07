@@ -16,16 +16,16 @@ function TrackShipping() {
   ]
 
   const packageData = [
-      {"packageId": 101, "shippingId": 1, "weight": 30},
-      {"packageId": 102, "shippingId": 1, "weight": 20},
-      {"packageId": 103, "shippingId": 2, "weight": 10},
-      {"packageId": 104, "shippingId": 2, "weight": 15},
-      {"packageId": 105, "shippingId": 3, "weight": 21},
-      {"packageId": 106, "shippingId": 3, "weight": 16},
-      {"packageId": 107, "shippingId": 4, "weight": 19},
-      {"packageId": 108, "shippingId": 4, "weight": 15},
-      {"packageId": 109, "shippingId": 1, "weight": 50},
-      {"packageId": 110, "shippingId": 1, "weight": 45}
+      {"packageId": 101, "shippingId": 1, "weight": 30, "unitCentra": 1},
+      {"packageId": 102, "shippingId": 1, "weight": 20, "unitCentra": 1},
+      {"packageId": 103, "shippingId": 2, "weight": 10, "unitCentra": 2},
+      {"packageId": 104, "shippingId": 2, "weight": 15, "unitCentra": 2},
+      {"packageId": 105, "shippingId": 3, "weight": 21, "unitCentra": 3},
+      {"packageId": 106, "shippingId": 3, "weight": 16, "unitCentra": 3},
+      {"packageId": 107, "shippingId": 4, "weight": 19, "unitCentra": 4},
+      {"packageId": 108, "shippingId": 4, "weight": 15, "unitCentra": 4},
+      {"packageId": 109, "shippingId": 1, "weight": 50, "unitCentra": 1},
+      {"packageId": 110, "shippingId": 1, "weight": 45, "unitCentra": 1}
   ]
 
     useEffect(() => {
