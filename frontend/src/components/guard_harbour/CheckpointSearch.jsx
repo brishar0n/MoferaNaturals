@@ -123,7 +123,8 @@ function CheckpointSearch(){
         setFilter(e.target.value);
         const filteredData = checkpoints.filter(checkpoint => {
             const includeId = checkpoint.id.toString().includes(input);
-            const includeCentra = checkpoint.sentFromCentra.toString().includes(e.target.value);
+            const unitCentra = getUnitCentra(checkpoint.shippingId);
+            const includeCentra = unitCentra && unitCentra.toString().startsWith(e.target.value);
             return includeId && includeCentra;
         });
         setSearchResult(filteredData);
