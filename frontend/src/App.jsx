@@ -40,6 +40,7 @@ import WetDashboard from './pages/xyz/xyz_desktop/WetDashboard';
 import PowderDashboard from './pages/xyz/xyz_desktop/PowderDashboard';
 import Profile from './pages/profile/Profile';
 import EditProfile from './pages/profile/EditProfile';
+import GHDashboard from './pages/guard_harbour/GHDashboard';
 
 function App() {
   return (
@@ -67,6 +68,7 @@ function App() {
         <Route path="/notify" element={<Notify/>} exact/>
 
         {/* Guard Harbour */}
+        <Route path="/ghdashboard" element={<GHDashboard/>} exact />
         <Route path="/addcheckpoint" element={<AddCheckpoint/>} exact />
         <Route path="/viewcheckpoint" element={<ViewCheckpoint/>} exact />
         <Route path="/shipmentnotification" element={<ShipmentNotification/>} exact />

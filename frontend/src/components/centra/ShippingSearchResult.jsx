@@ -24,7 +24,7 @@ function ShippingSearchResult({ searchResult, onShippingClick, packageData }) {
                 const packages = getPackagesForShipping(item.shippingId);
                 const packageIds = packages.map(pkg => pkg.packageId).join(', ');
                 const totalWeight = packages.reduce((acc, pkg) => acc + pkg.weight, 0);
-                const unitCentra = packages[0].centraUnit;
+                const unitCentra = packages[0].unitCentra;
 
                 return (
                     <div key={item.shippingId} className="bg-white mb-5 py-3 px-5 mx-auto rounded-2xl">
