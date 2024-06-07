@@ -65,6 +65,12 @@ function NavigateTo({role}) {
             )}
             {role === "guardHarbour" && (
                 <div className="w-full bg-denary mt-2 rounded-2xl px-5 py-5 flex flex-col">
+                    <div className="flex items-center justify-start gap-x-8 mb-4">
+                        <LuLayoutDashboard className="text-primary w-6 h-6" />
+                        <Link to="/ghdashboard">
+                            <button className="font-medium text-primary">Guard Harbour Dashboard</button>
+                        </Link>
+                    </div>
                     <div className="flex mb-4 items-center justify-start gap-x-8">
                         <PiPackage className="text-primary w-6 h-6" />
                         <Link to="/addcheckpoint">
