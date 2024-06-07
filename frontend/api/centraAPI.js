@@ -1,6 +1,17 @@
 import axios from 'axios'
 import {URL} from "./APIconst"
 
+export const postCollection = (Collection) => {
+    Collection = {...Collection, "centra_id" : 1}
+    console.log(Collection)
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    axios.post(URL + "/centra/new_collection", Collection)
+    .catch((error) => {
+        console.error(error);
+    });
+    console.log("success")
+}
+
 export const postWetLeaves = (WetLeaves) => {
     WetLeaves = {...WetLeaves, "centra_id" : 1}
     console.log(WetLeaves)
@@ -57,4 +68,76 @@ export const flourDryLeaves = (Data) => {
     .catch((error) => {
         console.error(error);
     });
+}
+
+export const getCollection = async () => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    const Collection = await axios.get(URL + "/centra/collection")
+    .catch((error) => {
+        console.error(error);
+    });
+
+    return Collection
+}
+
+export const getWetLeaves = async () => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    const WetLeaves = await axios.get(URL + "/centra/wet_leaves")
+    .catch((error) => {
+        console.error(error);
+    });
+
+    return WetLeaves
+}
+
+export const getDryLeaves = async () => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    const DryLeaves = await axios.get(URL + "/centra/dry_leaves")
+    .catch((error) => {
+        console.error(error);
+    });
+
+    return DryLeaves
+}
+
+export const getFlour = async () => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    const Flour = await axios.get(URL + "/centra/flour")
+    .catch((error) => {
+        console.error(error);
+    });
+
+    return Flour
+}
+
+export const getPackages = async () => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    const Packages = await axios.get(URL + "/centra/packages")
+    .catch((error) => {
+        console.error(error);
+    });
+
+    return Packages
+}
+
+export const postPackage = (Package) => {
+    Package = {...Package, "centra_id" : 1}
+    console.log(Package)
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    axios.post(URL + "/centra/add_package", Package)
+    .catch((error) => {
+        console.error(error);
+    });
+    console.log("success")
+}
+
+export const addShippingInfo = (ShippingInfo) => {
+    ShippingInfo = {...ShippingInfo, "centra_id" : 1}
+    console.log(ShippingInfo)
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    axios.post(URL + "/centra/add_shipping", ShippingInfo)
+    .catch((error) => {
+        console.error(error);
+    });
+    console.log("success")
 }
