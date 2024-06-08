@@ -1,23 +1,26 @@
 import { useState, useEffect } from 'react'
 import Sidebar from '../../../components/xyz/Sidebar';
 import ArrivedPackagesTable from '../../../components/xyz/ArrivedPackagesTable';
-import bell from '../../../assets/xyz/bell.svg';
+import profilepic from "../../../assets/desktop/profilepicdesktop.svg";
+import bell from "../../../assets/desktop/bellicon.svg";
 
 const ArrivedPackages = ({ children }) => {
     return (
-        <div className='bg-quaternary w-screen h-screen overflow-hidden flex flex-row'>
-            <Sidebar/>
+        <div className='bg-primary w-screen h-screen overflow-hidden flex'>
+            <Sidebar />
+            <div className='flex-1 bg-white rounded-xl mt-3 mr-3 mb-3 p-4 overflow-y-auto'>
+                <div className="flex justify-between items-center mb-2">
+                    <h1 className='text-4xl font-semibold text-left ml-6 mt-6'>Arrived Packages</h1>
 
-            <div className='flex-1 p-4'>
-                <p className='text-left md:text-4xl ml-8 mt-16 font-bold w-full'>
-                    Arrived Packages
-                </p>
+                    <span className="flex items-center mr-6 mt-6">
+                        <img src={bell} className="mr-4" alt="notification" />
+                        <img src={profilepic} alt='profile picture' />
+                    </span>
+                </div>
 
-                <button className='absolute top-8 right-24 px-2 py-2 bg-nonary rounded-full'>
-                    <img src={bell}></img>
-                </button>
-
-                <div className='mt-20'>
+                <h2 className='text-left font-medium text-sm ml-6 mb-5'> Track the status of your packages: </h2>
+          
+                <div className='bg-quinary rounded-xl mt-4 mx-6'>
                     <ArrivedPackagesTable/>
                 </div>
             </div>
