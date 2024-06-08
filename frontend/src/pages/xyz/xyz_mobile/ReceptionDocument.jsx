@@ -4,6 +4,7 @@ import elementrecdoc1 from '../../../assets/xyz/elementrecdoc1.svg'
 import elementrecdoc2 from '../../../assets/xyz/elementrecdoc2.svg'
 import elementrecdoc3 from '../../../assets/xyz/elementrecdoc3.svg'
 import ReceiptDocumentation from '../../../components/xyz/xyz_mobile/ReceiptDocumentation.jsx'
+import { motion } from "framer-motion";
 
 function ReceptionDocument() {
     const [isMobile, setIsMobile] = useState(false);
@@ -40,8 +41,17 @@ function ReceptionDocument() {
                             <img src={elementrecdoc3} alt="elementrecdoc3"/>
                         </div>
                     </div>
+
+                    <motion.div
+                            key="add"
+                            initial={{ x: 300, opacity: 0 }}
+                            animate={{ x: 0, opacity: 1 }}
+                            exit={{ x: -300, opacity: 0 }}
+                            transition={{ duration: 0.3 }}
+                    >
+                        <ReceiptDocumentation />
+                    </motion.div>
                     
-                    <ReceiptDocumentation />
                     <NavbarXYZ />
                 </>
             )}
