@@ -53,10 +53,10 @@ function Sidebar() {
               {dashboardOpen && (
                 <>
                   <li className="bg-primary py-2 px-8 text-white hover:bg-white hover:text-green-800 cursor-pointer w-full">
-                    <Link to="/wetleavesdashboard">Wet Leaves</Link>
+                    <Link to="/wetdashboard">Wet Leaves</Link>
                   </li>
                   <li className="bg-primary py-2 px-8 text-white hover:bg-white hover:text-green-800 cursor-pointer w-full">
-                    <Link to="/dryleavesdashboard">Dry Leaves</Link>
+                    <Link to="/drydashboard">Dry Leaves</Link>
                   </li>
                   <li className="bg-primary py-2 px-8 text-white hover:bg-white hover:text-green-800 cursor-pointer w-full">
                     <Link to="/powderdashboard">Powder</Link>
@@ -65,7 +65,7 @@ function Sidebar() {
               )}
               <li className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white">
                 <img src={shipmentlogo} className='mr-3 hover:fill-green-800'></img>
-                <Link to="/shipementtracker" className='ml-1'>Shipment Tracker</Link>
+                <Link to="/shipmenttracker" className='ml-1'>Shipment Tracker</Link>
               </li>
               <li className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white">
                 <img src={checkpointlogo} className='mr-3 hover:fill-green-800'></img>
