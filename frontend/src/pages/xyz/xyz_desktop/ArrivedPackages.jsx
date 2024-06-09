@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import SearchForm from "./Search";
 import { IoNotifications } from "react-icons/io5";
+import { motion } from "framer-motion";
 
 import Sidebar from '../../../components/xyz/Sidebar';
 import ArrivedPackagesTable from '../../../components/xyz/ArrivedPackagesTable';
 import profilepic from "../../../assets/desktop/profilepicdesktop.svg";
-import bell from "../../../assets/desktop/bellicon.svg";
 
 const ArrivedPackages = ({ children }) => {
 
@@ -37,11 +37,14 @@ const ArrivedPackages = ({ children }) => {
                     </div>
                 </div>
 
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} className="flex-1 overflow-y-auto">
+
                 <h2 className='text-left font-medium text-sm ml-6 mb-5'> Track the status of your packages: </h2>
           
                 <div className='bg-quinary rounded-xl mt-4 mx-6'>
                     <ArrivedPackagesTable/>
                 </div>
+                </motion.div>
             </div>
         </div>
     );
