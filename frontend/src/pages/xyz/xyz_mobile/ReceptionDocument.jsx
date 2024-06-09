@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 
 function ReceptionDocument() {
     const [isMobile, setIsMobile] = useState(false);
+    const onSaveDocument = {};
 
     useEffect(() => {
         const handleResize = () => {
@@ -49,7 +50,7 @@ function ReceptionDocument() {
                             exit={{ x: -300, opacity: 0 }}
                             transition={{ duration: 0.3 }}
                     >
-                        <ReceiptDocumentation />
+                        <ReceiptDocumentation onSaveDocument={onSaveDocument}/>
                     </motion.div>
                     
                     <NavbarXYZ />
