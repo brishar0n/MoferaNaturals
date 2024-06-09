@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import desktoplogo from '../../assets/desktop/mofera-logo.svg';
 import hamburger from '../../assets/desktop/menu-bar.svg';
@@ -22,6 +22,23 @@ function Sidebar() {
   const toggleDropdown = () => {
     setDashboardOpen(!dashboardOpen);
   };
+
+  const handleResize = () => {
+    if (window.innerWidth <= 1274) {
+      setIsMinimized(true);
+    } else {
+      setIsMinimized(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    handleResize();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return (
     <div
@@ -53,13 +70,13 @@ function Sidebar() {
               </li>
               {dashboardOpen && (
                 <>
-                  <li className="bg-primary py-2 px-8 text-white hover:bg-white hover:text-green-800 cursor-pointer w-full">
+                  <li className="bg-primary py-2 px-8 text-white hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none cursor-pointer w-full">
                     <Link to="/dashboard-wet">Wet Leaves</Link>
                   </li>
-                  <li className="bg-primary py-2 px-8 text-white hover:bg-white hover:text-green-800 cursor-pointer w-full">
+                  <li className="bg-primary py-2 px-8 text-white hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none cursor-pointer w-full">
                     <Link to="/dashboard-dry">Dry Leaves</Link>
                   </li>
-                  <li className="bg-primary py-2 px-8 text-white hover:bg-white hover:text-green-800 cursor-pointer w-full">
+                  <li className="bg-primary py-2 px-8 text-white hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none cursor-pointer w-full">
                     <Link to="/dashboard-powder">Powder</Link>
                   </li>
                 </>
