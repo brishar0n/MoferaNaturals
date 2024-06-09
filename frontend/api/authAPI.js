@@ -1,5 +1,6 @@
 import axios from 'axios'
 import {URL} from "./APIconst"
+import { Link } from 'react-router-dom';
 
 export const register = async (data) => {
     try{
@@ -46,9 +47,7 @@ export const login = async (formData) => {
         localStorage.setItem('token', access_token);
         localStorage.setItem('username', username);
   
-        navigate('/welcomeback');
       } catch (error) {
         console.error('Login failed:', error);
-        setLoginError('Wrong password. Please try again.'); 
       }
 }

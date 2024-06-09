@@ -61,7 +61,7 @@ function Register() {
 
       /* Make sure to use port 8000 or change to your port, my port is 8000 */
 
-      const response = await axios.post('https://mofera-backend-fork-six.vercel.app/auth/', {
+      const response = await axios.post('http://localhost:8000/auth', {
         username: username,
         email: email,
         password: password,

@@ -6,7 +6,6 @@ import NavigationBar from "../../components/centra/CentraNavbar.jsx";
 import '../../style/Shipping.css'
 import ShippingForm from '../../components/centra/ShippingForm';
 import { motion } from "framer-motion";
-
 export const ShippingInfo = () => {
     const [isMobile, setIsMobile] = React.useState(false);
 

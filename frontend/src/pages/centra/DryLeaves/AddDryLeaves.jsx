@@ -1,9 +1,9 @@
-import React from "react";
-import "../../../style/App.css"
-import { useState } from "react";
+import React, { useState } from "react";
+import "../../../style/App.css";
+import { postDryLeaves } from "../../../../api/centraAPI";
 import LeavesForm from "../../../components/centra/LeavesForm";
 
-function AddDryLeaves(){
+function AddDryLeaves() {
     const [weight, setWeight] = useState(0);
     const [driedDate, setDriedDate] = useState(new Date());
     const [formSubmitted, setFormSubmitted] = useState(false);
@@ -18,18 +18,21 @@ function AddDryLeaves(){
 
     function handleSubmit(event) {
         event.preventDefault();
+        const formattedDate = driedDate.toISOString().substring(0,10)// Formatting date
+        const dryLeavesData = {
+            weight,
+            dried_date: formattedDate,
+        };
+        postDryLeaves(dryLeavesData);
         setFormSubmitted(true);
     }
-    
+
     return (
-      <div className="w-full">
-            <img src="src/assets/AddPage/mascotAdd.svg" className="absolute left-6 top-96 pt-10 z-40"></img>
-
+        <div className="w-full">
+            <img src="src/assets/AddPage/mascotAdd.svg" className="absolute left-6 top-96 pt-10 z-40" alt="Mascot" />
             <p className="text-lg text-septenary font-semibold"> Total Dried Leaves Daily </p>
-
-            <br></br>
-
-            <LeavesForm 
+            <br />
+            <LeavesForm
                 weight={weight}
                 handleWeightChange={handleWeightChange}
                 dateTitle="Dried Date"

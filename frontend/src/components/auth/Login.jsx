@@ -44,6 +44,11 @@ function Login() {
     formData.append('password', password);
 
     login(formData)
+    .then((response) => {
+      navigate('/centradashboard');
+    })
+
+
   };
 
   const navigatetoSignup = () => {

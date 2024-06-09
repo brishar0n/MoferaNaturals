@@ -2,6 +2,7 @@ import React from "react";
 import "../../../style/App.css"
 import { useState } from "react";
 import PackageForm from "../../../components/centra/PackageForm";
+import { postPackage } from "../../../../api/centraAPI";
 
 function AddPackage(){
     const [weight, setWeight] = useState(0);
@@ -18,6 +19,12 @@ function AddPackage(){
 
     function handleSubmit(event) {
         event.preventDefault();
+        const formattedDate = expDate.toISOString().substring(0,10);
+        const packageData = {
+            weight,
+            exp_date: formattedDate,
+        };
+        postPackage(packageData);
         setFormSubmitted(true);
     }
     

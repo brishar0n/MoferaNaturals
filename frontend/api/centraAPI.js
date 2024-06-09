@@ -17,7 +17,9 @@ export const postWetLeaves = (WetLeaves) => {
     console.log(WetLeaves)
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
     axios.post(URL + "/centra/new_wet_leaves", WetLeaves)
+    console.log("success")
     .catch((error) => {
+        console.log(error);
         console.error(error);
     });
     console.log("success")

@@ -1,11 +1,30 @@
 import { useState, useEffect } from "react";
 import BarChart from "./BarChart.jsx";
-import NavigationBar from "../../components/centra/CentraNavbar";
+import NavigationBar from "../../components/centra/CentraNavbar.jsx";
+import { postCollection } from "../../../api/centraAPI.js";
 
 function CentraDashboardHomePage() {
   const [isMobile, setIsMobile] = useState(false);
+  const [date, setDate] = useState(new Date());
+  const[weight, setWeight] = useState(0);
   const handleClick = () => {
     alert('Button Search clicked!');
+  };
+  const handleDateChange = (event) => {
+    setDate(new Date(event.target.value));
+  };  
+  const handleWeightChange = (event) => {
+    setWeight(event.target.value);
+  };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    alert('Button Submit clicked!');
+
+    const collectionData = {
+      weight,
+      retrieval_date: date.toISOString().substring(0, 10),
+    };
+    postCollection(collectionData);
   };
   useEffect(() => {
     const handleResize = () => {
@@ -146,17 +165,31 @@ function CentraDashboardHomePage() {
                             <label className="block text-gray-700 text-sm text-left mb-2">
                               Weight:
                             </label>
-                            <input className="shadow appearance-none border bg-quaternary rounded w-full py-1 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline" type="text" />
-                          </div>
+                            <input 
+                            className="shadow appearance-none border bg-quaternary rounded w-full py-1 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline" 
+                            type="number"
+                            step="any"
+                            value={weight} 
+                            onChange={handleWeightChange} 
+                            required />                          </div>
                           <div className="mb-6">
                             <label className="block text-gray-700 text-sm text-left mb-2" >
                               Date:
                             </label>
-                            <input className="shadow appearance-none border bg-quaternary rounded w-full py-1 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline"  type="text" />
+                            <input 
+                            type="date" 
+                            value={date.toISOString().substring(0, 10)} 
+                            onChange={handleDateChange}
+                            className="w-4/5 bg-quinary rounded-md pl-2 text-black">
+                            </input>                            
                           </div>
                           <div className="flex items-center justify-center">
-                            <button className="bg-primary hover:bg-primary text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline" type="button">
-                              COLLECT
+                          <button 
+                          className="bg-primary hover:bg-primary text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline" 
+                          type="button" 
+                          onClick={handleSubmit}
+                          >                             
+                           COLLECT
                             </button>
                             
                           </div>
@@ -180,7 +213,6 @@ function CentraDashboardHomePage() {
             </div>
           </div>
           
-
           <NavigationBar />
         </>
       )}
