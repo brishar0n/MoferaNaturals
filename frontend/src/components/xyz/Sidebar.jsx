@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom';
 import desktoplogo from '../../assets/desktop/mofera-logo.svg';
 import hamburger from '../../assets/desktop/menu-bar.svg';
 import exit from '../../assets/desktop/exit.svg';
-import dashboardlogo from '../../assets/desktop/dashboard-logo.svg';
-import shipmentlogo from '../../assets/desktop/shipmentlogo.svg'
-import checkpointlogo from '../../assets/desktop/checkpointlogo.svg'
-import packagelogo from '../../assets/desktop/packagelogo.svg'
-import notiflogo from '../../assets/desktop/notiflogo.svg'
-import monitorlogo from '../../assets/desktop/monitorlogo.svg'
+
+import { MdOutlineDashboardCustomize } from "react-icons/md";
+import { FaShippingFast } from "react-icons/fa";
+import { FaLocationDot } from "react-icons/fa6";
+import { PiPackageFill } from "react-icons/pi";
+import { IoNotifications } from "react-icons/io5";
+import { MdOutlineMonitor } from "react-icons/md";
 
 function Sidebar() {
   const [dashboardOpen, setDashboardOpen] = useState(false);
@@ -47,41 +48,41 @@ function Sidebar() {
                 onClick={toggleDropdown}
                 className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white"
               > 
-                <img src={dashboardlogo} className='mr-3 w-6 h-6'></img>
-                  &nbsp;&nbsp;Dashboard
+                <MdOutlineDashboardCustomize className='text-3xl mr-4'></MdOutlineDashboardCustomize>
+                  Dashboard
               </li>
               {dashboardOpen && (
                 <>
                   <li className="bg-primary py-2 px-8 text-white hover:bg-white hover:text-green-800 cursor-pointer w-full">
-                    <Link to="/wetdashboard">Wet Leaves</Link>
+                    <Link to="/dashboard-wet">Wet Leaves</Link>
                   </li>
                   <li className="bg-primary py-2 px-8 text-white hover:bg-white hover:text-green-800 cursor-pointer w-full">
-                    <Link to="/drydashboard">Dry Leaves</Link>
+                    <Link to="/dashboard-dry">Dry Leaves</Link>
                   </li>
                   <li className="bg-primary py-2 px-8 text-white hover:bg-white hover:text-green-800 cursor-pointer w-full">
-                    <Link to="/powderdashboard">Powder</Link>
+                    <Link to="/dashboard-powder">Powder</Link>
                   </li>
                 </>
               )}
               <li className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white">
-                <img src={shipmentlogo} className='mr-3 hover:fill-green-800'></img>
-                <Link to="/shipmenttracker" className='ml-1'>Shipment Tracker</Link>
+                <FaShippingFast className='text-3xl' />
+                <Link to="/shipmenttracker" className='ml-4'>Shipment Tracker</Link>
               </li>
               <li className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white">
-                <img src={checkpointlogo} className='mr-3 hover:fill-green-800'></img>
-                <Link to="/checkpoint" className='ml-3'>Checkpoint</Link>
+                <FaLocationDot className='text-3xl' />
+                <Link to="/checkpoint" className='ml-4'>Checkpoint</Link>
               </li>
               <li className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white">
-                <img src={packagelogo} className='mr-3 hover:fill-green-800'></img>
-                <Link to="/arrivedpackages" className='ml-2'>Arrived Packages</Link>
+                <PiPackageFill className='text-3xl' />
+                <Link to="/arrivedpackages" className='ml-4'>Arrived Packages</Link>
               </li>
               <li className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white">
-                <img src={notiflogo} className='mr-3 hover:fill-green-800'></img>
-                <Link to="/notifications" className='ml-2'>Notifications</Link>
+              <IoNotifications className='text-3xl' />
+                <Link to="/notifications" className='ml-4'>Notifications</Link>
               </li>
               <li className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white">
-                <img src={monitorlogo} className='mr-3 '></img>
-                <Link to="/centraactivitymonitor" className='text-left ml-1'>Centra Activity Monitor</Link>
+                <MdOutlineMonitor className='text-4xl' />
+                <Link to="/centraactivitymonitor" className='text-left ml-4'>Centra Activity Monitor</Link>
               </li>
             </ul>
           </nav>
