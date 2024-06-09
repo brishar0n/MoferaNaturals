@@ -134,7 +134,6 @@ export const postPackage = (Package) => {
 }
 
 export const addShippingInfo = (ShippingInfo) => {
-    ShippingInfo = {...ShippingInfo, "centra_id" : 1}
     console.log(ShippingInfo)
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
     axios.post(URL + "/centra/add_shipping", ShippingInfo)
