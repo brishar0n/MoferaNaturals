@@ -1,8 +1,12 @@
 import { useState, useEffect } from 'react';
+import { IoNotifications } from "react-icons/io5";
+import { motion } from "framer-motion";
+
 import Sidebar from '../../../components/xyz/Sidebar';
 import bell from '../../../assets/xyz/bell.svg';
 import profilepic from "../../../assets/desktop/profilepicdesktop.svg";
 import ShipmentTrackerMap from '../../../components/xyz/ShipmentTrackerMap';
+import SearchForm from "../../../components/xyz/ShipmentTrackerSearch";
 
 const shipmentData = {
     '1223123': [
@@ -42,28 +46,24 @@ const ShipmentTracker = ({ children }) => {
         <div className='bg-primary w-screen h-screen flex flex-row overflow-hidden'>
             <Sidebar />
             <div className='flex-1 bg-white rounded-xl mt-3 mr-3 mb-3 p-4 flex flex-col overflow-hidden'>
-                <div className="flex justify-between items-center mb-5">
-                    <h1 className='text-4xl font-semibold text-left ml-6 mt-6'>Shipment Tracker</h1>
-                    <span className="flex items-center mr-6 mt-6">
-                        <img src={bell} className="mr-4" alt="notification" />
-                        <img src={profilepic} alt='profile picture' />
-                    </span>
+                <div className="flex justify-between items-center">
+                    <h1 className='text-4xl font-semibold text-left ml-6 mt-3'>Shipment Tracker</h1>
+                    <div className="p-4 bg-quinary rounded-full right-0 top-0 ml-[567px] mt-6">
+                            <a href="/dashboard"><IoNotifications className="text-2xl" /></a>
+                    </div>
+                        <div>
+                            <span className="flex items-center mr-7">
+                                <img src={profilepic} alt='profile picture' className='flex align-right right-0 top-0 mt-6'/>
+                            </span>
+                        </div>
                 </div>
 
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} className="flex-1 overflow-y-auto">
                 <h2 className='text-left font-medium text-sm ml-6 mb-5'> Get updated on the delivery of your package: </h2>
 
                 <div className="flex w-1/2 ml-6 mb-4">
-                    <input
-                        type="text"
-                        placeholder="Enter Shipping ID:"
-                        className="border p-2 rounded-lg w-full"
-                        onChange={(e) => setTempID(e.target.value)}
-                    />
-                    <button className="ml-2 p-2 bg-gray-200 text-black-300 rounded-lg" onClick={handleSetShipment}>
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                        </svg>
-                    </button>
+                    <p className='mt-2 mr-4'>Enter Shipping ID:</p>
+                    <SearchForm />
                 </div>
 
                 <div className="flex flex-col md:flex-row ml-6 h-full overflow-auto">
@@ -71,7 +71,7 @@ const ShipmentTracker = ({ children }) => {
                         <ShipmentTrackerMap shipmentToTrack={shipment} />
                     </div>
 
-                    <div className="flex-col md:w-1/3 bg-gray-100 rounded-lg p-4 overflow-y-auto">
+                    <div className="flex-col md:w-1/3 bg-quinary rounded-lg p-4 overflow-y-auto">
                         <h2 className="text-xl font-semibold mb-4">Shipping ID: #{shipmentID}</h2>
 
                         {shipment.map((location, index) => (
@@ -87,6 +87,7 @@ const ShipmentTracker = ({ children }) => {
                         ))}
                     </div>
                 </div>
+                </motion.div>
             </div>
         </div>
     );
