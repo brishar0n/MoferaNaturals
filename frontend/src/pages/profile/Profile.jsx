@@ -8,8 +8,8 @@ import NavbarGH from '../../components/guard_harbour/NavbarGH';
 
 function Profile() {
     const [isMobile, setIsMobile] = React.useState(false);
-    const [role, setRole] = useState("guardHarbour");
-    const [name, setName] = useState("Oowwwlaf");
+    const role = "guardHarbour";
+    const name = "Oowwwlaf";
 
     useEffect(() => {
       function handleResize() {
