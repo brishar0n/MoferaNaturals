@@ -1,21 +1,40 @@
 import { useState, useEffect } from 'react'
+import SearchForm from "./Search";
+import { IoNotifications } from "react-icons/io5";
+
 import Sidebar from '../../../components/xyz/Sidebar';
 import ArrivedPackagesTable from '../../../components/xyz/ArrivedPackagesTable';
 import profilepic from "../../../assets/desktop/profilepicdesktop.svg";
 import bell from "../../../assets/desktop/bellicon.svg";
 
 const ArrivedPackages = ({ children }) => {
+
+    const [isSidebarMinimized, setIsSidebarMinimized] = useState(false);
+
+    const toggleSidebar = () => {
+      setIsSidebarMinimized(!isSidebarMinimized);
+    }; 
+
     return (
         <div className='bg-primary w-screen h-screen overflow-hidden flex'>
-            <Sidebar />
-            <div className='flex-1 bg-white rounded-xl mt-3 mr-3 mb-3 p-4 overflow-y-auto'>
-                <div className="flex justify-between items-center mb-2">
-                    <h1 className='text-4xl font-semibold text-left ml-6 mt-6'>Arrived Packages</h1>
+            <Sidebar isMinimized={isSidebarMinimized} toggleSidebar={toggleSidebar} />
+            <div className='flex-1 bg-white rounded-xl mt-3 mr-3 mb-3 p-4 overflow-y-auto relative'>
+                <div className="flex justify-between items-center">
+                    <h1 className='text-4xl font-semibold text-left ml-6 mt-3'>Arrived Packages</h1>
 
-                    <span className="flex items-center mr-6 mt-6">
-                        <img src={bell} className="mr-4" alt="notification" />
-                        <img src={profilepic} alt='profile picture' />
-                    </span>
+                    <div className="flex items-center justify-center mt-3 rounded dark:bg-gray-800 relative">
+                        <div className='mt-3'>
+                            <SearchForm isSidebarMinimized={isSidebarMinimized} />
+                        </div>
+                        <div className="p-4 bg-quinary rounded-full right-0 top-0 ml-12 mt-3 mr-6">
+                            <a href="/dashboard"><IoNotifications className="text-2xl" /></a>
+                        </div>
+                        <div>
+                            <span className="flex items-center mr-7">
+                                <img src={profilepic} alt='profile picture' className='flex align-right right-0 top-0 mt-3'/>
+                            </span>
+                        </div>
+                    </div>
                 </div>
 
                 <h2 className='text-left font-medium text-sm ml-6 mb-5'> Track the status of your packages: </h2>
@@ -25,7 +44,7 @@ const ArrivedPackages = ({ children }) => {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 export default ArrivedPackages;
