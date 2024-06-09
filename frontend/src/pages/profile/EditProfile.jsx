@@ -8,10 +8,10 @@ import NavbarGH from '../../components/guard_harbour/NavbarGH';
 
 function EditProfile() {
     const [isMobile, setIsMobile] = React.useState(false);
-    const [role, setRole] = useState("centra");
-    const [name, setName] = useState("Oowwwlaf");
-    const [email, setEmail] = useState("Oowwwlaf@gmail.com");
-    const [centraUnit, setCentraUnit] = useState(1);
+    const role = "centra";
+    const name = "Oowwwlaf";
+    const email = "Oowwwlaf@gmail.com";
+    const centraUnit = 1;
     const [formSubmitted, setFormSubmitted] = useState(false);
 
     useEffect(() => {
