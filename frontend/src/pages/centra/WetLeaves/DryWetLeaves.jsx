@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "../../../style/App.css";
 import WetLeavesBox from "../../../components/centra/WetLeavesBox";
+import { WetLeavesContext } from "./WetLeavesManager";
 
 function DryWetLeaves() {
   const [statusFilter, setStatusFilter] = useState("drying");
-  const [wetLeavesData, setWetLeavesData] = useState([
-    { id: 200420, weight: 10, collectedDate: "2024-05-01", status: "washed", finishedTime: null },
-    { id: 200421, weight: 5, collectedDate: "2024-06-10", status: "washed", finishedTime: null },
-    { id: 200422, weight: 5, collectedDate: "2024-06-15", status: "dried", finishedTime: null },
-  ]);
+  // const [wetLeavesData, setWetLeavesData] = useState([
+  //   { id: 200420, weight: 10, collectedDate: "2024-05-01", status: "washed", finishedTime: null },
+  //   { id: 200421, weight: 5, collectedDate: "2024-06-10", status: "washed", finishedTime: null },
+  //   { id: 200422, weight: 5, collectedDate: "2024-06-15", status: "dried", finishedTime: null },
+  // ]);
+  const { wetLeaves, setWetLeaves } = useContext(WetLeavesContext)
 
   const handleWashOrDry = (id, newStatus, newFinishedTime) => {
     setWetLeavesData(prevData =>
@@ -18,7 +20,7 @@ function DryWetLeaves() {
     );
   };
 
-  const filteredWetLeaves = wetLeavesData.filter(leaf => {
+  const filteredWetLeaves = wetLeaves.filter(leaf => {
     if (statusFilter === "ALL") return true;
     return leaf.status === statusFilter;
   });
