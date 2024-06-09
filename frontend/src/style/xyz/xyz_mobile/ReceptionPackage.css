@@ -1,10 +1,35 @@
+@media (max-width: 600px) {
+    .cent {
+        position: absolute;
+        left: 0;
+    }
+    .text-pos {
+        margin-top: 0.75rem;
+        width: 50%;
+        margin-right: 0.75rem;
+    }
+}
+
 @media (max-width: 429px) {
+    .text-pos {
+        width: 40%;
+    }
     .text-position {
         width: 40%;
     }
 }
 
 @media (max-width: 405px) {
+    .text-pos {
+        position: absolute;
+        margin-top: 35%;
+        left: 0;
+        width: 100%;
+        padding: 0 1rem;
+        /* Adjust padding as needed */
+        text-align: center;
+        /* Center the text horizontally */
+    }
     .text-position {
         position: absolute;
         margin-top: 58%;
@@ -31,7 +56,7 @@
     .vector {
         margin-left: 5px;
     }
-    .center {
+    .cent {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
@@ -46,6 +71,10 @@
 }
 
 @media (max-width: 380px) {
+    .text-pos {
+        position: absolute;
+        margin-top: 32%;
+    }
     .text-position {
         position: absolute;
         margin-top: 60%;
@@ -57,6 +86,11 @@
 }
 
 @media (max-width: 360px) {
+    .text-pos {
+        position: absolute;
+        margin-top: 35%;
+    }
+    ;
     .text-position {
         position: absolute;
         margin-top: 65%;
@@ -68,6 +102,10 @@
 }
 
 @media (max-width: 340px) {
+    .text-pos {
+        position: absolute;
+        margin-top: 35%;
+    }
     .text-position {
         position: absolute;
         margin-top: 70%;
