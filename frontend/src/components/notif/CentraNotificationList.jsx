@@ -64,8 +64,8 @@ function CentraNotificationList() {
                         <p className="text-septenary font-semibold"> Recent </p>
                     </div>
                     
-                    <div className="h-full pt-2 pb-6">
-                        <div className="overflow-auto max-h-full pb-4">
+                    <div className="h-full pt-2 pb-10">
+                        <div className="overflow-auto max-h-full">
                             {notifications.map((notification, index) => (
                                 <CentraNotification
                                     key={index}

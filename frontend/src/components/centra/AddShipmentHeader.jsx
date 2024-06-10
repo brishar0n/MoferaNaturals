@@ -14,7 +14,7 @@ function AddShipmentHeader() {
                     <img src={back} alt="back" className="mt-8" />
                 </button>
                 <div className="w-1/2 mt-20">
-                    <p className='text-3xl text-white font-bold mb-1 ml-5 leading-sm text'>Shipment Information</p>
+                    <p className='text-white font-bold mb-1 ml-5 leading-sm texts'>Shipment Information</p>
                 </div>
                 <div className="absolute right-4 top-10 boxsize">
                     <img src={box} alt="box"/>

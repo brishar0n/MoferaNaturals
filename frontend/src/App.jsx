@@ -11,24 +11,16 @@ import FindRescalePackage from './pages/xyz/xyz_mobile/FindRescalePackage';
 import RescalingPackage from './pages/xyz/xyz_mobile/RescalingPackage';
 import CentraDashboardHomePage from './pages/centra/CentraDashboard';
 import History from './pages/centra/History';
-import AddDryLeaves from './pages/centra/AddDryLeaves';
-import AddWetLeaves from './pages/centra/AddWetLeaves';
-import AddMachine from './pages/centra/AddMachine';
-import EditMachine from './pages/centra/EditMachine';
 import TrackShipping from './pages/centra/TrackShipping';
-// import TrackShippingTwo from './pages/centra/TrackingShippingTwo';
-import WashWetLeaves from './pages/centra/WashWetLeaves';
-import DryWetLeaves from './pages/centra/DryWetLeaves';
+import TrackShippingID from './pages/centra/TrackShippingID';
 import { ShippingInfo } from './pages/centra/ShippingInfo';
 import ReceptionPackage from './pages/xyz/xyz_mobile/ReceptionPackage';
 import ReceptionDocument from './pages/xyz/xyz_mobile/ReceptionDocument';
 import UserManagement from './pages/admin/UserManagement';
-import AddPowder from './pages/centra/AddPowder';
 import AddCheckpoint from './pages/guard_harbour/AddCheckpoint';
 import ViewCheckpoint from './pages/guard_harbour/ViewCheckpoint';
 import ArrivedPackages from './pages/xyz/xyz_desktop/ArrivedPackages';
 import ShipmentNotification from './pages/guard_harbour/ShipmentNotification';
-import FlourDryLeaves from './pages/centra/FlourDryLeaves';
 import AdminPage from './pages/desktop/AdminManagement';
 import CentraActivityMonitor from './pages/xyz/xyz_desktop/CentraActivityMonitor';
 import GetStartedDesktop from './pages/auth-desktop/GetStartedDesktop';
@@ -38,14 +30,17 @@ import AdminTable from './components/admin/AdminTable';
 import AddUserButton from './components/admin/AddUserButton';
 import NavbarAdmin from './components/admin/NavbarAdmin';
 import EditUserButton from './components/admin/EditUserButton';
-import AddPackage from './pages/centra/AddPackage';
-import PackageHistory from './pages/centra/PackageHistory';
-import PowderHistory from './pages/centra/ViewPowder';
 import ShipmentTracker from './pages/xyz/xyz_desktop/ShipmentTracker';
-import TrackShippingTwo from './pages/centra/TrackShippingTwo';
-import DesktopNavbar from './components/admin/DesktopNavbar';
-import AdminSidebar from './components/admin/AdminSidebar';
-// import UserTable from './components/admin/UserTable';
+import WetLeavesManager from './pages/centra/WetLeaves/WetLeavesManager';
+import DryLeavesManager from './pages/centra/DryLeaves/DryLeavesManager';
+import PowderManager from './pages/centra/Powder/PowderManager';
+import PackageManager from './pages/centra/Package/PackageManager';
+import DryDashboard from './pages/xyz/xyz_desktop/DryDashboard';
+import WetDashboard from './pages/xyz/xyz_desktop/WetDashboard';
+import PowderDashboard from './pages/xyz/xyz_desktop/PowderDashboard';
+import Profile from './pages/profile/Profile';
+import EditProfile from './pages/profile/EditProfile';
+import GHDashboard from './pages/guard_harbour/GHDashboard';
 
 function App() {
   return (
@@ -63,23 +58,17 @@ function App() {
         {/* Centra */}
         <Route path="/centradashboard" element={<CentraDashboardHomePage/>} exact />
         <Route path="/history" element={<History/>} exact />
-        <Route path="/adddryleaves" element={<AddDryLeaves />} exact />
-        <Route path="/flourdryleaves" element={<FlourDryLeaves/>} exact />
-        <Route path="/addwetleaves" element={<AddWetLeaves />} exact />
-        <Route path="/washwetleaves" element={<WashWetLeaves />} exact />
-        <Route path="/drywetleaves" element={<DryWetLeaves />} exact />
-        <Route path="/addmachine" element={<AddMachine />} exact />
-        <Route path="/editmachine" element={<EditMachine />} exact />
-        <Route path="/addpowder" element={<AddPowder />} exact />
-        <Route path="/viewpowder" element={<PowderHistory />} exact />
+        <Route path="/wetleaves" element={<WetLeavesManager />} exact />
+        <Route path="/dryleaves" element={<DryLeavesManager />} exact />
+        <Route path="/powder" element={<PowderManager />} exact />
+        <Route path="/package" element={<PackageManager/>} exact/>
         <Route path="/shippinginfo" element={<ShippingInfo />} exact/>
         <Route path="/trackshipping" element={<TrackShipping />} exact/>
-        <Route path="/trackshippingtwo" element={<TrackShippingTwo />} exact/>
+        <Route path="/trackshipping/:shippingId" element={<TrackShippingID />} exact/>
         <Route path="/notify" element={<Notify/>} exact/>
-        <Route path="/addpackage" element={<AddPackage/>} exact/>
-        <Route path="/packagehistory" element={<PackageHistory/>} exact/>
 
         {/* Guard Harbour */}
+        <Route path="/ghdashboard" element={<GHDashboard/>} exact />
         <Route path="/addcheckpoint" element={<AddCheckpoint/>} exact />
         <Route path="/viewcheckpoint" element={<ViewCheckpoint/>} exact />
         <Route path="/shipmentnotification" element={<ShipmentNotification/>} exact />
@@ -90,6 +79,10 @@ function App() {
         <Route path="/receptionpackage" element={<ReceptionPackage />} exact />
         <Route path="/receptiondocument" element={<ReceptionDocument />} exact />
 
+        {/* Profile Page */}
+        <Route path="/profile" element={<Profile/>} exact/>
+        <Route path="/editprofile" element={<EditProfile/>} exact/>
+
         {/* Authentication Desktop */}
         <Route path="/getstarteddesktop" element={<GetStartedDesktop/>} exact/>
         <Route path="/logindesktop" element={<LoginDesktop/>} exact/>
@@ -99,6 +92,10 @@ function App() {
         <Route path="/arrivedpackages" element={<ArrivedPackages />} exact />
         <Route path="/shipmenttracker" element={<ShipmentTracker />} exact />
         <Route path="/centraactivitymonitor" element={<CentraActivityMonitor />} exact />
+        <Route path="/dashboard" element={<WetDashboard />} exact />
+        <Route path="/dashboard-wet" element={<WetDashboard />} exact />
+        <Route path="/dashboard-dry" element={<DryDashboard />} exact />
+        <Route path="/dashboard-powder" element={<PowderDashboard />} exact />
 
         {/* Admin */}
         <Route path="/usermanagement" element={<UserManagement />} exact />

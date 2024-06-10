@@ -1,18 +1,15 @@
 import Notification from "./Notification"
 import React, { useState } from "react";
 import { GoChevronLeft, GoChevronRight } from "react-icons/go";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
-function NotificationList() {
-    const shipmentInfo = [
-        { id: 112121, centra: 1, date: "10 March 2024", time: "6:24 PM" },
-        { id: 112122, centra: 2, date: "11 March 2024 ", time: "7:30 AM" },
-        { id: 112123, centra: 3, date: "12 March 2024", time: "8:15 PM" },
-        { id: 112124, centra: 4, date: "13 March 2024", time: "9:45 PM" },
-        { id: 112125, centra: 5, date: "15 March 2024", time: "10:04 PM" },
-        { id: 112126, centra: 6, date: "16 March 2024", time: "11:53 PM" },
-        { id: 112127, centra: 7, date: "17 March 2024", time: "12:10 PM" },
-        { id: 112128, centra: 8, date: "18 March 2024", time: "1:20 AM" },
-    ];
+function NotificationList({formatDate, shipmentInfo, packages}) {
+    const nav = useNavigate();
+
+    const getPackageData = (shippingId) => {
+        return packages.find(item => item.shippingId === shippingId);  
+    } 
 
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
@@ -37,9 +34,21 @@ function NotificationList() {
         }
     };
 
+    const handleTrack = (shippingId) => {
+        nav(`/trackshipping/${shippingId}`);
+    }
+
 
     return (
+        <motion.div
+                key="add"
+                initial={{ x: 300, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                exit={{ x: -300, opacity: 0 }}
+                transition={{ duration: 0.5 }}
+                >
         <div className="pb-20">
+            
             <div className="w-5/6 bg-white rounded-2xl mx-auto gap-10 relative py-6">
                 <div className="flex justify-center gap-12 w-full mb-3">
                     <p className="text-septenary underline underline-offset-4 font-semibold"> All </p>
@@ -49,15 +58,19 @@ function NotificationList() {
                 <div className="h-full pt-2 pb-3">
                     <div className="overflow-auto max-h-full pt">
                         <div>
-                            {currentItems.map(shipment => (
-                                <Notification
-                                    key={shipment.id}
-                                    shipmentId={shipment.id}
-                                    centra={shipment.centra}
-                                    date={shipment.date}
-                                    time={shipment.time}
-                                />
-                            ))}
+                            {currentItems.map(shipment => {
+                                const packageInfo = getPackageData(shipment.shippingId);
+                                return (
+                                    <Notification
+                                        key={shipment.shippingId}
+                                        shipmentId={shipment.shippingId}
+                                        centra={packageInfo?.centraUnit || 'N/A'}
+                                        date={formatDate(shipment.shippingDate)}
+                                        time={shipment.shippingTime}
+                                        handleTrack={handleTrack}
+                                    />
+                                );
+                            })}
                         </div>
                         
                     </div>
@@ -82,6 +95,7 @@ function NotificationList() {
                 </div>
             </div>
         </div>
+        </motion.div>
     )
 
 }

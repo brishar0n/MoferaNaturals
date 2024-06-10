@@ -12,6 +12,7 @@ const SuccessNotification = ({htmlContent}) => {
       confirmButtonText: 'Done',
       customClass: {
         confirmButton: 'sweet_confirmbuttonImportant',
+        popup: 'rounded-3xl w-96 montserrat',
       },
     }).then((result) => {
         if (result.isConfirmed) {

@@ -3,9 +3,11 @@ import PackageReception from '../../../components/xyz/xyz_mobile/PackageReceptio
 import { useState, useEffect } from 'react'
 import receptionBg from '../../../assets/xyz/bgreception.svg'
 import '../../../style/xyz/xyz_mobile/ReceptionPackage.css'
+import { motion } from "framer-motion";
 
 function ReceptionPackage() {
     const [isMobile, setIsMobile] = useState(false);
+    const [formSubmitted, setFormSubmitted] = useState(false);
 
     useEffect(() => {
         const handleResize = () => {
@@ -24,6 +26,11 @@ function ReceptionPackage() {
         };
     }, []);
 
+    function handleSubmit(event) {
+        event.preventDefault();
+        setFormSubmitted(true);
+    }
+
     return (
         <div className='bg-quaternary w-screen h-screen overflow-y-scroll'>
             {isMobile && (
@@ -31,7 +38,18 @@ function ReceptionPackage() {
                     <div className='h-screen absolute inset-0 flex justify-end -top-10'>
                         <img src={receptionBg} alt="receptionBg"/>
                     </div>
-                    <PackageReception />
+                    <motion.div
+                        key="add"
+                        initial={{ x: 300, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        exit={{ x: -300, opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                        >
+                        <PackageReception 
+                            handleSubmit={handleSubmit}
+                            formSubmitted={formSubmitted}
+                        />
+                    </motion.div>
                     <NavbarXYZ />
                 </>
             )}

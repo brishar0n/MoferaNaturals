@@ -1,4 +1,4 @@
-.search input {
+.searchPackage input {
     background-color: white;
     border: 0;
     border-radius: 100px;
@@ -10,14 +10,37 @@
     color: var(--color-primary);
 }
 
-.search ::placeholder {
+.searchPackage ::placeholder {
     color: var(--color-primary);
 }
 
-.search button {
+.searchPackage button {
     width: 40px;
     height: 40px;
     background-color: var(--color-primary);
+    border-radius: 20px;
+}
+
+.searchPackageGH input {
+    background-color: white;
+    border: 0;
+    border-radius: 100px;
+    font-size: 15px;
+    padding: 20px 20px;
+    height: 25px;
+    width: 80%;
+    text-align: center;
+    color: var(--color-primary);
+}
+
+.searchPackageGH ::placeholder {
+    color: var(--color-primary);
+}
+
+.searchPackageGH button {
+    width: 40px;
+    height: 40px;
+    background-color: var(--color-tertiary);
     border-radius: 20px;
 }
 

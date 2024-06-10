@@ -1,10 +1,56 @@
+@media (max-width: 600px) {
+    .texts {
+        font-size: 1.875rem;
+        line-height: 2.25rem;
+    }
+}
+
 @media (max-width: 400px) {
     .boxsize {
         width: 34%;
-        right: 6%;
-        top: 45%;
+        margin-top: 20px;
     }
-    .text {
-        font-size: 1.75rem;
+    .texts {
+        font-size: 1.65rem;
+        line-height: 2.10rem;
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 400px) {
+    .box {
+        width: 50%;
+        margin-top: 20px;
+    }
+}
+
+.search input {
+    background-color: white;
+    border: 0;
+    border-radius: 100px;
+    border-start-start-radius: 100px;
+    font-size: 10px;
+    padding: 20px 10px;
+    height: 25px;
+    width: 110%;
+    text-align: center;
+    color: var(--color-primary);
+}
+
+.search ::placeholder {
+    color: var(--color-primary);
+}
+
+.search button {
+    width: 40px;
+    height: 40px;
+    background-color: var(--color-primary);
+    border-radius: 20px;
+}
+
+@media (max-width: 412px) {
+    .truck {
+        width: 40%;
+        margin-top: 50px;
     }
 }

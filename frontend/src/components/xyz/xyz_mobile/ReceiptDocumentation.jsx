@@ -9,8 +9,12 @@ import SignatureModal from './SignatureModal';
 import { GrAddCircle } from "react-icons/gr";
 import { GrSubtractCircle } from "react-icons/gr";
 import { useNavigate } from 'react-router-dom';
+import SuccessNotification from "../../SuccessNotification";
+import FailedNotification from "../../FailedNotification";
 
 function ReceiptDocumentation() {
+    const successMessage = `You have successfully added reception document.`;
+
     const [value, setValue] = useState({ 
         startDate: null,
         endDate: null 
@@ -37,6 +41,9 @@ function ReceiptDocumentation() {
     const [urlFirst,setUrlFirst] = useState()
     const [signSecond,setSignSecond] = useState()
     const [urlSecond, setUrlSecond] = useState()
+
+    const [formSubmitted, setFormSubmitted] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
     async function handleBack() {
         navigate(`/receptionpackage`);
@@ -100,6 +107,8 @@ function ReceiptDocumentation() {
     function handleSubmit(e) {
         e.preventDefault();
 
+        let errorMessage = `Please fill in the following fields:\n`;
+
         if (
             GHname === "" ||
             XYZname === "" ||
@@ -109,18 +118,40 @@ function ReceiptDocumentation() {
             centra === "" ||
             description === ""
         ) {
-            let errorMessage = "Please fill in the following fields:\n";
-            if (GHname === "") errorMessage += "- GHname\n";
-            if (XYZname === "") errorMessage += "- XYZname\n";
-            if (packageID === "") errorMessage += "- packageID\n";
-            if (totalPackage === "") errorMessage += "- totalPackage\n";
-            if (weight === "") errorMessage += "- weight\n";
-            if (centra === "") errorMessage += "- centra\n";
-            if (description === "") errorMessage += "- description\n";
+            
+            if (GHname === "") errorMessage += "GH name";
+            if (XYZname === "") errorMessage += ", XYZ name";
+            if (packageID === "") errorMessage += ", package ID";
+            if (totalPackage === "") errorMessage += ", total package";
+            if (weight === "") errorMessage += ", weight";
+            if (centra === "") errorMessage += ", centra";
+            if (description === "") errorMessage += ", description";
+            if (urlFirst === "") errorMessage += ", GH signature";
+            if (urlSecond === "") errorMessage += ", XYZ signature\n";
     
-            alert(errorMessage);
+            setErrorMessage(errorMessage);
+            setFormSubmitted(false);
             return;
-        }
+        } 
+
+        setFormSubmitted(true);
+
+        const documentData = {
+            GHname,
+            XYZname,
+            packageID,
+            totalPackage,
+            weight,
+            centra,
+            description,
+            date: value.startDate,
+            signatures: {
+                GH: urlFirst,
+                XYZ: urlSecond
+            }
+        };
+
+        onSaveDocument(documentData);
 
         setGHname("");
         setXYZname("");
@@ -133,6 +164,9 @@ function ReceiptDocumentation() {
 
     return (
         <div className=''>
+            {formSubmitted && <SuccessNotification htmlContent={successMessage} />}
+            {!formSubmitted && errorMessage && <FailedNotification htmlContent={errorMessage} />}
+
             <div className="flex items-center justify-center flex-col relative p-5">
                 <button className='absolute bg-primary p-2 rounded-full left-5 text-white top-8' onClick={handleBack}>
                     <GoChevronLeft className='w-6 h-6 button'/>

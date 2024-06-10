@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import { Line } from 'react-chartjs-2';
@@ -15,6 +15,9 @@ const columns = [
     headerName: 'Package ID', 
     width: 150,
     cellClassName: 'super-app-theme--cell',
+    hideable: false,
+    filterable: false,
+    resizable: false,
   },
   { 
     field: 'weight', 
@@ -22,23 +25,29 @@ const columns = [
     headerAlign: 'center', 
     headerName: 'Weight (in kg)', 
     type: 'number', 
-    width: 120,
+    width: 150,
     cellClassName: 'super-app-theme--cell',
+    hideable: false,
+    filterable: false,
+    resizable: false,
   },
   { 
     field: 'status', 
     headerClassName: 'super-app-theme--header', 
     headerAlign: 'center', 
     headerName: 'Status', 
-    width: 205,
+    width: 290,
     cellClassName: 'super-app-theme--cell',
+    hideable: false,
+    filterable: false,
+    resizable: false,
   },
 ];
 
 export default function CentraMonitorTable({ dataType, handleDataTypeChange }) {
   const [rows, setRows] = useState([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     let data = [];
     if (dataType === 'Wet Leaves') {
       data = [
@@ -126,14 +135,12 @@ export default function CentraMonitorTable({ dataType, handleDataTypeChange }) {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, ml: 3, mb: 5 }}>
-      <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginRight: '38px' }}>
-        <span>
-          <h2 className='text-left font-medium text-xl mr-72 mt-9'>{dataType} Activity &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2>
-        </span>
-        <div className="bg-neutral-100 rounded-full w-1/2 z-20 mb-4 mt-9 flex items-center">
-          <p className={`w-48 rounded-full p-1 cursor-pointer hover:bg-nonary hover:text-white ${dataType === 'Wet Leaves' ? 'active' : ''}`} onClick={() => handleDataTypeChange('Wet Leaves')}> Wet Leaves </p>
-          <p className={`w-48 rounded-full p-1 cursor-pointer hover:bg-nonary hover:text-white ${dataType === 'Dry Leaves' ? 'active' : ''}`} onClick={() => handleDataTypeChange('Dry Leaves')}> Dry Leaves </p>
-          <p className={`w-48 rounded-full p-1 cursor-pointer hover:bg-nonary hover:text-white ${dataType === 'Powder' ? 'active' : ''}`} onClick={() => handleDataTypeChange('Powder')}> Powder </p>
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
+        <h2 className='font-medium text-xl mt-8'>{dataType} Activity</h2>
+        <div className="bg-neutral-100 rounded-full w-1/2 z-20 mt-8 mr-4 flex items-center justify-center">
+          <p className={`w-48 rounded-full p-1 cursor-pointer hover:bg-primary hover:text-white ${dataType === 'Wet Leaves' ? 'active' : ''}`} onClick={() => handleDataTypeChange('Wet Leaves')}> Wet Leaves </p>
+          <p className={`w-48 rounded-full p-1 cursor-pointer hover:bg-primary hover:text-white ${dataType === 'Dry Leaves' ? 'active' : ''}`} onClick={() => handleDataTypeChange('Dry Leaves')}> Dry Leaves </p>
+          <p className={`w-48 rounded-full p-1 cursor-pointer hover:bg-primary hover:text-white ${dataType === 'Powder' ? 'active' : ''}`} onClick={() => handleDataTypeChange('Powder')}> Powder </p>
         </div>
       </Box>
       

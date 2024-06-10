@@ -4,8 +4,10 @@ import { CgAdd } from "react-icons/cg";
 import SuccessNotification from "../SuccessNotification";
 import AddNotesModal from "./AddNotesModal";
 import PackageIDInput from "../centra/PackageIDInput";
+import { motion } from "framer-motion"
+import { postCheckpoint } from "../../../api/guardHarborAPI";
 
-function CheckpointForm() {
+function CheckpointForm({ handleSubmit }) {
     const navigate = useNavigate();
     const [formSubmitted, setFormSubmitted] = useState(false);
 
@@ -41,9 +43,18 @@ function CheckpointForm() {
         navigate("/viewcheckpoint");
     }
 
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
         event.preventDefault();
-        setFormSubmitted(true);
+        const data = {
+            "shipping_id": shippingId,
+            "total_packages": totalPackagesArrived,
+            "package_ids": selectedPackageIDs,
+            "arrival_datetime": arrivalDate+'T'+arrivalTime,
+            "note": notes
+        }
+        postCheckpoint(data);
+        
+        // setFormSubmitted(true);
     }
 
     function handleEdit() {
@@ -93,6 +104,15 @@ function CheckpointForm() {
                 </div>
             </div>
 
+            <motion.div
+                key="add"
+                initial={{ x: 300, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                exit={{ x: -300, opacity: 0 }}
+                transition={{ duration: 0.5 }}
+                >
+                        
+            
             <div className='pb-36'>
                 <div className='bg-white mb-5 w-3/4 mx-auto py-5 px-7 rounded-2xl text-left relative mt-5 flex flex-col' onSubmit={handleSubmit}>
                     <form>
@@ -183,6 +203,7 @@ function CheckpointForm() {
                     </div>
                 </div>
             </div>
+            </motion.div>
         </div>
     );
 }
