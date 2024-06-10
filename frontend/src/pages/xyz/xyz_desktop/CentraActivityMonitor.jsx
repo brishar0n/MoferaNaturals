@@ -41,7 +41,7 @@ const CentraActivityMonitor = () => {
             <a href="/dashboard"><IoNotifications className="text-2xl" /></a>
           </div>
           <span className="flex items-center mr-7">
-            <img src={profilepic} alt='profile picture' className='flex align-right right-0 top-0 mt-[27px]'/>
+            <img src={profilepic} alt='profile picture' className='flex align-right right-0 top-0 mt-[26px]'/>
           </span>
         </div>
 
