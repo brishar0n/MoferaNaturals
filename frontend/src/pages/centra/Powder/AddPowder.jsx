@@ -2,6 +2,7 @@ import React from "react";
 import "../../../style/App.css"
 import { useState } from "react";
 import PowderForm from "../../../components/centra/PowderForm";
+import { postFlour } from "../../../../api/centraAPI";
 
 function AddPowder(){
     const [weight, setWeight] = useState(0);
@@ -23,6 +24,11 @@ function AddPowder(){
 
     function handleSubmit(event) {
         event.preventDefault();
+        postFlour({
+            weight,
+            "dried_date": driedDate,
+            "floured_date": flouredDate
+        })
         setFormSubmitted(true);
     }
     
