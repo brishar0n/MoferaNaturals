@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { IoNotifications } from "react-icons/io5";
+import { motion } from "framer-motion";
+
 import Sidebar from '../../../components/xyz/Sidebar';
 import CentraMonitorTable from '../../../components/xyz/CentraMonitorTable';
 import CentraMonitorBar from '../../../components/xyz/CentraMonitorBar';
 import profilepic from "../../../assets/desktop/profilepicdesktop.svg";
-import { useNavigate } from 'react-router-dom';
-import { IoNotifications } from "react-icons/io5";
 
 const CentraActivityMonitor = () => {
   const [date, setDate] = useState(new Date());
@@ -44,6 +46,8 @@ const CentraActivityMonitor = () => {
             <img src={profilepic} alt='profile picture' className='flex align-right right-0 top-0 mt-[27px]'/>
           </span>
         </div>
+
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} className="flex-1 overflow-y-auto">
 
         <div className="ml-6 mb-5 flex items-center justify-between">
           <p className="text-left text-sm bg-quinary text-black border border-green-800 w-fit px-2 rounded">Date: {date.toLocaleDateString()}</p>
@@ -89,6 +93,7 @@ const CentraActivityMonitor = () => {
             </div>
           </div>
         </div>
+        </motion.div>
       </div>
     </div>
   );
