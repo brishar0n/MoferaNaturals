@@ -8,13 +8,13 @@ const columns = [
 		name: 'Package ID',
 		selector: row => row.packageID,
         sortable: true,
-        width: "200px"   
+        width: "220px",   
 	},
 	{
 		name: 'Centra',
 		selector: row => row.Centra,
         sortable: true,
-        width: "200px"   
+        width: "217px"   
 	},
     {
 		name: 'Weight',
@@ -26,13 +26,13 @@ const columns = [
 		name: 'Receival Date',
 		selector: row => row.Date,
         sortable: true,
-        width: "200px"   
+        width: "180px"   
 	},
     {
 		name: 'Total Packages Received',
 		selector: row => row.Total,
         sortable: true,
-        width: "200px"   
+        width: "220px"   
 	},
 ];
 
@@ -123,24 +123,16 @@ const customTheme = createTheme('custom', {
     divider: {
         default: 'none', 
     },
-    header: {
-        background: 'rgba(230,241,237,255)', 
-        border: {
-            color: '#016B45', 
-            width: '2px', 
-            radius: '6px',
-        },
-    },
 });
 
-function ReceivedPackagesTable() {
+function ArrivedPackagesTable() {
     return (
         <div className='bg-quinary px-4 pt-3 pb-4 rounded-lg flex-1 overflow'>
             <div className='relative'>
-                <p className="text-xl text-left text-black font-medium ml-5 pt-6 mb-4">Package Status</p>
+                <p className="text-xl text-left text-black font-medium ml-4 pt-6 mb-4">Package Status</p>
                 <div>
                     <form className="w-40">
-                        <select id="times" className="bg-quinary absolute top-0 right-0 border border-primary text-primary text-sm focus:ring-primary focus:border-primary block p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full px-1 mr-24 mt-5">
+                        <select id="times" className="bg-quinary absolute top-0 right-0 border border-primary text-primary text-sm focus:ring-primary focus:border-primary block p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full px-1 mr-28 mt-5">
                             <option>Select Centra</option>
                             <option>Centra 1</option>
                             <option>Centra 2</option>
@@ -149,7 +141,7 @@ function ReceivedPackagesTable() {
                     </form>
 
                     <form className="w-40">
-                        <select id="times" className="bg-quinary absolute top-0 right-0 border border-primary text-primary text-sm focus:ring-primary focus:border-primary block p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full px-1 mr-2 mt-5">
+                        <select id="times" className="bg-quinary absolute top-0 right-0 border border-primary text-primary text-sm focus:ring-primary focus:border-primary block p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full px-1 mr-4 mt-5">
                             <option>Filter</option>
                             <option>Date</option>
                             <option>Weight</option>
@@ -158,14 +150,29 @@ function ReceivedPackagesTable() {
                 </div>
             </div>
 
-		    <DataTable
-			    columns={columns}
-			    data={data}
-                theme='custom'
+            <DataTable
+                columns={columns}
+                data={data}
                 pagination
-		    />
+                theme='custom'
+                customStyles={{
+                    table: {
+                        style: {
+                            backgroundColor: 'rgba(230,241,237,255)',
+                        },
+                    },
+                    headCells: {
+                        style: {
+                            borderTop: '1px solid rgba(26,127,93,255)',
+                            borderBottom: '1px solid rgba(26,127,93,255)',
+                            color: '#000',
+                            fontWeight: 'bold',
+                        },
+                    },
+                }}
+            />
         </div>
     );
 };
 
-export default ReceivedPackagesTable;
+export default ArrivedPackagesTable;
