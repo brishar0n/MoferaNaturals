@@ -24,7 +24,7 @@ const columns = [
     headerAlign: 'center', 
     headerName: 'Weight (in kg)', 
     type: 'number', 
-    width: 130,
+    width: 150,
     cellClassName: 'super-app-theme--cell',
     hideable: false,
     filterable: false,
@@ -35,7 +35,7 @@ const columns = [
     headerClassName: 'super-app-theme--header', 
     headerAlign: 'center', 
     headerName: 'Status', 
-    width: 205,
+    width: 290,
     cellClassName: 'super-app-theme--cell',
     hideable: false,
     filterable: false,
@@ -136,7 +136,7 @@ export default function CentraMonitorTable({ dataType, handleDataTypeChange }) {
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, ml: 3, mb: 5 }}>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
         <h2 className='font-medium text-xl mt-8'>{dataType} Activity</h2>
-        <div className="bg-neutral-100 rounded-full w-1/2 z-20 mt-8 mr-4 flex items-center">
+        <div className="bg-neutral-100 rounded-full w-1/2 z-20 mt-8 mr-4 flex items-center justify-center">
           <p className={`w-48 rounded-full p-1 cursor-pointer hover:bg-primary hover:text-white ${dataType === 'Wet Leaves' ? 'active' : ''}`} onClick={() => handleDataTypeChange('Wet Leaves')}> Wet Leaves </p>
           <p className={`w-48 rounded-full p-1 cursor-pointer hover:bg-primary hover:text-white ${dataType === 'Dry Leaves' ? 'active' : ''}`} onClick={() => handleDataTypeChange('Dry Leaves')}> Dry Leaves </p>
           <p className={`w-48 rounded-full p-1 cursor-pointer hover:bg-primary hover:text-white ${dataType === 'Powder' ? 'active' : ''}`} onClick={() => handleDataTypeChange('Powder')}> Powder </p>
