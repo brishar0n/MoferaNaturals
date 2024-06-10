@@ -18,10 +18,9 @@ function AddDryLeaves() {
 
     function handleSubmit(event) {
         event.preventDefault();
-        const formattedDate = driedDate.toISOString().substring(0,10)// Formatting date
         const dryLeavesData = {
             weight,
-            dried_date: formattedDate,
+            dried_date: driedDate,
         };
         postDryLeaves(dryLeavesData);
         setFormSubmitted(true);

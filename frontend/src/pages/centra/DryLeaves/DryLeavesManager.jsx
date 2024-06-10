@@ -20,13 +20,6 @@ function DryLeavesManager() {
       setIsMobile(window.innerWidth < 600);
     }
 
-    getDryLeaves()
-    .then( response => {
-        setDryLeaves(response.data);
-    })
-    .catch( err => {
-      console.error(err);
-    })
 
     handleResize();
     window.addEventListener("resize", handleResize);

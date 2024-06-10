@@ -35,7 +35,7 @@ export const postDryLeaves = (DryLeaves) => {
 export const postFlour = (Flour) => {
     console.log(Flour)
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
-    axios.post(URL + "/centra/new_Flour", Flour)
+    axios.post(URL + "/centra/new_flour", Flour)
     .catch((error) => {
         console.error(error);
     });
@@ -81,6 +81,16 @@ export const getCollection = async () => {
 export const getWetLeaves = async () => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
     const WetLeaves = await axios.get(URL + "/centra/wet_leaves")
+    .catch((error) => {
+        console.error(error);
+    });
+
+    return WetLeaves
+}
+
+export const getDryLeavesMobile = async (filterData) => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    const WetLeaves = await axios.get(URL + "/centra/dry_leaves_mobile", filterData)
     .catch((error) => {
         console.error(error);
     });

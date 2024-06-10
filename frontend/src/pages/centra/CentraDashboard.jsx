@@ -22,7 +22,7 @@ function CentraDashboardHomePage() {
 
     const collectionData = {
       weight,
-      retrieval_date: date.toISOString().substring(0, 10),
+      retrieval_date: date
     };
     postCollection(collectionData);
   };
