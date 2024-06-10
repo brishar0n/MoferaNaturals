@@ -24,7 +24,6 @@ export const postWetLeaves = (WetLeaves) => {
 }
 
 export const postDryLeaves = (DryLeaves) => {
-    DryLeaves = {...DryLeaves, "centra_id" : 1}
     console.log(DryLeaves)
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
     axios.post(URL + "/centra/new_dry_leaves", DryLeaves)
@@ -34,7 +33,6 @@ export const postDryLeaves = (DryLeaves) => {
 }
 
 export const postFlour = (Flour) => {
-    Flour = {...Flour, "centra_id" : 1}
     console.log(Flour)
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
     axios.post(URL + "/centra/new_Flour", Flour)

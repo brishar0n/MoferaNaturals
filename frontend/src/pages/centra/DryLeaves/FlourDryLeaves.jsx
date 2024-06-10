@@ -1,22 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "../../../style/App.css";
 import { Select, SelectItem } from "@nextui-org/select";
 import DryLeavesBox from "../../../components/centra/DryLeavesBox";
 import ConfirmationModal from "../../../components/centra/ConfirmationModal";
+import { DryLeavesContext } from "./DryLeavesManager"
 
 function FlourDryLeaves() {
     const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split("T")[0]);
     const [weight, setWeight] = useState(0);
     const [interval, setInterval] = useState("daily");
     const [dateRanges, setDateRanges] = useState([]);
-    const [dryLeaves, setDryLeaves] = useState([
-        { id: 200420, weight: 10, driedDate: "2024-05-01", status: "dried", finishedTime: null },
-        { id: 200421, weight: 5, driedDate: "2024-05-02", status: "dried", finishedTime: null },
-        { id: 200422, weight: 0, driedDate: "2024-05-03", status: "floured", finishedTime: null },
-        { id: 200423, weight: 8, driedDate: "2024-05-04", status: "dried", finishedTime: null },
-        { id: 200424, weight: 10, driedDate: "2024-05-05", status: "floured", finishedTime: null },
-        { id: 200425, weight: 5, driedDate: "2024-05-06", status: "dried", finishedTime: null },
-    ]);
+    // const [dryLeaves, setDryLeaves] = useState([
+    //     { id: 200420, weight: 10, driedDate: "2024-05-01", status: "dried", finishedTime: null },
+    //     { id: 200421, weight: 5, driedDate: "2024-05-02", status: "dried", finishedTime: null },
+    //     { id: 200422, weight: 0, driedDate: "2024-05-03", status: "floured", finishedTime: null },
+    //     { id: 200423, weight: 8, driedDate: "2024-05-04", status: "dried", finishedTime: null },
+    //     { id: 200424, weight: 10, driedDate: "2024-05-05", status: "floured", finishedTime: null },
+    //     { id: 200425, weight: 5, driedDate: "2024-05-06", status: "dried", finishedTime: null },
+    // ]);
+    const {dryLeaves, setDryLeaves} = useContext(DryLeavesContext);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
