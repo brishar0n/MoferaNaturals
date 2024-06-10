@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Input, useDisclosure } from "@nextui-org/react";
+import {Select, SelectItem} from "@nextui-org/react";
 
 function AddUserButton({ onAddUser }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -95,6 +96,7 @@ function AddUserButton({ onAddUser }) {
                   onChange={handleInputChange}
                   className="mb-4"
                 />
+                
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={() => onOpenChange(false)} className="font-medium">

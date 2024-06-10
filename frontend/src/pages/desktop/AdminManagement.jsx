@@ -1,14 +1,25 @@
 import React, { useState } from "react";
 import "../../style/AdminDesktop.css"
-import DesktopNavbar from "../../components/admin/DesktopNavbar";
+// import DesktopNavbar from "../../components/admin/DesktopNavbar";
 import AdminTable from "../../components/admin/AdminTable";
 import AddUserButton from "../../components/admin/AddUserButton";
-import { initialRows, columns } from "../../components/admin/UserDataSample";
-
+import { initialRows, columns} from "../../components/admin/UserDataSample";
+import AdminSidebar from "../../components/admin/AdminSidebar";
+// import PageTitle from "../../components/admin/PageTitle";
+// import PageTitleDashboard from "../../components/admin/PageTitleDashboard";
+// import PageTitleDataMaster from "../../components/admin/PageTitleDataMaster";
+// import SearchButton from "../../components/admin/SearchButton";
+import SearchButtonData from "../../components/admin/SearchButtonData";
+import MasterDataFolder from "../../components/admin/MasterDataFolder";
+import PageTitleAll from "../../components/admin/PageTitleAll";
+import UserProfile from "../../components/admin/UserProfile";
+import DashboardContent from "../../components/admin/DashboardContent";
+// import AdminTables from "../../components/admin/AdminTable";
+// import Table from "../../components/admin/Table";
 
 function AdminPage() {
     const [rows, setRows] = useState(initialRows);
-
+    // const [columns, setColumns] = useState(columnsOG)
 
     const addUser = (newUser) => {
         console.log("Adding new user:", newUser);
@@ -36,34 +47,53 @@ function AdminPage() {
         setRows(prevRows => prevRows.filter(row => row.id !== id));
     };
 
+    const [isMinimized, setIsMinimized] = useState(false);
+
+    const toggleMenu = () => {
+        setIsMinimized(!isMinimized);
+    };
+
+    const [pageData, setPageData] = useState({
+        title: 'Manage Users',
+        description: 'Arrange username and data collections of ID'
+    });
     
+    const [currentComponent, setCurrentComponent] = useState('AdminTable');
 
+    const handlePageDataChange = (title, description, componentKey) => {
+        setPageData({ title, description });
+        setCurrentComponent(componentKey);
+        // setRows(rows)
+        // setColumns(columns)
+    };
+    
+    const renderComponent = () => {
+        switch (currentComponent) {
+            case 'AdminTable':
+                return <AdminTable rows={rows} setRows={setRows} deleteRow={deleteRow} editRow={handleEditUser} />;
+            case 'MasterDataFolder':
+                return <MasterDataFolder />;
+            case 'Dashboard':
+                return <DashboardContent/>
+            default:
+                return <AdminTable rows={rows} setRows={setRows} deleteRow={deleteRow} editRow={handleEditUser} />;
+        }
+    };
     return (
-        <div className="flex justify-end pr-4 items-center bg-primary h-screen w-screen">
-            <DesktopNavbar/>
-            <div className="bg-white w-5/6 h-97vh rounded-3xl">
-                <div className="justify-end flex pr-20 pt-10 gap-4">
-                    <img src="src/assets/admin/bell (2).svg" className="w-10 drop-shadow" alt="Bell Icon" />
-                    <img src="src/assets/notifications/sample_profile.svg" className="w-12 drop-shadow" alt="Profile Icon" />
+        <div className="flex justify-start items-center bg-primary h-screen w-screen">
+            <AdminSidebar isMinimized={isMinimized} toggleMenu={toggleMenu} onPageDataChange={handlePageDataChange}/>
+            <div className={`bg-white h-97vh rounded-3xl transition-all duration-300 ${isMinimized ? 'w-19/20' : 'w-41/50'}`}>
+                <PageTitleAll title={pageData.title} description={pageData.description}/>
+                <UserProfile/>
+                <SearchButtonData/>
+                <div className={`flex justify-start pt-10 items-center gap-8 ${pageData.title !== 'Data Master' && pageData.title !== 'Dashboard' ? 'pl-0' : 'pl-12'}`}>
+                    
+                    {/* <MasterDataFolder/> */}
+
+                    {/* <AdminTable rows={rows} setRows={setRows} deleteRow={deleteRow} editRow={handleEditUser}/>  */}
+                    {renderComponent()}
                 </div>
 
-                <div className="flex justify-start pl-36">
-                    <p className="text-5xl text font-bold"> Manage Users</p> 
-                </div>
-
-                <div className="flex justify-start pl-36 pt-1">
-                    <p className="text-xl text font-medium"> Arrange username and data collections of ID</p> 
-                </div>
-
-                <div className="flex justify-start pl-36 pt-16 items-center gap-8">
-                    <div className="flex bg-quinary h-12 w-1/2 rounded-full justify-end pr-6 drop-shadow-md">
-                        <input type="text" className="w-full bg-quinary rounded-full pl-4"/>
-                        <img src="src/assets/admin/searchbutton.svg" className="w-7" alt="Search Button" />
-                    </div>  
-
-                    <AddUserButton onAddUser={addUser} />
-                </div>
-                <AdminTable rows={rows} setRows={setRows} deleteRow={deleteRow} editRow={handleEditUser}/>
             </div>
         </div>
     )

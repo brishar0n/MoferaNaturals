@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from '../../../components/xyz/Sidebar';
 import "../../../style/AdminDesktop.css";
-import CentraMonitorTable from '../../../components/xyz/CentraMonitorTable';
-import CentraMonitorBar from '../../../components/xyz/CentraMonitorBar';
+// import CentraMonitorTable from '../../../components/xyz/CentraMonitorTable';
+// import CentraMonitorBar from '../../../components/xyz/CentraMonitorBar';
 import profilepic from "../../../assets/desktop/profilepicdesktop.svg";
 import bell from "../../../assets/desktop/bellicon.svg";
 
@@ -40,13 +40,13 @@ const CentraActivityMonitor = () => {
           <p className="text-left text-sm bg-quinary text-black border border-green-800 w-fit px-2 rounded">Date: {date.toLocaleDateString()}</p>
         </div>
         <div className='bg-quinary rounded-xl mt-4 ml-9 mr-9 w-auto'>
-          <CentraMonitorTable dataType={dataType} handleDataTypeChange={handleDataTypeChange} />
+          {/* <CentraMonitorTable dataType={dataType} handleDataTypeChange={handleDataTypeChange} /> */}
         </div>
 
         <div className='flex flex-row justify-between mt-4 ml-9 mr-9 mb-4'>
           <div className='bg-quinary rounded-xl w-2/3 mr-2'>
             <h2 className='text-left font-medium text-xl pt-6 ml-6'>Statistics</h2>
-            <CentraMonitorBar />
+            {/* <CentraMonitorBar /> */}
           </div>
           <div className='bg-quinary rounded-xl w-1/3 ml-2 p-4'>
             <h2 className='text-left font-medium text-xl pt-2 ml-2'>Shipped Packages</h2>

@@ -30,12 +30,17 @@ module.exports = {
       },
       height: {
         '95vh':'95vh',
-        '97vh': '97vh', // Custom height value set to 90% of the viewport height
+        '97vh': '97vh', 
         '99.999vh' : '99.999vh',
       },
 
       width: {
-        '22.5vh' : '22.5vh'
+        '46':'10.5rem',
+        '19/20' : '95%',
+        '97/100': '97%',
+        '3/20':'15%',
+        '17/20':'85%',
+        '41/50':'84%'
       },
     },
   },

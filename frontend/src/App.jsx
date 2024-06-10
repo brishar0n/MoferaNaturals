@@ -16,7 +16,7 @@ import AddWetLeaves from './pages/centra/AddWetLeaves';
 import AddMachine from './pages/centra/AddMachine';
 import EditMachine from './pages/centra/EditMachine';
 import TrackShipping from './pages/centra/TrackShipping';
-import TrackShippingTwo from './pages/centra/TrackingShippingTwo';
+// import TrackShippingTwo from './pages/centra/TrackingShippingTwo';
 import WashWetLeaves from './pages/centra/WashWetLeaves';
 import DryWetLeaves from './pages/centra/DryWetLeaves';
 import { ShippingInfo } from './pages/centra/ShippingInfo';
@@ -42,6 +42,10 @@ import AddPackage from './pages/centra/AddPackage';
 import PackageHistory from './pages/centra/PackageHistory';
 import PowderHistory from './pages/centra/ViewPowder';
 import ShipmentTracker from './pages/xyz/xyz_desktop/ShipmentTracker';
+import TrackShippingTwo from './pages/centra/TrackShippingTwo';
+import DesktopNavbar from './components/admin/DesktopNavbar';
+import AdminSidebar from './components/admin/AdminSidebar';
+// import UserTable from './components/admin/UserTable';
 
 function App() {
   return (
@@ -99,13 +103,12 @@ function App() {
         {/* Admin */}
         <Route path="/usermanagement" element={<UserManagement />} exact />
         <Route path="/adminpage" element={<AdminPage />}/>
-        <Route path="/admintable" element={<AdminTable />}/>
-        <Route path="/adduserbutton" element={<AddUserButton/>}/>
         <Route path="/navbaradmin" element={<NavbarAdmin/>}/>
-        <Route path="/edituserbutton" element={<EditUserButton/>}/>
+        {/* <Route path="/usertable" element={<UserTable/>}/> */}
+        <Route path="/adminsidebar" element={<AdminSidebar/>}/>
       </Routes> 
     </Router>
   );
 }
 
-export default App
+export default App;

@@ -1,66 +1,97 @@
-function DesktopNavbar() {
-    return (
-        <div className="w-1/6 h-screen bg-primary">
-            <div className="flex justify-center gap-6 pr-7 pt-6">
-                <img src="src/assets/desktop/menu.svg" alt="" className="w-9"/>
-                <img src="src/assets/desktop/mofera.svg" alt="" className="pt-3.5 w-42" />
-            </div>
+import React, { useState } from 'react';
+import "../../style/AdminDesktop.css";
 
-            <br/>
-            <br/>
-            <div className="flex justify-center gap-4 pr-16 items-center">
-                <img src="src/assets/desktop/dashboard-logo.svg" alt="" className="w-9"/>
-                <p className="font-bold text-white text-2xl">Dashboard</p>
-            </div>
+const DesktopNavbar = () => {
+  const [isOpen, setIsOpen] = useState(true);
 
-            <br />
-            <br />
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen);
+  };
 
-            <div className="flex justify-center items-center gap-2 pr-11">
-                <img src="src/assets/desktop/user-icon.svg" alt="" className="w-14"/>
-                <div className="flex flex-col items-start">
-                    <p className="font-bold text-white text-2xl">User</p>
-                    <p className="font-bold text-white text-2xl">Management</p>
-                </div>
-            </div>
-
-            <br />
-            <br />
-
-            <div className="flex items-center justify-center gap-2 pr-11">
-                <img src="src/assets/desktop/database.svg" alt="" className="w-12"/>
-                <div className="flex flex-col items-start">
-                    <p className="font-bold text-white text-2xl">Data</p>
-                    <p className="font-bold text-white text-2xl">Management</p>
-                </div>
-            </div>
-            
-            <br></br>
-            <div className="flex flex-col text-lg font-medium text-white text-start pl-7">
-                <p className="pb-5"> Centra Data </p>
-                
-                <p className="pb-5"> Wet Leaves Data </p>
-
-                <p className="pb-5"> Flour Data </p>
-
-                <div className="flex flex-col">
-                    <p> Shipping Information </p>
-                    <p className="pb-5"> Data </p>
-                </div>
-                
-                <p> Checkpoint Data </p>
-            </div>
-
-            <div className="flex justify-center">
-                <img src="src/assets/desktop/underline.svg" alt="" className="w-5/6"/>
-            </div>
-
-            <div className="flex items-start pt-3 pl-5">
-                <img src="src/assets/desktop/exit.svg" alt="" className="w-12"/>
-            </div>
+  return (
+    <div className={`h-screen bg-primary transition-all duration-400 ${isOpen ? 'w-1/6' : 'w-20'}`}>
+      <div className="flex items-center justify-between py-6 px-4">
+        <div onClick={toggleSidebar} className="flex items-center cursor-pointer">
+          <img
+            src="src/assets/admin/hamburgerbar.svg"
+            alt="menu"
+            className="w-12 mb-3 cursor-pointer"
+          />
         </div>
-    )
-}
+        {isOpen && (
+          <img
+            src="src/assets/desktop/mofera.svg"
+            alt="mofera"
+            className="mr-16 w-40"
+          />
+        )}
+      </div>
 
+      <div className="flex flex-col items-start justify-center space-y-6 px-4">
+        <div className={`flex items-center space-x-3.5 space-y--0.5${isOpen ? "" : "ml-1"}`}>
+          <img src="src/assets/admin/dashboardicon.svg" alt="dashboard" className="w-11"/>
+          {isOpen && <p className="font-bold text-white text-2xl cursor-pointer">Dashboard</p>}
+        </div>
 
-export default DesktopNavbar
+        <div className={`flex items-center space-x-3 ${isOpen ? "ml-1" : "mr-2"}`}>
+          <img src="src/assets/admin/userprofile.svg" alt="user" className={`w-10 ${isOpen ? "w-11" : ""}`} />
+          {isOpen && (
+            <div className="flex flex-col items-start">
+              <p className="font-bold text-white text-2xl cursor-pointer">User</p>
+              <p className="font-bold text-white text-2xl cursor-pointer">Management</p>
+            </div>
+          )}
+        </div>
+
+        <div className={`flex items-center space-x-3  ${isOpen ? "" : "mr-3 ml-1"}`}>
+          <img src="src/assets/admin/dbase.svg" alt="database" className="w-12" />
+          {isOpen && (
+            <div className="flex flex-col items-start">
+              <p className="font-bold text-white text-2xl cursor-pointer">Data</p>
+              <p className="font-bold text-white text-2xl cursor-pointer">Management</p>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {isOpen ? (
+        <div className="flex flex-col text-lg font-medium text-white text-start pl-7 space-y-5 mt-10">
+          <p>Centra Data</p>
+          <p>Wet Leaves Data</p>
+          <p>Flour Data</p>
+          <div className="flex flex-col">
+            <p>Shipping Information</p>
+            <p>Data</p>
+          </div>
+          <p>Checkpoint Data</p>
+        </div>
+      ) : (
+        <div className="flex flex-col text-sm font-medium text-white text-center space-y-5 mt-10">
+          <p>CD</p>
+          <p>WLD</p>
+          <p>FD</p>
+          <p>SID</p>
+          <p>CPD</p>
+        </div>  
+      )}
+
+      <div className={`flex justify-center ${isOpen ? 'mt-72' : 'mt-96 pt-8'}`}>
+        <img
+          src="src/assets/desktop/underline.svg"
+          alt="underline"
+          className={`transition-all duration-300 ${isOpen ? 'w-5/6' : 'w-4/5'}`}
+        />
+      </div>
+
+      <div className={`flex items-center ${isOpen ? 'pt-3' : 'pt-2'} pl-6`}>
+        <img
+          src="src/assets/desktop/exit.svg"
+          alt="exit"
+          className="w-10"
+        />
+      </div>
+    </div>
+  );
+};
+
+export default DesktopNavbar;
