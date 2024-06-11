@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 
-function DryLeavesBox({ weight, driedDate, id, status, finishedTime }) {
+function DryLeavesBox({ weight, driedDate, id, flouredDatetime}) {
     const [timeLeft, setTimeLeft] = useState(null);
 
     useEffect(() => {
-        if (status === "flouring" && finishedTime) {
+        if (flouredDatetime) {
             const intervalId = setInterval(() => {
                 const currentTime = new Date();
-                const timeDiff = Math.max(0, Math.floor((new Date(finishedTime) - currentTime) / 1000)); // Time difference in seconds
+                const flouredTime = new Date(flouredDatetime);
+                const timeDiff = Math.max(0, Math.floor((flouredTime.getTime() + 4 * 60 * 60 * 1000 - currentTime.getTime()) / 1000)); // Time difference in seconds
                 setTimeLeft(timeDiff);
 
-                if (currentTime >= new Date(finishedTime)) {
+                if (currentTime >= new Date(flouredTime.getTime() + 4 * 60 * 60 * 1000)) {
                     clearInterval(intervalId);
                     setTimeLeft(0);
                 }
@@ -18,13 +19,25 @@ function DryLeavesBox({ weight, driedDate, id, status, finishedTime }) {
 
             return () => clearInterval(intervalId);
         }
-    }, [status, finishedTime]);
+    }, [flouredDatetime]);
 
     const formatTimeLeft = (seconds) => {
         const hours = Math.floor(seconds / 3600).toString().padStart(2, '0');
         const minutes = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
         const sec = (seconds % 60).toString().padStart(2, '0');
         return `${hours}h${minutes}m${sec}s`;
+    };
+
+    const getStatus = (flouredDatetime) => {
+        if (!flouredDatetime) {
+            return "washed";
+        }
+        const currentTime = new Date();
+        const flouredTime = new Date(flouredDatetime);
+        if (currentTime < new Date(flouredTime.getTime() + 4 * 60 * 60 * 1000)) {
+            return "flouring";
+        }
+        return "floured";
     };
 
     return (
@@ -53,14 +66,14 @@ function DryLeavesBox({ weight, driedDate, id, status, finishedTime }) {
             <label htmlFor="status" className="items-start text-sm mb-2 font-medium">Status:</label>
             <input 
                 type="text" 
-                value={status} 
+                value={getStatus(flouredDatetime)} 
                 readOnly
                 className="mb-2 rounded-md bg-quinary px-2 py-1 w-full text-xs border-none"
                 required 
                 aria-label="Status"
             />
             <div className='mx-auto mt-2 flex justify-center'>
-                {status === "flouring" && (
+                {getStatus(flouredDatetime) === "flouring" && (
                     <button 
                         className="rounded-full px-7 flex gap-2 items-center py-2 font-semibold bg-gray-400 text-white mt-2" 
                         disabled

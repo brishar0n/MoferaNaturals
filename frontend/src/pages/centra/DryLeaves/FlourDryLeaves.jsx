@@ -6,21 +6,40 @@ import ConfirmationModal from "../../../components/centra/ConfirmationModal";
 import { DryLeavesContext } from "./DryLeavesManager"
 import { getDryLeaves } from "../../../../api/centraAPI";
 import { getFlour } from "../../../../api/centraAPI";
+import { formatISOToUTC } from "../../../../utils/utils";
 
 function FlourDryLeaves() {
     const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split("T")[0]);
     const [weight, setWeight] = useState(0);
     const [interval, setInterval] = useState("daily");
     const [dateRanges, setDateRanges] = useState([]);
+
     const [dryLeaves, setDryLeaves] = useState([
-        { id: 200420, weight: 10, driedDate: "2024-05-01", status: "dried", finishedTime: null },
-        { id: 200421, weight: 5, driedDate: "2024-05-02", status: "dried", finishedTime: null },
-        { id: 200422, weight: 0, driedDate: "2024-05-03", status: "floured", finishedTime: null },
-        { id: 200423, weight: 8, driedDate: "2024-05-04", status: "dried", finishedTime: null },
-        { id: 200424, weight: 10, driedDate: "2024-05-05", status: "floured", finishedTime: null },
-        { id: 200425, weight: 5, driedDate: "2024-05-06", status: "dried", finishedTime: null },
+        {
+            id: 1,
+            weight: 100.5,
+            dried_date: "2024-06-11",
+            floured_datetime: null,
+            centra_id: 1
+        },
+        {
+            id: 2,
+            weight: 72,
+            dried_date: "2024-06-10",
+            floured_datetime: "2024-06-10T18:45:00",
+            centra_id: 2
+        },
+        {
+            id: 3,
+            weight: 53,
+            dried_date: "2024-06-09",
+            floured_datetime: null,
+            centra_id: 3
+        }
     ]);
+
     const [isModalOpen, setIsModalOpen] = useState(false);
+
     useEffect(() => {
         const fetchDryLeaves = async () => {
             const response = await getDryLeaves();
@@ -33,25 +52,30 @@ function FlourDryLeaves() {
 
         fetchDryLeaves();
     }, []);
+
     useEffect(() => {
         const date = new Date(selectedDate);
         const newDateRanges = [];
         const daysToAdd = interval === "daily" ? 1 : interval === "threedays" ? 3 : 7;
 
-        // for (let i = 0; i < daysToAdd; i++) {
-        //     const nextDate = new Date(date);
-        //     nextDate.setDate(date.getDate() + i);
-        //     const formattedDate = nextDate.toISOString().split("T")[0];
-        //     newDateRanges.push(formattedDate);
-        // }
+        for (let i = 0; i < daysToAdd; i++) {
+            const nextDate = new Date(date);
+            nextDate.setDate(date.getDate() + i);
+            const formattedDate = nextDate.toISOString().split("T")[0];
+            newDateRanges.push(formattedDate);
+        }
 
-        // setDateRanges(newDateRanges);
+        setDateRanges(newDateRanges);
         // console.log(dateRanges);
         // console.log(interval);
-        getDryLeavesMobile({
-            "date": selectedDate,
-            "interval": interval
-        })
+
+        // getDryLeavesMobile({
+        //     "date": selectedDate,
+        //     "interval": interval
+        // })
+
+        console.log(dateRanges)
+
     }, [selectedDate, interval]);
 
     useEffect(() => {
@@ -63,33 +87,29 @@ function FlourDryLeaves() {
         setWeight(totalWeight);
     }, [dryLeaves, dateRanges]);
 
-    useEffect(() => {
-        const intervalId = setInterval(() => {
-            const updatedLeaves = dryLeaves.map((leaf) => {
-                if (leaf.status === "flouring" && leaf.finishedTime && new Date() >= leaf.finishedTime) {
-                    return { ...leaf, status: "floured", finishedTime: null };
-                }
-                return leaf;
-            });
-            setDryLeaves(updatedLeaves);
-        }, 1000);
+    // useEffect(() => {
+    //     const intervalId = setInterval(() => {
+    //         const updatedLeaves = dryLeaves.map((leaf) => {
+    //             if (leaf.status === "flouring" && leaf.finishedTime && new Date() >= leaf.finishedTime) {
+    //                 return { ...leaf, status: "floured", finishedTime: null };
+    //             }
+    //             return leaf;
+    //         });
+    //         setDryLeaves(updatedLeaves);
+    //     }, 1000);
 
-        return () => clearInterval(intervalId);
-    }, []);
-
-    const handleBack = () => navigate("/dashboard");
-
-    const handleAdd = () => navigate("/adddryleaves");
+    //     return () => clearInterval(intervalId);
+    // }, []);
 
     const handleFlour = () => {
+        const currentTime = new Date(Date.now());
         const updatedLeaves = dryLeaves.map((leaf) => {
-            if (dateRanges.includes(leaf.dried_date) && leaf.floured_datetime === null) {
-                const finishedTime = new Date(Date.now() + 4 * 60 * 60 * 1000); // 4 hours from now
-                return { ...leaf, status: "flouring", finishedTime };
+            if (dateRanges.includes(leaf.dried_date) && !leaf.floured_datetime) {
+                return { ...leaf, floured_datetime: currentTime.toISOString() };
             }
             return leaf;
         });
-
+    
         setDryLeaves(updatedLeaves);
         setIsModalOpen(false);
     };
@@ -153,6 +173,7 @@ function FlourDryLeaves() {
                         weight={leaf.weight}
                         id={leaf.id}
                         driedDate={leaf.dried_date}
+                        flouredDatetime={leaf.floured_datetime}
                     />
                 ));
             })}
