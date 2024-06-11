@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import "../../../style/App.css";
 import WetLeavesBox from "../../../components/centra/WetLeavesBox";
 import { dryWetLeaves, getWetLeaves } from "../../../../api/centraAPI";
+import { formatISOToUTC } from "../../../../utils/utils";
 
 
 function DryWetLeaves() {
@@ -63,8 +64,8 @@ function DryWetLeaves() {
     const now = new Date();
     if (statusFilter === "ALL") return true;
 
-    const washedDate = leaf.washed_datetime ? new Date(leaf.washed_datetime) : null;
-    const driedDate = leaf.dried_datetime ? new Date(leaf.dried_datetime) : null;
+    const washedDate = leaf.washed_datetime ? new Date(formatISOToUTC(leaf.washed_datetime)) : null;
+    const driedDate = leaf.dried_datetime ? new Date(formatISOToUTC(leaf.dried_datetime)) : null;
     const tenMinutesAfterWash = washedDate ? new Date(washedDate.getTime() + 10 * 60 * 1000) : null;
     const twentyFourHoursAfterDry = driedDate ? new Date(driedDate.getTime() + 24 * 60 * 60 * 1000) : null;
 
@@ -95,8 +96,8 @@ function DryWetLeaves() {
           weight={wetLeaves.weight} 
           date={wetLeaves.retrieval_date} 
           id={wetLeaves.id}
-          washedDatetime={wetLeaves.washed_datetime}
-          driedDatetime={wetLeaves.dried_datetime}
+          washedDatetime={formatISOToUTC(wetLeaves.washed_datetime)}
+          driedDatetime={formatISOToUTC(wetLeaves.dried_datetime)}
           handleWashOrDry={handleWashOrDry}
           isWashingPage={false} // This indicates the washing page
         />
