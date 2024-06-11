@@ -1,11 +1,18 @@
 import CentraNotification from "./CentraNotification"
 import React, { useEffect, useState } from "react";
 import { getCentraNotification } from "../../../api/centraAPI";
+import { formatISOToUTC } from "../../../utils/utils";
 
 function CentraNotificationList() {
     const [notifications, setNotifications] = useState([])
     useEffect(() => {
-        setNotifications(getCentraNotification())
+        const fetchNotification = async () => {
+            const response = await getCentraNotification();
+            console.log(response);
+            if(response.data) setNotifications(response.data);
+        }
+        
+        fetchNotification();
     }, [])
 
 
@@ -22,9 +29,8 @@ function CentraNotificationList() {
                             {notifications.map((notification, index) => (
                                 <CentraNotification
                                     key={index}
-                                    text={notification.text}
-                                    date={notification.date}
-                                    time={notification.time}
+                                    text={notification.message}
+                                    datetime={new Date(formatISOToUTC(notification.date))}
                                 />
                             ))}
                         </div>

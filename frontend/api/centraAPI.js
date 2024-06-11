@@ -143,7 +143,7 @@ export const getPackages = async () => {
 
 export const getCentraNotification = async () => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
-    const Notifications = await axios.get(URL + "/centra/notification", ShippingInfo)
+    const Notifications = await axios.get(URL + "/centra/notification")
     .catch((error) => {
         console.error(error);
     });
