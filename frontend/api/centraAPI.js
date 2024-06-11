@@ -44,7 +44,7 @@ export const postFlour = (Flour) => {
 export const washWetLeaves = (Data) => {
     console.log(Data)
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
-    axios.put(URL + "/centra/wash_wet_leaves/" + Data.id, {"date": Data.date})
+    axios.put(URL + "/centra/wash_wet_leaves/" + Data.id, {"datetime": Data.date})
     .catch((error) => {
         console.error(error);
     });
@@ -53,7 +53,7 @@ export const washWetLeaves = (Data) => {
 export const dryWetLeaves = (Data) => {
     console.log(Data)
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
-    axios.put(URL + "/centra/dry_wet_leaves/" + Data.id, {"date": Data.date})
+    axios.put(URL + "/centra/dry_wet_leaves/" + Data.id, {"datetime": Data.date})
     .catch((error) => {
         console.error(error);
     });
@@ -88,9 +88,22 @@ export const getWetLeaves = async () => {
     return WetLeaves
 }
 
+
+export const getWashedWetLeaves = async () => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    const WashedWetLeaves = await axios.get(URL + "/centra/washed_wet_leaves")
+    .catch((error) => {
+        console.error(error);
+    });
+
+    return WashedWetLeaves
+}
+
 export const getDryLeavesMobile = async (filterData) => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
-    const WetLeaves = await axios.get(URL + "/centra/dry_leaves_mobile", filterData)
+    const WetLeaves = await axios.get(URL + "/centra/dry_leaves_mobile", {
+        "params": filterData
+    })
     .catch((error) => {
         console.error(error);
     });

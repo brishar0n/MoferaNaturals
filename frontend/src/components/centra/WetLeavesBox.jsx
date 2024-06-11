@@ -49,7 +49,7 @@ function WetLeavesBox({ weight, date, id, washedDatetime, driedDatetime, handleW
     const handleConfirmAction = () => {
         setIsModalOpen(false);
         const newFinishedTime = new Date(Date.now() + (modalAction === "wash" ? 10 * 60 * 1000 : 24 * 60 * 60 * 1000));
-        handleWashOrDry(id, modalAction === "wash" ? "washing" : "drying", newFinishedTime);
+        handleWashOrDry(id, modalAction === "wash" ? "washing" : "drying", newFinishedTime.toISOString());
     };
 
     const formatTimeLeft = (seconds) => {

@@ -1,49 +1,62 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "../../../style/App.css";
 import WetLeavesBox from "../../../components/centra/WetLeavesBox";
-import { WetLeavesContext } from "./WetLeavesManager";
+import { dryWetLeaves, getWetLeaves } from "../../../../api/centraAPI";
+
 
 function DryWetLeaves() {
   const [statusFilter, setStatusFilter] = useState("drying");
   // filter wet leaves data that the washed datetime is not null.
-  const [wetLeaves, setWetLeaves] = useState([
-    {
-        id: 1,
-        retrieval_date: "2024-06-11",
-        washed_datetime: "2024-06-10T13:15:00",
-        dried_datetime: null,
-        weight: 100.5,
-        centra_id: 1
-    },
-    {
-        id: 2,
-        retrieval_date: "2024-06-10",
-        washed_datetime: "2024-06-10T13:15:00",
-        dried_datetime: null,
-        weight: 120.3,
-        centra_id: 2
-    },
-    // {
-    //   id: 3,
-    //   retrieval_date: "2024-06-9",
-    //   washed_datetime: null,
-    //   dried_datetime: null,
-    //   weight: 40.3,
-    //   centra_id: 2
-    // },
-  ]);
-  // const { wetLeaves, setWetLeaves } = useContext(WetLeavesContext)
+  // const [wetLeaves, setWetLeaves] = useState([
+  //   {
+  //       id: 1,
+  //       retrieval_date: "2024-06-11",
+  //       washed_datetime: "2024-06-10T13:15:00",
+  //       dried_datetime: null,
+  //       weight: 100.5,
+  //       centra_id: 1
+  //   },
+  //   {
+  //       id: 2,
+  //       retrieval_date: "2024-06-10",
+  //       washed_datetime: "2024-06-10T13:15:00",
+  //       dried_datetime: null,
+  //       weight: 120.3,
+  //       centra_id: 2
+  //   },
+  //   {
+  //     id: 3,
+  //     retrieval_date: "2024-06-9",
+  //     washed_datetime: null,
+  //     dried_datetime: null,
+  //     weight: 40.3,
+  //     centra_id: 2
+  //   },
+  // ]);
+  const [wetLeaves, setWetLeaves] = useState([])
+
+  useEffect(() => {
+    const fetchWetLeaves = async () => {
+        const response = await getWetLeaves();
+        console.log(response);
+        if(response.data) setWetLeaves(response.data);
+    }
+    
+    fetchWetLeaves();
+  },[])
 
   const handleWashOrDry = (id, newStatus, newDatetime) => {
-    setWetLeaves(prevData =>
-      prevData.map(leaf => 
-        leaf.id === id ? { 
-          ...leaf, 
-          washed_datetime: newStatus === "washing" ? newDatetime : leaf.washed_datetime, 
-          dried_datetime: newStatus === "drying" ? newDatetime : leaf.dried_datetime 
-        } : leaf
-      )
-    );
+    console.log(id, newStatus, newDatetime)
+    if (newStatus === "drying") dryWetLeaves({id, "date":newDatetime})
+    // setWetLeaves(prevData =>
+    //   prevData.map(leaf => 
+    //     leaf.id === id ? { 
+    //       ...leaf, 
+    //       washed_datetime: newStatus === "washing" ? newDatetime : leaf.washed_datetime, 
+    //       dried_datetime: newStatus === "drying" ? newDatetime : leaf.dried_datetime 
+    //     } : leaf
+    //   )
+    // );
   };
 
   const filteredWetLeaves = wetLeaves.filter((leaf) => {
