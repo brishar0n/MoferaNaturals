@@ -13,11 +13,9 @@ export const postCollection = (Collection) => {
 }
 
 export const postWetLeaves = (WetLeaves) => {
-    WetLeaves = {...WetLeaves, "centra_id" : 1}
     console.log(WetLeaves)
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
     axios.post(URL + "/centra/new_wet_leaves", WetLeaves)
-    console.log("success")
     .catch((error) => {
         console.log(error);
         console.error(error);
@@ -26,7 +24,6 @@ export const postWetLeaves = (WetLeaves) => {
 }
 
 export const postDryLeaves = (DryLeaves) => {
-    DryLeaves = {...DryLeaves, "centra_id" : 1}
     console.log(DryLeaves)
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
     axios.post(URL + "/centra/new_dry_leaves", DryLeaves)
@@ -36,10 +33,9 @@ export const postDryLeaves = (DryLeaves) => {
 }
 
 export const postFlour = (Flour) => {
-    Flour = {...Flour, "centra_id" : 1}
     console.log(Flour)
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
-    axios.post(URL + "/centra/new_Flour", Flour)
+    axios.post(URL + "/centra/new_flour", Flour)
     .catch((error) => {
         console.error(error);
     });
@@ -92,6 +88,16 @@ export const getWetLeaves = async () => {
     return WetLeaves
 }
 
+export const getDryLeavesMobile = async (filterData) => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    const WetLeaves = await axios.get(URL + "/centra/dry_leaves_mobile", filterData)
+    .catch((error) => {
+        console.error(error);
+    });
+
+    return WetLeaves
+}
+
 export const getDryLeaves = async () => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
     const DryLeaves = await axios.get(URL + "/centra/dry_leaves")
@@ -134,7 +140,6 @@ export const postPackage = (Package) => {
 }
 
 export const addShippingInfo = (ShippingInfo) => {
-    ShippingInfo = {...ShippingInfo, "centra_id" : 1}
     console.log(ShippingInfo)
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
     axios.post(URL + "/centra/add_shipping", ShippingInfo)

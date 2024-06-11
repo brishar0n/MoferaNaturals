@@ -1,75 +1,63 @@
-import Sidebar from "./Sidebar";
+import React, { useState } from 'react';
+import Sidebar from "../../../components/xyz/Sidebar";
 import BarChart from "./BarChart";
 import AreaChart from "./AreaChart";
-import Table from "./Table"
-import RecentActivities from "./RecentActivities"
-import SearchForm from "./Search"
+import Table from "./Table";
+import RecentActivities from "./RecentActivities";
+import SearchForm from "./Search";
 import { IoNotifications } from "react-icons/io5";
+import { motion } from "framer-motion";
 
+import profilepic from "../../../assets/desktop/profilepicdesktop.svg";
+import mascot from "../../../assets/xyz/half-mascot.svg";
 
 const activities = [
-  { day:new Date().toLocaleString() + '', time: '10 mins ago', description: 'Centra 1 just added 30kg of wet leaves data into the system.',image: 'src/assets/DashboardDesktop/ellipse-10@2x.png'  },
-  { day:new Date().toLocaleString() + '', time: '10 mins ago', description: 'Centra 1 just added 30kg of wet leaves data into the system.',image: 'src/assets/DashboardDesktop/ellipse-9@2x.png' },
-  { day:new Date().toLocaleString() + '', time: '10 mins ago', description: 'Centra 1 just added 30kg of wet leaves data into the system.',image: 'src/assets/DashboardDesktop/ellipse-22@2x.png' },
-  { day:new Date().toLocaleString() + '', time: '10 mins ago', description: 'Centra 1 just added 30kg of wet leaves data into the system.',image: 'src/assets/DashboardDesktop/ellipse-18@2x.png' },
+  { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of wet leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-10@2x.png' },
+  { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of wet leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-9@2x.png' },
+  { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of wet leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-22@2x.png' },
+  { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of wet leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-18@2x.png' },
 ];
 
-const TestDashboard = () => {
+const WetDashboard = () => {
+  const [isSidebarMinimized, setIsSidebarMinimized] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarMinimized(!isSidebarMinimized);
+  };
+
   return (
-    <>
-      <button
-        data-drawer-target="logo-sidebar"
-        data-drawer-toggle="logo-sidebar"
-        aria-controls="logo-sidebar"
-        type="button"
-        class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-      >
-        <span class="sr-only">Open sidebar</span>
-        <svg
-          class="w-6 h-6"
-          aria-hidden="true"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            clip-rule="evenodd"
-            fill-rule="evenodd"
-            d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
-          ></path>
-        </svg>
-      </button>
-
-      <Sidebar></Sidebar>
-
-      <div class="p-4 sm:ml-64 bg-primary">
-        <div class="p-4 border-2 bg-white border-gray-200 rounded-3xl dark:border-gray-700">
-          <div class="grid grid-cols-2 gap-4 mb-4">
-            <div class="flex items-center justify-around h-28 bg-quinary rounded-3xl dark:bg-gray-800">
-              <p class="text-2xl dark:text-gray-500">
-              <h2 class="text-4xl font-bold">Hello Maimunah!</h2>
-              </p>
-              <img className=" object-right w-20 h-24" alt="" src={"src/assets/DashboardDesktop/gembrot-9@2x.png"}/>
-             
-            </div>
-            <div class="flex items-center justify-center gap-8 h-24 rounded dark:bg-gray-800">
-              <div>
-                <SearchForm />
+    <div className="bg-primary w-screen h-screen flex relative">
+      <Sidebar isMinimized={isSidebarMinimized} toggleSidebar={toggleSidebar} />
+      <div className="flex-1 bg-white rounded-xl mt-3 mr-3 mb-3 p-4 flex flex-col overflow-hidden relative">
+        <div className="flex justify-between items-center mb-5">
+          <div className="grid grid-cols-2 gap-4 mb-4">
+            <div className="flex items-center justify-around h-28 p-8 bg-quinary rounded-3xl dark:bg-gray-800">
+              <div className="flex items-center">
+                <h2 className="text-4xl font-bold">Hello Maimunah!</h2>
+                <img src={mascot} alt="mascot" className="ml-10" style={{ height: "112px" }} />
               </div>
-              <div className="p-4 bg-quinary rounded-full"> 
-                <a href="/dashboard"><IoNotifications className="className='text-2xl"/></a>
-              </div>
-              <div>
-              <img className="object-right w-12 " alt="" src={"src/assets/DashboardDesktop/ellipse-15@2x.png"}/>
-              </div>
-            </div> 
           </div>
-          <div class="flex items-center justify-between h-12 ml-4 mb-4 rounded dark:bg-gray-800">
-            <div class="flow-root">  
-              <p align="left"><span className="text-2xl font-bold">Wet Leaves Data</span></p> 
-              <p>
-              Observe the statistics, trends, data of Wet Leaves
-              </p>
+
+            <div className="flex items-center justify-center gap-20 h-22 rounded dark:bg-gray-800">
+              <div>
+                <SearchForm isSidebarMinimized={isSidebarMinimized} />
+              </div>
+              <div className="p-4 bg-quinary rounded-full absolute right-0 top-0 mr-32 mt-11">
+                <a href="/dashboard"><IoNotifications className="text-2xl" /></a>
+              </div>
+              <div>
+                <span className="flex items-center mr-6 mt-6">
+                  <img src={profilepic} alt='profile picture' className='flex align-right mb-6 absolute right-0 top-0 mr-12 mt-12'/>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} className="flex-1 overflow-y-auto">
+        <div className="flex items-center justify-between h-12 ml-4 mb-4 rounded dark:bg-gray-800">
+            <div className="flow-root">
+              <p align="left"><span className="text-2xl font-bold">Wet Leaves Data</span></p>
+              <p>Observe the statistics, trends, data of Wet Leaves</p>
             </div>
             <div className="flex justify-center gap-2">
               <form className="h-10 w-40">
@@ -84,181 +72,88 @@ const TestDashboard = () => {
               <form className="h-10 w-28">
                 <select id="times" className="bg-quaternary border border-primary text-primary text-sm 
                 focus:ring-primary focus:border-primary block w-full p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full py-1 px-1">
-                  <option>Filer</option>
-                  <option>Filer 1</option>
-                  <option>Filer 2</option>
-                  <option>Filer 3</option>  
+                  <option>Filter</option>
+                  <option>Filter 1</option>
+                  <option>Filter 2</option>
+                  <option>Filter 3</option>
                 </select>
               </form>
             </div>
           </div>
-          <div class="grid grid-rows grid-cols-2 gap-4 mb-4">
-            <div class="row-span-2 flex h-[500px] bg-quinary rounded-3xl dark:bg-gray-800">
-              <div className="absolute mt-4 ml-8 h-72 w-[36%]">
-                <div class="relative">
-                    <p class="absolute left-0 text-green-600">
-                      <div className="text-lg font-bold"> Wet Leaves Statistics</div>
-                    </p>
-                    <p class="absolute right-0 text-green-800">
-                      <form className="h-10 w-28">
-                      <select id="times" className="bg-quaternary border border-primary text-primary text-sm 
-                      focus:ring-primary focus:border-primary block w-full p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full py-1 px-1">
-                        <option>Daily</option>
-                        <option>Weekly</option>
-                        <option>Monthly</option>
-                        <option>Annually</option>
-                      </select>
-                      </form>
-                    </p>
-                </div>
-                <br></br>
-                <br></br>
-                <br></br>
-                <BarChart></BarChart>
+          <div className="grid grid-rows grid-cols-2 gap-4 mb-4">
+            <div className="row-span-2 flex flex-col h-[400px] bg-quinary rounded-3xl dark:bg-gray-800 p-8">
+              <div className="flex justify-between items-center mb-4">
+                <div className="text-lg text-black font-semibold">Wet Leaves Statistics</div>
+                <form className="h-10 w-28">
+                  <select id="times" className="bg-quaternary border border-primary text-primary text-sm 
+                  focus:ring-primary focus:border-primary block w-full p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full py-1 px-1">
+                    <option>Daily</option>
+                    <option>Weekly</option>
+                    <option>Monthly</option>
+                    <option>Annually</option>
+                  </select>
+                </form>
               </div>
-              
-            </div>
-            <div class="flex h-96 bg-quinary rounded-3xl dark:bg-gray-800">
-              <div className="absolute mt-4 ml-8 w-[36%] h-60">
-              <div class="relative">
-                  <p class="absolute left-0 text-green-600">
-                    <div className="text-lg font-bold"> Wet Leaves Trends</div>
-                  </p>
-                  <p class="absolute right-0 text-green-800">
-                    <form className="h-10 w-28">
-                      <select id="times" className="bg-quaternary border border-primary text-primary text-sm 
-                      focus:ring-primary focus:border-primary block w-full p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full py-1 px-1">
-                        <option>Daily</option>
-                        <option>Weekly</option>
-                        <option>Monthly</option>
-                        <option>Annually</option>
-                      </select>
-                    </form>
-                  </p>
-              </div>
-              <br></br>
-                <AreaChart></AreaChart>
+              <div className="flex-1 flex-grow flex-shrink">
+                <BarChart />
               </div>
             </div>
-            <div class="grid grid-cols-3 gap-4 mb-4">
-                <div class="h-24 bg-quinary rounded-3xl items-center dark:bg-gray-800">
-                <p className="mt-4 text-sm">Total Wet Leaves <br></br> Collected:</p>
-                <p className="text-lg font-bold">10,300 kg</p>
-                </div>
-                <div class="h-24 bg-quinary rounded-3xl items-center dark:bg-gray-800">
-                <p className="mt-4 text-sm">Average Wet Leaves Collected Each Day:</p>
-                <p className="text-lg font-bold">500 kg</p>
-                </div>
-                <div class="h-24 bg-quinary rounded-3xl items-center dark:bg-gray-800">
-                <p className="mt-4 text-sm">Total Wet Leaves <br></br> Disposed:</p>
-                <p className="text-lg font-bold">102 kg</p>
+            <div className="flex flex-col h-[288px] bg-quinary rounded-3xl dark:bg-gray-800 p-8">
+              <div className="flex justify-between items-center mb-4">
+                <div className="text-lg text-black font-semibold">Wet Leaves Trends</div>
+                <form className="h-10 w-28">
+                  <select id="times" className="bg-quaternary border border-primary text-primary text-sm 
+                  focus:ring-primary focus:border-primary block w-full p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full py-1 px-1">
+                    <option>Daily</option>
+                    <option>Weekly</option>
+                    <option>Monthly</option>
+                    <option>Annually</option>
+                  </select>
+                </form>
+              </div>
+              <div className="flex-1 flex-grow flex-shrink">
+                <AreaChart />
+              </div>
+            </div>
+            <div className="grid grid-cols-3 gap-4 mb-4">
+              <div className="h-24 bg-quinary rounded-3xl flex items-center justify-center dark:bg-gray-800 p-4">
+                <div>
+                  <p className="text-sm">Total Wet Leaves <br /> Collected:</p>
+                  <p className="text-lg font-bold">10,300 kg</p>
                 </div>
               </div>
-          </div>
-          
-          <div class="grid grid-cols-2 gap-4 mb-4">
-            <div class="flex h-[440px] bg-quinary items-center justify-center rounded-3xl dark:bg-gray-800">
-              <p class="text-2xl text-primary dark:text-gray-500">
-              <p className="text-left">Wet Leaves Data</p>
-              <Table/>
-              </p>
-            </div>
-            <div class="flex h-[440px] bg-quinary justify-center rounded-3xl dark:bg-gray-800">
-              <p class="text-2xl text-primary dark:text-gray-500">
-              <p className="text-left mt-4">Recent Activity</p> 
-              <RecentActivities activities={activities} />
-              </p>
+              <div className="h-24 bg-quinary rounded-3xl flex items-center justify-center dark:bg-gray-800 p-4">
+                <div>
+                  <p className="text-sm">Average Wet Leaves Collected Each Day:</p>
+                  <p className="text-lg font-bold">500 kg</p>
+                </div>
+              </div>
+              <div className="h-24 bg-quinary rounded-3xl flex items-center justify-center dark:bg-gray-800 p-4">
+                <div>
+                  <p className="text-sm">Total Wet Leaves <br /> Disposed:</p>
+                  <p className="text-lg font-bold">102 kg</p>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="flex items-center justify-center h-2 mb-4 rounded dark:bg-gray-800">
-            <div class="flow-root">  
-              <p class="float-left"></p> 
-              <p class="float-right"></p>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="flex h-[440px] bg-quinary items-center justify-center rounded-3xl dark:bg-gray-800 p-4">
+              <div className="text-2xl text-primary dark:text-gray-500 w-full">
+                <div className="text-left text-lg ml-3 text-black font-semibold">Wet Leaves Data</div>
+                <Table />
+              </div>
+            </div>
+            <div className="flex flex-col bg-quinary rounded-3xl dark:bg-gray-800 p-4">
+              <div className="text-lg text-left text-black font-semibold px-4 mt-4">Recent Activities</div>              
+                <div>
+                  <RecentActivities activities={activities} />
+                </div>
             </div>
           </div>
-          {/* 
-          <div class="grid grid-cols-2 gap-4">
-            <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-              <p class="text-2xl text-gray-400 dark:text-gray-500">
-                <svg
-                  class="w-3.5 h-3.5"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 18 18"
-                >
-                  <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 1v16M1 9h16"
-                  />
-                </svg>
-              </p>
-            </div>
-            <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-              <p class="text-2xl text-gray-400 dark:text-gray-500">
-                <svg
-                  class="w-3.5 h-3.5"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 18 18"
-                >
-                  <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 1v16M1 9h16"
-                  />
-                </svg>
-              </p>
-            </div>
-            <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-              <p class="text-2xl text-gray-400 dark:text-gray-500">
-                <svg
-                  class="w-3.5 h-3.5"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 18 18"
-                >
-                  <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 1v16M1 9h16"
-                  />
-                </svg>
-              </p>
-            </div>
-            <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-              <p class="text-2xl text-gray-400 dark:text-gray-500">
-                <svg
-                  class="w-3.5 h-3.5"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 18 18"
-                >
-                  <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 1v16M1 9h16"
-                  />
-                </svg>
-              </p>
-            </div>
-          </div>
-          */}
-        </div>
+        </motion.div>
       </div>
-    </>
+    </div>
   );
-};
-export default TestDashboard;
+}
+
+export default WetDashboard;

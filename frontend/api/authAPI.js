@@ -4,35 +4,20 @@ import { Link } from 'react-router-dom';
 
 export const register = async (data) => {
     try{
-    /* Make sure to use port 8000 or change to your port, my port is 8000 */
-
         const response = await axios.post(URL + '/auth/', {
         username: data.username,
         email: data.email,
         password: data.password,
         role: data.role,
+        centra_unit: data.centra_unit
         });
-        console.log('Signup successful', response.data);
-        /*This verification will be included later */
-        /*  if (response.data.verification_link) {
-        await axios.post('http://localhost:8000/auth/send-verification-email', {
-            email: email,
-            verification_link: response.data.verification_link, 
-        });
-        } */
 
-        /* navigate('/UserVerification'); */
-
-        /* once the admin page is set up, we can navigate to the UserVerification, for now navigate to the Login */
-        navigate('/Login');
+        return response
     } catch (error) {
-        console.error('Signup failed', error.response.data);
-        if (error.response.status === 400 && error.response.data.email) {
-        setRegistrationError('A user with this email already exists.');
-        } else {
-        setRegistrationError('A user with this email already exists.');
-        }
+      console.error('Sign u failed:', error)
     }
+
+ 
 }
 
 export const login = async (formData) => {
@@ -47,7 +32,9 @@ export const login = async (formData) => {
         localStorage.setItem('token', access_token);
         localStorage.setItem('username', username);
   
+        return response
       } catch (error) {
         console.error('Login failed:', error);
       }
+
 }

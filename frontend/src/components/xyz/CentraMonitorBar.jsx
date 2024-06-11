@@ -1,11 +1,8 @@
-import * as React from 'react';
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { BarChart } from '@mui/x-charts/BarChart';
-import { MenuItem, Select, FormControl, InputLabel } from '@mui/material';
 import ResizeObserver from 'resize-observer-polyfill';
 
-export default function CentraMonitorBar() {
-  const [filter, setFilter] = useState('daily');
+const CentraMonitorBar = ({ filter }) => {
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const containerRef = useRef();
 
@@ -22,10 +19,6 @@ export default function CentraMonitorBar() {
   };
 
   const data = filter === 'daily' ? dailyData : monthlyData;
-
-  const handleChange = (event) => {
-    setFilter(event.target.value);
-  };
 
   useEffect(() => {
     const resizeObserver = new ResizeObserver((entries) => {
@@ -50,33 +43,14 @@ export default function CentraMonitorBar() {
 
   return (
     <div className="w-full h-full" ref={containerRef} style={{ maxHeight: '400px' }}>
-      <FormControl
-        variant="outlined"
-        sx={{ minWidth: 120, marginBottom: 2 }}
-        className="border-green-800"
-      >
-        <InputLabel>Filter</InputLabel>
-        <Select
-          value={filter}
-          onChange={handleChange}
-          label="Filter"
-          sx={{ padding: '0px' }}
-        >
-          <MenuItem value="daily">Daily</MenuItem>
-          <MenuItem value="monthly">Monthly</MenuItem>
-        </Select>
-      </FormControl>
       <div className="w-full h-full">
         <BarChart
-          sx={{
-            fontFamily: 'Montserrat',
-          }}
           xAxis={[
             {
               scaleType: 'band',
               data: filter === 'daily'
-                ? ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-                : ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                ? ['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun']
+                : ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'August', 'Sept', 'Oct', 'Nov', 'Dec'],
             },
           ]}
           yAxis={[
@@ -95,3 +69,5 @@ export default function CentraMonitorBar() {
     </div>
   );
 }
+
+export default CentraMonitorBar;

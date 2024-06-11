@@ -28,8 +28,8 @@ function AdminTable({ rows, deleteRow, editRow}) {
   const paginatedRows = rows.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   return (
-    <div className="flex flex-col w-5/6 pl-36 pt-6 items-center gap-8 p-4" >
-      <Table aria-label="Example table with dynamic content" className="text-left drop-shadow-md">
+    <div className="flex flex-col w-97/100 pl-14 items-center gap-8 border-collapse" >
+      <Table aria-label="Example table with dynamic content" className="text-left drop-shadow-md border-collapse">
         <TableHeader columns={columns}>
           {(column) => (
             <TableColumn key={column.key} className="bg-quinary text-black text-sm">
@@ -75,7 +75,7 @@ function AdminTable({ rows, deleteRow, editRow}) {
        showControls
        total={totalPages}
        onChange={handlePageChange}
-       color="secondary"
+       color="quinary"
        className="drop-shadow-lg"
       />
       

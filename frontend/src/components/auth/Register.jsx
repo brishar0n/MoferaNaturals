@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import "../../style/App.css";
 import { useNavigate } from "react-router-dom";
+import { register } from "../../../api/authAPI"
 import Card from "./Card";
 import '../../style/auth/Register.css';
 // Importing images
@@ -61,12 +62,15 @@ function Register() {
 
       /* Make sure to use port 8000 or change to your port, my port is 8000 */
 
-      const response = await axios.post('http://localhost:8000/auth', {
+      const data = {
         username: username,
         email: email,
         password: password,
         role: role,
-      });
+        centra_unit: centraUnit ? centraUnit : null
+      }
+      
+      const response = await register(data)
       console.log('Signup successful', response.data);
       /*This verification will be included later */
      /*  if (response.data.verification_link) {

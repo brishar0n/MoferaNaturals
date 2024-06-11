@@ -100,13 +100,12 @@ function App() {
         {/* Admin */}
         <Route path="/usermanagement" element={<UserManagement />} exact />
         <Route path="/adminpage" element={<AdminPage />}/>
-        <Route path="/admintable" element={<AdminTable />}/>
-        <Route path="/adduserbutton" element={<AddUserButton/>}/>
         <Route path="/navbaradmin" element={<NavbarAdmin/>}/>
-        <Route path="/edituserbutton" element={<EditUserButton/>}/>
+        {/* <Route path="/usertable" element={<UserTable/>}/> */}
+        {/* <Route path="/adminsidebar" element={<AdminSidebar/>}/> */}
       </Routes> 
     </Router>
   );
 }
 
-export default App
+export default App;

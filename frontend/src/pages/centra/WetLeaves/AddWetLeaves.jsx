@@ -13,17 +13,15 @@ function AddWetLeaves(){
     const [formSubmitted, setFormSubmitted] = useState(false);
    
     const checkWeight= () =>{
-        if (weight==30){
+        let valid = weight > 0;
+        if (valid){
             showSuccess()
-            postWetLeaves({
-                weight,
-                "retrieval_date": dateCollected.toLocaleDateString().replace(/\//g, "-"),
-                "centra_id": 0
-            })
         }
         else{
             showError()
         }
+
+        return valid
     }
 
     const showError = () => {
@@ -61,7 +59,10 @@ function AddWetLeaves(){
 
     function handleSubmit(event) {
         event.preventDefault();
-        checkWeight()
+        if (checkWeight()) postWetLeaves({
+            weight,
+            retrieval_date: dateCollected
+        })
         setFormSubmitted(true);
     }
     

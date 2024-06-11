@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import SuccessNotification from "../SuccessNotification";
 import { useState } from "react";
 import PackageIDInput from "./PackageIDInput";
+import { addShippingInfo } from "../../../api/centraAPI"
 
 import AddShipmentHeader from "./AddShipmentHeader";
 
@@ -14,6 +15,7 @@ function ShippingForm() {
     const [expedition, setExpedition] = useState("");
     const [shippingDate, setShippingDate] = useState("");
     const [shippingTime, setShippingTime] = useState("");
+    const [packages, setPackages] = useState([]);
 
     const packageData = {
         123: { weight: 10 },
@@ -35,7 +37,9 @@ function ShippingForm() {
         });
 
         setWeight(totalWeight);
-        setTotal(selectedPackageIDs.length);  
+        setTotal(selectedPackageIDs.length);
+        setPackages(selectedPackageIDs)
+        console.log(selectedPackageIDs)
     };
 
     function handleView() {
@@ -44,6 +48,16 @@ function ShippingForm() {
 
     function handleSubmit(event) {
         event.preventDefault();
+
+        const data = {
+            packages,
+            expedition,
+            "total_packages": total,
+            "total_weight": weight,
+            "departure_datetime": shippingDate+"T"+shippingTime
+        }
+        addShippingInfo(data)
+
         setFormSubmitted(true);
     }
 

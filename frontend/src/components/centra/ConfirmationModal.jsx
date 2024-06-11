@@ -14,7 +14,7 @@ function ConfirmationModal({ isOpen, onClose, onConfirm, isDryPage, isFlourPage 
 
           {isDryPage && (
             <p className="text-sm text-gray-600 mb-4 italic">
-              Make sure you have inserted dry leaves into all machines to start the process.
+              Make sure you have inserted wet leaves into all machines to start the process.
             </p>
           )}
 

@@ -24,7 +24,7 @@ function PowderForm({ weight, handleWeightChange, driedDate, handleDriedDateChan
         <label htmlFor="date" className="items-start text-sm mb-3 font-medium">Dried Date: </label>
         <input 
           type="date" 
-          value={driedDate.toISOString().substring(0, 10)} 
+          value={driedDate} 
           onChange={handleDriedDateChange}
           className="mb-2 rounded-md bg-quinary px-2 py-2 w-full text-xs border-none mt-1"
           required 
@@ -33,7 +33,7 @@ function PowderForm({ weight, handleWeightChange, driedDate, handleDriedDateChan
         <label htmlFor="date" className="items-start text-sm mb-3 font-medium">Floured Date: </label>
         <input 
           type="date" 
-          value={flouredDate.toISOString().substring(0, 10)} 
+          value={flouredDate} 
           onChange={handleFlouredDateChange}
           className="mb-2 rounded-md bg-quinary px-2 py-2 w-full text-xs border-none mt-1"
           required 

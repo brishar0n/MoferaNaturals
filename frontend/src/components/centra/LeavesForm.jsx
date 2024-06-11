@@ -24,7 +24,7 @@ function LeavesForm({ weight, handleWeightChange, dateTitle, date, handleDateCha
         <label htmlFor="date" className="items-start text-sm mb-3 font-medium">{dateTitle}: </label>
         <input 
           type="date" 
-          value={date.toISOString().substring(0, 10)} 
+          value={date} 
           onChange={handleDateChange}
           className="mb-2 rounded-md bg-quinary px-2 py-1 w-full text-xs border-none mt-1"
           required 
