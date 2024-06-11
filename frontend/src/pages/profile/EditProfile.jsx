@@ -5,6 +5,7 @@ import NavigationBar from "../../components/centra/CentraNavbar.jsx";
 import { motion } from "framer-motion";
 import EditProfileContent from '../../components/profile/EditProfileContent';
 import NavbarGH from '../../components/guard_harbour/NavbarGH';
+import { putProfile } from '../../../api/profileAPI.js';
 
 function EditProfile() {
     const [isMobile, setIsMobile] = React.useState(false);
@@ -25,8 +26,14 @@ function EditProfile() {
       return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    function handleSubmit(event) {
-        event.preventDefault();
+    function handleSubmit(data) {
+        data.event.preventDefault();
+        putProfile({
+          "username": data.newName,
+          "new_password": data.newPassword,
+          "confirm_password": data.confirmPassword,
+          "email": data.newEmail
+        })
         setFormSubmitted(true);
     }
   

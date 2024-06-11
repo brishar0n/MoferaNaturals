@@ -4,6 +4,7 @@ import { Select, SelectItem } from "@nextui-org/select";
 import DryLeavesBox from "../../../components/centra/DryLeavesBox";
 import ConfirmationModal from "../../../components/centra/ConfirmationModal";
 import { DryLeavesContext } from "./DryLeavesManager"
+import { getDryLeavesMobile } from "../../../../api/centraAPI";
 
 function FlourDryLeaves() {
     const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split("T")[0]);
@@ -22,20 +23,24 @@ function FlourDryLeaves() {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
-        const date = new Date(selectedDate);
-        const newDateRanges = [];
-        const daysToAdd = interval === "daily" ? 1 : interval === "threedays" ? 3 : 7;
+        // const date = new Date(selectedDate);
+        // const newDateRanges = [];
+        // const daysToAdd = interval === "daily" ? 1 : interval === "threedays" ? 3 : 7;
 
-        for (let i = 0; i < daysToAdd; i++) {
-            const nextDate = new Date(date);
-            nextDate.setDate(date.getDate() + i);
-            const formattedDate = nextDate.toISOString().split("T")[0];
-            newDateRanges.push(formattedDate);
-        }
+        // for (let i = 0; i < daysToAdd; i++) {
+        //     const nextDate = new Date(date);
+        //     nextDate.setDate(date.getDate() + i);
+        //     const formattedDate = nextDate.toISOString().split("T")[0];
+        //     newDateRanges.push(formattedDate);
+        // }
 
-        setDateRanges(newDateRanges);
-        console.log(dateRanges);
-        console.log(interval);
+        // setDateRanges(newDateRanges);
+        // console.log(dateRanges);
+        // console.log(interval);
+        getDryLeavesMobile({
+            "date": selectedDate,
+            "interval": interval
+        })
     }, [selectedDate, interval]);
 
     useEffect(() => {
@@ -120,9 +125,9 @@ function FlourDryLeaves() {
                         value={interval}
                         onChange={(e) => setInterval(e.target.value)}
                     >
-                        <SelectItem key="daily" value="daily"> Daily (1d) </SelectItem>
-                        <SelectItem key="threedays" value="threedays"> Three days (3d) </SelectItem>
-                        <SelectItem key="weekly" value="weekly"> Weekly (7d) </SelectItem>
+                        <SelectItem key="daily" value="1d"> Daily (1d) </SelectItem>
+                        <SelectItem key="threedays" value="3d"> Three days (3d) </SelectItem>
+                        <SelectItem key="weekly" value="7d"> Weekly (7d) </SelectItem>
                     </Select>
                 
             </div>
