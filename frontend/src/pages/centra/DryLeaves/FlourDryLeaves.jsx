@@ -3,22 +3,28 @@ import "../../../style/App.css";
 import { Select, SelectItem } from "@nextui-org/select";
 import DryLeavesBox from "../../../components/centra/DryLeavesBox";
 import ConfirmationModal from "../../../components/centra/ConfirmationModal";
+import { getDryLeaves } from "../../../../api/centraAPI";
+import { getFlour } from "../../../../api/centraAPI";
 
 function FlourDryLeaves() {
     const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split("T")[0]);
     const [weight, setWeight] = useState(0);
     const [interval, setInterval] = useState("daily");
     const [dateRanges, setDateRanges] = useState([]);
-    const [dryLeaves, setDryLeaves] = useState([
-        { id: 200420, weight: 10, driedDate: "2024-05-01", status: "dried", finishedTime: null },
-        { id: 200421, weight: 5, driedDate: "2024-05-02", status: "dried", finishedTime: null },
-        { id: 200422, weight: 0, driedDate: "2024-05-03", status: "floured", finishedTime: null },
-        { id: 200423, weight: 8, driedDate: "2024-05-04", status: "dried", finishedTime: null },
-        { id: 200424, weight: 10, driedDate: "2024-05-05", status: "floured", finishedTime: null },
-        { id: 200425, weight: 5, driedDate: "2024-05-06", status: "dried", finishedTime: null },
-    ]);
+    const [dryLeaves, setDryLeaves] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    useEffect(() => {
+        const fetchDryLeaves = async () => {
+            const response = await getDryLeaves();
+            console.log(response);
+            if (response && response.data) {
+                console.log(response.data);
+                setDryLeaves(response.data);
+            }
+        };
 
+        fetchDryLeaves();
+    }, []);
     useEffect(() => {
         const date = new Date(selectedDate);
         const newDateRanges = [];
@@ -38,7 +44,7 @@ function FlourDryLeaves() {
 
     useEffect(() => {
         const totalWeight = dateRanges.reduce((sum, date) => {
-            const leaf = dryLeaves.find((leaf) => (leaf.driedDate === date && leaf.status === "dried") || leaf.status === "flouring");
+            const leaf = dryLeaves.find((leaf) => leaf.dried_date === date && leaf.floured_datetime === null);
             return sum + (leaf ? leaf.weight : 0);
         }, 0);
 
@@ -65,8 +71,8 @@ function FlourDryLeaves() {
 
     const handleFlour = () => {
         const updatedLeaves = dryLeaves.map((leaf) => {
-            if (dateRanges.includes(leaf.driedDate) && leaf.status === "dried") {
-                const finishedTime = new Date(Date.now() + 4 * 60 * 60 * 1000); // 60 seconds from now
+            if (dateRanges.includes(leaf.dried_date) && leaf.floured_datetime === null) {
+                const finishedTime = new Date(Date.now() + 4 * 60 * 60 * 1000); // 4 hours from now
                 return { ...leaf, status: "flouring", finishedTime };
             }
             return leaf;
@@ -128,20 +134,15 @@ function FlourDryLeaves() {
             <br />
 
             {dateRanges.map((date) => {
-                const leaf = dryLeaves.find((leaf) => leaf.driedDate === date);
-                if (leaf) {
-                    return (
-                        <DryLeavesBox
-                            key={date}
-                            weight={leaf.weight}
-                            id={leaf.id}
-                            driedDate={date}
-                            status={leaf.status}
-                            finishedTime={leaf.finishedTime}
-                        />
-                    );
-                }
-                return null;
+                const leaves = dryLeaves.filter((leaf) => leaf.dried_date === date);
+                return leaves.map((leaf) => (
+                    <DryLeavesBox
+                        key={leaf.id}
+                        weight={leaf.weight}
+                        id={leaf.id}
+                        driedDate={leaf.dried_date}
+                    />
+                ));
             })}
 
             <button 
