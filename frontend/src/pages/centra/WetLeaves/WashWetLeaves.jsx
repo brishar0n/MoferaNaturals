@@ -5,27 +5,49 @@ import { WetLeavesContext } from "./WetLeavesManager"
 
 function WashWetLeaves() {
   const [statusFilter, setStatusFilter] = useState("washing");
-  const { wetLeaves, setWetLeaves } = useContext(WetLeavesContext)
-  // const [wetLeavesData, setWetLeavesData] = useState([
-  //   { id: 200420, weight: 10, collectedDate: "2024-05-01", status: null, finishedTime: null },
-  //   { id: 200421, weight: 5, collectedDate: "2024-06-15", status: null, finishedTime: null },   
-  //   { id: 200422, weight: 0, collectedDate: "2024-06-19", status: "washed", finishedTime: null },  
-  //   { id: 200423, weight: 8, collectedDate: "2024-07-10", status: null, finishedTime: null }
-  // ]);
+  // const { wetLeaves, setWetLeaves } = useContext(WetLeavesContext)
+  const [wetLeaves, setWetLeaves] = useState([
+    {
+        id: 1,
+        retrieval_date: "2024-06-11",
+        washed_datetime: null,
+        dried_datetime: null,
+        weight: 100.5,
+        centra_id: 1
+    },
+    {
+        id: 2,
+        retrieval_date: "2024-06-10",
+        washed_datetime: "2024-06-10T13:15:00",
+        dried_datetime: null,
+        weight: 120.3,
+        centra_id: 2
+    },
+  ]);
 
-  const handleWashOrDry = (id, newStatus, newFinishedTime) => {
+  const handleWashOrDry = (id, newStatus, newDatetime) => {
     setWetLeaves(prevData =>
       prevData.map(leaf => 
-        leaf.id === id ? { ...leaf, status: newStatus, finishedTime: newFinishedTime } : leaf
+        leaf.id === id ? { 
+          ...leaf, 
+          washed_datetime: newStatus === "washing" ? newDatetime : leaf.washed_datetime, 
+          dried_datetime: newStatus === "drying" ? newDatetime : leaf.dried_datetime 
+        } : leaf
       )
     );
   };
 
   const filteredWetLeaves = wetLeaves.filter(leaf => {
+    const now = new Date();
     if (statusFilter === "ALL") return true;
-    if (statusFilter === "" && leaf.status === null) return true;
-    return leaf.status === statusFilter;
+    if (statusFilter === "washing" && leaf.washed_datetime && new Date(leaf.washed_datetime) > now) return true;
+    if (statusFilter === "washed" && leaf.washed_datetime && new Date(leaf.washed_datetime) <= now) return true;
+    if (statusFilter === "drying" && leaf.dried_datetime && new Date(leaf.dried_datetime) > now) return true;
+    if (statusFilter === "dried" && leaf.dried_datetime && new Date(leaf.dried_datetime) <= now) return true;
+    if (statusFilter === "" && !leaf.washed_datetime && !leaf.dried_datetime) return true;
+    return false;
   });
+
 
   return (
     <div className="w-full">
@@ -45,10 +67,10 @@ function WashWetLeaves() {
         <WetLeavesBox 
           key={wetLeaves.id} 
           weight={wetLeaves.weight} 
-          date={wetLeaves.collectedDate} 
-          status={wetLeaves.status} 
+          date={wetLeaves.retrieval_date} 
           id={wetLeaves.id}
-          finishedTime={wetLeaves.finishedTime}
+          washedDatetime={wetLeaves.washed_datetime}
+          driedDatetime={wetLeaves.dried_datetime}
           handleWashOrDry={handleWashOrDry}
           isWashingPage={true} // This indicates the washing page
         />
