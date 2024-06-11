@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import "../../../style/App.css";
 import WetLeavesBox from "../../../components/centra/WetLeavesBox";
 import { getWetLeaves, washWetLeaves } from "../../../../api/centraAPI";
+import { formatISOToUTC } from "../../../../utils/utils";
 
 function WashWetLeaves() {
   const [statusFilter, setStatusFilter] = useState("washing");
@@ -53,10 +54,10 @@ function WashWetLeaves() {
   const filteredWetLeaves = wetLeaves.filter(leaf => {
     const now = new Date();
     if (statusFilter === "ALL") return true;
-    if (statusFilter === "washing" && leaf.washed_datetime && new Date(leaf.washed_datetime) > now) return true;
-    if (statusFilter === "washed" && leaf.washed_datetime && new Date(leaf.washed_datetime) <= now) return true;
-    if (statusFilter === "drying" && leaf.dried_datetime && new Date(leaf.dried_datetime) > now) return true;
-    if (statusFilter === "dried" && leaf.dried_datetime && new Date(leaf.dried_datetime) <= now) return true;
+    if (statusFilter === "washing" && leaf.washed_datetime && new Date(formatISOToUTC(leaf.washed_datetime)) > now) return true;
+    if (statusFilter === "washed" && leaf.washed_datetime && new Date(formatISOToUTC(leaf.washed_datetime)) <= now) return true;
+    if (statusFilter === "drying" && leaf.dried_datetime && new Date(formatISOToUTC(leaf.dried_datetime)) > now) return true;
+    if (statusFilter === "dried" && leaf.dried_datetime && new Date(formatISOToUTC(leaf.dried_datetime)) <= now) return true;
     if (statusFilter === "" && !leaf.washed_datetime && !leaf.dried_datetime) return true;
     return false;
   });
@@ -82,8 +83,8 @@ function WashWetLeaves() {
           weight={wetLeaves.weight} 
           date={wetLeaves.retrieval_date} 
           id={wetLeaves.id}
-          washedDatetime={wetLeaves.washed_datetime}
-          driedDatetime={wetLeaves.dried_datetime}
+          washedDatetime={formatISOToUTC(wetLeaves.washed_datetime)}
+          driedDatetime={formatISOToUTC(wetLeaves.dried_datetime)}
           handleWashOrDry={handleWashOrDry}
           isWashingPage={true} // This indicates the washing page
         />
