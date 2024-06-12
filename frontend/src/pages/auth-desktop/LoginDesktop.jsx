@@ -1,10 +1,29 @@
 import { useState, useEffect } from "react";
 import { Modal } from "@nextui-org/react";
 import "../../style/AdminDesktop.css"
-
-
+import { login } from "../../../api/authAPI";
+import { Navigate } from "react-router-dom";
 
 function LoginDesktop() {
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    
+    const handleLogin = async (event) => {
+        event.preventDefault();
+    
+        const formData = new FormData();
+        formData.append('username', email);
+        formData.append('password', password);
+    
+        try {
+          const response = await login(formData);
+          Navigate('/centradashboard');
+        } catch (error) {
+          console.error("Error: ", error)
+        }
+    };
+    
     return (
         <div className="bg-white h-screen">
             <div className="flex">
@@ -16,13 +35,15 @@ function LoginDesktop() {
 
 
                     <div className="absolute bg-white">
-                    <form className="relative z-20 flex flex-col justify-start pt-64 pl-32">
+                    <form onSubmit={handleLogin} className="relative z-20 flex flex-col justify-start pt-64 pl-32">
                         <p className='text-secondary font-bold text-5xl text-left'> Login </p>
                         <label htmlFor='email' className='text-left text-secondary font-medium pt-5 text-xl'> Email </label>
                             <input
                             type="email"
                             name="email"
                             id="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             className="border border-gray-300 rounded-md w-96 p-1.5 bg-quinary border-none mt-1"
                             />
 
@@ -31,6 +52,8 @@ function LoginDesktop() {
                             type="password"
                             name="password"
                             id="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                             className="border border-gray-300 rounded-md w-96 p-1.5 bg-quinary border-none mt-1"
                             />
 

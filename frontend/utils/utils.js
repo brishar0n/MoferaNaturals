@@ -1,0 +1,1 @@
+export const formatISOToUTC = (str) => str ? str+"z":str

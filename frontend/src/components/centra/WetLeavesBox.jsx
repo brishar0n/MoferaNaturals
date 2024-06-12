@@ -1,34 +1,63 @@
 import React, { useEffect, useState } from "react";
 import ConfirmationModal from "./ConfirmationModal";
 
-function WetLeavesBox({ weight, date, id, status, finishedTime, handleWashOrDry, isWashingPage }) {
-    const [timeLeft, setTimeLeft] = useState(600); // Default to 10 minutes for washing
+function WetLeavesBox({ weight, date, id, washedDatetime, driedDatetime, handleWashOrDry, isWashingPage }) {
+    const [timeLeft, setTimeLeft] = useState(0); 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalAction, setModalAction] = useState("");
+    const [status, setStatus] = useState("");
 
     useEffect(() => {
-        if ((status === "washing" || status === "drying") && finishedTime) {
-            setTimeLeft(Math.max(0, Math.floor((finishedTime - new Date()) / 1000))); // Time difference in seconds
+        const now = new Date();
+        // if (driedDatetime) console.log(driedDatetime, now.toISOString(), driedDatetime > now.toISOString())
+        // if (washedDatetime && new Date(washedDatetime) > now) {
+        //     setStatus("washing");
+        //     setTimeLeft(Math.floor((new Date(washedDatetime).getTime() + 10 * 60 * 1000 - now.getTime()) / 1000));
+        // } else if (washedDatetime) {
+        //     setStatus("washed");
+        // } else if (driedDatetime && new Date(driedDatetime) > now) {
+        //     setStatus("drying");
+        //     setTimeLeft(Math.floor((new Date(driedDatetime).getTime() + 24 * 60 * 60 * 1000 - now.getTime()) / 1000));
+        // } else if (driedDatetime) {
+        //     setStatus("dried");
+        // } else {
+        //     setStatus("");
+        // }
+        if(isWashingPage) {
+            if (washedDatetime && new Date(washedDatetime) > now) {
+                setStatus("washing");
+                setTimeLeft(Math.floor((new Date(washedDatetime).getTime() + 10 * 60 * 1000 - now.getTime()) / 1000));
+            } else if (washedDatetime) {
+                setStatus("washed");
+            }
+        } else{
+            if (driedDatetime && new Date(driedDatetime) > now) {
+                setStatus("drying");
+                setTimeLeft(Math.floor((new Date(driedDatetime).getTime() + 24 * 60 * 60 * 1000 - now.getTime()) / 1000));
+            } else if (driedDatetime) {
+                setStatus("dried");
+            }
         }
-    }, [status, finishedTime]);
+        
+
+    }, [washedDatetime, driedDatetime]);
 
     useEffect(() => {
         let intervalId;
-        if ((status === "washing" || status === "drying") && finishedTime) {
+        if ((status === "washing" || status === "drying") && timeLeft > 0) {
             intervalId = setInterval(() => {
-                const currentTime = new Date();
-                const timeDiff = Math.max(0, Math.floor((finishedTime - currentTime) / 1000)); // Time difference in seconds
-                setTimeLeft(timeDiff);
-
-                if (currentTime >= finishedTime) {
-                clearInterval(intervalId);
-                handleWashOrDry(id, status === "washing" ? "washed" : "dried", null);
-                }
+                setTimeLeft(prevTime => {
+                    if (prevTime <= 1) {
+                        clearInterval(intervalId);
+                        handleWashOrDry(id, status === "washing" ? "washed" : "dried", null);
+                        return 0;
+                    }
+                    return prevTime - 1;
+                });
             }, 1000);
         }
-
         return () => clearInterval(intervalId);
-    }, [status, finishedTime, handleWashOrDry, id]);
+    }, [status, timeLeft, handleWashOrDry, id]);
 
     const handleButtonClick = (action) => {
         setIsModalOpen(true);
@@ -37,14 +66,8 @@ function WetLeavesBox({ weight, date, id, status, finishedTime, handleWashOrDry,
 
     const handleConfirmAction = () => {
         setIsModalOpen(false);
-        const newFinishedTime = new Date(Date.now() + (modalAction === "wash" ? 10 * 60 * 1000 : 24 * 60 * 60 * 1000)); // 10 minutes or 24 hours from now
-        handleWashOrDry(id, modalAction === "wash" ? "washing" : "drying", newFinishedTime);
-    };
-
-    const formatTime = (time) => {
-        const hours = time.getHours().toString().padStart(2, '0');
-        const minutes = time.getMinutes().toString().padStart(2, '0');
-        return `${hours}:${minutes}`;
+        const newFinishedTime = new Date(Date.now() + (modalAction === "wash" ? 10 * 60 * 1000 : 24 * 60 * 60 * 1000));
+        handleWashOrDry(id, modalAction === "wash" ? "washing" : "drying", newFinishedTime.toISOString());
     };
 
     const formatTimeLeft = (seconds) => {
@@ -79,14 +102,14 @@ function WetLeavesBox({ weight, date, id, status, finishedTime, handleWashOrDry,
     
 
     return (
-        <>
+        <div className="">
             <div className="relative">
                 <p className="text-lg text-primary font-medium z-100 mb-6">Wet Leaves - WET#{id}</p>
             </div>
             
             <div className='bg-white mb-5 mx-auto py-5 px-7 rounded-2xl text-left relative flex flex-col'>
-                {(status === "washing" || status === "drying") && finishedTime && (
-                    <p className="text-xs pl-20 text-red-600 font-semibold text-right">Finished Time: {formatTime(finishedTime)}</p>
+                {((status === "washing" && washedDatetime) || (status === "drying" && driedDatetime)) && (
+                    <p className="text-xxs mb-1 text-red-600 font-semibold text-right">Finished Time: {new Date((status === "washing" ? new Date(washedDatetime).getTime() + 10 * 60 * 1000 : new Date(driedDatetime).getTime() + 24 * 60 * 60 * 1000)).toLocaleTimeString()}</p>
                 )}
                 <label htmlFor="weight" className="items-start text-sm mb-2 font-medium">Weight:</label>
                 <input 
@@ -122,7 +145,7 @@ function WetLeavesBox({ weight, date, id, status, finishedTime, handleWashOrDry,
                 onConfirm={handleConfirmAction}
                 isDryPage={!isWashingPage && modalAction === "dry"}
             />
-        </>
+        </div>
     );
 }
 

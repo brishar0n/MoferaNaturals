@@ -8,8 +8,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { getWetLeaves } from "../../../../api/centraAPI"
 
-export const WetLeavesContext = createContext();
-
 function WetLeavesManager() {
   const [currentSection, setCurrentSection] = useState("add");
   const [isMobile, setIsMobile] = useState(false);
@@ -20,14 +18,6 @@ function WetLeavesManager() {
     function handleResize() {
       setIsMobile(window.innerWidth < 600);
     }
-
-    getWetLeaves()
-    .then( response => {
-        setWetLeaves(response.data);
-    })
-    .catch( err => {
-      console.error(err)
-    })
 
     handleResize();
     window.addEventListener("resize", handleResize);
@@ -45,7 +35,6 @@ function WetLeavesManager() {
 
   return (
     <div>
-      <WetLeavesContext.Provider value={{ wetLeaves, setWetLeaves }}>
         {isMobile && (
           <>
             <div className="overflow-auto h-[calc(100vh-6rem)] md:h-auto bg-quaternary min-h-screen flex flex-col items-center overflow-auto resize-none pb-36">
@@ -126,8 +115,6 @@ function WetLeavesManager() {
             <NavigationBar />
           </>
         )}
-      </WetLeavesContext.Provider>
-      
     </div>
   );
 }

@@ -51,7 +51,13 @@ function EditProfileContent({role, name, email, centraUnit, formSubmitted, handl
             <form className='flex flex-col my-2 w-full text-left bg-denary rounded-2xl p-5 mt-7 items-center' onSubmit={(e) => {
                 e.preventDefault();
                 if (!validatePasswordsMatch()) return; // Check if passwords match before submitting
-                handleSubmit(e);
+                handleSubmit({
+                    "event": e,
+                    newName,
+                    newEmail,
+                    newPassword,
+                    confirmPassword
+                });
             }}> 
                     <p className='font-bold text-center text-xl'>User Profile</p>
                     {/* <NavigateTo role={role}/> */}

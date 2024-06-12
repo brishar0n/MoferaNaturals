@@ -44,7 +44,7 @@ export const postFlour = (Flour) => {
 export const washWetLeaves = (Data) => {
     console.log(Data)
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
-    axios.put(URL + "/centra/wash_wet_leaves/" + Data.id, {"date": Data.date})
+    axios.put(URL + "/centra/wash_wet_leaves/" + Data.id, {"datetime": Data.date})
     .catch((error) => {
         console.error(error);
     });
@@ -53,7 +53,7 @@ export const washWetLeaves = (Data) => {
 export const dryWetLeaves = (Data) => {
     console.log(Data)
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
-    axios.put(URL + "/centra/dry_wet_leaves/" + Data.id, {"date": Data.date})
+    axios.put(URL + "/centra/dry_wet_leaves/" + Data.id, {"datetime": Data.date})
     .catch((error) => {
         console.error(error);
     });
@@ -62,7 +62,7 @@ export const dryWetLeaves = (Data) => {
 export const flourDryLeaves = (Data) => {
     console.log(Data)
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
-    axios.put(URL + "/centra/flour_dry_leaves/" + Data.id, {"date": Data.date})
+    axios.put(URL + "/centra/flour_dry_leaves/" + Data.id, {"datetime": Data.datetime})
     .catch((error) => {
         console.error(error);
     });
@@ -88,9 +88,22 @@ export const getWetLeaves = async () => {
     return WetLeaves
 }
 
+
+export const getWashedWetLeaves = async () => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    const WashedWetLeaves = await axios.get(URL + "/centra/washed_wet_leaves")
+    .catch((error) => {
+        console.error(error);
+    });
+
+    return WashedWetLeaves
+}
+
 export const getDryLeavesMobile = async (filterData) => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
-    const WetLeaves = await axios.get(URL + "/centra/dry_leaves_mobile", filterData)
+    const WetLeaves = await axios.get(URL + "/centra/dry_leaves_mobile", {
+        "params": filterData
+    })
     .catch((error) => {
         console.error(error);
     });
@@ -126,6 +139,29 @@ export const getPackages = async () => {
     });
 
     return Packages
+}
+
+export const getPackagesWithStatus = async (status) => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    const Packages = await axios.get(URL + "/centra/packages_status", {
+        params: {status: status}
+    })
+    .catch((error) => {
+        console.error(error);
+    });
+
+    return Packages
+}
+
+
+export const getCentraNotification = async () => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    const Notifications = await axios.get(URL + "/centra/notification")
+    .catch((error) => {
+        console.error(error);
+    });
+    
+    return Notifications
 }
 
 export const postPackage = (Package) => {
