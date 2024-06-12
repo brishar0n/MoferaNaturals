@@ -102,7 +102,7 @@ function App() {
         <Route path="/adminpage" element={<AdminPage />}/>
         <Route path="/navbaradmin" element={<NavbarAdmin/>}/>
         {/* <Route path="/usertable" element={<UserTable/>}/> */}
-        <Route path="/adminsidebar" element={<AdminSidebar/>}/>
+        {/* <Route path="/adminsidebar" element={<AdminSidebar/>}/> */}
       </Routes> 
     </Router>
   );

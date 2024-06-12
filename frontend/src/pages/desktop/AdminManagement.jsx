@@ -1,25 +1,18 @@
 import React, { useState } from "react";
 import "../../style/AdminDesktop.css"
-// import DesktopNavbar from "../../components/admin/DesktopNavbar";
 import AdminTable from "../../components/admin/AdminTable";
 import AddUserButton from "../../components/admin/AddUserButton";
 import { initialRows, columns} from "../../components/admin/UserDataSample";
 import AdminSidebar from "../../components/admin/AdminSidebar";
-// import PageTitle from "../../components/admin/PageTitle";
-// import PageTitleDashboard from "../../components/admin/PageTitleDashboard";
-// import PageTitleDataMaster from "../../components/admin/PageTitleDataMaster";
-// import SearchButton from "../../components/admin/SearchButton";
 import SearchButtonData from "../../components/admin/SearchButtonData";
 import MasterDataFolder from "../../components/admin/MasterDataFolder";
 import PageTitleAll from "../../components/admin/PageTitleAll";
 import UserProfile from "../../components/admin/UserProfile";
 import DashboardContent from "../../components/admin/DashboardContent";
-// import AdminTables from "../../components/admin/AdminTable";
-// import Table from "../../components/admin/Table";
 
 function AdminPage() {
     const [rows, setRows] = useState(initialRows);
-    // const [columns, setColumns] = useState(columnsOG)
+    const [columnData, setColumnData] = useState(columns);
 
     const addUser = (newUser) => {
         console.log("Adding new user:", newUser);
@@ -60,23 +53,37 @@ function AdminPage() {
     
     const [currentComponent, setCurrentComponent] = useState('AdminTable');
 
-    const handlePageDataChange = (title, description, componentKey) => {
+    const handlePageDataChange = (title, description, componentKey, rows, columnData) => {
         setPageData({ title, description });
         setCurrentComponent(componentKey);
-        // setRows(rows)
-        // setColumns(columns)
+        setRows(rows)
+        setColumnData(columnData)
     };
     
     const renderComponent = () => {
         switch (currentComponent) {
             case 'AdminTable':
-                return <AdminTable rows={rows} setRows={setRows} deleteRow={deleteRow} editRow={handleEditUser} />;
+                return <AdminTable columns={columnData} rows={rows} deleteRow={deleteRow} editRow={handleEditUser} />;
             case 'MasterDataFolder':
                 return <MasterDataFolder />;
             case 'Dashboard':
                 return <DashboardContent/>
+            case 'CentraData':
+                return <AdminTable columns={columnData} rows={rows} deleteRow={deleteRow} editRow={handleEditUser} />;
+            case 'WetLeavesData':
+                return <AdminTable columns={columnData} rows={rows} deleteRow={deleteRow} editRow={handleEditUser} />;
+            case 'DryLeavesData':
+                return <AdminTable columns={columnData} rows={rows} deleteRow={deleteRow} editRow={handleEditUser} />;
+            case 'FlourData':
+                return <AdminTable columns={columnData} rows={rows} deleteRow={deleteRow} editRow={handleEditUser} />;
+            case 'ShippingInfoData':
+                return <AdminTable columns={columnData} rows={rows} deleteRow={deleteRow} editRow={handleEditUser} />;
+            case 'CheckpointData':
+                return <AdminTable columns={columnData} rows={rows} deleteRow={deleteRow} editRow={handleEditUser} />;
+            case 'PackageData':
+                return <AdminTable columns={columnData} rows={rows} deleteRow={deleteRow} editRow={handleEditUser} />;
             default:
-                return <AdminTable rows={rows} setRows={setRows} deleteRow={deleteRow} editRow={handleEditUser} />;
+                return <AdminTable columns={columnData} rows={rows} deleteRow={deleteRow} editRow={handleEditUser} />;
         }
     };
     return (
