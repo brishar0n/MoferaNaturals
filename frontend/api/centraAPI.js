@@ -62,7 +62,7 @@ export const dryWetLeaves = (Data) => {
 export const flourDryLeaves = (Data) => {
     console.log(Data)
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
-    axios.put(URL + "/centra/flour_dry_leaves/" + Data.id, {"date": Data.date})
+    axios.put(URL + "/centra/flour_dry_leaves/" + Data.id, {"datetime": Data.datetime})
     .catch((error) => {
         console.error(error);
     });
@@ -140,6 +140,19 @@ export const getPackages = async () => {
 
     return Packages
 }
+
+export const getPackagesWithStatus = async (status) => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    const Packages = await axios.get(URL + "/centra/packages_status", {
+        params: {status: status}
+    })
+    .catch((error) => {
+        console.error(error);
+    });
+
+    return Packages
+}
+
 
 export const getCentraNotification = async () => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
