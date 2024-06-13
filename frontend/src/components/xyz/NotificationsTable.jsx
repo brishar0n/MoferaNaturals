@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import arrivalIcon from './../../assets/xyz/arrival-icon.svg';
+import shipmentIcon from './../../assets/xyz/shipment-icon.svg';
 
 const shipmentNotifications = new Array(10).fill({
   id: '212123',
@@ -19,21 +21,23 @@ function NotificationsTable() {
 
   return (
     <div className="container mx-auto p-4">
-      <div className="flex justify-center mb-4">
+      <div className="flex justify-center mb-4 space-x-4">
         <button
           onClick={() => setShowShipment(true)}
-          className={`font-bold px-4 py-2 rounded-lg w-1/2 focus:outline-none ${
+          className={`flex items-center justify-center font-bold px-4 py-2 rounded-lg w-1/2 focus:outline-none ${
             showShipment ? 'bg-primary text-white' : 'bg-gray-300 text-gray-700'
           }`}
         >
+          <img src={shipmentIcon} alt="Shipment Icon" className="w-6 h-6 mr-2" />
           Shipment Notifications
         </button>
         <button
           onClick={() => setShowShipment(false)}
-          className={`font-bold px-4 py-2 rounded-lg w-1/2 focus:outline-none ${
+          className={`flex items-center justify-center font-bold px-4 py-2 rounded-lg w-1/2 focus:outline-none ${
             showShipment ? 'bg-gray-300 text-gray-700' : 'bg-primary text-white'
           }`}
         >
+          <img src={arrivalIcon} alt="Arrival Icon" className="w-6 h-6 mr-2" />
           Arrival Notifications
         </button>
       </div>
@@ -56,7 +60,7 @@ function NotificationsTable() {
                     <span className="font-bold">
                       {showShipment
                         ? `Shipping ID #${notification.id}`
-                        : `Shipping ID #${notification.id}`}
+                        : `Arrival ID #${notification.id}`}
                     </span>{' '}
                     {showShipment
                       ? `has been shipped by ${notification.shipper} (Estimated Time Arrival: ${notification.estimatedArrival})`
