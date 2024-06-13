@@ -42,6 +42,7 @@ import Profile from './pages/profile/Profile';
 import EditProfile from './pages/profile/EditProfile';
 import GHDashboard from './pages/guard_harbour/GHDashboard';
 import RegisterDesktop from './pages/auth-desktop/RegisterDesktop';
+import Notifications from './pages/xyz/xyz_desktop/Notifications';
 
 function App() {
   return (
@@ -91,6 +92,7 @@ function App() {
         <Route path="/registerdesktop" element={<RegisterDesktop/>} exact/>
 
         {/* XYZ Desktop */}
+        <Route path="/notifications" element={<Notifications />} exact />
         <Route path="/arrivedpackages" element={<ArrivedPackages />} exact />
         <Route path="/shipmenttracker" element={<ShipmentTracker />} exact />
         <Route path="/centraactivitymonitor" element={<CentraActivityMonitor />} exact />
