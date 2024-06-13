@@ -12,7 +12,7 @@ import { sync } from "framer-motion";
 function FlourDryLeaves() {
     const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split("T")[0]);
     const [weight, setWeight] = useState(0);
-    const [interval, setInterval] = useState("daily");
+    const [interval, setInterval] = useState("1d");
     const [dateRanges, setDateRanges] = useState([]);
 
     const [dryLeaves, setDryLeaves] = useState([]);

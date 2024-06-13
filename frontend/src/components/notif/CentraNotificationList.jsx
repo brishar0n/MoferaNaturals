@@ -30,7 +30,7 @@ function CentraNotificationList() {
                                 <CentraNotification
                                     key={index}
                                     text={notification.message}
-                                    datetime={new Date(formatISOToUTC(notification.date))}
+                                    datetime={new Date(notification.date)}
                                 />
                             ))}
                         </div>

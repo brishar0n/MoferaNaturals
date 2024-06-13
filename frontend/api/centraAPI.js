@@ -2,7 +2,6 @@ import axios from 'axios'
 import {URL} from "./APIconst"
 
 export const postCollection = (Collection) => {
-    Collection = {...Collection, "centra_id" : 1}
     console.log(Collection)
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
     axios.post(URL + "/centra/new_collection", Collection)
@@ -165,7 +164,6 @@ export const getCentraNotification = async () => {
 }
 
 export const postPackage = (Package) => {
-    Package = {...Package, "centra_id" : 1}
     console.log(Package)
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
     axios.post(URL + "/centra/add_package", Package)
