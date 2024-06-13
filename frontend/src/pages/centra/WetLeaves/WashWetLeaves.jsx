@@ -54,10 +54,10 @@ function WashWetLeaves() {
   const filteredWetLeaves = wetLeaves.filter(leaf => {
     const now = new Date();
     if (statusFilter === "ALL") return true;
-    if (statusFilter === "washing" && leaf.washed_datetime && new Date(formatISOToUTC(leaf.washed_datetime)) > now) return true;
-    if (statusFilter === "washed" && leaf.washed_datetime && new Date(formatISOToUTC(leaf.washed_datetime)) <= now) return true;
-    if (statusFilter === "drying" && leaf.dried_datetime && new Date(formatISOToUTC(leaf.dried_datetime)) > now) return true;
-    if (statusFilter === "dried" && leaf.dried_datetime && new Date(formatISOToUTC(leaf.dried_datetime)) <= now) return true;
+    if (statusFilter === "washing" && leaf.washed_datetime && new Date(formatISOToUTC(leaf.washed_datetime)).getTime() + 10 * 60 * 1000 > now) return true;
+    if (statusFilter === "washed" && leaf.washed_datetime && new Date(formatISOToUTC(leaf.washed_datetime)).getTime() + 10 * 60 * 1000 <= now) return true;
+    if (statusFilter === "drying" && leaf.dried_datetime && new Date(formatISOToUTC(leaf.dried_datetime)).getTime() + 24 * 60 * 60 * 1000 > now) return true;
+    if (statusFilter === "dried" && leaf.dried_datetime && new Date(formatISOToUTC(leaf.dried_datetime)).getTime() + 24 * 60 * 60 * 1000 <= now) return true;
     if (statusFilter === "" && !leaf.washed_datetime && !leaf.dried_datetime) return true;
     return false;
   });
