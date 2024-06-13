@@ -20,6 +20,9 @@ const activities = [
 
 const PowderDashboard = () => {
   const [isSidebarMinimized, setIsSidebarMinimized] = useState(false);
+  const [centraFilter, setCentraFilter] = useState("1");
+  const [statsFilter, setStatsFilter] = useState("daily");
+  const [trendFilter, setTrendFilter] = useState("monthly");
 
   const toggleSidebar = () => {
     setIsSidebarMinimized(!isSidebarMinimized);
@@ -61,12 +64,13 @@ const PowderDashboard = () => {
             </div>
             <div className="flex justify-center gap-2">
               <form className="h-10 w-40">
-                <select id="times" className="bg-quaternary border border-primary text-primary text-sm 
-                focus:ring-primary focus:border-primary block w-full p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full py-1 px-1">
-                  <option>Select Centra</option>
-                  <option>Select Centra 1</option>
-                  <option>Select Centra 2</option>
-                  <option>Select Centra 3</option>
+              <select id="times" className="bg-quaternary border border-primary text-primary text-sm 
+                focus:ring-primary focus:border-primary block w-full p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full py-1 px-1"
+                onChange={(e) => setCentraFilter(e.target.value)} >
+                  <option value="1">Select Centra</option>
+                  <option value="1">Select Centra 1</option>
+                  <option value="2">Select Centra 2</option>
+                  <option value="3">Select Centra 3</option>
                 </select>
               </form>
               <form className="h-10 w-28">
@@ -85,12 +89,13 @@ const PowderDashboard = () => {
               <div className="flex justify-between items-center mb-4">
                 <div className="text-lg text-black font-semibold">Powder Statistics</div>
                 <form className="h-10 w-28">
-                  <select id="times" className="bg-quaternary border border-primary text-primary text-sm 
-                  focus:ring-primary focus:border-primary block w-full p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full py-1 px-1">
-                    <option>Daily</option>
-                    <option>Weekly</option>
-                    <option>Monthly</option>
-                    <option>Annually</option>
+                <select id="times" className="bg-quaternary border border-primary text-primary text-sm 
+                  focus:ring-primary focus:border-primary block w-full p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full py-1 px-1"
+                  onChange={(e) => setStatsFilter(e.target.value)}>
+                    <option value="daily">Daily</option>
+                    <option value="weekly">Weekly</option>
+                    <option value="monthly">Monthly</option>
+                    <option value="annually">Annually</option>
                   </select>
                 </form>
               </div>
@@ -103,11 +108,12 @@ const PowderDashboard = () => {
                 <div className="text-lg text-black font-semibold">Powder Trends</div>
                 <form className="h-10 w-28">
                   <select id="times" className="bg-quaternary border border-primary text-primary text-sm 
-                  focus:ring-primary focus:border-primary block w-full p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full py-1 px-1">
-                    <option>Daily</option>
-                    <option>Weekly</option>
-                    <option>Monthly</option>
-                    <option>Annually</option>
+                  focus:ring-primary focus:border-primary block w-full p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full py-1 px-1"
+                  onChange={(e) => setTrendFilter(e.target.value)}>
+                    <option value="daily">Daily</option>
+                    <option value="weekly">Weekly</option>
+                    <option value="monthly">Monthly</option>
+                    <option value="annually">Annually</option>
                   </select>
                 </form>
               </div>
