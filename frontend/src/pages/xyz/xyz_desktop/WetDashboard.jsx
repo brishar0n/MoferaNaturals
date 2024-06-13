@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Sidebar from "../../../components/xyz/Sidebar";
 import BarChart from "./BarChart";
 import AreaChart from "./AreaChart";
@@ -10,6 +10,7 @@ import { motion } from "framer-motion";
 
 import profilepic from "../../../assets/desktop/profilepicdesktop.svg";
 import mascot from "../../../assets/xyz/half-mascot.svg";
+import { getWetStats } from '../../../../api/xyzAPI';
 
 const activities = [
   { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of wet leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-10@2x.png' },
@@ -27,6 +28,32 @@ const WetDashboard = () => {
   const toggleSidebar = () => {
     setIsSidebarMinimized(!isSidebarMinimized);
   };
+
+  const [barData, setBarData] = useState(new Object())
+  const [lineChartData, setLineChartData] = useState(new Object())
+  useEffect(() => {
+      const fetchBarData = async () => {
+          const response = await getWetStats({"interval": statsFilter});
+          if(response && response.data) {
+              setBarData(response.data);
+            }
+      }
+
+      fetchBarData();
+      
+  }, [statsFilter]);
+
+  useEffect(() => {
+    const fetchLineData = async () => {
+        const response = await getWetStats({"interval": trendFilter});
+        if(response && response.data) {
+            setLineChartData(response.data);
+          }
+    }
+
+    fetchLineData();
+    
+}, [trendFilter]);
 
   return (
     <div className="bg-primary w-screen h-screen flex relative">
@@ -95,12 +122,12 @@ const WetDashboard = () => {
                     <option value="daily">Daily</option>
                     <option value="weekly">Weekly</option>
                     <option value="monthly">Monthly</option>
-                    <option value="annually">Annually</option>
+                    <option value="yearly">Annually</option>
                   </select>
                 </form>
               </div>
               <div className="flex-1 flex-grow flex-shrink">
-                <BarChart />
+                <BarChart barData = {barData}/>
               </div>
             </div>
             <div className="flex flex-col h-[288px] bg-quinary rounded-3xl dark:bg-gray-800 p-8">
@@ -113,12 +140,12 @@ const WetDashboard = () => {
                     <option value="daily">Daily</option>
                     <option value="weekly">Weekly</option>
                     <option value="monthly">Monthly</option>
-                    <option value="annually">Annually</option>
+                    <option value="yearly">Annually</option>
                   </select>
                 </form>
               </div>
               <div className="flex-1 flex-grow flex-shrink">
-                <AreaChart />
+                <AreaChart lineData={lineChartData}/>
               </div>
             </div>
             <div className="grid grid-cols-3 gap-4 mb-4">
