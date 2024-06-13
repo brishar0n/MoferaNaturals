@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 
 import profilepic from "../../../assets/desktop/profilepicdesktop.svg";
 import mascot from "../../../assets/xyz/half-mascot.svg";
-import { getDryBarChart } from '../../../../api/xyzAPI';
+import { getDryStats } from '../../../../api/xyzAPI';
 
 const activities = [
   { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-10@2x.png' },
@@ -29,18 +29,32 @@ const DryDashboard = () => {
     setIsSidebarMinimized(!isSidebarMinimized);
   };
 
-  const [barChartData, setBarChartData] = useState(new Object())
+  const [barDatas, setBarData] = useState(new Object())
   useEffect(() => {
       const fetchBarData = async () => {
-          const response = await getDryBarChart({"interval": statsFilter})
+          const response = await getDryStats({"interval": statsFilter})
           if(response && response.data) {
-              setBarChartData(response.data)
+              setBarData(response.data)
             }
       }
 
       fetchBarData()
       
   }, [statsFilter])
+
+  const [lineChartData, setLineChartData] = useState([]);
+  useEffect(() => {
+    const fetchLineData = async () => {
+        const response = await getDryStats({"interval": trendFilter});
+        if(response && response.data) {
+            setLineChartData(response.data);
+          }
+    }
+
+    fetchLineData();
+    
+}, [trendFilter]);
+
 
   return (
     <div className="bg-primary w-screen h-screen flex relative">
@@ -114,7 +128,7 @@ const DryDashboard = () => {
                 </form>
               </div>
               <div className="flex-1 flex-grow flex-shrink">
-                <BarChart barData = {barChartData}/>
+                <BarChart barData = {barDatas}/>
               </div>
             </div>
             <div className="flex flex-col h-[288px] bg-quinary rounded-3xl dark:bg-gray-800 p-8">
@@ -127,12 +141,12 @@ const DryDashboard = () => {
                     <option value="daily">Daily</option>
                     <option value="weekly">Weekly</option>
                     <option value="monthly">Monthly</option>
-                    <option value="annually">Annually</option>
+                    <option value="yearly">Annually</option>
                   </select>
                 </form>
               </div>
               <div className="flex-1 flex-grow flex-shrink">
-                <AreaChart />
+                <AreaChart lineData={lineChartData}/>
               </div>
             </div>
             <div className="grid grid-cols-3 gap-4 mb-4">

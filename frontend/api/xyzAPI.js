@@ -13,7 +13,7 @@ export const getArrivedPackage = async (page) => {
     return Packages
 }
 
-export const getWetBarChart = async (data) => {
+export const getWetStats = async (data) => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
     const WetDatas = await axios.get(URL + "/xyz/quick_get_wet_stats", {
         "params": {...data}
@@ -25,7 +25,7 @@ export const getWetBarChart = async (data) => {
     return WetDatas
 }
 
-export const getDryBarChart = async (data) => {
+export const getDryStats = async (data) => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
     const DryDatas = await axios.get(URL + "/xyz/quick_get_dry_stats", {
         "params": {...data}
@@ -37,7 +37,7 @@ export const getDryBarChart = async (data) => {
     return DryDatas
 }
 
-export const getFlourBarChart = async (data) => {
+export const getFlourStats = async (data) => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
     const FlourDatas = await axios.get(URL + "/xyz/quick_get_flour_stats", {
         "params": {...data}
