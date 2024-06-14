@@ -7,7 +7,7 @@ function CentraNotification({text, datetime}) {
             <div className="flex flex-col gap-1 text-start">
                 <p className="text-sm leading-5 font-medium">{text}</p>
                 <div className="flex flex-row items-center">
-                    <p className="text-septenary text-xs font-semibold flex-1">{monthNames[datetime.getMonth()]}, {datetime.toLocaleTimeString()}</p>
+                    <p className="text-septenary text-xs font-semibold flex-1">{monthNames[datetime.getMonth()]} {datetime.getDate()}, {datetime.toLocaleTimeString()}</p>
                 </div>
             </div>
         </div>
