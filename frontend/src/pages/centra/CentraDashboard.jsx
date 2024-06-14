@@ -11,7 +11,7 @@ function CentraDashboardHomePage() {
     alert('Button Search clicked!');
   };
   const handleDateChange = (event) => {
-    setDate(new Date(event.target.value));
+    setDate(event.target.value);
   };  
   const handleWeightChange = (event) => {
     setWeight(event.target.value);
@@ -21,8 +21,8 @@ function CentraDashboardHomePage() {
     alert('Button Submit clicked!');
 
     const collectionData = {
-      weight,
-      retrieval_date: date
+      retrieval_date: date,
+      weight
     };
     postCollection(collectionData);
   };
@@ -178,7 +178,7 @@ function CentraDashboardHomePage() {
                             </label>
                             <input 
                             type="date" 
-                            value={date.toISOString().substring(0, 10)} 
+                            value={date} 
                             onChange={handleDateChange}
                             className="w-4/5 bg-quinary rounded-md pl-2 text-black">
                             </input>                            
