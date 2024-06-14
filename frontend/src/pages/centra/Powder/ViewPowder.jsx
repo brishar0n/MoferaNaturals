@@ -15,7 +15,7 @@ function PowderHistory() {
     useEffect(() => {
         getFlour()
         .then(response => setPowderData(response.data))
-        .catch(err => console.err("Error: ", err))
+        .catch(err => console.error("Error: ", err))
     }, [])
 
     return (
@@ -26,8 +26,8 @@ function PowderHistory() {
               <PowderBox 
                   key={pwd.id} 
                   weight={pwd.weight} 
-                  driedDate={pwd.driedDate}
-                  flouredDate={pwd.flouredDate}
+                  driedDate={pwd.dried_date}
+                  flouredDate={pwd.floured_date}
                   id={pwd.id}
               />
           ))}

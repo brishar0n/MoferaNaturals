@@ -6,6 +6,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
+import { getPackages } from '../../../api/centraAPI';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -71,7 +72,7 @@ export default function PackageIDInput({ shippingID, onPackageIDChange, confirme
 
   // Filter package IDs based on the selected shipping ID
   const filteredPackageIDs = packageData
-    .filter((pkg) => pkg.shippingId === shippingID)
+    .filter((pkg) => pkg.shipping_id === shippingID)
     .map((pkg) => pkg.id);
 
   const filterPackageIDsConfirmed = packageData
@@ -84,7 +85,7 @@ export default function PackageIDInput({ shippingID, onPackageIDChange, confirme
     : shippingID
       ? filteredPackageIDs
       : packageData
-        .filter((pkg) => pkg.shippingId === null)
+        .filter((pkg) => pkg.shipping_id === null)
         .map((pkg) => pkg.id);
 
 

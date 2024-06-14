@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import SuccessNotification from "../SuccessNotification";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import PackageIDInput from "./PackageIDInput";
 import { addShippingInfo, getPackagesWithStatus } from "../../../api/centraAPI"
 
@@ -41,7 +41,7 @@ function ShippingForm() {
     function handlePackageIDChange(selectedPackageIDs) {
         let totalWeight = 0;
         selectedPackageIDs.forEach(id => {
-            const packageInfo = packageData[id];
+            const packageInfo = packageData.find(pkg => pkg.id === id);;
             if (packageInfo) {
                 totalWeight += packageInfo.weight;
             }
@@ -94,7 +94,7 @@ function ShippingForm() {
 
     return (
         <div>
-            {formSubmitted && <SuccessNotification htmlContent="You have successfully added checkpoint data." />}
+            {formSubmitted && <SuccessNotification htmlContent="You have successfully shipped the packages."/>}
 
             <AddShipmentHeader/>
 
