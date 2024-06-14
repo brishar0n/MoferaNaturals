@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 
 import profilepic from "../../../assets/desktop/profilepicdesktop.svg";
 import mascot from "../../../assets/xyz/half-mascot.svg";
-import { getWetStats } from '../../../../api/xyzAPI';
+import { getWetLeafDatas, getWetStats } from '../../../../api/xyzAPI';
 
 const activities = [
   { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of wet leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-10@2x.png' },
@@ -31,6 +31,7 @@ const WetDashboard = () => {
 
   const [barData, setBarData] = useState(new Object())
   const [lineChartData, setLineChartData] = useState(new Object())
+  const [wetDatas, setWetDatas] = useState([])
   useEffect(() => {
       const fetchBarData = async () => {
           const response = await getWetStats({"interval": statsFilter});
@@ -54,6 +55,18 @@ const WetDashboard = () => {
     fetchLineData();
     
 }, [trendFilter]);
+
+  useEffect(() => {
+      const fetchWetData = async () => {
+        const response = await getWetLeafDatas();
+        if(response && response.data) {
+            setWetDatas(response.data);
+          }
+      }
+
+      fetchWetData();
+      
+  }, [])
 
   return (
     <div className="bg-primary w-screen h-screen flex relative">
@@ -173,7 +186,7 @@ const WetDashboard = () => {
             <div className="flex h-[440px] bg-quinary items-center justify-center rounded-3xl dark:bg-gray-800 p-4">
               <div className="text-2xl text-primary dark:text-gray-500 w-full">
                 <div className="text-left text-lg ml-3 text-black font-semibold">Wet Leaves Data</div>
-                <Table />
+                <Table data={wetDatas.map((data) => {return {...data, "date":data.received_date}})}/>
               </div>
             </div>
             <div className="flex flex-col bg-quinary rounded-3xl dark:bg-gray-800 p-4">
