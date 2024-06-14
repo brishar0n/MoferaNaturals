@@ -38,6 +38,7 @@ function CheckpointForm({ handleSubmit }) {
             }
         }
         fetchData();
+
     }, []);
 
     function handleView() {
@@ -80,10 +81,10 @@ function CheckpointForm({ handleSubmit }) {
         setSelectedPackageIDs([]);
         setTotalPackagesArrived(0);
 
-        const shipping = shippingData.find((data) => data.shippingId == selectedShippingId);
-        const packages = packageData.filter((pkg) => pkg.shippingId == selectedShippingId);
+        const shipping = shippingData.find((data) => data.id == selectedShippingId);
+        const packages = packageData.filter((pkg) => pkg.shipping_id == selectedShippingId);
         setTotalPackagesSent(packages.length);
-        setCentra(shipping ? shipping.unitCentra : '');
+        setCentra(shipping ? shipping.centra_id : '');
     }
 
     function handlePackageIDChange(selectedPackageIDs) {
@@ -136,9 +137,9 @@ function CheckpointForm({ handleSubmit }) {
                                 <option value="" disabled>
                                     Select Shipping ID
                                 </option>
-                                {shippingData.map(({ shippingId }) => (
-                                    <option key={shippingId} value={shippingId}>
-                                        {shippingId}
+                                {shippingData.map((shippingId) => (
+                                    <option key={shippingId.id} value={shippingId.id}>
+                                        {shippingId.id}
                                     </option>
                                 ))}
                             </select>
@@ -190,7 +191,7 @@ function CheckpointForm({ handleSubmit }) {
                             <label htmlFor="packageId" className="items-start text-xs mb-2 font-medium">
                                 Package ID:{' '}
                             </label>
-                            <PackageIDInput shippingID={shippingId} onPackageIDChange={handlePackageIDChange} />
+                            <PackageIDInput shippingID={shippingId} onPackageIDChange={handlePackageIDChange} packageData={packageData}/>
 
                             <label htmlFor="totalPackagesArrived" className="items-start text-xs mb-2 font-medium">
                                 Total Packages Arrived:{' '}

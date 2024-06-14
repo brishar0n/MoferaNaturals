@@ -2,7 +2,7 @@ import React from "react";
 import "../../../style/App.css"
 import { useState, useEffect } from "react";
 import PackageBox from "../../../components/centra/PackageBox";
-import { getPackages, getPackagesWithStatus, getShipping } from "../../../../api/centraAPI";
+import { getPackages, getPackagesWithStatus, getShippingInfo } from "../../../../api/centraAPI";
 
 function PackageHistory(){
     const [statusFilter, setStatusFilter] = useState("ALL");
@@ -56,7 +56,7 @@ function PackageHistory(){
         const fetchData = async () => {
             try {
                 // Fetch all shippings once
-                const shippingsResponse = await getShipping();
+                const shippingsResponse = await getShippingInfo();
                 setShippings(shippingsResponse.data);
 
                 // Fetch packages based on statusFilter

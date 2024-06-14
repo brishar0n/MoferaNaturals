@@ -4,7 +4,7 @@ import bgleft from '../../assets/trackshipping/bgleft.svg'
 import NavigationBar from "../../components/centra/CentraNavbar.jsx";
 import '../../style/Shipping.css'
 import TrackShippingSearch from '../../components/centra/TrackShippingSearch';
-import { getPackages, getShipping } from "../../../api/centraAPI";
+import { getPackages, getShippingInfo } from "../../../api/centraAPI";
 
 function TrackShipping() {
     const [isMobile, setIsMobile] = React.useState(false);
@@ -17,7 +17,7 @@ function TrackShipping() {
               const packageResponse = await getPackages();
               setPackageData(packageResponse.data);
               
-              const shippingResponse = await getShipping();
+              const shippingResponse = await getShippingInfo();
               setShippingData(shippingResponse.data);
 
           } catch (err) {
