@@ -8,23 +8,26 @@ import { motion } from "framer-motion";
 
 function TrackShippingSearch({shippingData, packageData}) {
     const [input, setInput] = useState("");
-    const [searchResult, setSearchResult] = useState([]);
+    const [searchResult, setSearchResult] = useState(shippingData);
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Set initial search result to full jsonData when component mounts
         setSearchResult(shippingData);
-    }, []);
+    }, [shippingData]);
 
     function handleSearch(e) {
         setInput(e);
         if (e) {
-            const filteredData = shippingData.filter(shipping => shipping.shippingId && shipping.shippingId.toString().includes(e));
+            const filteredData = shippingData.filter(shipping => shipping.id && shipping.id.toString().includes(e));
             setSearchResult(filteredData);
         } else {
             setSearchResult(shippingData);
         }
     }
+
+    useEffect(() => {
+        console.log("updated search result data", searchResult)
+    }, [searchResult]);
 
     function handleShippingClick(shippingId) {
         navigate(`/trackshipping/${shippingId}`);

@@ -9,6 +9,7 @@ import dashboardGreen from '../../assets/desktop/dashboard-green2.svg';
 import userGreen from '../../assets/desktop/user-green.svg'
 import dbGreen from '../../assets/desktop/db-green.svg';
 import "../../style/AdminDesktop.css";
+import { columns, columnsCentra, columnsCheckpoint, columnsDry, columnsFlour, columnsPackage, columnsShipping, columnsWet, initialCentraRows, initialCheckpointRows, initialDryRows, initialFlourRows, initialPackageRows, initialRows, initialShippingRows, initialWetRows } from './UserDataSample';
 
 function AdminSidebar({ isMinimized, toggleMenu, onPageDataChange }) {
   const [dataManagementOpen, setDataManagementOpen] = useState(false);
@@ -56,7 +57,7 @@ function AdminSidebar({ isMinimized, toggleMenu, onPageDataChange }) {
                 className="bg-primary py-5 px-0.5 flex justify-start gap-2 items-center w-full hover:bg-white hover:rounded-xl hover:text-primary font-medium cursor-pointer text-white"
                 onMouseEnter={() => setHoveredItem('user')}
                 onMouseLeave={() => setHoveredItem(null)}
-                onClick={() => onPageDataChange('Manage Users', 'Arrange Username and Data Collections of ID', 'AdminTable')}
+                onClick={() => onPageDataChange('Manage Users', 'Arrange Username and Data Collections of ID', 'AdminTable', initialRows, columns)}
               >
                 <img
                   src={hoveredItem === 'user' ? userGreen : usericon}
@@ -93,25 +94,25 @@ function AdminSidebar({ isMinimized, toggleMenu, onPageDataChange }) {
               {dataManagementOpen && (
                 <>
                   <li className="bg-primary py-4 px-5 text-left indent-6 text-white hover:bg-white rounded-xl hover:text-primary font-medium cursor-pointer w-full">
-                    <p onClick={() => onPageDataChange('Centra Data', 'Search and added data for Centra')}>Centra Data</p>
+                    <p onClick={() => onPageDataChange('Centra Data', 'Search and added data for Centra', "CentraData", initialCentraRows, columnsCentra)}>Centra Data</p>
                   </li>
                   <li className="bg-primary py-4 px-5 text-left indent-6 text-white hover:bg-white rounded-xl hover:text-primary font-medium cursor-pointer w-full">
-                    <p onClick={() => onPageDataChange('Wet Leaves Data', 'Search and added data for Wet Leaves')}>Wet Leaves Data</p>
+                    <p onClick={() => onPageDataChange('Wet Leaves Data', 'Search and added data for Wet Leaves', 'WetLeavesData', initialWetRows, columnsWet)}>Wet Leaves Data</p>
                   </li>
                   <li className="bg-primary py-4 px-5 text-left indent-6 text-white hover:bg-white rounded-xl hover:text-primary font-medium cursor-pointer w-full">
-                    <p onClick={() => onPageDataChange('Dry Leaves Data', 'Search and added data for Dry Leaves')}>Dry Leaves Data</p>
+                    <p onClick={() => onPageDataChange('Dry Leaves Data', 'Search and added data for Dry Leaves', 'DryLeavesData', initialDryRows, columnsDry)}>Dry Leaves Data</p>
                   </li>
                   <li className="bg-primary py-4 px-5 text-left indent-6 text-white hover:bg-white rounded-xl hover:text-primary font-medium cursor-pointer w-full">
-                    <p onClick={() => onPageDataChange('Flour Data', 'Search and added data for Flour')}>Flour Data</p>
+                    <p onClick={() => onPageDataChange('Flour Data', 'Search and added data for Flour', 'FlourData', initialFlourRows, columnsFlour)}>Flour Data</p>
                   </li>
                   <li className="bg-primary py-4 px-5 text-left indent-6 text-white hover:bg-white rounded-xl hover:text-primary font-medium cursor-pointer w-full">
-                    <p onClick={() => onPageDataChange('Shipping Info Data', 'List of Shipping Arrival and Departure Data')}>Shipping Info Data</p>
+                    <p onClick={() => onPageDataChange('Shipping Info Data', 'List of Shipping Arrival and Departure Data', 'ShippingInfoData', initialShippingRows, columnsShipping)}>Shipping Info Data</p>
                   </li>
                   <li className="bg-primary py-4 px-5 text-left indent-6 text-white hover:bg-white rounded-xl hover:text-primary font-medium cursor-pointer w-full">
-                    <p onClick={() => onPageDataChange('Checkpoint Data', 'List of Checkpoint Data and Total Package Arrival notice')}>Checkpoint Data</p>
+                    <p onClick={() => onPageDataChange('Checkpoint Data', 'List of Checkpoint Data and Total Package Arrival notice', 'CheckpointData', initialCheckpointRows, columnsCheckpoint )}>Checkpoint Data</p>
                   </li>
                   <li className="bg-primary py-4 px-5 text-left indent-6 text-white hover:bg-white rounded-xl hover:text-primary font-medium cursor-pointer w-full">
-                    <p onClick={() => onPageDataChange('Package Data', 'Package details including tracking and delivery statuses')}>Package Data</p>
+                    <p onClick={() => onPageDataChange('Package Data', 'Package details including tracking and delivery statuses', "PackageData", initialPackageRows, columnsPackage)}>Package Data</p>
                   </li>
                 </>
               )}

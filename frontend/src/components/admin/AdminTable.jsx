@@ -5,7 +5,7 @@ import { initialRows, columns} from "./UserDataSample";
 import EditUserButton from "./EditUserButton";
 
 
-function AdminTable({ rows, deleteRow, editRow}) {
+function AdminTable({ rows , columns , deleteRow, editRow}) {
   const [currentPage, SetCurrentPage] = useState(1)
 
   const itemsPerPage = 5;

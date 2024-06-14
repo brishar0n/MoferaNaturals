@@ -1,131 +1,139 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import DataTable,{ createTheme } from 'react-data-table-component';
+import { getArrivedPackage } from '../../../api/xyzAPI';
 
 const ExpandedComponent = ({ data }) => <pre>{JSON.stringify(data, null, 2)}</pre>;
 
 const columns = [
 	{
 		name: 'Package ID',
-		selector: row => row.packageID,
+		selector: row => row.id,
         sortable: true,
         width: "220px",   
 	},
 	{
 		name: 'Centra',
-		selector: row => row.Centra,
+		selector: row => row.centra_id,
         sortable: true,
         width: "217px"   
 	},
     {
 		name: 'Weight',
-		selector: row => row.Weight,
+		selector: row => row.weight,
         sortable: true,
         width: "180px"
 	},
     {
 		name: 'Receival Date',
-		selector: row => row.Date,
+		selector: row => row.received_date,
         sortable: true,
         width: "180px"   
 	},
-    {
-		name: 'Total Packages Received',
-		selector: row => row.Total,
-        sortable: true,
-        width: "220px"   
-	},
 ];
 
-const data = [
-    {
-        packageID: 'PKG#3439320',
-        Centra: 'Centra Unit 1',
-        Weight: 30,
-        Date: '31/08/2023',
-        Total: 5,
-    },
-    {
-        packageID: 'PKG#3493050',
-        Centra: 'Centra Unit 2',
-        Weight: 20,
-        Date: '31/08/2023',
-        Total: 3,
-    },
-    {
-        packageID: 'PKG#05939539',
-        Centra: 'Centra Unit 2',
-        Weight: 40,
-        Date: '31/08/2023',
-        Total: 3,
-    },
-    {
-        packageID: 'PKG#29393293',
-        Centra: 'Centra Unit 2',
-        Weight: 15,
-        Date: '31/08/2023',
-        Total: 3,
-    },
-    {
-        packageID: 'PKG#5588538',
-        Centra: 'Centra Unit 2',
-        Weight: 10,
-        Date: '31/08/2023',
-        Total: 3,
-    },
-    {
-        packageID: 'PKG#70203929',
-        Centra: 'Centra Unit 2',
-        Weight: 20,
-        Date: '31/08/2023',
-        Total: 3,
-    },
-    {
-        packageID: 'PKG#93828423',
-        Centra: 'Centra Unit 2',
-        Weight: 17,
-        Date: '31/08/2023',
-        Total: 3,
-    },
-    {
-        packageID: 'PKG#79992392',
-        Centra: 'Centra Unit 2',
-        Weight: 28,
-        Date: '31/08/2023',
-        Total: 3,
-    },
-    {
-        packageID: 'PKG#79812392',
-        Centra: 'Centra Unit 1',
-        Weight: 15,
-        Date: '31/08/2023',
-        Total: 3,
-    },
-    {
-        packageID: 'PKG#62342392',
-        Centra: 'Centra Unit 1',
-        Weight: 12,
-        Date: '31/08/2023',
-        Total: 3,
-    },
-    {
-        packageID: 'PKG#62344445',
-        Centra: 'Centra Unit 1',
-        Weight: 24,
-        Date: '31/08/2023',
-        Total: 3,
-    }
-]
+// const data = [
+//     {
+//         id: 'PKG#3439320',
+//         Centra: 'Centra Unit 1',
+//         Weight: 30,
+//         Date: '31/08/2023',
+        
+//     },
+//     {
+//         id: 'PKG#3493050',
+//         Centra: 'Centra Unit 2',
+//         Weight: 20,
+//         Date: '31/08/2023',
 
-const customTheme = createTheme('custom', {
-    background: {
-        default: 'rgba(230,241,237,255)', 
-    },
-    divider: {
-        default: 'none', 
-    },
-});
+//     },
+//     {
+//         id: 'PKG#05939539',
+//         Centra: 'Centra Unit 2',
+//         Weight: 40,
+//         Date: '31/08/2023',
+        
+//     },
+//     {
+//         id: 'PKG#29393293',
+//         Centra: 'Centra Unit 2',
+//         Weight: 15,
+//         Date: '31/08/2023',
+        
+//     },
+//     {
+//         id: 'PKG#5588538',
+//         Centra: 'Centra Unit 2',
+//         Weight: 10,
+//         Date: '31/08/2023',
+        
+//     },
+//     {
+//         id: 'PKG#70203929',
+//         Centra: 'Centra Unit 2',
+//         Weight: 20,
+//         Date: '31/08/2023',
+        
+//     },
+//     {
+//         id: 'PKG#93828423',
+//         Centra: 'Centra Unit 2',
+//         Weight: 17,
+//         Date: '31/08/2023',
+        
+//     },
+//     {
+//         id: 'PKG#79992392',
+//         Centra: 'Centra Unit 2',
+//         Weight: 28,
+//         Date: '31/08/2023',
+        
+//     },
+//     {
+//         id: 'PKG#79812392',
+//         Centra: 'Centra Unit 1',
+//         Weight: 15,
+//         Date: '31/08/2023',
+        
+//     },
+//     {
+//         id: 'PKG#62342392',
+//         Centra: 'Centra Unit 1',
+//         Weight: 12,
+//         Date: '31/08/2023',
+        
+//     },
+//     {
+//         id: 'PKG#62344445',
+//         Centra: 'Centra Unit 1',
+//         Weight: 24,
+//         Date: '31/08/2023',
+        
+//     }
+// ]
+
+// const customTheme = createTheme('custom', {
+//     background: {
+//         default: 'rgba(230,241,237,255)', 
+//     },
+//     divider: {
+//         default: 'none', 
+//     },
+// });
 
 function ArrivedPackagesTable() {
+
+    const [data, setData] = useState([])
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await getArrivedPackage(0)
+            console.log(response.data)
+            if(response && response.data) {
+                setData(response.data)
+            }
+        }
+
+        fetchData()
+    }, [])
     return (
         <div className='bg-quinary px-4 pt-3 pb-4 rounded-lg flex-1 overflow'>
             <div className='relative'>

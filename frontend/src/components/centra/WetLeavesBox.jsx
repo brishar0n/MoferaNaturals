@@ -9,19 +9,37 @@ function WetLeavesBox({ weight, date, id, washedDatetime, driedDatetime, handleW
 
     useEffect(() => {
         const now = new Date();
-        if (washedDatetime && new Date(washedDatetime) > now) {
-            setStatus("washing");
-            setTimeLeft(Math.floor((new Date(washedDatetime).getTime() + 10 * 60 * 1000 - now.getTime()) / 1000));
-        } else if (washedDatetime) {
-            setStatus("washed");
-        } else if (driedDatetime && new Date(driedDatetime) > now) {
-            setStatus("drying");
-            setTimeLeft(Math.floor((new Date(driedDatetime).getTime() + 24 * 60 * 60 * 1000 - now.getTime()) / 1000));
-        } else if (driedDatetime) {
-            setStatus("dried");
-        } else {
-            setStatus("");
+        // if (driedDatetime) console.log(driedDatetime, now.toISOString(), driedDatetime > now.toISOString())
+        // if (washedDatetime && new Date(washedDatetime) > now) {
+        //     setStatus("washing");
+        //     setTimeLeft(Math.floor((new Date(washedDatetime).getTime() + 10 * 60 * 1000 - now.getTime()) / 1000));
+        // } else if (washedDatetime) {
+        //     setStatus("washed");
+        // } else if (driedDatetime && new Date(driedDatetime) > now) {
+        //     setStatus("drying");
+        //     setTimeLeft(Math.floor((new Date(driedDatetime).getTime() + 24 * 60 * 60 * 1000 - now.getTime()) / 1000));
+        // } else if (driedDatetime) {
+        //     setStatus("dried");
+        // } else {
+        //     setStatus("");
+        // }
+        if(isWashingPage) {
+            if (washedDatetime && new Date(washedDatetime).getTime() + 10 * 60 * 1000 > now.getTime()) {
+                setStatus("washing");
+                setTimeLeft(Math.floor((new Date(washedDatetime).getTime() + 10 * 60 * 1000 - now.getTime()) / 1000));
+            } else if (washedDatetime) {
+                setStatus("washed");
+            }
+        } else{
+            if (driedDatetime && new Date(driedDatetime).getTime() + 24 * 60 * 60 * 1000 > now.getTime()) {
+                setStatus("drying");
+                setTimeLeft(Math.floor((new Date(driedDatetime).getTime() + 24 * 60 * 60 * 1000 - now.getTime()) / 1000));
+            } else if (driedDatetime) {
+                setStatus("dried");
+            }
         }
+        
+
     }, [washedDatetime, driedDatetime]);
 
     useEffect(() => {
@@ -48,8 +66,8 @@ function WetLeavesBox({ weight, date, id, washedDatetime, driedDatetime, handleW
 
     const handleConfirmAction = () => {
         setIsModalOpen(false);
-        const newFinishedTime = new Date(Date.now() + (modalAction === "wash" ? 10 * 60 * 1000 : 24 * 60 * 60 * 1000));
-        handleWashOrDry(id, modalAction === "wash" ? "washing" : "drying", newFinishedTime);
+        const newFinishedTime = new Date(Date.now())//+ (modalAction === "wash" ? 10 * 60 * 1000 : 24 * 60 * 60 * 1000));
+        handleWashOrDry(id, modalAction === "wash" ? "washing" : "drying", newFinishedTime.toISOString());
     };
 
     const formatTimeLeft = (seconds) => {

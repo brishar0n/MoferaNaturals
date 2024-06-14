@@ -1,26 +1,51 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { BarChart } from '@mui/x-charts/BarChart';
 import ResizeObserver from 'resize-observer-polyfill';
+import { getDryStats, getFlourStats, getWetStats } from '../../../api/xyzAPI';
+import { deepOrange } from '@mui/material/colors';
 
 const CentraMonitorBar = ({ filter }) => {
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const containerRef = useRef();
 
-  const dailyData = {
-    wetLeaves: [10, 15, 20, 25, 30, 20, 15],
-    dryLeaves: [5, 10, 15, 20, 25, 30, 20],
-    powder: [20, 25, 30, 20, 15, 10, 5],
-  };
+  // const dailyData = {
+  //   wetLeaves: [10, 15, 20, 25, 30, 20, 15],
+  //   dryLeaves: [5, 10, 15, 20, 25, 30, 20],
+  //   powder: [20, 25, 30, 20, 15, 10, 5],
+  // };
 
-  const monthlyData = {
-    wetLeaves: [200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750],
-    dryLeaves: [150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700],
-    powder: [300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850],
-  };
+  const [dailyData, setDailyData] = useState({wetLeaves:[] ,dryLeaves:[], powder:[]});
+  const [monthlyData, setMonthlyData] = useState({wetLeaves:[] ,dryLeaves:[], powder:[]});
+
+  // const monthlyData = {
+  //   wetLeaves: [200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750],
+  //   dryLeaves: [150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700],
+  //   powder: [300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850],
+  // };
 
   const data = filter === 'daily' ? dailyData : monthlyData;
 
   useEffect(() => {
+    const fetchDatas = async () => {
+        const wetDaily = await getWetStats({"interval": "weekly"})
+        const dryDaily = await getDryStats({"interval": "weekly"})
+        const powderDaily = await getFlourStats({"interval": "weekly"})
+
+        setDailyData({"wetLeaves":wetDaily.data.data, "dryLeaves":dryDaily.data.data, "powder":powderDaily.data.data})
+        
+        const tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
+        const dateParam = (new Date(Date.now() - tzoffset)).toISOString().split("T")[0];
+
+        const wetMonthly = await getWetStats({"interval": "monthly", "date": dateParam})
+        const dryMonthly = await getDryStats({"interval": "monthly", "date": dateParam})
+        const powderMonthly = await getFlourStats({"interval": "monthly", "date": dateParam})
+
+        setMonthlyData({"wetLeaves":wetMonthly.data.data, "dryLeaves":dryMonthly.data.data, "powder":powderMonthly.data.data})
+        
+    }
+
+    fetchDatas()
+
     const resizeObserver = new ResizeObserver((entries) => {
       for (let entry of entries) {
         setDimensions({

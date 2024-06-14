@@ -41,6 +41,8 @@ import PowderDashboard from './pages/xyz/xyz_desktop/PowderDashboard';
 import Profile from './pages/profile/Profile';
 import EditProfile from './pages/profile/EditProfile';
 import GHDashboard from './pages/guard_harbour/GHDashboard';
+import RegisterDesktop from './pages/auth-desktop/RegisterDesktop';
+import Notifications from './pages/xyz/xyz_desktop/Notifications';
 
 function App() {
   return (
@@ -87,8 +89,10 @@ function App() {
         <Route path="/getstarteddesktop" element={<GetStartedDesktop/>} exact/>
         <Route path="/logindesktop" element={<LoginDesktop/>} exact/>
         <Route path="/welcomedesktop" element={<WelcomeDesktop/>} exact/>
+        <Route path="/registerdesktop" element={<RegisterDesktop/>} exact/>
 
         {/* XYZ Desktop */}
+        <Route path="/notifications" element={<Notifications />} exact />
         <Route path="/arrivedpackages" element={<ArrivedPackages />} exact />
         <Route path="/shipmenttracker" element={<ShipmentTracker />} exact />
         <Route path="/centraactivitymonitor" element={<CentraActivityMonitor />} exact />

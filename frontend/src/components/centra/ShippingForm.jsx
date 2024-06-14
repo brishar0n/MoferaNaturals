@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import SuccessNotification from "../SuccessNotification";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PackageIDInput from "./PackageIDInput";
-import { addShippingInfo } from "../../../api/centraAPI"
+import { addShippingInfo, getPackagesWithStatus } from "../../../api/centraAPI"
 
 import AddShipmentHeader from "./AddShipmentHeader";
 
@@ -15,22 +15,33 @@ function ShippingForm() {
     const [expedition, setExpedition] = useState("");
     const [shippingDate, setShippingDate] = useState("");
     const [shippingTime, setShippingTime] = useState("");
-    const [packages, setPackages] = useState([]);
+    const [packageData, setPackageData] = useState([]);
 
-    const packageData = {
-        123: { weight: 10 },
-        127: { weight: 5 },
-        102: { weight: 15 },
-        19: { weight: 20 },
-        40: { weight: 7 },
-        51: { weight: 12 },
-        63: { weight: 8 }
-    };
+    // const packageData = {
+    //     123: { weight: 10 },
+    //     127: { weight: 5 },
+    //     102: { weight: 15 },
+    //     19: { weight: 20 },
+    //     40: { weight: 7 },
+    //     51: { weight: 12 },
+    //     63: { weight: 8 }
+    // };
+
+    useEffect(() => {
+        const fetchPackage = async () => {
+            const response = await getPackagesWithStatus(0)
+            if(response && response.data) {
+                setPackageData(response.data)
+            }
+        }
+        fetchPackage()
+        
+    }, [])
 
     function handlePackageIDChange(selectedPackageIDs) {
         let totalWeight = 0;
         selectedPackageIDs.forEach(id => {
-            const packageInfo = packageData[id];
+            const packageInfo = packageData.find(pkg => pkg.id === id);;
             if (packageInfo) {
                 totalWeight += packageInfo.weight;
             }
@@ -83,7 +94,7 @@ function ShippingForm() {
 
     return (
         <div>
-            {formSubmitted && <SuccessNotification htmlContent="You have successfully added checkpoint data." />}
+            {formSubmitted && <SuccessNotification htmlContent="You have successfully shipped the packages."/>}
 
             <AddShipmentHeader/>
 
@@ -92,7 +103,7 @@ function ShippingForm() {
                     <form>
 
                         <label htmlFor="packageId" className='items-start mb-2 text-xs font-medium'>Package IDs:</label>
-                        <PackageIDInput onPackageIDChange={handlePackageIDChange}/>
+                        <PackageIDInput onPackageIDChange={handlePackageIDChange} packageData={packageData}/>
                                     
                         <label htmlFor="packageWeight" className='items-start text-xs mb-2 font-medium'>Package Weight:</label>
                         <input type="number" id="packageWeight" className='mb-2 rounded-md bg-quinary px-2 py-2 w-full text-xs border-none' value={weight} readOnly required/>

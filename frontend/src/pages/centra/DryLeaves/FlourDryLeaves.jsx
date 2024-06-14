@@ -4,35 +4,45 @@ import { Select, SelectItem } from "@nextui-org/select";
 import DryLeavesBox from "../../../components/centra/DryLeavesBox";
 import ConfirmationModal from "../../../components/centra/ConfirmationModal";
 import { DryLeavesContext } from "./DryLeavesManager"
-import { getDryLeaves } from "../../../../api/centraAPI";
+import { flourDryLeaves, getDryLeaves } from "../../../../api/centraAPI";
 import { getFlour } from "../../../../api/centraAPI";
+import { formatISOToUTC } from "../../../../utils/utils";
+import { sync } from "framer-motion";
 
 function FlourDryLeaves() {
     const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split("T")[0]);
     const [weight, setWeight] = useState(0);
-    const [interval, setInterval] = useState("daily");
+    const [interval, setInterval] = useState("1d");
     const [dateRanges, setDateRanges] = useState([]);
-    const [dryLeaves, setDryLeaves] = useState([
-        { id: 200420, weight: 10, driedDate: "2024-05-01", status: "dried", finishedTime: null },
-        { id: 200421, weight: 5, driedDate: "2024-05-02", status: "dried", finishedTime: null },
-        { id: 200422, weight: 0, driedDate: "2024-05-03", status: "floured", finishedTime: null },
-        { id: 200423, weight: 8, driedDate: "2024-05-04", status: "dried", finishedTime: null },
-        { id: 200424, weight: 10, driedDate: "2024-05-05", status: "floured", finishedTime: null },
-        { id: 200425, weight: 5, driedDate: "2024-05-06", status: "dried", finishedTime: null },
-    ]);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    useEffect(() => {
-        const fetchDryLeaves = async () => {
-            const response = await getDryLeaves();
-            console.log(response);
-            if (response && response.data) {
-                console.log(response.data);
-                setDryLeaves(response.data);
-            }
-        };
 
-        fetchDryLeaves();
-    }, []);
+    const [dryLeaves, setDryLeaves] = useState([]);
+    // const [dryLeaves, setDryLeaves] = useState([
+        // {
+        //     id: 1,
+        //     weight: 100.5,
+        //     dried_date: "2024-06-11",
+        //     floured_datetime: null,
+        //     centra_id: 1
+        // },
+        // {
+        //     id: 2,
+        //     weight: 72,
+        //     dried_date: "2024-06-10",
+        //     floured_datetime: "2024-06-10T18:45:00",
+        //     centra_id: 2
+        // },
+        // {
+        //     id: 3,
+        //     weight: 53,
+        //     dried_date: "2024-06-09",
+        //     floured_datetime: null,
+        //     centra_id: 3
+        // }
+    // ]);
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+
     useEffect(() => {
         const date = new Date(selectedDate);
         const newDateRanges = [];
@@ -46,8 +56,21 @@ function FlourDryLeaves() {
         }
 
         setDateRanges(newDateRanges);
-        console.log(dateRanges);
-        console.log(interval);
+        // console.log(dateRanges);
+        // console.log(interval);
+        const fetchDryLeaves = async () => {
+            const response = await getDryLeaves();
+            console.log(response);
+            if (response && response.data) {
+                console.log(response.data);
+                setDryLeaves(response.data);
+            }
+        };
+
+        fetchDryLeaves();
+        
+        console.log(dateRanges)
+
     }, [selectedDate, interval]);
 
     useEffect(() => {
@@ -59,34 +82,30 @@ function FlourDryLeaves() {
         setWeight(totalWeight);
     }, [dryLeaves, dateRanges]);
 
-    useEffect(() => {
-        const intervalId = setInterval(() => {
-            const updatedLeaves = dryLeaves.map((leaf) => {
-                if (leaf.status === "flouring" && leaf.finishedTime && new Date() >= leaf.finishedTime) {
-                    return { ...leaf, status: "floured", finishedTime: null };
-                }
-                return leaf;
-            });
-            setDryLeaves(updatedLeaves);
-        }, 1000);
+    // useEffect(() => {
+    //     const intervalId = setInterval(() => {
+    //         const updatedLeaves = dryLeaves.map((leaf) => {
+    //             if (leaf.status === "flouring" && leaf.finishedTime && new Date() >= leaf.finishedTime) {
+    //                 return { ...leaf, status: "floured", finishedTime: null };
+    //             }
+    //             return leaf;
+    //         });
+    //         setDryLeaves(updatedLeaves);
+    //     }, 1000);
 
-        return () => clearInterval(intervalId);
-    }, []);
-
-    const handleBack = () => navigate("/dashboard");
-
-    const handleAdd = () => navigate("/adddryleaves");
+    //     return () => clearInterval(intervalId);
+    // }, []);
 
     const handleFlour = () => {
-        const updatedLeaves = dryLeaves.map((leaf) => {
-            if (dateRanges.includes(leaf.dried_date) && leaf.floured_datetime === null) {
-                const finishedTime = new Date(Date.now() + 4 * 60 * 60 * 1000); // 4 hours from now
-                return { ...leaf, status: "flouring", finishedTime };
-            }
-            return leaf;
-        });
-
-        setDryLeaves(updatedLeaves);
+        const currentTime = new Date(Date.now());
+        const validLeaves = dryLeaves.filter((leaf) => dateRanges.includes(leaf.dried_date) && !leaf.floured_datetime)
+    
+        validLeaves.forEach((e) => {
+            flourDryLeaves({
+                "id": e.id,
+                "datetime": currentTime.toISOString()
+            })
+        })
         setIsModalOpen(false);
     };
 
@@ -132,9 +151,9 @@ function FlourDryLeaves() {
                         value={interval}
                         onChange={(e) => setInterval(e.target.value)}
                     >
-                        <SelectItem key="daily" value="daily"> Daily (1d) </SelectItem>
-                        <SelectItem key="threedays" value="threedays"> Three days (3d) </SelectItem>
-                        <SelectItem key="weekly" value="weekly"> Weekly (7d) </SelectItem>
+                        <SelectItem key="daily" value="1d"> Daily (1d) </SelectItem>
+                        <SelectItem key="threedays" value="3d"> Three days (3d) </SelectItem>
+                        <SelectItem key="weekly" value="7d"> Weekly (7d) </SelectItem>
                     </Select>
                 
             </div>
@@ -149,6 +168,7 @@ function FlourDryLeaves() {
                         weight={leaf.weight}
                         id={leaf.id}
                         driedDate={leaf.dried_date}
+                        flouredDatetime={formatISOToUTC(leaf.floured_datetime)}
                     />
                 ));
             })}

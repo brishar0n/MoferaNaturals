@@ -65,7 +65,56 @@ export const initialRows = [
   ];
 
 
-  
+  export const initialCentraRows = [
+    {
+      key: "1",
+      id: "1",
+      centra_id: "CENTRA#123",
+      location: "someplace idk",
+    },
+    {
+      key: "2",
+      id: "2",
+      centra_id: "CENTRA#123",
+      location: "someplace idk",
+    },
+    {
+      key: "3",
+      id: "3",
+      centra_id: "CENTRA#123",
+      location: "someplace idk",
+    },
+    {
+      key: "3",
+      id: "3",
+      centra_id: "CENTRA#123",
+      location: "someplace idk",
+    },
+    {
+      key: "4",
+      id: "4",
+      centra_id: "CENTRA#123",
+      location: "someplace idk",
+    },
+    {
+      key: "5",
+      id: "5",
+      centra_id: "CENTRA#123",
+      location: "someplace idk",
+    },
+    {
+      key: "6",
+      id: "7",
+      centra_id: "CENTRA#123",
+      location: "someplace idk",
+    },
+    {
+      key: "7",
+      id: "7",
+      centra_id: "CENTRA#123",
+      location: "someplace idk",
+    },
+  ]
 
   export const initialWetRows = [
     {
@@ -148,55 +197,55 @@ export const initialRows = [
     {
       key: "1",
       id: "1",
-      dried_date : "02-09-24",
+      floured_date : "02-09-24",
       weight : "30 Kg",
     },
     {
       key: "2",
       id: "2",
-      dried_date : "02-09-24",
+      floured_date : "02-09-24",
       weight : "30 Kg",
     },
     {
       key: "3",
       id: "3",
-      dried_date : "02-09-24",
+      floured_date : "02-09-24",
       weight : "30 Kg",
     },
     {
       key: "4",
       id: "4",
-      dried_date : "02-09-24",
+      floured_date : "02-09-24",
       weight : "30 Kg",
     },
     {
       key: "5",
       id: "5",
-      dried_date : "02-09-24",
+      floured_date : "02-09-24",
       weight : "30 Kg",
     },
     {
       key: "6",
       id: "6",
-      dried_date : "02-09-24",
+      floured_date : "02-09-24",
       weight : "30 Kg",
     },
     {
       key: "7",
       id: "7",
-      dried_date : "02-09-24",
+      floured_date : "02-09-24",
       weight : "30 Kg",
     },
     {
       key: "8",
       id: "8",
-      dried_date : "02-09-24",
+      floured_date : "02-09-24",
       weight : "30 Kg",
     },
     {
       key: "9",
       id: "9",
-      dried_date : "02-09-24",
+      floured_date : "02-09-24",
       weight : "30 Kg",
     },
   ];
@@ -398,6 +447,7 @@ export const initialRows = [
       weight : "30 Kg",
       received_date : "02-09-24",
       reception_id : "1",
+      shipping_id: "SHIP#123",
       status : "Active",
       exp_date : "02-09-24",
       expedition : "JNE"
@@ -408,6 +458,7 @@ export const initialRows = [
       weight : "30 Kg",
       received_date : "02-09-24",
       reception_id : "1",
+      shipping_id: "SHIP#123",
       status : "Active",
       exp_date : "02-09-24",
       expedition : "JNE"
@@ -418,6 +469,7 @@ export const initialRows = [
       weight : "30 Kg",
       received_date : "02-09-24",
       reception_id : "1",
+      shipping_id: "SHIP#123",
       status : "Active",
       exp_date : "02-09-24",
       expedition : "JNE"
@@ -428,6 +480,7 @@ export const initialRows = [
       weight : "30 Kg",
       received_date : "02-09-24",
       reception_id : "1",
+      shipping_id: "SHIP#123",
       status : "Active",
       exp_date : "02-09-24",
       expedition : "JNE"
@@ -438,6 +491,7 @@ export const initialRows = [
       weight : "30 Kg",
       received_date : "02-09-24",
       reception_id : "1",
+      shipping_id: "SHIP#123",
       status : "Active",
       exp_date : "02-09-24",
       expedition : "JNE"
@@ -448,6 +502,7 @@ export const initialRows = [
       weight : "30 Kg",
       received_date : "02-09-24",
       reception_id : "1",
+      shipping_id: "SHIP#123",
       status : "Active",
       exp_date : "02-09-24",
       expedition : "JNE"
@@ -458,6 +513,7 @@ export const initialRows = [
       weight : "30 Kg",
       received_date : "02-09-24",
       reception_id : "1",
+      shipping_id: "SHIP#123",
       status : "Active",
       exp_date : "02-09-24",
       expedition : "JNE"
@@ -468,6 +524,7 @@ export const initialRows = [
       weight : "30 Kg",
       received_date : "02-09-24",
       reception_id : "1",
+      shipping_id: "SHIP#123",
       status : "Active",
       exp_date : "02-09-24",
       expedition : "JNE"
@@ -478,12 +535,87 @@ export const initialRows = [
       weight : "30 Kg",
       received_date : "02-09-24",
       reception_id : "1",
+      shipping_id: "SHIP#123",
       status : "Active",
       exp_date : "02-09-24",
       expedition : "JNE"
     },
   ];
   
+  export const initialCheckpointRows = [
+    {
+      key: "1",
+      id: "1",
+      arrival_datetime : "02-09-24",
+      total_packages : "25",
+      shipping_id : "SHIP#123",
+      note: "HI",
+    },
+    {
+      key: "2",
+      id: "2",
+      arrival_datetime : "02-09-24",
+      total_packages : "25",
+      shipping_id : "SHIP#123",
+      note: "HI",
+    },
+    {
+      key: "3",
+      id: "3",
+      arrival_datetime : "02-09-24",
+      total_packages : "25",
+      shipping_id : "SHIP#123",
+      note: "HI",
+    },
+    {
+      key: "4",
+      id: "4",
+      arrival_datetime : "02-09-24",
+      total_packages : "25",
+      shipping_id : "SHIP#123",
+      note: "HI",
+    },
+    {
+      key: "5",
+      id: "5",
+      arrival_datetime : "02-09-24",
+      total_packages : "25",
+      shipping_id : "SHIP#123",
+      note: "HI",
+    },
+    {
+      key: "6",
+      id: "6",
+      arrival_datetime : "02-09-24",
+      total_packages : "25",
+      shipping_id : "SHIP#123",
+      note: "HI",
+    },
+    {
+      key: "7",
+      id: "7",
+      arrival_datetime : "02-09-24",
+      total_packages : "25",
+      shipping_id : "SHIP#123",
+      note: "HI",
+    },
+    {
+      key: "8",
+      id: "8",
+      arrival_datetime : "02-09-24",
+      total_packages : "25",
+      shipping_id : "SHIP#123",
+      note: "HI",
+    },
+    {
+      key: "9",
+      id: "9",
+      arrival_datetime : "02-09-24",
+      total_packages : "25",
+      shipping_id : "SHIP#123",
+      note: "HI",
+    },
+  ];
   
   export const columns = [
     {
@@ -505,6 +637,28 @@ export const initialRows = [
       key: "role",
       label: "Role",
     },
+    {
+      key: "actions",
+      label: "Actions",
+    },
+  ];
+
+  export const columnsCentra = [
+    {
+      key: "id",
+      label: "ID",
+    },
+
+    {
+      key: "centra_id",
+      label: "Centra ID",
+    },
+
+    {
+      key: "location",
+      label: "Location",
+    },
+
     {
       key: "actions",
       label: "Actions",
@@ -625,18 +779,22 @@ export const initialRows = [
     },
 
     {
-      key: "name",
-      label: "Username",
+      key: "departure_date",
+      label: "Departure Date",
     },
 
     {
-      key: "email",
-      label: "Email",
+      key: "total_weight",
+      label: "Total Weight",
     },
 
     {
-      key: "role",
-      label: "Role",
+      key: "total_packages",
+      label: "Total Packages",
+    },
+    {
+      key: "expedition",
+      label: "Expedition",
     },
     {
       key: "actions",
@@ -655,16 +813,6 @@ export const initialRows = [
       key: "weight",
       label: "Weight",
     },
-
-    {
-      key: "shipping_id",
-      label: "Shipping ID",
-    },
-
-    {
-      key: "status",
-      label: "Status",
-    },
     {
       key: "received_date",
       label: "Received Date",
@@ -674,14 +822,59 @@ export const initialRows = [
       label: "Reception ID",
     },
     {
+      key: "shipping_id",
+      label: "Shipping ID",
+    },
+
+    {
+      key: "status",
+      label: "Status",
+    },
+    
+    {
       key: "exp_date",
       label: "Expiry Date",
+    },
+    {
+      key: "expedition",
+      label: "Expedition",
     },
     {
       key: "actions",
       label: "Actions",
     },
   ];
+
+  export const columnsCheckpoint = [
+    {
+      key: "id",
+      label: "ID",
+    },
+
+    {
+      key: "arrival_datetime",
+      label: "Arrival Date",
+    },
+
+    {
+      key: "total_packages",
+      label: "Total Packages",
+    },
+
+    {
+      key: "shipping_id",
+      label: "Shipping ID",
+    },
+    {
+      key: "note",
+      label: "Notes",
+    },
+    {
+      key: "actions",
+      label: "Actions",
+    },
+  ];
+
   export const roles = [
     {key: "Centra", label: "Centra"},
     {key: "Guard Harbour", label: "Guard Harbour"}

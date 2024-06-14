@@ -1,19 +1,19 @@
 import { useState, useEffect } from "react";
-import { Modal, button } from "@nextui-org/react";
 import "../../style/AdminDesktop.css"
 import { login } from "../../../api/authAPI";
 import { Navigate } from "react-router-dom";
 import { Input } from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 import eye from "../../assets/auth-desktop/eye.svg"
 import eyeClosed from "../../assets/auth-desktop/eyeclosed.svg"
 
-function LoginDesktop() {
+function RegisterDesktop() {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isVisible, setIsVisible] = useState(false);
     const toggleVisibility = () => setIsVisible(!isVisible);
-    
+
     const handleLogin = async (event) => {
         event.preventDefault();
     
@@ -40,8 +40,8 @@ function LoginDesktop() {
 
 
                     <div className="absolute bg-white">
-                    <form onSubmit={handleLogin} className="relative z-20 flex flex-col justify-start pt-64 pl-32">
-                        <p className='text-secondary font-bold text-4xl text-left'> Login </p>
+                    <form onSubmit={handleLogin} className="relative z-20 flex flex-col justify-start pt-44 pl-32 text-primary">
+                        <p className='text-secondary font-bold text-4xl text-left'> Register </p>
                         {/* <label htmlFor='email' className='text-left text-secondary font-medium pt-5 text-xl'> Email </label>
                             <input
                             type="email"
@@ -62,24 +62,25 @@ function LoginDesktop() {
                             className="border border-gray-300 rounded-md w-96 p-1.5 bg-quinary border-none mt-1"
                             /> */}
 
-                        <label htmlFor="name" className="text-left secondary font-medium pt-5 text-base">Email</label>
+                        <label htmlFor="name" className="text-left secondary font-medium pt-5 text-base">Full Name</label>
+                        <Input
+                        type="name"
+                        name="name"
+                        radius="sm"
+                        className="pt-1 w-96 "
+                        />
+                        
+                        <label htmlFor="email" className="text-left secondary font-medium pt-5 text-base">Email</label>
                         <Input
                         type="email"
                         name="email"
-                        id="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
                         radius="sm"
-                        className="pt-1 w-96"
+                        className="pt-1 w-96" 
                         />
-                        
-                        <label htmlFor="email" className="text-left secondary font-medium pt-5 text-base">Password</label>
+
+                        <label htmlFor="password" className="text-left secondary font-medium pt-5 text-base">Password</label>
                         <Input
                         type={isVisible ? "text" : "password"}
-                        name="password"
-                        id="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
                         radius="sm"
                         className="pt-1 w-96" 
                         endContent= {
@@ -93,6 +94,23 @@ function LoginDesktop() {
                         }
                         />
 
+                        <label htmlFor="confirmpassword" className="text-left secondary font-medium pt-5 text-base">Confirm Password</label>
+                        <Input
+                        type={isVisible ? "text" : "password"}
+                        radius="sm"
+                        className="pt-1 w-96" 
+                        endContent= {
+                            <button className="focus:outline-none" type="button" onClick={toggleVisibility}>
+                                {isVisible ? (
+                                    <img src={eye} alt="eyeClosed" className="w-5"/>
+                                ) : (
+                                    <img src={eyeClosed} alt="eyeClosed" className="w-5"/>
+                                )}
+                            </button>
+                        }
+                        />
+
+                        
                         <div className='pt-2 flex gap-1'>
                             <input type="checkbox" className=''></input>
                             <div className="flex gap-32">
@@ -102,7 +120,13 @@ function LoginDesktop() {
                         </div>
 
                         <div className=''>
-                            <button className='rounded-full bg-secondary text-white font-bold px-4 py-2 w-36 btn-login mt-8'> Login </button>
+                            {/* <button className='rounded-full bg-secondary text-white font-bold px-4 py-2 w-36 btn-login mt-8'> Login </button> */}
+                            <Button
+                            className="w-36 mt-8 bg-secondary text-white font-bold"
+                            radius="full"
+                            >
+                            Register
+                            </Button>
                         </div>
 
                         <div className='flex justify-center items-center mt-7 z-20'>
@@ -116,8 +140,8 @@ function LoginDesktop() {
                         </div> */}
 
                         <div className='text-primary flex items-center justify-center gap-1 mt-6 z-20 relative'>
-                            <p className="font-medium"> Don't have an account? </p>
-                            <p className='text-primary font-bold underline'> Sign Up</p>
+                            <p className="font-medium"> Already have an account? </p>
+                            <p className='text-primary font-bold underline'> Login</p>
                         </div>
                     </form>
                     </div>
@@ -127,4 +151,4 @@ function LoginDesktop() {
     )
 }
 
-export default LoginDesktop
+export default RegisterDesktop;
