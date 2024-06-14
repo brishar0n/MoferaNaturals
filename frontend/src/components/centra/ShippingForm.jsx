@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import SuccessNotification from "../SuccessNotification";
 import { useState, useEffect } from "react";
 import PackageIDInput from "./PackageIDInput";
-import { addShippingInfo, getPackagesWithStatus } from "../../../api/centraAPI"
+import { addShippingInfo, getPackagesWithStatus, } from "../../../api/centraAPI"
 
 import AddShipmentHeader from "./AddShipmentHeader";
 
@@ -16,6 +16,7 @@ function ShippingForm() {
     const [shippingDate, setShippingDate] = useState("");
     const [shippingTime, setShippingTime] = useState("");
     const [packageData, setPackageData] = useState([]);
+    const [packages, setPackages] = useState([]);
 
     // const packageData = {
     //     123: { weight: 10 },
@@ -35,6 +36,7 @@ function ShippingForm() {
             }
         }
         fetchPackage()
+        console.log(packageData)
         
     }, [])
 

@@ -19,25 +19,6 @@ const MenuProps = {
   },
 };
 
-// const packageData = [
-//   { packageId: 123, shippingId: null, status: "READY TO SHIP" },
-//   { packageId: 127, shippingId: 1, status: "CONFIRMED" },
-//   { packageId: 102, shippingId: 2, status: "CANCELLED" },
-//   { packageId: 19, shippingId: 1, status: "SHIPPING" },
-//   { packageId: 40, shippingId: 2, status: "CONFIRMED"},
-//   { packageId: 51, shippingId: null , status: "READY TO SHIP"},
-//   { packageId: 63, shippingId: 1, status: "CONFIRMED" },
-// ];
-
-// const packageData = [
-//   { id: 123, centra_id: 1, weight: 10, shippingId: null, status: 0, received_date: null, reception_id: null, exp_date: "2025-05-01" },
-//   { id: 127, centra_id: 2, weight: 5, shippingId: 1, status: 2, received_date: "2024-06-21", reception_id: null, exp_date: "2025-06-15" },   // 
-//   { id: 102, centra_id: 3, weight: 0, shippingId: 2, status: 2, received_date: "2024-06-25", recepiton_id: null, exp_date: "2025-06-19" },  // not arrived in gh
-//   { id: 19, centra_id: 3, weight: 8, shippingId: 1, status: 1, received_date: null, reception_id: null, exp_date: "2025-07-10" },  // confirmed by gh
-//   { id: 40, centra_id: 4, weight: 10, shippingId: 2, status: 3, received_date: "2024-06-30", reception_id: 1, exp_date: "2025-04-01" },  // received by xyz
-//   { id: 51, centra_id: 5, weight: 5, shippingId: null, status: 0, received_date: null, reception_id: null, exp_date: "2025-06-15"  }, // package not sent and expired
-//   { id: 63, centra_id: 6, weight: 8, shippingId: 1, status: 3, received_date: "2024-07-06", reception_id: 2, exp_date: "2025-06-16" }, 
-// ];
 
 function getStyles(id, packageID, theme) {
   return {
