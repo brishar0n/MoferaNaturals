@@ -2,8 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import statusStyles from "../StatusStyles";
 
-function PackageBox({ weight, expDate, status, id, shippingDate}) {
-    const currentStatusStyle = statusStyles[status.toUpperCase()] || {};
+function PackageBox({ weight, expDate, status, id, shippingDate, convertStatusToString}) {
+    const statusText = convertStatusToString(status);
+    const currentStatusStyle = statusStyles[statusText] || {};
 
     return (
         <div className='bg-white mb-5 mx-auto py-5 px-7 rounded-2xl text-left relative flex flex-col'>
@@ -26,7 +27,7 @@ function PackageBox({ weight, expDate, status, id, shippingDate}) {
                     className="mb-2 rounded-md bg-quinary px-2 py-1 w-full text-xs border-none"
                     required 
                 />
-            {shippingDate !== "" && (
+            {shippingDate !== null && (
                 <>
                     <label htmlFor="shippingDate" className="items-start text-sm mb-2 font-medium">Shipping Date:</label>
                     <input 
@@ -39,7 +40,7 @@ function PackageBox({ weight, expDate, status, id, shippingDate}) {
                 </>
             )}
             <div className='mx-auto mt-2 flex justify-center'>
-                {status.toUpperCase() === "READY TO SHIP" ? (
+                {statusText.toUpperCase() === "READY TO SHIP" ? (
                     <Link to="/shippinginfo">
                         <p 
                             className='rounded-3xl px-7 py-2 font-semibold flex gap-2 items-center'
@@ -49,7 +50,7 @@ function PackageBox({ weight, expDate, status, id, shippingDate}) {
                                 border: `1px solid ${currentStatusStyle.borderColor}`
                             }}
                         >
-                            {status.toUpperCase()}
+                            {statusText.toUpperCase()}
                         </p>
                     </Link>
                 ) : (
@@ -61,7 +62,7 @@ function PackageBox({ weight, expDate, status, id, shippingDate}) {
                             border: `1px solid ${currentStatusStyle.borderColor}`
                         }}
                     >
-                        {status.toUpperCase()}
+                        {statusText.toUpperCase()}
                     </p>
                 )}
             </div>
