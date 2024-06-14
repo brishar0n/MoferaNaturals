@@ -1,112 +1,46 @@
-import { useNavigate } from "react-router-dom";
-import CheckpointBox from "./CheckpointBox";
+import { useNavigate } from 'react-router-dom';
+import CheckpointBox from './CheckpointBox';
 import { AiOutlineSearch } from 'react-icons/ai';
 import '../../style/xyz/xyz_mobile/FindRescalePackage.css';
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { getCheckpoints, getShippingInfo, getPackages } from '../../../api/guardHarborAPI';
 
-function CheckpointSearch(){
-    // Sample checkpoint data
-    const checkpoints = [
-        {
-            "id": 101,
-            "shippingId": 4,
-            "totalPackagesArrived": 3,
-            "arrivedDate": "10-05-2024",
-            "arrivedTime": "10:30 AM"
-        },
-        {
-            "id": 102,
-            "shippingId": 3,
-            "totalPackagesArrived": 5,
-            "arrivedDate": "09-05-2024",
-            "arrivedTime": "10:30 AM"
-        },
-        {
-            "id": 103,
-            "shippingId": 2,
-            "totalPackagesArrived": 6,
-            "arrivedDate": "08-05-2024",
-            "arrivedTime": "10:30 AM"
-        },
-        {
-            "id": 104,
-            "shippingId": 1,
-            "totalPackagesArrived": 2,
-            "arrivedDate": "08-05-2024",
-            "arrivedTime": "10:20 AM"
-        }
-    ];
-
-    const shippingData = [
-        { "id": 1 },
-        { "id": 2 },
-        { "id": 3 },
-        { "id": 4 },
-    ]
-
-    const packageData = [
-        {
-            "id": 129,
-            "centraId": 4,
-            "shippingId": 1,
-        },
-        {
-            "id": 101,
-            "centraId": 4,
-            "shippingId": 1,
-        },
-        {
-            "id": 90,
-            "centraId": 20,
-            "shippingId": 2,
-        },
-        {
-            "id": 87,
-            "centraId": 20,
-            "shippingId": 2,
-        },
-        {
-            "id": 10,
-            "centraId": 14,
-            "shippingId": 3,
-        },
-        {
-            "id": 26,
-            "centraId": 14,
-            "shippingId": 3,
-        },
-        {
-            "id": 100,
-            "centraId": 32,
-            "shippingId": 4,
-        },
-        {
-            "id": 109,
-            "centraId": 32,
-            "shippingId": 4,
-        },
-    ]
-
+function CheckpointSearch() {
     const navigate = useNavigate();
-    const [input, setInput] = useState("");
-    const [filter, setFilter] = useState("");
+    const [input, setInput] = useState('');
+    const [filter, setFilter] = useState('');
     const [searchResult, setSearchResult] = useState([]);
+    const [checkpoints, setCheckpoints] = useState([]);
+    const [shippingData, setShippingData] = useState([]);
+    const [packageData, setPackageData] = useState([]);
 
     useEffect(() => {
-        // Set initial search result to full jsonData when component mounts
-        setSearchResult(checkpoints);
+        async function fetchData() {
+            try {
+                const checkpointsResponse = await getCheckpoints();
+                setCheckpoints(checkpointsResponse.data);
+                setSearchResult(checkpointsResponse.data);
+
+                const shippingResponse = await getShippingInfo();
+                setShippingData(shippingResponse.data);
+
+                const packagesResponse = await getPackages();
+                setPackageData(packagesResponse.data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+        fetchData();
     }, []);
 
-    // Function to get total packages sent based on shippingID
     function getTotalPackagesSent(shippingID) {
-        return packageData.filter(pkg => pkg.shippingId === shippingID).length;
+        return packageData.filter(pkg => pkg.shipping_id === shippingID).length;
     };
 
-    // Function to get unitCentra based on shippingID
     function getUnitCentra(shippingID) {
-        const packageWithShippingID = packageData.find(pkg => pkg.shippingId === shippingID);
-        return packageWithShippingID ? packageWithShippingID.centraId : ''; // Check if packageWithShippingID is not undefined before accessing its properties
+        const packageWithShippingID = packageData.find(pkg => pkg.shipping_id === shippingID);
+        return packageWithShippingID ? packageWithShippingID.centra_id : ''; // Check if packageWithShippingID is not undefined before accessing its properties
     };
 
     function handleSearch(e) {
@@ -123,7 +57,7 @@ function CheckpointSearch(){
         setFilter(e.target.value);
         const filteredData = checkpoints.filter(checkpoint => {
             const includeId = checkpoint.id.toString().includes(input);
-            const unitCentra = getUnitCentra(checkpoint.shippingId);
+            const unitCentra = getUnitCentra(checkpoint.shipping_id);
             const includeCentra = unitCentra && unitCentra.toString().startsWith(e.target.value);
             return includeId && includeCentra;
         });
@@ -131,20 +65,21 @@ function CheckpointSearch(){
     }
 
     function handleAdd() {
-        navigate("/addcheckpoint");
+        navigate('/addcheckpoint');
     }
 
-    // Function to convert date format
     const formatDate = (dateString) => {
-        const [day, month, year] = dateString.split('-');
+        if (!dateString) return 'Invalid Date';
+        const dateParts = dateString.split('-');
+        if (dateParts.length !== 3) return 'Invalid Date';
+        const [day, month, year] = dateParts;
         const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
         return `${parseInt(day, 10)} ${months[parseInt(month, 10) - 1]} ${year}`;
     };
 
-    // Group checkpoints by arrival date
     const groupedCheckpoints = {};
     searchResult.forEach(checkpoint => {
-        const formattedDate = formatDate(checkpoint.arrivedDate);
+        const formattedDate = formatDate(checkpoint.arrival_datetime);
         if (!groupedCheckpoints[formattedDate]) {
             groupedCheckpoints[formattedDate] = [];
         }
@@ -160,52 +95,50 @@ function CheckpointSearch(){
 
                 <div className="bg-white w-2/3 rounded-full z-20 mb-6">
                     <div className="flex text-s gap-1 font-medium p-1">
-                        <p className="w-48 rounded-full  p-1"  onClick={handleAdd}> Add </p>
+                        <p className="w-48 rounded-full p-1" onClick={handleAdd}> Add </p>
                         <p className="w-48 rounded-full p-1 bg-tertiary text-white"> View </p>
                     </div>
                 </div>
 
                 <div className='searchPackage relative py-4 w-full'>
-                    <input type="search" placeholder='Search Checkpoint' value={input} onChange={(e) => handleSearch(e.target.value)}/>
+                    <input type="search" placeholder='Search Checkpoint' value={input} onChange={(e) => handleSearch(e.target.value)} />
                     <button className='absolute right-8 top-1/2 p-3 rounded-full -translate-y-1/2 text-white'>
-                        <AiOutlineSearch/>
+                        <AiOutlineSearch />
                     </button>
                 </div>
 
                 <div className='searchPackage relative py-4 mb-3 w-5/6'>
-                    <input type="search" placeholder='Filter by Centra (1-36)' value={filter} onChange={handleFilter}/>
+                    <input type="search" placeholder='Filter by Centra (1-36)' value={filter} onChange={handleFilter} />
                 </div>
 
                 <div className="w-full">
                     <motion.div
-                    key="add"
-                    initial={{ x: 300, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    exit={{ x: -300, opacity: 0 }}
-                    transition={{ duration: 0.5 }}
+                        key="add"
+                        initial={{ x: 300, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        exit={{ x: -300, opacity: 0 }}
+                        transition={{ duration: 0.5 }}
                     >
-                    {Object.entries(groupedCheckpoints).map(([date, checkpoints]) => (
-                        <div key={date}>
-                            <p className="font-medium text-white text-2xl font-semibold text-left relative ml-12">{date}</p>
-                            {checkpoints.map(checkpoint => (
-                                <CheckpointBox
-                                    key={checkpoint.id}
-                                    id={checkpoint.id}
-                                    fromCentra={getUnitCentra(checkpoint.shippingId)}
-                                    totalPackagesSent={getTotalPackagesSent(checkpoint.shippingId)}
-                                    totalPackagesArrived={checkpoint.totalPackagesArrived}
-                                    arrivedTime={checkpoint.arrivedTime}
-                                />
-                            ))}
-                        </div>
-                    ))}
+                        {Object.entries(groupedCheckpoints).map(([date, checkpoints]) => (
+                            <div key={date}>
+                                <p className="font-medium text-white text-2xl font-semibold text-left relative ml-12">{date}</p>
+                                {checkpoints.map(checkpoint => (
+                                    <CheckpointBox
+                                        key={checkpoint.id}
+                                        id={checkpoint.id}
+                                        fromCentra={getUnitCentra(checkpoint.shipping_id)}
+                                        totalPackagesSent={getTotalPackagesSent(checkpoint.shipping_id)}
+                                        totalPackagesArrived={checkpoint.total_packages}
+                                        arrivedTime={checkpoint.arrival_datetime}
+                                    />
+                                ))}
+                            </div>
+                        ))}
                     </motion.div>
                 </div>
-                
             </div>
         </div>
-    
-    )
+    );
 }
 
 export default CheckpointSearch;
