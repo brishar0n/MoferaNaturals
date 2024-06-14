@@ -6,6 +6,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
+import { getPackages } from '../../../api/centraAPI';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -28,15 +29,15 @@ const MenuProps = {
 //   { packageId: 63, shippingId: 1, status: "CONFIRMED" },
 // ];
 
-const packageData = [
-  { id: 123, centra_id: 1, weight: 10, shippingId: null, status: 0, received_date: null, reception_id: null, exp_date: "2025-05-01" },
-  { id: 127, centra_id: 2, weight: 5, shippingId: 1, status: 2, received_date: "2024-06-21", reception_id: null, exp_date: "2025-06-15" },   // 
-  { id: 102, centra_id: 3, weight: 0, shippingId: 2, status: 2, received_date: "2024-06-25", recepiton_id: null, exp_date: "2025-06-19" },  // not arrived in gh
-  { id: 19, centra_id: 3, weight: 8, shippingId: 1, status: 1, received_date: null, reception_id: null, exp_date: "2025-07-10" },  // confirmed by gh
-  { id: 40, centra_id: 4, weight: 10, shippingId: 2, status: 3, received_date: "2024-06-30", reception_id: 1, exp_date: "2025-04-01" },  // received by xyz
-  { id: 51, centra_id: 5, weight: 5, shippingId: null, status: 0, received_date: null, reception_id: null, exp_date: "2025-06-15"  }, // package not sent and expired
-  { id: 63, centra_id: 6, weight: 8, shippingId: 1, status: 3, received_date: "2024-07-06", reception_id: 2, exp_date: "2025-06-16" }, 
-];
+// const packageData = [
+//   { id: 123, centra_id: 1, weight: 10, shippingId: null, status: 0, received_date: null, reception_id: null, exp_date: "2025-05-01" },
+//   { id: 127, centra_id: 2, weight: 5, shippingId: 1, status: 2, received_date: "2024-06-21", reception_id: null, exp_date: "2025-06-15" },   // 
+//   { id: 102, centra_id: 3, weight: 0, shippingId: 2, status: 2, received_date: "2024-06-25", recepiton_id: null, exp_date: "2025-06-19" },  // not arrived in gh
+//   { id: 19, centra_id: 3, weight: 8, shippingId: 1, status: 1, received_date: null, reception_id: null, exp_date: "2025-07-10" },  // confirmed by gh
+//   { id: 40, centra_id: 4, weight: 10, shippingId: 2, status: 3, received_date: "2024-06-30", reception_id: 1, exp_date: "2025-04-01" },  // received by xyz
+//   { id: 51, centra_id: 5, weight: 5, shippingId: null, status: 0, received_date: null, reception_id: null, exp_date: "2025-06-15"  }, // package not sent and expired
+//   { id: 63, centra_id: 6, weight: 8, shippingId: 1, status: 3, received_date: "2024-07-06", reception_id: 2, exp_date: "2025-06-16" }, 
+// ];
 
 function getStyles(id, packageID, theme) {
   return {
@@ -47,8 +48,9 @@ function getStyles(id, packageID, theme) {
   };
 }
 
-export default function PackageIDInput({ shippingID, onPackageIDChange, confirmed }) {
+export default function PackageIDInput({ shippingID, onPackageIDChange, confirmed, packageData }) {
   const theme = useTheme();
+  const [packageData, setPackageData] = React.useState([]);
   const [packageID, setPackageID] = React.useState([]);
 
   const handleChange = (event) => {
@@ -71,7 +73,7 @@ export default function PackageIDInput({ shippingID, onPackageIDChange, confirme
 
   // Filter package IDs based on the selected shipping ID
   const filteredPackageIDs = packageData
-    .filter((pkg) => pkg.shippingId === shippingID)
+    .filter((pkg) => pkg.shipping_id === shippingID)
     .map((pkg) => pkg.id);
 
   const filterPackageIDsConfirmed = packageData
@@ -84,7 +86,7 @@ export default function PackageIDInput({ shippingID, onPackageIDChange, confirme
     : shippingID
       ? filteredPackageIDs
       : packageData
-        .filter((pkg) => pkg.shippingId === null)
+        .filter((pkg) => pkg.shipping_id === null)
         .map((pkg) => pkg.id);
 
 
