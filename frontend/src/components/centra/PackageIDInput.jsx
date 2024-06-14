@@ -50,7 +50,6 @@ function getStyles(id, packageID, theme) {
 
 export default function PackageIDInput({ shippingID, onPackageIDChange, confirmed, packageData }) {
   const theme = useTheme();
-  const [packageData, setPackageData] = React.useState([]);
   const [packageID, setPackageID] = React.useState([]);
 
   const handleChange = (event) => {
