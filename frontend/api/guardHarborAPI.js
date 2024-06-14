@@ -10,15 +10,15 @@ export const postCheckpoint = (Checkpoint) => {
     });
 }
 
-export const getShippingInfo = (ShippingInfo) => {
+export const getShippingInfo = async (ShippingInfo) => {
     console.log(ShippingInfo)
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
-    axios.get(URL + "/guard_harbor/shipping")
-    .catch((error) => {
-        console.error(error);
-    });
-    console.log("success")
-}
+    const ShippingInfos = await axios.get(URL + "/guard_harbor/shipping")
+        .catch((error) => {
+            console.error(error);
+        });
+    return ShippingInfos
+}   
 
 export const getPackages = async () => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
