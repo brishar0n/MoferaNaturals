@@ -43,7 +43,7 @@ const PowderDashboard = () => {
   }, [statsFilter])
 
 
-  const [lineChartDats, chartData] = useState([]);
+  const [lineChartData, chartData] = useState([]);
   useEffect(() => {
       const fetchLineData = async () => {
           const response = await getFlourStats({"interval": trendFilter});
@@ -55,6 +55,20 @@ const PowderDashboard = () => {
       fetchLineData();
       
   }, [trendFilter]);
+
+  const [powderDatas, setPowderDatas] = useState([])
+
+  useEffect(() => {
+    const fetchPowderData = async () => {
+      const response = await getPowderLeafDatas();
+      if(response && response.data) {
+          setPowderDatas(response.data);
+        }
+    }
+
+    fetchPowderData();
+    
+  }, [])
 
 
   return (
@@ -147,7 +161,7 @@ const PowderDashboard = () => {
                 </form>
               </div>
               <div className="flex-1 flex-grow flex-shrink">
-                <AreaChart />
+                <AreaChart lineData={lineChartData}/>
               </div>
             </div>
             <div className="grid grid-cols-3 gap-4 mb-4">
@@ -175,7 +189,7 @@ const PowderDashboard = () => {
             <div className="flex h-[440px] bg-quinary items-center justify-center rounded-3xl dark:bg-gray-800 p-4">
               <div className="text-2xl text-primary dark:text-gray-500 w-full">
                 <div className="text-left text-lg ml-3 text-black font-semibold">Powder Data</div>
-                <Table />
+                <Table data={powderDatas}/>
               </div>
             </div>
             <div className="flex flex-col bg-quinary rounded-3xl dark:bg-gray-800 p-4">

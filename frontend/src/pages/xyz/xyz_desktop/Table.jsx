@@ -6,24 +6,24 @@ const ExpandedComponent = ({ data }) => <pre>{JSON.stringify(data, null, 2)}</pr
 const columns = [
 	{
 		name: 'Centra',
-		selector: row => row.title,
+		selector: row => "Centra Unit "+row.centra_id,
         sortable: true,
         width: "200px"   
 	},
 	{
 		name: 'Wet Leaves ID',
-		selector: row => row.WetLeavesID,
+		selector: row => "#"+row.id,
         sortable: true,
         width: "150px"   
 	},
     {
 		name: 'Weight',
-		selector: row => row.Weight,
+		selector: row => row.weight+" kg",
         sortable: true,
 	},
     {
 		name: 'Date',
-		selector: row => row.Date,
+		selector: row => row.date,
         sortable: true,
         width: "150px"   
 	},
@@ -89,7 +89,7 @@ createTheme('solarized', {
     },
   }, 'dark');
   
-function Table() {
+function Table({data}) {
 	return (
 		<DataTable
 			columns={columns}
