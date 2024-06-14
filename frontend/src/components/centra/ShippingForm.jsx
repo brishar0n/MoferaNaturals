@@ -15,9 +15,17 @@ function ShippingForm() {
     const [expedition, setExpedition] = useState("");
     const [shippingDate, setShippingDate] = useState("");
     const [shippingTime, setShippingTime] = useState("");
-    const [packages, setPackages] = useState([]);
-
     const [packageData, setPackageData] = useState([]);
+
+    // const packageData = {
+    //     123: { weight: 10 },
+    //     127: { weight: 5 },
+    //     102: { weight: 15 },
+    //     19: { weight: 20 },
+    //     40: { weight: 7 },
+    //     51: { weight: 12 },
+    //     63: { weight: 8 }
+    // };
 
     useEffect(() => {
         const fetchPackage = async () => {
@@ -27,7 +35,7 @@ function ShippingForm() {
             }
         }
         fetchPackage()
-
+        
     }, [])
 
     function handlePackageIDChange(selectedPackageIDs) {
