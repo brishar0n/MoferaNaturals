@@ -29,3 +29,13 @@ export const getPackages = async () => {
 
     return Packages
 }
+
+export const getCheckpoints = async () => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    const Checkpoints = await axios.get(URL + "/guard_harbor/checkpoints")
+    .catch((error) => {
+        console.error(error);
+    });
+
+    return Checkpoints
+}
