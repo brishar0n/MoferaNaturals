@@ -12,18 +12,19 @@ import profilepic from "../../../assets/desktop/profilepicdesktop.svg";
 import mascot from "../../../assets/xyz/half-mascot.svg";
 import { getWetLeafDatas, getWetStats } from '../../../../api/xyzAPI';
 
-const activities = [
-  { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of wet leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-10@2x.png' },
-  { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of wet leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-9@2x.png' },
-  { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of wet leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-22@2x.png' },
-  { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of wet leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-18@2x.png' },
-];
+// const activities = [
+//   { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of wet leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-10@2x.png' },
+//   { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of wet leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-9@2x.png' },
+//   { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of wet leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-22@2x.png' },
+//   { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of wet leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-18@2x.png' },
+// ];
 
 const WetDashboard = () => {
   const [isSidebarMinimized, setIsSidebarMinimized] = useState(false);
   const [centraFilter, setCentraFilter] = useState("1");
   const [statsFilter, setStatsFilter] = useState("daily");
   const [trendFilter, setTrendFilter] = useState("monthly");
+  const [activities, setActivities] = useState([])
 
   const toggleSidebar = () => {
     setIsSidebarMinimized(!isSidebarMinimized);
@@ -54,18 +55,23 @@ const WetDashboard = () => {
 
     fetchLineData();
     
-}, [trendFilter]);
+  }, [trendFilter]);
 
   useEffect(() => {
       const fetchWetData = async () => {
         const response = await getWetLeafDatas();
         if(response && response.data) {
             setWetDatas(response.data);
+            setActivities(response.data.map((data) => {return {
+              "day": data.received_date,
+              "time": "10 mins ago",
+              "description": `Centra ${data.centra_id} just added ${data.weight}kg of wet leaves data into the system.`,
+              "image": 'src/assets/DashboardDesktop/ellipse-18@2x.png'}
+            }))
           }
       }
-
       fetchWetData();
-      
+
   }, [])
 
   return (

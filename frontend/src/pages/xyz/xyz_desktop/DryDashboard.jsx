@@ -12,12 +12,12 @@ import profilepic from "../../../assets/desktop/profilepicdesktop.svg";
 import mascot from "../../../assets/xyz/half-mascot.svg";
 import { getDryLeafDatas, getDryStats } from '../../../../api/xyzAPI';
 
-const activities = [
-  { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-10@2x.png' },
-  { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-9@2x.png' },
-  { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-22@2x.png' },
-  { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-18@2x.png' },
-];
+// const activities = [
+//   { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-10@2x.png' },
+//   { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-9@2x.png' },
+//   { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-22@2x.png' },
+//   { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-18@2x.png' },
+// ];
 
 const DryDashboard = () => {
     const [isSidebarMinimized, setIsSidebarMinimized] = useState(false);
@@ -52,15 +52,22 @@ const DryDashboard = () => {
       }
 
       fetchLineData();
-      
+
     }, [trendFilter]);
 
     const [dryDatas, setDryDatas] = useState([])
+    const [activities, setActivities] = useState([])
     useEffect(() => {
         const fetchDryData = async () => {
           const response = await getDryLeafDatas();
           if(response && response.data) {
               setDryDatas(response.data);
+              setActivities(response.data.map((data) => {return {
+                "day": data.dried_date,
+                "time": "10 mins ago",
+                "description": `Centra ${data.centra_id} just added ${data.weight}kg of dry leaves data into the system.`,
+                "image": 'src/assets/DashboardDesktop/ellipse-18@2x.png'}
+              }))
             }
         }
 

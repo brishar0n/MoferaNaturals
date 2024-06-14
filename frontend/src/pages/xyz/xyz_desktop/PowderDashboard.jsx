@@ -57,12 +57,20 @@ const PowderDashboard = () => {
   }, [trendFilter]);
 
   const [powderDatas, setPowderDatas] = useState([])
+  const [activities, setActivities] = useState([])
+
 
   useEffect(() => {
     const fetchPowderData = async () => {
       const response = await getPowderLeafDatas();
       if(response && response.data) {
           setPowderDatas(response.data);
+          setActivities(response.data.map((data) => {return {
+            "day": data.floured_date,
+            "time": "10 mins ago",
+            "description": `Centra ${data.centra_id} just added ${data.weight}kg of flour data into the system.`,
+            "image": 'src/assets/DashboardDesktop/ellipse-18@2x.png'}
+          }))
         }
     }
 
