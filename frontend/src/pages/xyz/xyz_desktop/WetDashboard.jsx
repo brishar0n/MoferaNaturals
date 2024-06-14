@@ -63,7 +63,7 @@ const WetDashboard = () => {
         if(response && response.data) {
             setWetDatas(response.data);
             setActivities(response.data.map((data) => {return {
-              "day": data.received_date,
+              "day": data.retrieval_date,
               "time": "10 mins ago",
               "description": `Centra ${data.centra_id} just added ${data.weight}kg of wet leaves data into the system.`,
               "image": 'src/assets/DashboardDesktop/ellipse-18@2x.png'}

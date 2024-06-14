@@ -29,43 +29,43 @@ const columns = [
 	},
 ];
 
-const data = [
-  	{
-		id: 1,
-		title: 'Centra Unit 1',
-        WetLeavesID:'#123',
-		Weight: '30 kg',
-        Date:"31 Aug 2023"
-	},
-	{
-		id: 2,
-		title: 'Centra Unit 2',
-        WetLeavesID:'#123',
-		Weight: '30 kg',
-        Date:"31 Aug 2023"
-	},
-    {
-		id: 3,
-		title: 'Centra Unit 3',
-        WetLeavesID:'#123',
-		Weight: '30 kg',
-        Date:"31 Aug 2023"
-	},
-    {
-		id: 4,
-		title: 'Centra Unit 4',
-        WetLeavesID:'#123',
-		Weight: '30 kg',
-        Date:"31 Aug 2023"
-	},
-    {
-		id: 5,
-		title: 'Centra Unit 5',
-        WetLeavesID:'#123',
-		Weight: '30 kg',
-        Date:"31 Aug 2023"
-	},
-]
+// const data = [
+//   	{
+// 		id: 1,
+// 		title: 'Centra Unit 1',
+//         WetLeavesID:'#123',
+// 		Weight: '30 kg',
+//         Date:"31 Aug 2023"
+// 	},
+// 	{
+// 		id: 2,
+// 		title: 'Centra Unit 2',
+//         WetLeavesID:'#123',
+// 		Weight: '30 kg',
+//         Date:"31 Aug 2023"
+// 	},
+//     {
+// 		id: 3,
+// 		title: 'Centra Unit 3',
+//         WetLeavesID:'#123',
+// 		Weight: '30 kg',
+//         Date:"31 Aug 2023"
+// 	},
+//     {
+// 		id: 4,
+// 		title: 'Centra Unit 4',
+//         WetLeavesID:'#123',
+// 		Weight: '30 kg',
+//         Date:"31 Aug 2023"
+// 	},
+//     {
+// 		id: 5,
+// 		title: 'Centra Unit 5',
+//         WetLeavesID:'#123',
+// 		Weight: '30 kg',
+//         Date:"31 Aug 2023"
+// 	},
+// ]
 
 createTheme('solarized', {
     text: {

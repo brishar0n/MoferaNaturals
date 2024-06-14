@@ -75,7 +75,7 @@ const CentraMonitorBar = ({ filter }) => {
               scaleType: 'band',
               data: filter === 'daily'
                 ? ['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun']
-                : ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'August', 'Sept', 'Oct', 'Nov', 'Dec'],
+                : ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
             },
           ]}
           yAxis={[

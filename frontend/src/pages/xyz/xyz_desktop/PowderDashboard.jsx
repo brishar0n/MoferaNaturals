@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 
 import profilepic from "../../../assets/desktop/profilepicdesktop.svg";
 import mascot from "../../../assets/xyz/half-mascot.svg";
-import { getFlourStats } from '../../../../api/xyzAPI';
+import { getFlourStats, getFlourDatas } from '../../../../api/xyzAPI';
 
 const activities = [
   { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-10@2x.png' },
@@ -43,7 +43,7 @@ const PowderDashboard = () => {
   }, [statsFilter])
 
 
-  const [lineChartData, chartData] = useState([]);
+  const [lineChartData, setLineChartData] = useState([]);
   useEffect(() => {
       const fetchLineData = async () => {
           const response = await getFlourStats({"interval": trendFilter});
@@ -62,7 +62,7 @@ const PowderDashboard = () => {
 
   useEffect(() => {
     const fetchPowderData = async () => {
-      const response = await getPowderLeafDatas();
+      const response = await getFlourDatas();
       if(response && response.data) {
           setPowderDatas(response.data);
           setActivities(response.data.map((data) => {return {
