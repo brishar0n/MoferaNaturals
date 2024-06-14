@@ -2,7 +2,7 @@ import axios from 'axios'
 import {URL} from "./APIconst"
 
 export const postCollection = (Collection) => {
-    Collection = {...Collection, "centra_id" : 1}
+    Collection = {...Collection}
     console.log(Collection)
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
     axios.post(URL + "/centra/new_collection", Collection)
@@ -143,6 +143,16 @@ export const addShippingInfo = (ShippingInfo) => {
     console.log(ShippingInfo)
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
     axios.post(URL + "/centra/add_shipping", ShippingInfo)
+    .catch((error) => {
+        console.error(error);
+    });
+    console.log("success")
+}
+
+export const getShippingInfo = (ShippingInfo) => {
+    console.log(ShippingInfo)
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    axios.get(URL + "/centra/shipping")
     .catch((error) => {
         console.error(error);
     });

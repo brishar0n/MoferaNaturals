@@ -67,8 +67,9 @@ function Register() {
         email: email,
         password: password,
         role: role,
-        centra_unit: centraUnit ? centraUnit : null
+        centra_unit: centraUnit ? centraUnit : null,
       }
+
       
       const response = await register(data)
       console.log('Signup successful', response.data);
@@ -173,7 +174,7 @@ function Register() {
               >
                 <option value="" disabled>Select a role</option>
                 <option value="centra">centra</option>
-                <option value="guard_harbor">GuardHarbor</option>
+                <option value="GuardHarbor">GuardHarbor</option>
                 <option value="xyz">xyz</option>
               </select>
             </div>
