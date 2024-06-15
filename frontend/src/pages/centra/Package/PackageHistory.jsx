@@ -3,11 +3,13 @@ import "../../../style/App.css"
 import { useState, useEffect } from "react";
 import PackageBox from "../../../components/centra/PackageBox";
 import { getPackages, getPackagesWithStatus, getShippingInfo } from "../../../../api/centraAPI";
+import { getCurrentUser } from "../../../../api/profileAPI";
 
 function PackageHistory(){
     const [statusFilter, setStatusFilter] = useState("ALL");
     const [packages, setPackages] = useState([]);
     const [shippings, setShippings] = useState([]);
+    const [centraPackageData, setCentraPackageData] = useState([]);
 
     // const packages = [
     //     { id: 200420, weight: 10, expDate: "2024-05-01", status: "READY TO SHIP", shippingDate: "" },
@@ -55,6 +57,9 @@ function PackageHistory(){
     useEffect(() => {
         const fetchData = async () => {
             try {
+                const currentUser = await getCurrentUser();
+                const centraId = currentUser.centra_unit;
+                
                 // Fetch all shippings once
                 const shippingsResponse = await getShippingInfo();
                 setShippings(shippingsResponse.data);
@@ -81,7 +86,11 @@ function PackageHistory(){
                 }));
                 setPackages(updatedPackages);
 
-                
+                const filteredData = centraId !== undefined 
+                    ? updatedPackages.filter(item => item.centra_unit === centraId)
+                    : [];
+                setCentraPackageData(filteredData);
+
             } catch (err) {
                 console.error("Error fetching packages: ", err);
             }
@@ -113,7 +122,7 @@ function PackageHistory(){
 
             <br></br>
 
-            {packages.map((pkg) => (
+            {centraPackageData.map((pkg) => (
                 <PackageBox 
                     key={pkg.id} 
                     weight={pkg.weight} 
