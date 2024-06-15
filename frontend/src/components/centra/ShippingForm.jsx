@@ -101,7 +101,7 @@ function ShippingForm() {
             <AddShipmentHeader/>
 
             <div className='pb-36 z-0'>
-                <div className='bg-white mb-5 w-5/6 mx-auto py-7 px-9 rounded-2xl text-left relative mt-5 flex flex-col' onSubmit={handleSubmit}>
+                <div className='bg-white mb-5 w-5/6 mx-auto py-7 px-9 rounded-2xl text-left relative mt-5 flex flex-col shadow-lg' onSubmit={handleSubmit}>
                     <form>
 
                         <label htmlFor="packageId" className='items-start mb-2 text-xs font-medium'>Package IDs:</label>

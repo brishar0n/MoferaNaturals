@@ -8,7 +8,7 @@ function LeavesForm({ weight, handleWeightChange, dateTitle, date, handleDateCha
 
   return (
     
-    <div className='bg-white mb-5 w-2/3 mx-auto py-5 px-7 rounded-2xl text-left relative flex flex-col' onSubmit={handleSubmit}>
+    <div className='bg-white mb-5 w-2/3 mx-auto py-5 px-7 rounded-2xl text-left relative flex flex-col shadow-lg' onSubmit={handleSubmit}>
       {formSubmitted && weight > 0 && <SuccessNotification htmlContent={successMessage} />}
       {formSubmitted && weight <= 0 && <FailedNotification htmlContent={failedMessage} />}
       <form>
