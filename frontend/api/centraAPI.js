@@ -184,11 +184,11 @@ export const addShippingInfo = (ShippingInfo) => {
     console.log("success")
 }
 
-export const getShippingInfo = async(ShippingInfo) => {
+export const getShippingInfo = async() => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
-    const Shipping = await axios.get(URL + "/centra/shipping")
+    const Shipping = await axios.get(URL + "/centra/shippings")
         .catch((error) => {
             console.error(error);
         });
-    return Shipping    
+    return Shipping
 }
