@@ -38,7 +38,7 @@ function LoginDesktop() {
         <div className="bg-white h-screen">
             <div className="flex">
                 <div className="relative w-full">
-                    <img src="src/assets/auth-desktop/mofera-login.svg" alt="logo" className="absolute top-0 pt-5 pl-6 z-50"/>
+                    <img src={"src/assets/auth-desktop/mofera-login.svg"} alt="logo" className="absolute top-0 pt-5 pl-6 z-50"/>
                     <img src="src/assets/auth-desktop/login-tc.svg" alt="" className="fixed z-10"/>
                     <img src="src/assets/auth-desktop/bc-login.svg" alt="" className="fixed bottom-0 right-0 h-99.999vh"/>
                     <img src="src/assets/auth-desktop/login-mascot.svg" alt="" className="fixed right-28 top-44 w-97vh"/>
