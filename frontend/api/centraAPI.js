@@ -209,3 +209,12 @@ export const getShippingInfo = async() => {
         });
     return Shipping
 }
+
+export const getCheckpoints = async() => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    const Checkpoint = await axios.get(URL + "/centra/checkpoints")
+        .catch((error) => {
+            console.error(error);
+        });
+    return Checkpoint
+}

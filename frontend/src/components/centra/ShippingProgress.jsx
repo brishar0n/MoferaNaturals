@@ -21,7 +21,7 @@ const ShippingProgress = ({ formatDate, shippingId, shipmentData, packageData, c
             <div className="relative flex items-end">
               <div className="w-32 text-right pr-4 text-xs text-primary font-medium">{formatDate(checkpointData.checkpointDate)} <br></br>{checkpointData.checkpointTime}</div>
               <div className="flex flex-col items-center">
-                  <div className="w-px h-16 border-dashed border border-primary"></div>
+                  <div className="w-px h-20 border-dashed border border-primary"></div>
                   <div className="w-5 h-5 bg-primary rounded-full z-10"></div>
               </div>
               <div className="w-32 text-left pl-4 text-xs text-primary font-medium">Package confirmed in the Harbour</div> 
@@ -32,7 +32,7 @@ const ShippingProgress = ({ formatDate, shippingId, shipmentData, packageData, c
             <div className="relative flex items-end">
               <div className="w-32 text-right pr-4 text-xs text-primary font-medium">{formatDate(receptionData.arrivedDate)} <br></br>{receptionData.arrivedTime}</div>
               <div className="flex flex-col items-center">
-                  <div className="w-px h-16 border-dashed border border-primary"></div>
+                  <div className="w-px h-20 border-dashed border border-primary"></div>
                   <div className="w-5 h-5 bg-primary rounded-full z-10"></div>
               </div>
               <div className="w-32 text-left pl-4 text-xs text-primary font-medium">Package arrived at XYZ</div> 
