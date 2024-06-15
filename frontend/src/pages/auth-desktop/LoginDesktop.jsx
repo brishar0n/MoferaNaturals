@@ -23,7 +23,12 @@ function LoginDesktop() {
     
         try {
           const response = await login(formData);
-          Navigate('/centradashboard');
+          if (response){
+            const role = response.data.role
+            if(role === "xyz") Navigate('/dashboard-wet');
+            if(role === "admin") Navigate('/adminpage');
+          }
+          
         } catch (error) {
           console.error("Error: ", error)
         }

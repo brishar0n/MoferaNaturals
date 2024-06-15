@@ -1,23 +1,47 @@
-import React, { useState } from 'react';
-import arrivalIcon from './../../assets/xyz/arrival-icon.svg';
-import shipmentIcon from './../../assets/xyz/shipment-icon.svg';
+import React, { useEffect, useState } from 'react';
+import { getArrivalNotification, getShipmentNotification } from '../../../api/xyzAPI';
+// import /*arrivalIcon*/1 from './../../assets/xyz/arrival-icon.svg';
+// import shipmentIcon from './../../assets/xyz/shipment-icon.svg';
 
-const shipmentNotifications = new Array(10).fill({
-  id: '212123',
-  shipper: 'Centra 1',
-  estimatedArrival: '20 March 2024',
-  timestamp: 'Sunday 6:24pm',
-});
+// const shipmentNotifications = new Array(10).fill({
+//   id: '212123',
+//   shipper: 'Centra 1',
+//   estimatedArrival: '20 March 2024',
+//   timestamp: 'Sunday 6:24pm',
+// });
 
-const arrivalNotifications = new Array(10).fill({
-  id: '312321',
-  sender: 'Centra 2',
-  arrivalDate: '22 March 2024',
-  timestamp: 'Monday 5:30pm',
-});
+// const arrivalNotifications = new Array(10).fill({
+//   id: '312321',
+//   sender: 'Centra 2',
+//   arrivalDate: '22 March 2024',
+//   timestamp: 'Monday 5:30pm',
+// });
+
+
 
 function NotificationsTable() {
+  const [shipmentNotifications, setShipmentNotifications] = useState([])
+  const [arrivalNotifications, setArrivalNotifications] = useState([])
   const [showShipment, setShowShipment] = useState(true);
+
+  useEffect(() => {
+      async function fetchShipmentNotification() {
+          const response = await getShipmentNotification();
+          if(response && response.data) {
+              setShipmentNotifications(response.data)
+          }
+      }
+
+      async function fetchArrivalNotification() {
+        const response = await getArrivalNotification();
+        if(response && response.data) {
+            setArrivalNotifications(response.data)
+        }
+    }
+
+      fetchShipmentNotification()
+      fetchArrivalNotification()
+  }, [showShipment])
 
   return (
     <div className="container mx-auto p-4">
@@ -28,7 +52,7 @@ function NotificationsTable() {
             showShipment ? 'bg-primary text-white' : 'bg-gray-300 text-gray-700'
           }`}
         >
-          <img src={shipmentIcon} alt="Shipment Icon" className="w-6 h-6 mr-2" />
+          <img src={/*shipmentIcon*/1} alt="Shipment Icon" className="w-6 h-6 mr-2" />
           Shipment Notifications
         </button>
         <button
@@ -37,7 +61,7 @@ function NotificationsTable() {
             showShipment ? 'bg-gray-300 text-gray-700' : 'bg-primary text-white'
           }`}
         >
-          <img src={arrivalIcon} alt="Arrival Icon" className="w-6 h-6 mr-2" />
+          <img src={/*arrivalIcon*/1} alt="Arrival Icon" className="w-6 h-6 mr-2" />
           Arrival Notifications
         </button>
       </div>
@@ -63,8 +87,8 @@ function NotificationsTable() {
                         : `Arrival ID #${notification.id}`}
                     </span>{' '}
                     {showShipment
-                      ? `has been shipped by ${notification.shipper} (Estimated Time Arrival: ${notification.estimatedArrival})`
-                      : `arrived from ${notification.sender} (Arrival Date: ${notification.arrivalDate})`}
+                      ? `has been shipped by ${notification.shipper})`
+                      : `arrived from ${notification.shipper} (Arrival Date: ${notification.timestamp})`}
                   </p>
                   <p className="text-gray-500 text-left">{notification.timestamp}</p>
                 </div>
