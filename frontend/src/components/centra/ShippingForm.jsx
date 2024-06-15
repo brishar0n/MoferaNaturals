@@ -15,6 +15,8 @@ function ShippingForm() {
     const [expedition, setExpedition] = useState("");
     const [shippingDate, setShippingDate] = useState("");
     const [shippingTime, setShippingTime] = useState("");
+    const [etaDate, setEtaDate] = useState("");
+    const [etaTime, setEtaTime] = useState("");
     const [packageData, setPackageData] = useState([]);
     const [packages, setPackages] = useState([]);
 
@@ -67,7 +69,8 @@ function ShippingForm() {
             expedition,
             "total_packages": total,
             "total_weight": weight,
-            "departure_datetime": shippingDate+"T"+shippingTime
+            "departure_datetime": shippingDate+"T"+shippingTime,
+            "eta_datetime": etaDate+"T"+etaTime
         }
         addShippingInfo(data)
 
@@ -85,6 +88,14 @@ function ShippingForm() {
     const handleShippingTimeChange = (event) => {
         setShippingTime(event.target.value);
     };
+
+    const handleEtaDateChange = (event) => {
+        setEtaDate(event.target.value);
+    }
+
+    const handleEtaTimeChange = (event) => {
+        setEtaTime(event.target.value);
+    }
     
     const handleExpeditionChange = (event) => {
         setExpedition(event.target.value);
@@ -132,6 +143,12 @@ function ShippingForm() {
 
                         <label htmlFor="shippingTime" className='items-start text-xs mb-2 font-medium'>Shipping Time: </label>
                         <input type="time" id="shippingTime" className='mb-2 rounded-md bg-quinary px-2 py-2 w-full text-xs border-none' value={shippingTime} onChange={handleShippingTimeChange} required/>
+
+                        <label htmlFor="etaDate" className='items-start text-xs mb-2 font-medium'>Estimated Time Arrival Date:</label>
+                        <input type="date" id="etaDate" className="rounded-md bg-quinary py-2 px-2 text-xs mb-3 w-full" value={etaDate} onChange={handleEtaDateChange} required/>
+
+                        <label htmlFor="etaTime" className='items-start text-xs mb-2 font-medium'>Estimated Time Arrival Time: </label>
+                        <input type="time" id="etaDate" className='mb-2 rounded-md bg-quinary px-2 py-2 w-full text-xs border-none' value={etaTime} onChange={handleEtaTimeChange} required/>
 
                         <div className='mx-auto mt-2 flex justify-center'>
                             <button className='bg-secondary text-white rounded-3xl px-7 py-2 font-semibold hover:bg-primary flex gap-2 items-center' type="submit">SHIP</button>
