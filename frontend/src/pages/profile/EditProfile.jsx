@@ -1,18 +1,20 @@
-import React, { useEffect, useState } from 'react' 
-import bgupper from '../../assets/profile/element1.svg'
-import bglower from '../../assets/profile/element2.svg'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import bgupper from '../../assets/profile/element1.svg';
+import bglower from '../../assets/profile/element2.svg';
 import NavigationBar from "../../components/centra/CentraNavbar.jsx";
 import { motion } from "framer-motion";
 import EditProfileContent from '../../components/profile/EditProfileContent';
 import NavbarGH from '../../components/guard_harbour/NavbarGH';
-import { putProfile, getCurrentUser } from '../../../api/profileAPI.js';
 
 function EditProfile() {
-    const [isMobile, setIsMobile] = React.useState(false);
-    const [role, setRole] = useState("");
-    const [username, setUsername]= useState("");
-    const [email, setEmail] = useState("");
-    const [centraUnit, setCentraUnit] = useState(0);
+    const [isMobile, setIsMobile] = useState(false);
+    const [user, setUser] = useState({
+        role: "",
+        username: "",
+        email: "",
+        centraUnit: ""
+    });
     const [formSubmitted, setFormSubmitted] = useState(false);
 
     useEffect(() => {
@@ -22,38 +24,36 @@ function EditProfile() {
   
       handleResize();
       window.addEventListener("resize", handleResize);
+
+      // Fetch current user details
+      axios.get('/profile')
+        .then(response => {
+            setUser(response.data);
+        })
+        .catch(error => {
+            console.error("Error fetching current user:", error);
+        });
   
       return () => window.removeEventListener("resize", handleResize);
     }, []);
 
     function handleSubmit(data) {
         data.event.preventDefault();
-        putProfile({
-          "username": data.newName,
-          "new_password": data.newPassword,
-          "confirm_password": data.confirmPassword,
-          "email": data.newEmail
+        axios.put('https://mofera-backend-fork-o1xucajgl-mofera-2.vercel.app/update_profile', {
+          username: data.newName,
+          new_password: data.newPassword,
+          confirm_password: data.confirmPassword,
+          email: data.newEmail,
+          centra_unit: user.role === 'centra' ? data.centraUnit : undefined
         })
-        setFormSubmitted(true);
+        .then(response => {
+            setFormSubmitted(true);
+            setUser(response.data); // Update user data with the response
+        })
+        .catch(error => {
+            console.error("Error updating profile:", error);
+        });
     }
-
-    useEffect(() => {
-      const fetchData = async () => {
-          try {
-              const user = await getCurrentUser();
-              console.log(user);
-              
-              setRole(user.role);
-              setUsername(user.username);
-              setCentraUnit(user.centra_unit);
-              setEmail(user.email);
-          } catch (err) {
-              console.error("Error: ", err);
-          }
-      };
-
-      fetchData();
-  }, []);
   
     return (
       <div className='bg-white w-screen h-screen overflow-auto'>
@@ -74,10 +74,10 @@ function EditProfile() {
             >
                 <div className='relative z-40'>
                     <EditProfileContent 
-                        role={role} 
-                        name={username} 
-                        email={email} 
-                        centraUnit={centraUnit}
+                        role={user.role} 
+                        name={user.username} 
+                        email={user.email} 
+                        centraUnit={user.centraUnit}
                         handleSubmit={handleSubmit}
                         formSubmitted={formSubmitted}
                     />
@@ -85,10 +85,10 @@ function EditProfile() {
               
             </motion.div>
             
-            {role === "centra" && (
+            {user.role === "centra" && (
               <NavigationBar/> 
             )}
-            {role === "GuardHarbor" && (
+            {user.role === "guardHarbour" && (
               <NavbarGH/> 
             )}
           </>
