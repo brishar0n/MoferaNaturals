@@ -9,7 +9,6 @@ function PackageHistory(){
     const [statusFilter, setStatusFilter] = useState("ALL");
     const [packages, setPackages] = useState([]);
     const [shippings, setShippings] = useState([]);
-    const [centraPackageData, setCentraPackageData] = useState([]);
 
     // const packages = [
     //     { id: 200420, weight: 10, expDate: "2024-05-01", status: "READY TO SHIP", shippingDate: "" },
@@ -57,18 +56,6 @@ function PackageHistory(){
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const currentUser = await getCurrentUser();
-                console.log("Current user:", currentUser);
-            
-                if (!currentUser || !currentUser.centra_unit) {
-                    console.warn("Centra ID is missing or undefined, skipping package fetch.");
-                    setPackages([]);
-                    return;
-                }
-
-                const centraId = currentUser.centra_unit;
-                console.log("Centra ID:", centraId);
-                
                 // Fetch all shippings once
                 const shippingsResponse = await getShippingInfo();
                 setShippings(shippingsResponse.data);
@@ -93,15 +80,7 @@ function PackageHistory(){
                         return { ...pkg, shippingDate: null };
                     }
                 }));
-                setPackages(updatedPackages);
-
-                
-
-                // const filteredData = centraId !== undefined 
-                //     ? updatedPackages.filter(item => item.centra_unit === centraId)
-                //     : [];
-                // setCentraPackageData(filteredData);
-
+                setPackages(updatedPackages)
             } catch (err) {
                 console.error("Error fetching packages: ", err);
             }
@@ -114,8 +93,6 @@ function PackageHistory(){
         const shippingDate = String(shipping.departure_datetime).split("T")[0];
         return shipping ? shippingDate : null;
     };
-
-    // const filteredPackages = statusFilter === "ALL" ? packages : packages.filter(pkg => pkg.status === convertStatus(statusFilter));
     
     return (
         <div className="w-72">
