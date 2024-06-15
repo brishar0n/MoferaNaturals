@@ -140,6 +140,23 @@ export const getPackages = async() => {
     return Packages
 }
 
+// export const getPackages = async() => {
+//     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`;
+//     let url = `${URL}/centra/packages`;
+
+//     if (centra_id !== null) {
+//         url += `?centra_id=${centra_id}`;
+//     }
+
+//     try {
+//         const response = await axios.get(url);
+//         return response.data;
+//     } catch (error) {
+//         console.error(error);
+//         return null; // Return null or handle the error as needed
+//     }
+// }
+
 export const getPackagesWithStatus = async(status) => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
     const Packages = await axios.get(URL + "/centra/packages_status", {
