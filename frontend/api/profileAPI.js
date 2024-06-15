@@ -11,10 +11,12 @@ export const putProfile = (NewProfile) => {
 }
 
 export const getCurrentUser = async() => {
-    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
-    const User = await axios.get(URL + "/profile/me")
-        .catch((error) => {
-            console.error(error);
-        });
-    return User
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`;
+    try {
+        const response = await axios.get(`${URL}/profile/me`);
+        return response.data; // Return the user data
+    } catch (error) {
+        console.error(error);
+        return null; // Return null or handle the error as needed
+    }
 }
