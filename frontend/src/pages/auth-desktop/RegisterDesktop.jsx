@@ -12,7 +12,9 @@ function RegisterDesktop() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isVisible, setIsVisible] = useState(false);
+    const [isVisible2, setIsVisible2] = useState(false);
     const toggleVisibility = () => setIsVisible(!isVisible);
+    const toggleVisibility2 = () => setIsVisible2(!isVisible2);
 
     const handleLogin = async (event) => {
         event.preventDefault();
@@ -96,12 +98,12 @@ function RegisterDesktop() {
 
                         <label htmlFor="confirmpassword" className="text-left secondary font-medium pt-5 text-base">Confirm Password</label>
                         <Input
-                        type={isVisible ? "text" : "password"}
+                        type={isVisible2 ? "text" : "password"}
                         radius="sm"
                         className="pt-1 w-96" 
                         endContent= {
-                            <button className="focus:outline-none" type="button" onClick={toggleVisibility}>
-                                {isVisible ? (
+                            <button className="focus:outline-none" type="button" onClick={toggleVisibility2}>
+                                {isVisible2 ? (
                                     <img src={eye} alt="eyeClosed" className="w-5"/>
                                 ) : (
                                     <img src={eyeClosed} alt="eyeClosed" className="w-5"/>
