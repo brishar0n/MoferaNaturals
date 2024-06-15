@@ -3,6 +3,7 @@ import "../../../style/App.css"
 import { useState, useEffect } from "react";
 import PackageBox from "../../../components/centra/PackageBox";
 import { getPackages, getPackagesWithStatus, getShippingInfo } from "../../../../api/centraAPI";
+import { getCurrentUser } from "../../../../api/profileAPI";
 
 function PackageHistory(){
     const [statusFilter, setStatusFilter] = useState("ALL");
@@ -79,9 +80,7 @@ function PackageHistory(){
                         return { ...pkg, shippingDate: null };
                     }
                 }));
-                setPackages(updatedPackages);
-
-                
+                setPackages(updatedPackages)
             } catch (err) {
                 console.error("Error fetching packages: ", err);
             }
@@ -94,8 +93,6 @@ function PackageHistory(){
         const shippingDate = String(shipping.departure_datetime).split("T")[0];
         return shipping ? shippingDate : null;
     };
-
-    // const filteredPackages = statusFilter === "ALL" ? packages : packages.filter(pkg => pkg.status === convertStatus(statusFilter));
     
     return (
         <div className="w-72">

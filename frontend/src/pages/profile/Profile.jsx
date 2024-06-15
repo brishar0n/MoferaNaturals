@@ -5,11 +5,12 @@ import NavigationBar from "../../components/centra/CentraNavbar.jsx";
 import { motion } from "framer-motion";
 import ProfileContent from '../../components/profile/ProfileContent';
 import NavbarGH from '../../components/guard_harbour/NavbarGH';
+import { getCurrentUser } from '../../../api/profileAPI';
 
 function Profile() {
     const [isMobile, setIsMobile] = React.useState(false);
-    const role = "guardHarbour";
-    const name = "Oowwwlaf";
+    const [role, setRole] = useState("");
+    const [username, setUsername]= useState("");
 
     useEffect(() => {
       function handleResize() {
@@ -21,6 +22,22 @@ function Profile() {
   
       return () => window.removeEventListener("resize", handleResize);
     }, []);
+
+    useEffect(() => {
+      const fetchData = async () => {
+          try {
+              const user = await getCurrentUser();
+              console.log(user);
+              
+              setRole(user.role);
+              setUsername(user.username);
+          } catch (err) {
+              console.error("Error: ", err);
+          }
+      };
+
+      fetchData();
+  }, []);
   
     return (
       <div className='bg-white w-screen h-screen overflow-auto'>
@@ -40,7 +57,7 @@ function Profile() {
               transition={{ duration: 0.3 }}
             >
                 <div className='relative z-40'>
-                    <ProfileContent role={role} name={name}/>
+                    <ProfileContent role={role} name={username}/>
                 </div>
               
             </motion.div>
@@ -48,7 +65,7 @@ function Profile() {
             {role === "centra" && (
               <NavigationBar/> 
             )}
-            {role === "guardHarbour" && (
+            {role === "GuardHarbor" && (
               <NavbarGH/> 
             )}
           </>

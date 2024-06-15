@@ -12,11 +12,22 @@ function PowderHistory() {
     //   ];
     
     const [powderData, setPowderData] = useState([]);
+
     useEffect(() => {
-        getFlour()
-        .then(response => setPowderData(response.data))
-        .catch(err => console.error("Error: ", err))
-    }, [])
+      const fetchData = async () => {
+          try {
+              const response = await getFlour();
+              const powderData = response.data;
+              
+              setPowderData(powderData);
+          } catch (err) {
+              console.error("Error: ", err);
+          }
+      };
+
+      fetchData();
+  }, []);
+    
 
     return (
       <div className="w-72">

@@ -107,7 +107,7 @@ function WetLeavesBox({ weight, date, id, washedDatetime, driedDatetime, handleW
                 <p className="text-lg text-primary font-medium z-100 mb-6">Wet Leaves - WET#{id}</p>
             </div>
             
-            <div className='bg-white mb-5 mx-auto py-5 px-7 rounded-2xl text-left relative flex flex-col'>
+            <div className='bg-white mb-5 mx-auto py-5 px-7 rounded-2xl text-left relative flex flex-col shadow-lg'>
                 {((status === "washing" && washedDatetime) || (status === "drying" && driedDatetime)) && (
                     <p className="text-xxs mb-1 text-red-600 font-semibold text-right">Finished Time: {new Date((status === "washing" ? new Date(washedDatetime).getTime() + 10 * 60 * 1000 : new Date(driedDatetime).getTime() + 24 * 60 * 60 * 1000)).toLocaleTimeString()}</p>
                 )}

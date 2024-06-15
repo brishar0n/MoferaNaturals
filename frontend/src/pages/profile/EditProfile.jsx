@@ -5,14 +5,14 @@ import NavigationBar from "../../components/centra/CentraNavbar.jsx";
 import { motion } from "framer-motion";
 import EditProfileContent from '../../components/profile/EditProfileContent';
 import NavbarGH from '../../components/guard_harbour/NavbarGH';
-import { putProfile } from '../../../api/profileAPI.js';
+import { putProfile, getCurrentUser } from '../../../api/profileAPI.js';
 
 function EditProfile() {
     const [isMobile, setIsMobile] = React.useState(false);
-    const role = "centra";
-    const name = "Oowwwlaf";
-    const email = "Oowwwlaf@gmail.com";
-    const centraUnit = 1;
+    const [role, setRole] = useState("");
+    const [username, setUsername]= useState("");
+    const [email, setEmail] = useState("");
+    const [centraUnit, setCentraUnit] = useState(0);
     const [formSubmitted, setFormSubmitted] = useState(false);
 
     useEffect(() => {
@@ -36,6 +36,24 @@ function EditProfile() {
         })
         setFormSubmitted(true);
     }
+
+    useEffect(() => {
+      const fetchData = async () => {
+          try {
+              const user = await getCurrentUser();
+              console.log(user);
+              
+              setRole(user.role);
+              setUsername(user.username);
+              setCentraUnit(user.centra_unit);
+              setEmail(user.email);
+          } catch (err) {
+              console.error("Error: ", err);
+          }
+      };
+
+      fetchData();
+  }, []);
   
     return (
       <div className='bg-white w-screen h-screen overflow-auto'>
@@ -57,7 +75,7 @@ function EditProfile() {
                 <div className='relative z-40'>
                     <EditProfileContent 
                         role={role} 
-                        name={name} 
+                        name={username} 
                         email={email} 
                         centraUnit={centraUnit}
                         handleSubmit={handleSubmit}
@@ -70,7 +88,7 @@ function EditProfile() {
             {role === "centra" && (
               <NavigationBar/> 
             )}
-            {role === "guardHarbour" && (
+            {role === "GuardHarbor" && (
               <NavbarGH/> 
             )}
           </>

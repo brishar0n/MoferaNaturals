@@ -140,6 +140,23 @@ export const getPackages = async() => {
     return Packages
 }
 
+// export const getPackages = async() => {
+//     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`;
+//     let url = `${URL}/centra/packages`;
+
+//     if (centra_id !== null) {
+//         url += `?centra_id=${centra_id}`;
+//     }
+
+//     try {
+//         const response = await axios.get(url);
+//         return response.data;
+//     } catch (error) {
+//         console.error(error);
+//         return null; // Return null or handle the error as needed
+//     }
+// }
+
 export const getPackagesWithStatus = async(status) => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
     const Packages = await axios.get(URL + "/centra/packages_status", {
@@ -184,11 +201,20 @@ export const addShippingInfo = (ShippingInfo) => {
     console.log("success")
 }
 
-export const getShippingInfo = async(ShippingInfo) => {
+export const getShippingInfo = async() => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
-    const Shipping = await axios.get(URL + "/centra/shipping")
+    const Shipping = await axios.get(URL + "/centra/shippings")
         .catch((error) => {
             console.error(error);
         });
-    return Shipping    
+    return Shipping
+}
+
+export const getCheckpoints = async() => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    const Checkpoint = await axios.get(URL + "/centra/checkpoints")
+        .catch((error) => {
+            console.error(error);
+        });
+    return Checkpoint
 }

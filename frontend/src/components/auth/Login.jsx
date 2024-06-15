@@ -59,6 +59,9 @@ function Login() {
   const navigatetoSignup = () => {
     navigate('/register');
   };
+  const navigatetoResetPass = () => {
+    navigate('/resetpass');
+  };
 
   return (
     <div className='bg-quaternary h-screen'>
@@ -99,7 +102,7 @@ function Login() {
                   <div className='mt-2 flex'>
                     <input type="checkbox" className='grow-0'></input>
                     <label className='text-xs text-primary ml-2 font-medium grow text-left'>Remember me?</label> 
-                    <p className='text-xs text-senary font-medium grow-0'>Forgot Password?</p>
+                    <p className='text-xs text-senary font-medium grow-0' onClick={navigatetoResetPass}>Forgot Password?</p>
                   </div>
 
                   <div className='mt-8 relative z-20'>

@@ -4,7 +4,7 @@ import FailedNotification from "../FailedNotification";
 
 function PackageForm({ weight, handleWeightChange, expDate, handleExpDateChange, formSubmitted, handleSubmit }) {
   return (
-    <div className='bg-white mb-5 w-2/3 mx-auto py-5 px-7 rounded-2xl text-left relative flex flex-col' onSubmit={handleSubmit}>
+    <div className='bg-white mb-5 w-2/3 mx-auto py-5 px-7 rounded-2xl text-left relative flex flex-col shadow-lg' onSubmit={handleSubmit}>
       {formSubmitted && weight > 0 && <SuccessNotification htmlContent="You have successfully added package data." />}
       {formSubmitted && weight <= 0 && <FailedNotification htmlContent="Failed to add package data. Weight must be greater than zero." />}
       <form>

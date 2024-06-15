@@ -27,7 +27,7 @@ function ShippingSearchResult({ searchResult, onShippingClick, packageData }) {
                 const unitCentra = packages.length > 0 ? packages[0].centra_id : undefined;
 
                 return (
-                    <div key={item.id} className="bg-white mb-5 py-3 px-5 mx-auto rounded-2xl">
+                    <div key={item.id} className="bg-white mb-5 py-3 px-5 mx-auto rounded-2xl shadow-lg">
                         <div className="">
                             <p className="mb-1 font-medium text-sm text-primary text-left">Shipping ID #{item.id}</p>
                             
