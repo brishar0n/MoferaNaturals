@@ -3,14 +3,14 @@ import React from 'react';
 import Card from './Card';
 import '../../style/auth/ResetPass.css';
 import axios from 'axios';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function ResetPassword() {
   const [isMobile, setIsMobile] = useState(false);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const location = useLocation();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleResize = () => {
     setIsMobile(window.innerWidth < 600);
@@ -39,7 +39,7 @@ function ResetPassword() {
         new_password: password
       });
       alert('Password reset successful');
-      history.push('/login'); // Redirect to login page after successful reset
+      navigate('/login'); // Redirect to login page after successful reset
     } catch (error) {
       alert('Error resetting password');
     }
