@@ -5,6 +5,7 @@ import SearchResult from './SearchResult';
 import jsonData from '../../../../data.json';
 import { useNavigate } from 'react-router-dom';
 import { motion } from "framer-motion";
+import { getArrivedPackage, getPackageByID } from '../../../../api/xyzAPI';
 
 function SearchRescale() {
     const [input, setInput] = useState("");
@@ -22,32 +23,56 @@ function SearchRescale() {
         {shippingId: 8, expedition: "Express", shippingDate: "04-06-2024", shippingTime: "04:45 PM", estimatedDate: "08-06-2024", estimatedTime: "9:45 PM"}
     ]
       
-    const packages = [
-        { id: 200420, weight: 10, expDate: "2024-05-01", status: "READY TO SHIP", shippingId: null, xyz_id: null, centraUnit: 1 },
-        { id: 200421, weight: 5, expDate: "2024-06-15", status: "SHIPPING", shippingId: 1, xyz_id: null, centraUnit: 2 },   // 
-        { id: 200422, weight: 0, expDate: "2024-06-19", status: "CANCELLED", shippingId: 2, xyz_id: null, centraUnit: 3 },  // not arrived in gh
-        { id: 200423, weight: 8, expDate: "2024-07-10", status: "CONFIRMED", shippingId: 2, xyz_id: null, centraUnit: 3 },  // confirmed by gh
-        { id: 200424, weight: 10, expDate: "2024-04-01", status: "ARRIVED", shippingId: 3, xyz_id: 101, centraUnit: 4 },  // received by xyz
-        { id: 200425, weight: 5, expDate: "2024-06-15", status: "EXPIRED", shippingId: 4, xyz_id: 102, centraUnit: 5 }, // package not sent and expired
-        { id: 200426, weight: 8, expDate: "2024-06-16", status: "SHIPPING", shippingId: 5, xyz_id: null, centraUnit: 6 }, 
-        { id: 200427, weight: 8, expDate: "2024-07-19", status: "CONFIRMED", shippingId: 6, xyz_id: null, centraUnit: 7 }, 
-        { id: 200428, weight: 29, expDate: "2024-08-27", status: "ARRIVED", shippingId: 7, xyz_id: 103, centraUnit: 7 }, 
-        { id: 200429, weight: 19, expDate: "2024-06-03", status: "EXPIRED", shippingId: 8, xyz_id: null, centraUnit: 7 }, 
-    ];
+    // const packages = [
+    //     { id: 200420, weight: 10, expDate: "2024-05-01", status: "READY TO SHIP", shippingId: null, xyz_id: null, centraUnit: 1 },
+    //     { id: 200421, weight: 5, expDate: "2024-06-15", status: "SHIPPING", shippingId: 1, xyz_id: null, centraUnit: 2 },   // 
+    //     { id: 200422, weight: 0, expDate: "2024-06-19", status: "CANCELLED", shippingId: 2, xyz_id: null, centraUnit: 3 },  // not arrived in gh
+    //     { id: 200423, weight: 8, expDate: "2024-07-10", status: "CONFIRMED", shippingId: 2, xyz_id: null, centraUnit: 3 },  // confirmed by gh
+    //     { id: 200424, weight: 10, expDate: "2024-04-01", status: "ARRIVED", shippingId: 3, xyz_id: 101, centraUnit: 4 },  // received by xyz
+    //     { id: 200425, weight: 5, expDate: "2024-06-15", status: "EXPIRED", shippingId: 4, xyz_id: 102, centraUnit: 5 }, // package not sent and expired
+    //     { id: 200426, weight: 8, expDate: "2024-06-16", status: "SHIPPING", shippingId: 5, xyz_id: null, centraUnit: 6 }, 
+    //     { id: 200427, weight: 8, expDate: "2024-07-19", status: "CONFIRMED", shippingId: 6, xyz_id: null, centraUnit: 7 }, 
+    //     { id: 200428, weight: 29, expDate: "2024-08-27", status: "ARRIVED", shippingId: 7, xyz_id: 103, centraUnit: 7 }, 
+    //     { id: 200429, weight: 19, expDate: "2024-06-03", status: "EXPIRED", shippingId: 8, xyz_id: null, centraUnit: 7 }, 
+    // ];
+    const [packages, setPackages] = useState([])
 
     useEffect(() => {
         // Set initial search result to full jsonData when component mounts
         setSearchResult(packages);
-    }, []);
+    }, [packages]);
 
-    function handleSearch(e) {
-        setInput(e);
-        if (e) {
-            const filteredData = packages.filter(item => item.id && item.id.toString().includes(e));
-            setSearchResult(filteredData);
-        } else {
-            setSearchResult(packages);
+    useEffect(() => {
+        async function fetchArrivedPackage() {
+            const response = await getArrivedPackage()
+            if(response && response.data) {
+                setPackages(response.data)
+            }
         }
+
+        fetchArrivedPackage()
+    }, [])
+
+    function handleChange(e) {
+        setInput(e);
+    }
+
+    function handleSearch() {
+        if (input) getPackageByID(input)
+            .then(response => {
+                if (!response) return
+
+                setPackages([response.data])
+                
+            }).catch(err => console.err(err))
+        
+        else getArrivedPackage()
+            .then(response => {
+                if (!response) return
+
+                setPackages([response.data])
+                
+            }).catch(err => console.err(err))
     }
 
     function handlePackageClick(packageId) {
@@ -66,8 +91,8 @@ function SearchRescale() {
                 </div>
             </div>
             <div className='searchPackage relative py-4 mb-3'>
-                <input type="search" placeholder='Search Package ID...' value={input} onChange={(e) => handleSearch(e.target.value)}/>
-                <button className='absolute right-8 top-1/2 p-3 rounded-full -translate-y-1/2 text-white'>
+                <input type="search" placeholder='Search Package ID...' value={input} onChange={(e) => handleChange(e.target.value)}/>
+                <button className='absolute right-8 top-1/2 p-3 rounded-full -translate-y-1/2 text-white' onClick={handleSearch}>
                     <AiOutlineSearch/>
                 </button>
             </div>
