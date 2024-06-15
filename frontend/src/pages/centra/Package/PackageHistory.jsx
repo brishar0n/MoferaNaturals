@@ -58,7 +58,16 @@ function PackageHistory(){
         const fetchData = async () => {
             try {
                 const currentUser = await getCurrentUser();
+                console.log("Current user:", currentUser);
+            
+                if (!currentUser || !currentUser.centra_unit) {
+                    console.warn("Centra ID is missing or undefined, skipping package fetch.");
+                    setPackages([]);
+                    return;
+                }
+
                 const centraId = currentUser.centra_unit;
+                console.log("Centra ID:", centraId);
                 
                 // Fetch all shippings once
                 const shippingsResponse = await getShippingInfo();
@@ -86,10 +95,12 @@ function PackageHistory(){
                 }));
                 setPackages(updatedPackages);
 
-                const filteredData = centraId !== undefined 
-                    ? updatedPackages.filter(item => item.centra_unit === centraId)
-                    : [];
-                setCentraPackageData(filteredData);
+                
+
+                // const filteredData = centraId !== undefined 
+                //     ? updatedPackages.filter(item => item.centra_unit === centraId)
+                //     : [];
+                // setCentraPackageData(filteredData);
 
             } catch (err) {
                 console.error("Error fetching packages: ", err);
@@ -122,7 +133,7 @@ function PackageHistory(){
 
             <br></br>
 
-            {centraPackageData.map((pkg) => (
+            {packages.map((pkg) => (
                 <PackageBox 
                     key={pkg.id} 
                     weight={pkg.weight} 
