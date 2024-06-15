@@ -1,44 +1,39 @@
-import React, { useEffect, useState } from 'react' 
-import bgupper from '../../assets/profile/element1.svg'
-import bglower from '../../assets/profile/element2.svg'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import bgupper from '../../assets/profile/element1.svg';
+import bglower from '../../assets/profile/element2.svg';
 import NavigationBar from "../../components/centra/CentraNavbar.jsx";
 import { motion } from "framer-motion";
 import ProfileContent from '../../components/profile/ProfileContent';
 import NavbarGH from '../../components/guard_harbour/NavbarGH';
-import { getCurrentUser } from '../../../api/profileAPI';
 
 function Profile() {
-    const [isMobile, setIsMobile] = React.useState(false);
-    const [role, setRole] = useState("");
-    const [username, setUsername]= useState("");
+    const [isMobile, setIsMobile] = useState(false);
+    const [user, setUser] = useState({
+        role: "",
+        username: "",
+    });
 
     useEffect(() => {
       function handleResize() {
         setIsMobile(window.innerWidth < 600);
       }
-  
+
       handleResize();
       window.addEventListener("resize", handleResize);
-  
+
+      // Fetch current user details
+      axios.get('https://mofera-backend-fork-o1xucajgl-mofera-2.vercel.app/profile/me')
+        .then(response => {
+            setUser(response.data); // Assuming response.data has user details
+        })
+        .catch(error => {
+            console.error("Error fetching current user:", error);
+        });
+
       return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    useEffect(() => {
-      const fetchData = async () => {
-          try {
-              const user = await getCurrentUser();
-              console.log(user);
-              
-              setRole(user.role);
-              setUsername(user.username);
-          } catch (err) {
-              console.error("Error: ", err);
-          }
-      };
-
-      fetchData();
-  }, []);
-  
     return (
       <div className='bg-white w-screen h-screen overflow-auto'>
         {isMobile && (
@@ -48,7 +43,7 @@ function Profile() {
               <img src={bglower} className="w-screen fixed bottom-0"/>
               <img src="src/assets/AddPage/mascotAddSide.svg" className="absolute right-0 bottom-10 z-50"></img>
             </div>
-            
+
             <motion.div
               key="profile"
               initial={{ x: 300, opacity: 0 }}
@@ -57,16 +52,16 @@ function Profile() {
               transition={{ duration: 0.3 }}
             >
                 <div className='relative z-40'>
-                    <ProfileContent role={role} name={username}/>
+                    <ProfileContent role={user.role} name={user.username}/>
                 </div>
-              
+
             </motion.div>
-            
-            {role === "centra" && (
-              <NavigationBar/> 
+
+            {user.role === "centra" && (
+              <NavigationBar/>
             )}
-            {role === "GuardHarbor" && (
-              <NavbarGH/> 
+            {user.role === "guardHarbour" && (
+              <NavbarGH/>
             )}
           </>
         )}
