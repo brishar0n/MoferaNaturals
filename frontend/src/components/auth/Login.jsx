@@ -44,7 +44,13 @@ function Login() {
 
     try {
       const response = await login(formData);
-      navigate('/centradashboard');
+      if(response){
+        const role = response.data.role;
+        if(role === "centra") navigate("/centradashboard")
+        else if(role === "GuardHarbor") navigate("/ghdashboard")
+        else if(role === "xyz") navigate("/findrescale")
+        else if(role === "admin") navigate("/adminpage")
+      }
     } catch (error) {
       setLoginError('Login failed. Please check your credentials and try again.');
     }
