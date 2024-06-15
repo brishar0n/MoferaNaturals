@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../../../style/App.css";
 import PowderBox from "../../../components/centra/PowderBox";
 import { getFlour } from "../../../../api/centraAPI";
+import { getCurrentUser } from "../../../../api/profileAPI";
 
 function PowderHistory() {
     // const powderData = [
@@ -12,17 +13,42 @@ function PowderHistory() {
     //   ];
     
     const [powderData, setPowderData] = useState([]);
+    const [filteredPowderData, setFilteredPowderData] = useState([]);
+    // const [centraUnit, setCentraUnit] = useState(null);
+
     useEffect(() => {
-        getFlour()
-        .then(response => setPowderData(response.data))
-        .catch(err => console.error("Error: ", err))
-    }, [])
+      const fetchData = async () => {
+          try {
+              // Fetch the current user
+              const currentUser = await getCurrentUser();
+              const centraId = currentUser.centra_unit;
+
+              // Fetch the powder data
+              const response = await getFlour();
+              const powderData = response.data;
+
+              // Filter the powder data based on the centra_id
+              const filteredData = centraId !== undefined 
+                    ? powderData.filter(item => item.centra_unit === centraId)
+                    : [];
+
+              // Update state
+              setPowderData(powderData);
+              setFilteredPowderData(filteredData);
+          } catch (err) {
+              console.error("Error: ", err);
+          }
+      };
+
+      fetchData();
+  }, []);
+    
 
     return (
       <div className="w-72">
           <br></br>
 
-          {powderData.map((pwd) => (
+          {filteredPowderData.map((pwd) => (
               <PowderBox 
                   key={pwd.id} 
                   weight={pwd.weight} 
