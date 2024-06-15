@@ -71,10 +71,30 @@ export const getFlourStats = async (data) => {
 
 export const getFlourDatas = async() => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
-    const DryLeaves = await axios.get(URL + "/xyz/get_flour_datas")
+    const FlourLeaves = await axios.get(URL + "/xyz/get_flour_datas")
         .catch((error) => {
             console.error(error);
         });
 
-    return DryLeaves
+    return FlourLeaves
+}
+
+export const getShipmentNotification = async() => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    const Shipments = await axios.get(URL + "/xyz/get_shipment_notification")
+        .catch((error) => {
+            console.error(error);
+        });
+
+    return Shipments
+}
+
+export const getArrivalNotification = async() => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    const Arrivals = await axios.get(URL + "/xyz/get_arrival_notification")
+        .catch((error) => {
+            console.error(error);
+        });
+
+    return Arrivals
 }

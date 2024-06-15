@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
+import { getDryLeafDatas, getFlourDatas, getWetLeafDatas } from '../../../api/xyzAPI';
 
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
@@ -45,47 +46,62 @@ const columns = [
 ];
 
 export default function CentraMonitorTable({ dataType, handleDataTypeChange }) {
+  // let data = []
   const [rows, setRows] = useState([]);
-
+  const [data, setData] = useState([]);
+  
   useEffect(() => {
-    let data = [];
+    
     if (dataType === 'Wet Leaves') {
-      data = [
-        { id: 1, packageid: 'PKG#349320', weight: 20, status: 'Washing (9m20s left)' },
-        { id: 2, packageid: 'PKG#349321', weight: 22, status: 'Drying (8m10s left)' },
-        { id: 3, packageid: 'PKG#349322', weight: 15, status: 'Washing (5m30s left)' },
-        { id: 4, packageid: 'PKG#349323', weight: 8, status: 'Washing (3m20s left)' },
-        { id: 5, packageid: 'PKG#349324', weight: 10, status: 'Washing (1m50s left)' },
-        { id: 6, packageid: 'PKG#349325', weight: 11, status: 'Drying (10m00s left)' },
-        { id: 7, packageid: 'PKG#349326', weight: 13, status: 'Washing (4m20s left)' },
-        { id: 8, packageid: 'PKG#349327', weight: 9, status: 'Washing (2m10s left)' },
-        { id: 9, packageid: 'PKG#349328', weight: 14, status: 'Drying (7m50s left)' },
-        { id: 10, packageid: 'PKG#349329', weight: 26, status: 'Drying (8m50s left)' },
-      ];
+
+      async function fetchWetLeaves() {
+          const response = await getWetLeafDatas()
+          if (response && response.data) {
+              const responseData = response.data.map((data, idx) => {return {
+                "id": idx,
+                "packageid": data.id,
+                "weight": data.weight,
+                "status": "Created"
+            }})
+              setData(responseData);
+          }
+      }
+      
+      fetchWetLeaves()
+
     } else if (dataType === 'Dry Leaves') {
-      data = [
-        { id: 1, packageid: 'PKG#349320', weight: 15, status: 'Drying (9m20s left)' },
-        { id: 2, packageid: 'PKG#349321', weight: 18, status: 'Washing (8m10s left)' },
-        { id: 3, packageid: 'PKG#349322', weight: 15, status: 'Washing (5m30s left)' },
-        { id: 4, packageid: 'PKG#349323', weight: 8, status: 'Washing (3m20s left)' },
-        { id: 5, packageid: 'PKG#349324', weight: 10, status: 'Washing (1m50s left)' },
-        { id: 6, packageid: 'PKG#349325', weight: 11, status: 'Drying (10m00s left)' },
-        { id: 7, packageid: 'PKG#349326', weight: 13, status: 'Washing (4m20s left)' },
-        { id: 8, packageid: 'PKG#349327', weight: 9, status: 'Washing (2m10s left)' },
-        { id: 9, packageid: 'PKG#349328', weight: 14, status: 'Drying (7m50s left)' },
-      ];
+
+      async function fetchDryLeaves() {
+        const response = await getDryLeafDatas()
+        if (response && response.data) {
+            const responseData = response.data.map((data, idx) => {return {
+              "id": idx,
+              "packageid": data.id,
+              "weight": data.weight,
+              "status": "Created"
+          }})
+            setData(responseData);
+        }
+    }
+    
+    fetchDryLeaves()
+
     } else if (dataType === 'Powder') {
-      data = [
-        { id: 1, packageid: 'PKG#349320', weight: 8, status: 'Grinding (9m20s left)' },
-        { id: 2, packageid: 'PKG#349321', weight: 10, status: 'Packing (8m10s left)' },
-        { id: 3, packageid: 'PKG#349322', weight: 15, status: 'Washing (5m30s left)' },
-        { id: 4, packageid: 'PKG#349323', weight: 8, status: 'Washing (3m20s left)' },
-        { id: 5, packageid: 'PKG#349324', weight: 10, status: 'Washing (1m50s left)' },
-        { id: 6, packageid: 'PKG#349325', weight: 11, status: 'Drying (10m00s left)' },
-        { id: 7, packageid: 'PKG#349326', weight: 13, status: 'Washing (4m20s left)' },
-        { id: 8, packageid: 'PKG#349327', weight: 9, status: 'Washing (2m10s left)' },
-        { id: 9, packageid: 'PKG#349328', weight: 14, status: 'Drying (7m50s left)' },
-      ];
+      async function fetchFlour() {
+        const response = await getFlourDatas()
+        if (response && response.data) {
+            const responseData = response.data.map((data, idx) => {return {
+              "id": idx,
+              "packageid": data.id,
+              "weight": data.weight,
+              "status": "Created"
+          }})
+            setData(responseData);
+        }
+    }
+    
+    fetchFlour()
+
     }
     setRows(data);
   }, [dataType]);
