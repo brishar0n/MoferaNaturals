@@ -2,8 +2,10 @@ import profile from '../../assets/profile/profile.svg';
 import { IoLocationSharp } from "react-icons/io5";
 import SuccessNotification from "../SuccessNotification";
 import FailedNotification from "../FailedNotification";
-import { useState } from "react";
+import React, { useState } from "react";
 import axios from 'axios';
+import { Input } from "@nextui-org/react";
+import { FaEye, FaEyeSlash } from "react-icons/fa6";
 
 function EditProfileContent({ role, name, email, centraUnit, formSubmitted, handleFormSubmission }) {
     const [newName, setNewName] = useState(name);
@@ -39,9 +41,13 @@ function EditProfileContent({ role, name, email, centraUnit, formSubmitted, hand
         return true;
     }
 
+    const [isVisible, setIsVisible] = React.useState(false);
+
+    const toggleVisibility = () => setIsVisible(!isVisible);
+
     async function handleSubmit(event) {
         event.preventDefault();
-        if (!validatePasswordsMatch()) return; 
+        if (!validatePasswordsMatch()) return;
 
         const payload = {
             username: newName,
@@ -60,7 +66,7 @@ function EditProfileContent({ role, name, email, centraUnit, formSubmitted, hand
 
             if (response.status === 200) {
                 setFormSubmittedSuccessfully(true);
-                handleFormSubmission(); 
+                handleFormSubmission(response.data);
             }
         } catch (error) {
             console.error('Failed to update user profile:', error);
@@ -83,7 +89,7 @@ function EditProfileContent({ role, name, email, centraUnit, formSubmitted, hand
             </div>
 
             <form className='flex flex-col my-2 w-full text-left bg-denary rounded-2xl p-5 mt-7 items-center' onSubmit={handleSubmit}>
-                <p className='font-bold text-center text-xl'>User Profile</p>
+                <p className='font-bold text-green-900 mt-1 text-center text-xl'>User Profile</p>
                 
                 <div className='mt-5 w-full'>
                     <p className='font-bold text-left'>Centra Unit: {centraUnit}</p>
@@ -91,28 +97,56 @@ function EditProfileContent({ role, name, email, centraUnit, formSubmitted, hand
                 
                 <div className='mt-5 mb-2 w-full'>
                     <p className='font-bold text-left mb-2'>Username: </p>
-                    <input value={newName} onChange={handleNameChange} className="cursor-auto w-full border-b border-primary bg-transparent" placeholder={name}/>
+                    <Input value={newName} onChange={handleNameChange} className="cursor-auto w-full border-primary" placeholder={name} />
                 </div>
 
                 <div className='mb-2 mt-5 w-full'>
                     <p className='font-bold text-left mb-2'>Email: </p>
-                    <input value={newEmail} onChange={handleEmailChange} className="cursor-auto w-full border-b border-primary bg-transparent " placeholder={email}/>
+                    <Input value={newEmail} onChange={handleEmailChange} className="cursor-auto w-full border-primary" placeholder={email} />
                 </div>
 
                 <div className='mb-2 mt-5 w-full'>
                     <p className='font-bold text-left mb-2'>New Password: </p>
-                    <input type="password" value={newPassword} onChange={handlePasswordChange} className="cursor-auto w-full border-b border-primary bg-transparent" />
+                    <Input
+                        type={isVisible ? "text" : "password"}
+                        value={newPassword}
+                        onChange={handlePasswordChange}
+                        className="cursor-auto w-full border-primary bg-transparent"
+                        endContent={
+                            <button className="focus:outline-none" type="button" onClick={toggleVisibility}>
+                                {isVisible ? (
+                                    <FaEye className="text-2xl text-default-400 pointer-events-none" />
+                                ) : (
+                                    <FaEyeSlash className="text-2xl text-default-400 pointer-events-none" />
+                                )}
+                            </button>
+                        }
+                    />
                 </div>
 
                 <div className='mb-2 mt-5 w-full'>
                     <p className='font-bold text-left mb-2'>Confirm Password: </p>
-                    <input type="password" value={confirmPassword} onChange={handleConfirmPasswordChange} className="cursor-auto w-full border-b border-primary bg-transparent" />
+                    <Input
+                        type={isVisible ? "text" : "password"}
+                        value={confirmPassword}
+                        onChange={handleConfirmPasswordChange}
+                        className="cursor-auto w-full border-primary bg-transparent"
+                        endContent={
+                            <button className="focus:outline-none" type="button" onClick={toggleVisibility}>
+                                {isVisible ? (
+                                    <FaEye className="text-2xl text-default-400 pointer-events-none" />
+                                ) : (
+                                    <FaEyeSlash className="text-2xl text-default-400 pointer-events-none" />
+                                )}
+                            </button>
+                        }
+                    />
                 </div>
-                
+
                 <div className='mb-2 mt-5'>
                     <button className='rounded-3xl bg-primary px-5 py-3 text-white font-medium' type='submit'>Save Details</button>
                 </div>
-            
+
             </form>
         </div>
     );
