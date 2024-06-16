@@ -46,6 +46,7 @@ import GHDashboard from './pages/guard_harbour/GHDashboard';
 import RegisterDesktop from './pages/auth-desktop/RegisterDesktop';
 import Notifications from './pages/xyz/xyz_desktop/Notifications';
 import { createContext } from 'react';
+import axios from 'axios';
 import ResetPassDesktop from './pages/auth-desktop/ResetPassDesktop';
 import VerificationDesktop from './pages/auth-desktop/VerificationDesktop';
 import Checkpoint from './pages/xyz/xyz_desktop/Checkpoint'
@@ -59,15 +60,18 @@ function App() {
   useEffect(() => {
     async function fetchUserRole() {
       try {
-        const response = await fetch('https://mofera-backend-fork-o1xucajgl-mofera-2.vercel.app/auth/role'); 
-        if (response.ok) {
-          const data = await response.json();
-          setUserRole(data.role);
+        axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+        const response = await axios.get('http://localhost:8000/auth/role');
+        console.log(response)
+        if (response && response.data) {
+          setUserRole(response.data.role);
         } else {
           console.error('Failed to fetch user role');
+          setUserRole("xyz")
         }
       } catch (error) {
         console.error('Error fetching user role:', error);
+        setUserRole("xyz")
       }
     }
 
