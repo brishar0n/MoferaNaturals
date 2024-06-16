@@ -39,6 +39,14 @@ function LoginDesktop() {
           console.error("Error: ", error)
         }
     };
+
+    const NavigateRegister = () => {
+        Navigate('/registerdesktop');
+    };
+
+    const NavigateResetPage = () => {
+        Navigate('/resetpassdesktop');
+    };
     
     return (
         <div className="bg-white h-screen">
@@ -112,7 +120,7 @@ function LoginDesktop() {
                             <input type="checkbox" className=''></input>
                             <div className="flex gap-32">
                                 <label className='text-sm text-primary font-medium'>Remember me?</label> 
-                                <p className='text-sm text-senary font-medium'>Forgot Password?</p>
+                                <p className='text-sm text-senary font-medium cursor-pointer hover:underline' onClick={NavigateResetPage}>Forgot Password?</p>
                             </div>
                         </div>
 
@@ -132,7 +140,11 @@ function LoginDesktop() {
 
                         <div className='text-primary flex items-center justify-center gap-1 mt-6 z-20 relative'>
                             <p className="font-medium"> Don't have an account? </p>
-                            <p className='text-primary font-bold underline'> Sign Up</p>
+                            <p className='text-primary font-bold underline hover:text-secondary duration-350 transitio-all cursor-pointer ' 
+                            onClick={NavigateRegister}
+                            > 
+                            Sign Up
+                            </p>
                         </div>
                     </form>
                     </div>
