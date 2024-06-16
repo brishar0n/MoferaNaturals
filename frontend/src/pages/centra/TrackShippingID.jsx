@@ -23,28 +23,20 @@ function TrackShippingID() {
     const [checkpoints, setCheckpoints] = useState([]);
     const navigate = useNavigate();
     const [role, setRole] = useState("");
-
-    useEffect(() => {
-      function handleResize() {
-        setIsMobile(window.innerWidth < 600);
-      }
   
-      handleResize();
-      window.addEventListener("resize", handleResize);
-  
-      return () => window.removeEventListener("resize", handleResize);
-    }, []);
+    
 
     useEffect(() => {
       async function fetchData() {
           try {
               const user = await getCurrentUser();
-              console.log(user);
+              console.log(user.role);
               setRole(user.role);
 
               const shippingResponse = await getShippingInfo();
               console.log("Shipping response data:", shippingResponse.data);
               setShippings(shippingResponse.data);
+              console.log("After setting shippings:", shippings);
 
               const packagesResponse = await getPackages();
               console.log("Packages response data:", packagesResponse.data);
@@ -60,13 +52,14 @@ function TrackShippingID() {
       fetchData();
     }, []);
 
-    useEffect(() => {
-      console.log("Updated shippings:", shippings);
-    }, [shippings]);
 
     useEffect(() => {
+      console.log("Updated shippings:", shippings);
       console.log("Updated packages:", packages);
-    }, [packages]);
+      console.log("Updated checkpointssszz:", checkpoints);
+  }, [shippings, packages, checkpoints]);
+
+  
 
     const shipmentData = shippings.find(item => item.id === parsedShippingId);
     const packageData = packages.find(item => item.shipping_id === parsedShippingId);
@@ -93,6 +86,7 @@ function TrackShippingID() {
         navigate("/shipmentnotification");
       }
     }
+
   
     return (
       <div>

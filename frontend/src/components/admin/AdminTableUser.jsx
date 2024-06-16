@@ -45,6 +45,10 @@ function AdminTable({ rows , columns , deleteRow, editRow}) {
                 <TableCell className="text-base">
                   {columnKey === "actions" ? (
                     <div className="flex gap-2">
+                      <EditUserButton
+                        user={item}
+                        onEditUser={handleEdit}
+                      />
                       <Button
                         size="md"
                         auto
