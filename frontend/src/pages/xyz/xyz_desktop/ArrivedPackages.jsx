@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import SearchForm from "./Search";
 import { IoNotifications } from "react-icons/io5";
 import { motion } from "framer-motion";
+import SearchForm from "./Search";
 
 import Sidebar from '../../../components/xyz/Sidebar';
 import ArrivedPackagesTable from '../../../components/xyz/ArrivedPackagesTable';
