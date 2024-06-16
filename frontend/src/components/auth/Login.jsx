@@ -10,6 +10,7 @@ import mascot from '../../../src/assets/common/mascot.svg';
 import component from '../../../src/assets/common/component.svg';
 import botFrame from '../../../src/assets/login/bottomframe.svg';
 import { login } from "../../../api/authAPI";
+import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { UserContext } from '../../App';
 
 function Login() {
@@ -19,19 +20,19 @@ function Login() {
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
   const navigate = useNavigate();
+  const [isVisible, setIsVisible] = useState(false);
+
+  const toggleVisibility = () => setIsVisible(!isVisible);
 
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 600);
     };
 
-    // Initial check on component mount
     handleResize();
 
-    // Add event listener to update isMobile when window is resized
     window.addEventListener('resize', handleResize);
 
-    // Clean up event listener on component unmount
     return () => {
       window.removeEventListener('resize', handleResize);
     };
@@ -92,15 +93,28 @@ function Login() {
                     />
 
                   <label htmlFor='password' className='text-left text-primary mt-2'> Password <br></br></label>
+                  <div className="relative">
                     <input
-                      type="password"
+                      type={isVisible ? "text" : "password"}
                       name="password"
                       id="password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      className={`border border-gray-300 rounded-md px-3 py-1.5 bg-quinary border-none ${loginError && 'border-red-500'} mt-1`}
+                      className={`border border-gray-300 rounded-md px-3 py-1.5 bg-quinary border-none w-full ${loginError && 'border-red-500'} mt-1`}
                     />
-                    {loginError && <p className="text-red-500 mt-1">{loginError}</p>}
+                    <button
+                      type="button"
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 focus:outline-none"
+                      onClick={toggleVisibility}
+                    >
+                      {isVisible ? (
+                        <FaEye className="text-2xl text-default-400 mt-1" />
+                      ) : (
+                        <FaEyeSlash className="text-2xl text-default-400 mt-1" />
+                      )}
+                    </button>
+                  </div>
+                  {loginError && <p className="text-red-500 mt-1">{loginError}</p>}
     
                   <div className='mt-2 flex'>
                     <input type="checkbox" className='grow-0'></input>
