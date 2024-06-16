@@ -59,10 +59,8 @@ function EditProfile() {
       <div className='bg-white w-screen h-screen overflow-auto'>
         {isMobile && (
           <>
-            <div className='h-screen absolute inset-0 flex'>
-              <img src={bgupper} className="w-screen fixed -top-10"/>
-              <img src={bglower} className="w-screen fixed bottom-0"/>
-              <img src="src/assets/AddPage/mascotAddSide.svg" className="absolute right-0 bottom-10 z-50"></img>
+            <div className='relative'>
+              <img src={bgupper} className="absolute -top-10"/>
             </div>
             
             <motion.div
@@ -72,7 +70,8 @@ function EditProfile() {
               exit={{ x: -300, opacity: 0 }}
               transition={{ duration: 0.3 }}
             >
-                <div className='relative z-40'>
+                <div className='relative'>
+                  <img src="src/assets/AddPage/mascotAddSide.svg" className="absolute right-0 bottom-10 z-50"></img>
                     <EditProfileContent 
                         role={role} 
                         name={username} 
@@ -81,6 +80,7 @@ function EditProfile() {
                         handleSubmit={handleSubmit}
                         formSubmitted={formSubmitted}
                     />
+                    <img src={bglower} className="bottom-0"/>
                 </div>
               
             </motion.div>
