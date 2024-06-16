@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import React from 'react';
 import axios from 'axios';
 import '../../style/App.css';
@@ -10,8 +10,10 @@ import mascot from '../../../src/assets/common/mascot.svg';
 import component from '../../../src/assets/common/component.svg';
 import botFrame from '../../../src/assets/login/bottomframe.svg';
 import { login } from "../../../api/authAPI";
+import { UserContext } from '../../App';
 
 function Login() {
+  const {setUserRefresh} = useContext(UserContext)
   const [isMobile, setIsMobile] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -46,6 +48,7 @@ function Login() {
       const response = await login(formData);
       if(response){
         const role = response.data.role;
+        setUserRefresh(true)
         if(role === "centra") navigate("/centradashboard")
         else if(role === "GuardHarbor") navigate("/ghdashboard")
         else if(role === "xyz") navigate("/findrescale")
