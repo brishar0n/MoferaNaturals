@@ -106,3 +106,59 @@ export const deleteUser = async (id) => {
             console.error(error);
         });
 }
+
+export const deleteCheckpoint = async (id) => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    await axios.delete(URL + `/admin/checkpoints/${id}`)
+        .catch((error) => {
+            console.error(error);
+        });
+}
+
+export const deletePackage = async (id) => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    await axios.delete(URL + `/admin/packages/${id}`)
+        .catch((error) => {
+            console.error(error);
+        });
+}
+
+export const deleteShippingInfo = async (id) => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    await axios.delete(URL + `/admin/shipping/${id}`)
+        .catch((error) => {
+            console.error(error);
+        });
+}
+
+export const deleteDryLeaves = async (id) => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    await axios.delete(URL + `/admin/dry_leaves/${id}`)
+        .catch((error) => {
+            console.error(error);
+        });
+}
+
+export const deleteFlour = async (id) => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    await axios.delete(URL + `/admin/flour/${id}`)
+        .catch((error) => {
+            console.error(error);
+        });
+}
+
+export const deleteWetLeaves = async (id) => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    await axios.delete(URL + `/admin/wet_leaves/${id}`)
+        .catch((error) => {
+            console.error(error);
+        });
+}
+
+export const deleteCentra = async (id) => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    await axios.delete(URL + `/admin/centra/${id}`)
+        .catch((error) => {
+            console.error(error);
+        });
+}
