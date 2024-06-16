@@ -624,7 +624,7 @@ export const initialRows = [
     },
 
     {
-      key: "name",
+      key: "username",
       label: "Username",
     },
 
@@ -650,7 +650,7 @@ export const initialRows = [
     },
 
     {
-      key: "centra_id",
+      key: "id",
       label: "Centra ID",
     },
 
@@ -678,17 +678,21 @@ export const initialRows = [
     },
 
     {
-      key: "washed_date",
+      key: "washed_datetime",
       label: "Washed Date",
     },
 
     {
-      key: "dried_date",
+      key: "dried_datetime",
       label: "Dried Date",
     },
     {
       key: "weight",
       label: "Weight",
+    },
+    {
+      key: "centra_id",
+      label: "Centra ID",
     },
     {
       key: "actions",
@@ -710,7 +714,7 @@ export const initialRows = [
     },
 
     {
-      key: "floured_date",
+      key: "floured_datetime",
       label: "Floured Date",
     },
 
@@ -752,17 +756,13 @@ export const initialRows = [
     },
 
     {
-      key: "departure_date",
+      key: "retrieval_date",
       label: "Departure Date",
     },
 
     {
-      key: "total_weight",
+      key: "weight",
       label: "Total Weight",
-    },
-    {
-      key: "total_packages",
-      label: "Total Packages",
     },
     {
       key: "actions",
@@ -779,7 +779,7 @@ export const initialRows = [
     },
 
     {
-      key: "departure_date",
+      key: "departure_datetime",
       label: "Departure Date",
     },
 
@@ -795,6 +795,10 @@ export const initialRows = [
     {
       key: "expedition",
       label: "Expedition",
+    },
+    {
+      key: "centra_id",
+      label: "Centra ID",
     },
     {
       key: "actions",
@@ -838,6 +842,10 @@ export const initialRows = [
     {
       key: "expedition",
       label: "Expedition",
+    },
+    {
+      key: "centra_id",
+      label: "Centra ID",
     },
     {
       key: "actions",

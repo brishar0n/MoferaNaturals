@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Modal, button } from "@nextui-org/react";
 import "../../style/AdminDesktop.css"
 import { login } from "../../../api/authAPI";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Input } from "@nextui-org/react";
 import eye from "../../assets/auth-desktop/eye.svg"
 import eyeClosed from "../../assets/auth-desktop/eyeclosed.svg"
@@ -13,6 +13,7 @@ function LoginDesktop() {
     const [password, setPassword] = useState("");
     const [isVisible, setIsVisible] = useState(false);
     const toggleVisibility = () => setIsVisible(!isVisible);
+    const Navigate = useNavigate();
     
     const handleLogin = async (event) => {
         event.preventDefault();

@@ -9,6 +9,7 @@ function ResetPassword() {
   const [isMobile, setIsMobile] = useState(false);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [message, setMessage] = useState('');
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -29,7 +30,7 @@ function ResetPassword() {
     const token = new URLSearchParams(location.search).get('token');
 
     if (password !== confirmPassword) {
-      alert('Passwords do not match');
+      setMessage('Passwords do not match');
       return;
     }
 
@@ -38,10 +39,10 @@ function ResetPassword() {
         token,
         new_password: password
       });
-      alert('Password reset successful');
+      setMessage('Password reset successful');
       navigate('/login'); // Redirect to login page after successful reset
     } catch (error) {
-      alert('Error resetting password');
+      setMessage('Error resetting password');
     }
   };
 
@@ -65,16 +66,19 @@ function ResetPassword() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className='border border-gray-300 rounded-md px-3 py-1.5 bg-quinary border-none mt-1'
+                  required
                 />
-                <label htmlFor='confirmpassword' className='text-primary text-left mt-2'> Confirm New Password <br/></label>
+                <label htmlFor='confirmPassword' className='text-primary text-left mt-2'> Confirm New Password <br/></label>
                 <input 
                   type='password'
-                  name='confirmpassword' 
-                  id='confirmpassword' 
+                  name='confirmPassword' 
+                  id='confirmPassword' 
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   className='border border-gray-300 rounded-md px-3 py-1.5 bg-quinary border-none mt-1'
+                  required
                 />
+                {message && <p className="text-red-500">{message}</p>}
                 <div className='mt-8 relative z-20'>
                   <button type='submit' className='rounded-full bg-secondary text-white font-bold px-4 py-2 w-36 btn-login'> Reset </button>
                 </div>

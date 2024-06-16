@@ -1,4 +1,4 @@
-import './style/App.css'
+import './style/App.css';
 import Homepage from './pages/Homepage';
 import Login from './components/auth/Login';
 import Verification from './components/auth/Verification';
@@ -43,71 +43,112 @@ import EditProfile from './pages/profile/EditProfile';
 import GHDashboard from './pages/guard_harbour/GHDashboard';
 import RegisterDesktop from './pages/auth-desktop/RegisterDesktop';
 import Notifications from './pages/xyz/xyz_desktop/Notifications';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function App() {
+  const [userRole, setUserRole] = useState(null);
+
+  useEffect(() => {
+    async function fetchUserRole() {
+      try {
+        axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+        const response = await axios.get('https://mofera-backend-fork-ten.vercel.app/auth/role');
+        console.log(response)
+        if (response && response.data) {
+          setUserRole(response.data.role);
+        } else {
+          console.error('Failed to fetch user role');
+        }
+      } catch (error) {
+        console.error('Error fetching user role:', error);
+      }
+    }
+
+    fetchUserRole();
+  }, []);
+
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Homepage />} exact />
+        <Route path="/" element={<Homepage />} />
 
-        {/* Authentication Mobile */}
-        <Route path="/welcomeback" element={<WelcomeBack />} exact />
-        <Route path="/login" element={<Login />} exact />
-        <Route path="/register" element={<Register />} exact />
-        <Route path="/verification" element={<Verification />} exact/>
-        <Route path="/resetpass" element={<ResetPassword />} exact/>
+        {/* Authentication Routes */}
+        <Route path="/welcomeback" element={<WelcomeBack />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/verification" element={<Verification />} />
+        <Route path="/resetpass" element={<ResetPassword />} />
 
-        {/* Centra */}
-        <Route path="/centradashboard" element={<CentraDashboardHomePage/>} exact />
-        <Route path="/history" element={<History/>} exact />
-        <Route path="/wetleaves" element={<WetLeavesManager />} exact />
-        <Route path="/dryleaves" element={<DryLeavesManager />} exact />
-        <Route path="/powder" element={<PowderManager />} exact />
-        <Route path="/package" element={<PackageManager/>} exact/>
-        <Route path="/shippinginfo" element={<ShippingInfo />} exact/>
-        <Route path="/trackshipping" element={<TrackShipping />} exact/>
-        <Route path="/trackshipping/:shippingId" element={<TrackShippingID />} exact/>
-        <Route path="/notify" element={<Notify/>} exact/>
+        {/* Centra Routes */}
+        {userRole === 'centra' && (
+          <>
+            <Route path="/centradashboard" element={<CentraDashboardHomePage />} />
+            <Route path="/history" element={<History />} />
+            <Route path="/wetleaves" element={<WetLeavesManager />} />
+            <Route path="/dryleaves" element={<DryLeavesManager />} />
+            <Route path="/powder" element={<PowderManager />} />
+            <Route path="/package" element={<PackageManager />} />
+            <Route path="/shippinginfo" element={<ShippingInfo />} />
+            <Route path="/trackshipping" element={<TrackShipping />} />
+            <Route path="/trackshipping/:shippingId" element={<TrackShippingID />} />
+            <Route path="/notify" element={<Notify />} />
+          </>
+        )}
 
-        {/* Guard Harbour */}
-        <Route path="/ghdashboard" element={<GHDashboard/>} exact />
-        <Route path="/addcheckpoint" element={<AddCheckpoint/>} exact />
-        <Route path="/viewcheckpoint" element={<ViewCheckpoint/>} exact />
-        <Route path="/shipmentnotification" element={<ShipmentNotification/>} exact />
+        {/* Guard Harbour Routes */}
+        {userRole === 'guard_harbour' && (
+          <>
+            <Route path="/ghdashboard" element={<GHDashboard />} />
+            <Route path="/addcheckpoint" element={<AddCheckpoint />} />
+            <Route path="/viewcheckpoint" element={<ViewCheckpoint />} />
+            <Route path="/shipmentnotification" element={<ShipmentNotification />} />
+          </>
+        )}
 
-        {/* XYZ Mobile */}
-        <Route path="/findrescale" element={<FindRescalePackage />} exact />
-        <Route path="/rescalepackage/:packageId" element={<RescalingPackage />} exact />
-        <Route path="/receptionpackage" element={<ReceptionPackage />} exact />
-        <Route path="/receptiondocument" element={<ReceptionDocument />} exact />
+        {/* XYZ Mobile Routes */}
+        {userRole === 'xyz' && (
+          <>
+            <Route path="/findrescale" element={<FindRescalePackage />} />
+            <Route path="/rescalepackage/:packageId" element={<RescalingPackage />} />
+            <Route path="/receptionpackage" element={<ReceptionPackage />} />
+            <Route path="/receptiondocument" element={<ReceptionDocument />} />
+          </>
+        )}
 
-        {/* Profile Page */}
-        <Route path="/profile" element={<Profile/>} exact/>
-        <Route path="/editprofile" element={<EditProfile/>} exact/>
+        {/* Profile Routes */}
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/editprofile" element={<EditProfile />} />
 
-        {/* Authentication Desktop */}
-        <Route path="/getstarteddesktop" element={<GetStartedDesktop/>} exact/>
-        <Route path="/logindesktop" element={<LoginDesktop/>} exact/>
-        <Route path="/welcomedesktop" element={<WelcomeDesktop/>} exact/>
-        <Route path="/registerdesktop" element={<RegisterDesktop/>} exact/>
+        {/* Desktop Authentication Routes */}
+        <Route path="/getstarteddesktop" element={<GetStartedDesktop />} />
+        <Route path="/logindesktop" element={<LoginDesktop />} />
+        <Route path="/welcomedesktop" element={<WelcomeDesktop />} />
+        <Route path="/registerdesktop" element={<RegisterDesktop />} />
 
-        {/* XYZ Desktop */}
-        <Route path="/notifications" element={<Notifications />} exact />
-        <Route path="/arrivedpackages" element={<ArrivedPackages />} exact />
-        <Route path="/shipmenttracker" element={<ShipmentTracker />} exact />
-        <Route path="/centraactivitymonitor" element={<CentraActivityMonitor />} exact />
-        <Route path="/dashboard" element={<WetDashboard />} exact />
-        <Route path="/dashboard-wet" element={<WetDashboard />} exact />
-        <Route path="/dashboard-dry" element={<DryDashboard />} exact />
-        <Route path="/dashboard-powder" element={<PowderDashboard />} exact />
+        {/* Desktop XYZ Routes */}
+        {userRole === 'xyz' && (
+          <>
+            <Route path="/notifications" element={<Notifications />} />
+            <Route path="/arrivedpackages" element={<ArrivedPackages />} />
+            <Route path="/shipmenttracker" element={<ShipmentTracker />} />
+            <Route path="/centraactivitymonitor" element={<CentraActivityMonitor />} />
+            <Route path="/dashboard" element={<WetDashboard />} />
+            <Route path="/dashboard-wet" element={<WetDashboard />} />
+            <Route path="/dashboard-dry" element={<DryDashboard />} />
+            <Route path="/dashboard-powder" element={<PowderDashboard />} />
+          </>
+        )}
 
-        {/* Admin */}
-        <Route path="/usermanagement" element={<UserManagement />} exact />
-        <Route path="/adminpage" element={<AdminPage />}/>
-        <Route path="/navbaradmin" element={<NavbarAdmin/>}/>
-        {/* <Route path="/usertable" element={<UserTable/>}/> */}
-        {/* <Route path="/adminsidebar" element={<AdminSidebar/>}/> */}
-      </Routes> 
+        {/* Admin Routes */}
+        {userRole === 'admin' && (
+          <>
+            <Route path="/usermanagement" element={<UserManagement />} />
+            <Route path="/adminpage" element={<AdminPage />} />
+            <Route path="/navbaradmin" element={<NavbarAdmin />} />
+          </>
+        )}
+      </Routes>
     </Router>
   );
 }

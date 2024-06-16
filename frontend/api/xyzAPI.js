@@ -120,3 +120,12 @@ export const rescalePackage = async (data) => {
     });
     return Package
 }
+
+export const addReception = async (data) => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    const Package = await axios.post(URL + "/xyz/add_reception", data)
+    .catch((error) => {
+        console.error(error);
+    });
+    return Package
+}
