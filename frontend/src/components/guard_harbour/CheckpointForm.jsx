@@ -118,7 +118,7 @@ function CheckpointForm({ handleSubmit }) {
             >
                 <div className="pb-36">
                     <div
-                        className="bg-white mb-5 w-3/4 mx-auto py-5 px-7 rounded-2xl text-left relative mt-5 flex flex-col"
+                        className="bg-white mb-5 w-3/4 mx-auto py-5 px-7 rounded-2xl text-left relative mt-5 flex flex-col shadow-lg"
                         onSubmit={handleSubmit}
                     >
                         <form>
