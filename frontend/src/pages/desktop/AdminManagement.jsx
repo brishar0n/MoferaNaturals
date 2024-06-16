@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../../style/AdminDesktop.css"
 import AdminTable from "../../components/admin/AdminTable";
+import AdminTableUser from "../../components/admin/AdminTableUser";
 import AddUserButton from "../../components/admin/AddUserButton";
 import { columns, columnsCentra, columnsCheckpoint, columnsCollection, columnsDry, columnsFlour, columnsPackage, columnsShipping, columnsWet} from "../../components/admin/UserDataSample";
 import AdminSidebar from "../../components/admin/AdminSidebar";
@@ -124,7 +125,7 @@ function AdminPage() {
     const renderComponent = () => {
         switch (currentComponent) {
             case 'AdminTable':
-                return <AdminTable columns={columnData} rows={rows} deleteRow={deleteRow} editRow={handleEditUser} />;
+                return <AdminTableUser columns={columnData} rows={rows} deleteRow={deleteRow} editRow={handleEditUser} />;
             case 'MasterDataFolder':
                 return <MasterDataFolder />;
             case 'Dashboard':
