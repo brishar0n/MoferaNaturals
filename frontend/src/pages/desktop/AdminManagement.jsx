@@ -10,7 +10,7 @@ import MasterDataFolder from "../../components/admin/MasterDataFolder";
 import PageTitleAll from "../../components/admin/PageTitleAll";
 import UserProfile from "../../components/admin/UserProfile";
 import DashboardContent from "../../components/admin/DashboardContent";
-import {getUsers, getCentra, getCheckpoints, getDryLeaves, getFlour, getPackages, getShippingInfo, getWetLeaves, updateUser, deleteUser} from "../../../api/adminAPI";
+import {getUsers, getCentra, getCheckpoints, getDryLeaves, getFlour, getPackages, getShippingInfo, getWetLeaves, updateUser, deleteUser, deleteCentra, deleteCheckpoint, deleteDryLeaves, deleteFlour, deletePackage, deleteShippingInfo, deleteWetLeaves} from "../../../api/adminAPI";
 
 const columnsMap = {
     AdminTable: columns,
@@ -58,14 +58,6 @@ function AdminPage() {
         }
     };
 
-    const deleteRow = async (id) => {
-        try {
-            await deleteUser(id);
-            setRows(prevRows => prevRows.filter(row => row.id !== id));
-        } catch (error) {
-            console.error("Failed to delete user:", error);
-        }
-    };
 
     const [isMinimized, setIsMinimized] = useState(false);
 
@@ -86,6 +78,62 @@ function AdminPage() {
         setRows(rows)
         setColumnData(columnData)
     };
+
+    const deleteRow = async (id) => {
+        try {
+            switch (currentComponent) {
+                case 'AdminTable':
+                    await deleteUser(id);
+                    setRows(prevRows => prevRows.filter(row => row.id !== id));
+                    break;
+                case 'CentraData':
+                    try{
+                    await deleteCentra(id);
+                    console.log("Deleted Centra with id:", id);
+                    setRows(prevRows => prevRows.filter(row => row.id !== id));
+                    }catch(error){
+                        console.error("Failed to delete user:", error);
+                    }
+                    break;
+                case 'CheckpointData':
+                    await deleteCheckpoint(id);
+                    console.log("Deleted Checkpoint with id:", id);
+                    setRows(prevRows => prevRows.filter(row => row.id !== id));
+                    break;
+                case 'WetLeavesData':
+                    await deleteWetLeaves(id);
+                    console.log("Deleted Wet Leaves with id:", id);
+                    setRows(prevRows => prevRows.filter(row => row.id !== id));
+                    break;
+                case 'DryLeavesData':
+                    await deleteDryLeaves(id);
+                    console.log("Deleted Dry Leaves with id:", id);
+                    setRows(prevRows => prevRows.filter(row => row.id !== id));
+                    break;
+                case 'FlourData':
+                    await deleteFlour(id);
+                    console.log("Deleted Flour with id:", id);
+                    setRows(prevRows => prevRows.filter(row => row.id !== id));
+                    break;
+                case 'ShippingInfoData':
+                    await deleteShippingInfo(id);
+                    console.log("Deleted Shipping Info with id:", id);
+                    setRows(prevRows => prevRows.filter(row => row.id !== id));
+                    break;
+                case 'PackageData':
+                    await deletePackage(id);
+                    console.log("Deleted Package with id:", id);
+                    setRows(prevRows => prevRows.filter(row => row.id !== id));
+                    break;
+                default:
+                    break;
+            }
+
+        } catch (error) {
+            console.error("Failed to delete user:", error);
+        }
+    };
+
 
     useEffect(() => {
         const fetchData = async () => {
