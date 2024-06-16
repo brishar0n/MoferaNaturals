@@ -1,8 +1,7 @@
-import { useState, useEffect, useContext } from 'react';
-import React from 'react';
+import { React, useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../../style/App.css';
-import { useNavigate } from 'react-router-dom';
 import Card from './Card';
 import '../../style/auth/Login.css';
 import tpsvg from '../../../src/assets/common/topframe.svg';
@@ -10,6 +9,7 @@ import mascot from '../../../src/assets/common/mascot.svg';
 import component from '../../../src/assets/common/component.svg';
 import botFrame from '../../../src/assets/login/bottomframe.svg';
 import { login } from "../../../api/authAPI";
+
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { UserContext } from '../../App';
 
