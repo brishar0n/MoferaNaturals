@@ -65,27 +65,27 @@ function DashboardStats({section}) {
 
     return (
         <div className="w-[90%] rounded-2xl p-5 text-sm text-black bg-white shadow-lg"> 
-            {section === "wet leaves" && (
+            {section === "wet" && (
                 <>
                     <div className="flex justify-between">
                         <span>Total Wet Leaves Collected:</span>
                         <span className="font-bold">{totalWetLeaves} Kg</span>
                     </div>
                     <div className="flex justify-between mt-2">
-                        <span>Average Wet Leaves Collected Each Day:</span>
+                        <span>Average Wet Leaves Collected:</span>
                         <span className="font-bold">{averageWetLeaves} Kg</span>
                     </div>    
                 </>
             )}
 
-            {section === "dry leaves" && (
+            {section === "dry" && (
                 <>
                     <div className="flex justify-between">
                         <span>Total Dry Leaves Collected:</span>
                         <span className="font-bold">{totalDryLeaves} Kg</span>
                     </div>
                     <div className="flex justify-between mt-2">
-                        <span>Average Dry Leaves Collected Each Day:</span>
+                        <span>Average Dry Leaves Collected:</span>
                         <span className="font-bold">{averageDryLeaves}  Kg</span>
                     </div>    
                 </>
@@ -98,7 +98,7 @@ function DashboardStats({section}) {
                         <span className="font-bold">{totalFlour} Kg</span>
                     </div>
                     <div className="flex justify-between mt-2">
-                        <span>Average Flour Collected Each Day:</span>
+                        <span>Average Flour Collected:</span>
                         <span className="font-bold">{averageFlour} Kg</span>
                     </div>    
                 </>
