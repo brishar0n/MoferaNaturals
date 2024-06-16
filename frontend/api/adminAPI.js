@@ -84,7 +84,16 @@ export const getCentra = async() => {
 
 export const updateUser = async (user) => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
-    await axios.put(URL + `/admin/users/${user.id}`, user)
+    console.log(user)
+    const userData = {
+        "centra_unit": null,
+        "username": user.username,
+        "email": user.email,
+        "password": null,
+        "role": user.role,
+    }
+    console.log(userData)
+    await axios.put(URL + `/admin/users/${user.id}`, userData)
         .catch((error) => {
             console.error(error);
         });
