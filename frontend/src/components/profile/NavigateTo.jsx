@@ -7,6 +7,7 @@ import { PiTeaBagBold } from "react-icons/pi";
 import { Link } from "react-router-dom";
 import { IoNotificationsOutline } from "react-icons/io5";
 import { LuLayoutDashboard } from "react-icons/lu";
+import { MdOutlineHistoryEdu } from "react-icons/md";
 
 function NavigateTo({role}) {
     return (
@@ -17,6 +18,12 @@ function NavigateTo({role}) {
                         <LuLayoutDashboard className="text-primary w-6 h-6" />
                         <Link to="/centradashboard">
                             <button className="font-medium text-primary">Centra Dashboard</button>
+                        </Link>
+                    </div>
+                    <div className="flex items-center justify-start gap-x-8 mb-4">
+                        <MdOutlineHistoryEdu className="text-primary w-6 h-6" />
+                        <Link to="/history">
+                            <button className="font-medium text-primary">Batch Collector History</button>
                         </Link>
                     </div>
                     <div className="flex mb-4 items-center justify-start gap-x-8">
