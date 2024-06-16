@@ -53,7 +53,7 @@ export default function PackageIDInput({ shippingID, onPackageIDChange, confirme
 
   // Filter package IDs based on the selected shipping ID
   const filteredPackageIDs = packageData
-    .filter((pkg) => pkg.shipping_id === shippingID)
+    .filter((pkg) => pkg.shipping_id === shippingID && pkg.status === 1)
     .map((pkg) => pkg.id);
 
   const filterPackageIDsConfirmed = packageData
