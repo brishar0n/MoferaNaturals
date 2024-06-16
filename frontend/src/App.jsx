@@ -101,7 +101,7 @@ function App() {
             </>
           )}
           {/* Guard Harbour Routes */}
-          {userRole === 'GuardHarbour' && (
+          {userRole === 'GuardHarbor' && (
             <>
               <Route path="/ghdashboard" element={<GHDashboard />} />
               <Route path="/addcheckpoint" element={<AddCheckpoint />} />
