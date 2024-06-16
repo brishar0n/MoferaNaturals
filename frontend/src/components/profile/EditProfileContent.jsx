@@ -69,7 +69,7 @@ function EditProfileContent({ role, name, email, centraUnit, formSubmitted, hand
     }
 
     return (
-        <div className='flex flex-col justify-center items-center py-10 w-5/6 mx-auto pb-36 text-primary'>
+        <div className='flex flex-col justify-center items-center py-10 w-5/6 mx-auto text-primary'>
             {formSubmittedSuccessfully && <SuccessNotification htmlContent="You have successfully edited your user profile." />}
             {formSubmissionFailed && <FailedNotification htmlContent="Failed to update user profile." />}
             {!passwordsMatch && <FailedNotification htmlContent="Passwords do not match." />}

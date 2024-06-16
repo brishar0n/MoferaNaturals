@@ -45,6 +45,9 @@ import RegisterDesktop from './pages/auth-desktop/RegisterDesktop';
 import Notifications from './pages/xyz/xyz_desktop/Notifications';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import ResetPassDesktop from './pages/auth-desktop/ResetPassDesktop';
+import VerificationDesktop from './pages/auth-desktop/VerificationDesktop';
+
 
 function App() {
   const [userRole, setUserRole] = useState(null);
@@ -120,11 +123,13 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/editprofile" element={<EditProfile />} />
 
-        {/* Desktop Authentication Routes */}
-        <Route path="/getstarteddesktop" element={<GetStartedDesktop />} />
-        <Route path="/logindesktop" element={<LoginDesktop />} />
-        <Route path="/welcomedesktop" element={<WelcomeDesktop />} />
-        <Route path="/registerdesktop" element={<RegisterDesktop />} />
+        {/* Authentication Desktop */}
+        <Route path="/getstarteddesktop" element={<GetStartedDesktop/>} exact/>
+        <Route path="/logindesktop" element={<LoginDesktop/>} exact/>
+        <Route path="/welcomedesktop" element={<WelcomeDesktop/>} exact/>
+        <Route path="/registerdesktop" element={<RegisterDesktop/>} exact/>
+        <Route path="/resetpassdesktop" element={<ResetPassDesktop/>} exact/>
+        <Route path="/verificationdesktop" element={<VerificationDesktop/>} exact/>
 
         {/* Desktop XYZ Routes */}
         {userRole === 'xyz' && (
