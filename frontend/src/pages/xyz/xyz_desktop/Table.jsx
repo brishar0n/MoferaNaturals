@@ -97,7 +97,7 @@ function Table({data}) {
 			//expandableRows
 			//expandableRowsComponent={ExpandedComponent}
             pagination
-            theme="solarized"
+            //theme="solarized"
             fixedHeader
             fixedHeaderScrollHeight="300px"
 		/>
