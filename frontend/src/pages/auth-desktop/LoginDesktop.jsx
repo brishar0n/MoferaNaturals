@@ -2,13 +2,17 @@ import { useState, useEffect } from "react";
 import { Modal, button } from "@nextui-org/react";
 import "../../style/AdminDesktop.css"
 import { login } from "../../../api/authAPI";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Input } from "@nextui-org/react";
 import eye from "../../assets/auth-desktop/eye.svg"
 import eyeClosed from "../../assets/auth-desktop/eyeclosed.svg"
+import MoferaLogo from "../../assets/auth-desktop/mofera-login.svg"
+import TopCorner from "../../assets/auth-desktop/login-tc.svg"
+import BottomCorner from "../../assets/auth-desktop/bc-login.svg"
+import Mascot from "../../assets/auth-desktop/login-mascot.svg"
 
 function LoginDesktop() {
-
+    const navigate = useNavigate()
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isVisible, setIsVisible] = useState(false);
@@ -28,19 +32,31 @@ function LoginDesktop() {
           console.error("Error: ", error)
         }
     };
+
+    const NavigateRegister = () => {
+        navigate('/registerdesktop');
+    }
+
+    const NavigateResetPage = () => {
+        navigate('/resetpassdesktop');
+    }
     
     return (
         <div className="bg-white h-screen">
             <div className="flex">
                 <div className="relative w-full">
-                    <img src="src/assets/auth-desktop/mofera-login.svg" alt="logo" className="absolute top-0 pt-5 pl-6 z-50"/>
-                    <img src="src/assets/auth-desktop/login-tc.svg" alt="" className="fixed z-10"/>
-                    <img src="src/assets/auth-desktop/bc-login.svg" alt="" className="fixed bottom-0 right-0 h-99.999vh"/>
-                    <img src="src/assets/auth-desktop/login-mascot.svg" alt="" className="fixed right-28 top-44 w-97vh"/>
+                    <img src={MoferaLogo} alt="logo" className="absolute top-0 pt-5 pl-5 z-50 w-40"/>
+                    <img src={TopCorner} alt="topcorner" className="fixed z-10"/>
+                    <img src={BottomCorner} alt="bottomcorner" className="fixed bottom-0 right-0 h-99.999vh"/>
+                    <img 
+                        src={Mascot}
+                        alt="mascot" 
+                        className="fixed right-24 top-32 h-md:top-32 h-lg:top-24 w-1/3"
+                    />
 
 
                     <div className="absolute bg-white">
-                    <form onSubmit={handleLogin} className="relative z-20 flex flex-col justify-start pt-64 pl-32">
+                    <form onSubmit={handleLogin} className="relative z-20 flex flex-col justify-start pt-48 pl-32">
                         <p className='text-secondary font-bold text-4xl text-left'> Login </p>
                         {/* <label htmlFor='email' className='text-left text-secondary font-medium pt-5 text-xl'> Email </label>
                             <input
@@ -97,7 +113,10 @@ function LoginDesktop() {
                             <input type="checkbox" className=''></input>
                             <div className="flex gap-32">
                                 <label className='text-sm text-primary font-medium'>Remember me?</label> 
-                                <p className='text-sm text-senary font-medium'>Forgot Password?</p>
+                                <p className='text-sm text-senary font-medium hover:underline cursor-pointer' onClick={NavigateResetPage}
+                                >
+                                    Forgot Password?
+                                </p>
                             </div>
                         </div>
 
@@ -117,7 +136,11 @@ function LoginDesktop() {
 
                         <div className='text-primary flex items-center justify-center gap-1 mt-6 z-20 relative'>
                             <p className="font-medium"> Don't have an account? </p>
-                            <p className='text-primary font-bold underline'> Sign Up</p>
+                            <p className='text-primary font-bold underline transition-all hover:text-secondary duration-350 cursor-pointer'
+                            onClick={NavigateRegister}
+                            > 
+                            Sign Up
+                            </p>
                         </div>
                     </form>
                     </div>

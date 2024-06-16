@@ -43,6 +43,9 @@ import EditProfile from './pages/profile/EditProfile';
 import GHDashboard from './pages/guard_harbour/GHDashboard';
 import RegisterDesktop from './pages/auth-desktop/RegisterDesktop';
 import Notifications from './pages/xyz/xyz_desktop/Notifications';
+import ResetPassDesktop from './pages/auth-desktop/ResetPassDesktop';
+import VerificationDesktop from './pages/auth-desktop/VerificationDesktop';
+
 
 function App() {
   return (
@@ -90,6 +93,8 @@ function App() {
         <Route path="/logindesktop" element={<LoginDesktop/>} exact/>
         <Route path="/welcomedesktop" element={<WelcomeDesktop/>} exact/>
         <Route path="/registerdesktop" element={<RegisterDesktop/>} exact/>
+        <Route path="/resetpassdesktop" element={<ResetPassDesktop/>} exact/>
+        <Route path="/verificationdesktop" element={<VerificationDesktop/>} exact/>
 
         {/* XYZ Desktop */}
         <Route path="/notifications" element={<Notifications />} exact />
