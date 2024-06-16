@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import desktoplogo from '../../assets/desktop/mofera-logo.svg';
 import hamburger from '../../assets/desktop/menu-bar.svg';
 import exit from '../../assets/desktop/exit.svg';
@@ -10,10 +10,127 @@ import userGreen from '../../assets/desktop/user-green.svg'
 import dbGreen from '../../assets/desktop/db-green.svg';
 import "../../style/AdminDesktop.css";
 import { columns, columnsCentra, columnsCheckpoint, columnsDry, columnsFlour, columnsPackage, columnsShipping, columnsWet, initialCentraRows, initialCheckpointRows, initialDryRows, initialFlourRows, initialPackageRows, initialRows, initialShippingRows, initialWetRows } from './UserDataSample';
+import {getUsers, getCentra, getCheckpoints, getDryLeaves, getFlour, getPackages, getShippingInfo, getWetLeaves, updateUser, deleteUser} from "../../../api/adminAPI";
 
 function AdminSidebar({ isMinimized, toggleMenu, onPageDataChange }) {
   const [dataManagementOpen, setDataManagementOpen] = useState(false);
   const [hoveredItem, setHoveredItem] = useState(null); 
+  const [centraRows, setCentraRows] = useState([]);
+  const [checkpointRows, setCheckpointRows] = useState([]);
+  const [dryRows, setDryRows] = useState([]);
+  const [flourRows, setFlourRows] = useState([]);
+  const [packageRows, setPackageRows] = useState([]);
+  const [shippingRows, setShippingRows] = useState([]);
+  const [wetRows, setWetRows] = useState([]);
+
+
+    async function fetchCentraData() {
+      try {
+        const centraData = await getCentra();
+        if (centraData && centraData.data) {
+          setCentraRows(centraData.data);
+        } else {
+          console.error('Failed to fetch Centra data');
+        }
+      } catch (error) {
+        console.error('Error fetching Centra data:', error);
+      }
+    }
+
+    async function fetchCheckpointData() {
+      try {
+        const checkpointData = await getCheckpoints();
+        if (checkpointData && checkpointData.data) {
+          setCheckpointRows(checkpointData.data);
+        } else {
+          console.error('Failed to fetch Checkpoint data');
+        }
+      } catch (error) {
+        console.error('Error fetching Checkpoint data:', error);
+      }
+
+    }
+
+    async function fetchDryLeavesData() {
+      try {
+        const dryLeavesData = await getDryLeaves();
+        if (dryLeavesData && dryLeavesData.data) {
+          setDryRows(dryLeavesData.data);
+        } else {
+          console.error('Failed to fetch Dry Leaves data');
+        }
+      } catch (error) {
+        console.error('Error fetching Dry Leaves data:', error);
+      }
+    }
+
+    async function fetchFlourData() {
+      try {
+        const flourData = await getFlour();
+        if (flourData && flourData.data) {
+          setFlourRows(flourData.data);
+        } else {
+          console.error('Failed to fetch Flour data');
+        }
+      } catch (error) {
+        console.error('Error fetching Flour data:', error);
+      }
+    }
+
+    async function fetchPackageData() {
+      try {
+        const packageData = await getPackages();
+        if (packageData && packageData.data) {
+          setPackageRows(packageData.data);
+        }else {
+          console.error('Failed to fetch Flour data');
+        }
+      } catch (error) {
+        console.error('Error fetching Package data:', error);
+      }
+    }
+
+    async function fetchShippingData() {
+      try {
+        const shippingData = await getShippingInfo();
+        if (shippingData && shippingData.data) {
+          setShippingRows(shippingData.data);
+        }else {
+          console.error('Failed to fetch Shipping data');
+        }
+      } catch (error) {
+        console.error('Error fetching Shipping data:', error);
+      }
+    }
+
+    async function fetchWetData() {
+      try {
+        const wetData = await getWetLeaves();
+        if (wetData && wetData.data) {
+          setWetRows(wetData.data);
+        }else {
+          console.error('Failed to fetch Wet data');
+        }
+      } catch (error) {
+        console.error('Error fetching Wet data:', error);
+      }
+    }
+
+
+
+
+    useEffect(() => {
+      fetchCentraData();
+      fetchCheckpointData();
+      fetchDryLeavesData();
+      fetchFlourData();
+      fetchWetData();
+      fetchPackageData();
+      fetchShippingData();
+    }, []);
+
+
+  
 
   const toggleDropdown = () => {
     setDataManagementOpen(!dataManagementOpen);
@@ -94,25 +211,25 @@ function AdminSidebar({ isMinimized, toggleMenu, onPageDataChange }) {
               {dataManagementOpen && (
                 <>
                   <li className="bg-primary py-4 px-5 text-left indent-6 text-white hover:bg-white rounded-xl hover:text-primary font-medium cursor-pointer w-full">
-                    <p onClick={() => onPageDataChange('Centra Data', 'Search and added data for Centra', "CentraData", initialCentraRows, columnsCentra)}>Centra Data</p>
+                    <p onClick={() => onPageDataChange('Centra Data', 'Search and added data for Centra', "CentraData", centraRows, columnsCentra)}>Centra Data</p>
                   </li>
                   <li className="bg-primary py-4 px-5 text-left indent-6 text-white hover:bg-white rounded-xl hover:text-primary font-medium cursor-pointer w-full">
-                    <p onClick={() => onPageDataChange('Wet Leaves Data', 'Search and added data for Wet Leaves', 'WetLeavesData', initialWetRows, columnsWet)}>Wet Leaves Data</p>
+                    <p onClick={() => onPageDataChange('Wet Leaves Data', 'Search and added data for Wet Leaves', 'WetLeavesData', wetRows, columnsWet)}>Wet Leaves Data</p>
                   </li>
                   <li className="bg-primary py-4 px-5 text-left indent-6 text-white hover:bg-white rounded-xl hover:text-primary font-medium cursor-pointer w-full">
-                    <p onClick={() => onPageDataChange('Dry Leaves Data', 'Search and added data for Dry Leaves', 'DryLeavesData', initialDryRows, columnsDry)}>Dry Leaves Data</p>
+                    <p onClick={() => onPageDataChange('Dry Leaves Data', 'Search and added data for Dry Leaves', 'DryLeavesData', dryRows, columnsDry)}>Dry Leaves Data</p>
                   </li>
                   <li className="bg-primary py-4 px-5 text-left indent-6 text-white hover:bg-white rounded-xl hover:text-primary font-medium cursor-pointer w-full">
-                    <p onClick={() => onPageDataChange('Flour Data', 'Search and added data for Flour', 'FlourData', initialFlourRows, columnsFlour)}>Flour Data</p>
+                    <p onClick={() => onPageDataChange('Flour Data', 'Search and added data for Flour', 'FlourData', flourRows, columnsFlour)}>Flour Data</p>
                   </li>
                   <li className="bg-primary py-4 px-5 text-left indent-6 text-white hover:bg-white rounded-xl hover:text-primary font-medium cursor-pointer w-full">
-                    <p onClick={() => onPageDataChange('Shipping Info Data', 'List of Shipping Arrival and Departure Data', 'ShippingInfoData', initialShippingRows, columnsShipping)}>Shipping Info Data</p>
+                    <p onClick={() => onPageDataChange('Shipping Info Data', 'List of Shipping Arrival and Departure Data', 'ShippingInfoData', shippingRows, columnsShipping)}>Shipping Info Data</p>
                   </li>
                   <li className="bg-primary py-4 px-5 text-left indent-6 text-white hover:bg-white rounded-xl hover:text-primary font-medium cursor-pointer w-full">
-                    <p onClick={() => onPageDataChange('Checkpoint Data', 'List of Checkpoint Data and Total Package Arrival notice', 'CheckpointData', initialCheckpointRows, columnsCheckpoint )}>Checkpoint Data</p>
+                    <p onClick={() => onPageDataChange('Checkpoint Data', 'List of Checkpoint Data and Total Package Arrival notice', 'CheckpointData', checkpointRows, columnsCheckpoint )}>Checkpoint Data</p>
                   </li>
                   <li className="bg-primary py-4 px-5 text-left indent-6 text-white hover:bg-white rounded-xl hover:text-primary font-medium cursor-pointer w-full">
-                    <p onClick={() => onPageDataChange('Package Data', 'Package details including tracking and delivery statuses', "PackageData", initialPackageRows, columnsPackage)}>Package Data</p>
+                    <p onClick={() => onPageDataChange('Package Data', 'Package details including tracking and delivery statuses', "PackageData", packageRows, columnsPackage)}>Package Data</p>
                   </li>
                 </>
               )}
