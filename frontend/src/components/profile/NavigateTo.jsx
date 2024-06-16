@@ -70,7 +70,7 @@ function NavigateTo({role}) {
                     </div>
                 </div>
             )}
-            {role === "guardHarbour" && (
+            {role === "GuardHarbor" && (
                 <div className="w-full bg-denary mt-2 rounded-2xl px-5 py-5 flex flex-col">
                     <div className="flex items-center justify-start gap-x-8 mb-4">
                         <LuLayoutDashboard className="text-primary w-6 h-6" />

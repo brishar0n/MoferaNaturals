@@ -6,6 +6,7 @@ import NavigationBar from "../../components/centra/CentraNavbar.jsx";
 import { motion } from "framer-motion";
 import EditProfileContent from '../../components/profile/EditProfileContent';
 import NavbarGH from '../../components/guard_harbour/NavbarGH';
+import { getCurrentUser } from '../../../api/profileAPI';
 
 function EditProfile() {
     const [isMobile, setIsMobile] = useState(false);
@@ -18,23 +19,18 @@ function EditProfile() {
     const [formSubmitted, setFormSubmitted] = useState(false);
 
     useEffect(() => {
-      function handleResize() {
-        setIsMobile(window.innerWidth < 600);
-      }
-  
-      handleResize();
-      window.addEventListener("resize", handleResize);
+      const fetchData = async () => {
+          try {
+              const user = await getCurrentUser();
+              console.log(user);
+              
+              setUser(user);
+          } catch (err) {
+              console.error("Error: ", err);
+          }
+      };
 
-      // Fetch current user details
-      axios.get('/profile')
-        .then(response => {
-            setUser(response.data);
-        })
-        .catch(error => {
-            console.error("Error fetching current user:", error);
-        });
-  
-      return () => window.removeEventListener("resize", handleResize);
+      fetchData();
     }, []);
 
     function handleSubmit(data) {
@@ -88,7 +84,7 @@ function EditProfile() {
             {user.role === "centra" && (
               <NavigationBar/> 
             )}
-            {user.role === "guardHarbour" && (
+            {user.role === "GuardHarbor" && (
               <NavbarGH/> 
             )}
           </>
