@@ -10,7 +10,7 @@ import MoferaLogo from "../../assets/auth-desktop/mofera-login.svg"
 import TopCorner from "../../assets/auth-desktop/login-tc.svg"
 import BottomCorner from "../../assets/auth-desktop/bc-login.svg"
 import Mascot from "../../assets/auth-desktop/login-mascot.svg"
-
+import { motion } from "framer-motion";
 
 function LoginDesktop() {
 
@@ -63,7 +63,14 @@ function LoginDesktop() {
 
 
                     <div className="absolute bg-white">
-                    <form onSubmit={handleLogin} className="relative z-20 flex flex-col justify-start pt-48 pl-32">
+                    <motion.div
+                    initial={{ opacity: 0, x: -200 }} // Start off-screen to the left
+                    animate={{ opacity: 1, x: 0 }} // Slide to the right into view
+                    exit={{ opacity: 0, x: 200 }} // Slide out to the right when exiting
+                    transition={{ duration: 0.5 }}
+                    className="absolute z-20 p-10"
+                    >
+                         <form onSubmit={handleLogin} className="relative z-20 flex flex-col justify-start pt-44 pl-20">
                         <p className='text-secondary font-bold text-4xl text-left'> Login </p>
                         {/* <label htmlFor='email' className='text-left text-secondary font-medium pt-5 text-xl'> Email </label>
                             <input
@@ -118,7 +125,7 @@ function LoginDesktop() {
 
                         <div className='pt-2 flex gap-1'>
                             <input type="checkbox" className=''></input>
-                            <div className="flex gap-32">
+                            <div className="flex gap-28">
                                 <label className='text-sm text-primary font-medium'>Remember me?</label> 
                                 <p className='text-sm text-senary font-medium cursor-pointer hover:underline' onClick={NavigateResetPage}>Forgot Password?</p>
                             </div>
@@ -131,12 +138,6 @@ function LoginDesktop() {
                         <div className='flex justify-center items-center mt-7 z-20'>
                             <img src="src/assets/common/component.svg" className='w-3/4'></img>
                         </div>
-{/* 
-                        <div className='flex items-center mt-7 justify-center gap-6 z-20 relative'>
-                            <img src="src/assets/common/fb.svg" className=''/>
-                            <img src="src/assets/common/apple.svg" className=''/>
-                            <img src="src/assets/common/google.svg" className=''/>
-                        </div> */}
 
                         <div className='text-primary flex items-center justify-center gap-1 mt-6 z-20 relative'>
                             <p className="font-medium"> Don't have an account? </p>
@@ -147,6 +148,8 @@ function LoginDesktop() {
                             </p>
                         </div>
                     </form>
+                    </motion.div>
+                   
                     </div>
                 </div>
             </div>

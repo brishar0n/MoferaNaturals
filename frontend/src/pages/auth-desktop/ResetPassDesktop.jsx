@@ -39,6 +39,7 @@ function ResetPassDesktop() {
     };
 
     
+
     return (
     //     <motion.div
     //     initial={{ opacity: 0 }}
@@ -59,10 +60,17 @@ function ResetPassDesktop() {
                     />
 
                     <div className="absolute bg-white">
-                    <form onSubmit={handleLogin} className="relative z-20 flex flex-col justify-start pt-60 pl-32 text-primary">
+
+                    <motion.div
+                    initial={{ opacity: 0, x: -200 }} // Start off-screen to the left
+                    animate={{ opacity: 1, x: 0 }} // Slide to the right into view
+                    exit={{ opacity: 0, x: 200 }} // Slide out to the right when exiting
+                    transition={{ duration: 0.5 }}
+                    className="absolute z-20 p-10"
+                    >
+                    <form onSubmit={handleLogin} className="relative z-20 flex flex-col justify-start pt-36 pl-20 text-primary">
                         <p className='text-secondary font-bold text-4xl text-left'> Create New Password</p>
                         
-                       
                         <label htmlFor="password" className="text-left secondary font-medium pt-5 text-base">Password</label>
                             <Input
                                 type={isVisible ? "text" : "password"}
@@ -99,7 +107,7 @@ function ResetPassDesktop() {
 
                         <div className=''>
                             <Button
-                            className="w-36 mt-8 bg-secondary text-white font-bold"
+                            className="w-36 mt-8 bg-secondary text-white text-base font-bold"
                             radius="full"
                             >
                             Reset
@@ -107,6 +115,8 @@ function ResetPassDesktop() {
                         </div>
 
                     </form>
+                    </motion.div>
+                    
                     </div>
                 </div>
             </div>
