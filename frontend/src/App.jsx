@@ -78,7 +78,7 @@ function App() {
   }, [userRefresh]);
 
   return (
-    <>
+    <UserContext.Provider value={{setUserRefresh}}>
       <Router>
         <Routes>
           <Route path="/" element={<Homepage />} />
@@ -110,6 +110,7 @@ function App() {
               <Route path="/addcheckpoint" element={<AddCheckpoint />} />
               <Route path="/viewcheckpoint" element={<ViewCheckpoint />} />
               <Route path="/shipmentnotification" element={<ShipmentNotification />} />
+              <Route path="/trackshipping/:shippingId" element={<TrackShippingID />} />
             </>
           )}
           {/* XYZ Mobile Routes */}
@@ -155,7 +156,7 @@ function App() {
           )}
         </Routes>
       </Router>
-    </>
+    </UserContext.Provider>
   );
 }
 
