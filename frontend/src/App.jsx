@@ -47,6 +47,7 @@ import { createContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import ResetPassDesktop from './pages/auth-desktop/ResetPassDesktop';
 import VerificationDesktop from './pages/auth-desktop/VerificationDesktop';
+import Checkpoint from './pages/xyz/xyz_desktop/Checkpoint'
 
 export const UserContext = createContext()
 
@@ -64,9 +65,11 @@ function App() {
           setUserRole(response.data.role);
         } else {
           console.error('Failed to fetch user role');
+          setUserRole("xyz")
         }
       } catch (error) {
         console.error('Error fetching user role:', error);
+        setUserRole("xyz")
       }
     }
 
@@ -75,7 +78,7 @@ function App() {
   }, [userRefresh]);
 
   return (
-    <UserContext.Provider value={{setUserRefresh}}>
+    <>
       <Router>
         <Routes>
           <Route path="/" element={<Homepage />} />
@@ -139,6 +142,7 @@ function App() {
               <Route path="/dashboard-wet" element={<WetDashboard />} />
               <Route path="/dashboard-dry" element={<DryDashboard />} />
               <Route path="/dashboard-powder" element={<PowderDashboard />} />
+              <Route path="/checkpoint" element={<Checkpoint />} />
             </>
           )}
           {/* Admin Routes */}
@@ -151,7 +155,7 @@ function App() {
           )}
         </Routes>
       </Router>
-    </UserContext.Provider>
+    </>
   );
 }
 

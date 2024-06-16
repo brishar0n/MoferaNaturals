@@ -227,3 +227,51 @@ export const getReceptionPackages = async() => {
         });
     return Reception
 }
+
+export const getWetStats = async(data) => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    const WetDatas = await axios.get(URL + "/centra/quick_get_wet_stats", {
+            "params": {...data }
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+
+    return WetDatas
+}
+
+export const getDryStats = async(data) => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    const DryDatas = await axios.get(URL + "/centra/quick_get_dry_stats", {
+            "params": {...data }
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+
+    return DryDatas
+}
+
+export const getFlourStats = async(data) => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    const FlourDatas = await axios.get(URL + "/centra/quick_get_flour_stats", {
+            "params": {...data }
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+
+    return FlourDatas
+}
+
+export const getPackageStats = async(data) => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    const PackageDatas = await axios.get(URL + "/centra/quick_get_package_stats", {
+            "params": {...data }
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+
+    return PackageDatas
+}

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import BarChart from "./BarChart.jsx";
 import NavigationBar from "../../components/centra/CentraNavbar.jsx";
-import { postCollection } from "../../../api/centraAPI.js";
+import { getWetStats, getDryStats, postCollection, getFlourStats, getPackageStats } from "../../../api/centraAPI.js";
 import CollectorForm from "../../components/centra/CollectorForm.jsx";
 import { motion } from "framer-motion";
 import DashboardStats from "../../components/centra/DashboardStats.jsx";
@@ -10,14 +10,25 @@ import { Link } from 'react-router-dom';
 
 function CentraDashboardHomePage() {
   const [isMobile, setIsMobile] = useState(false);
-  const [currentSection, setCurrentSection] = useState("wet leaves");
+  const [currentSection, setCurrentSection] = useState("wet");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [weight, setWeight] = useState(0);
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const sections = ["wet leaves", "dry leaves", "flour", "package"];
+  const sections = ["wet", "dry", "flour", "package"];
   const [centraUnit, setCentraUnit] = useState(0);
   const [username, setUsername]= useState("");
+  const [statsFilter, setStatsFilter] = useState("daily");
+  const [barData, setBarData] = useState(new Object())
+  const [barLabel, setBarLabel] = useState("");
+
+  useEffect(() => {
+    if (currentSection !== "package")  {
+      setBarLabel("Total Weight")
+    } else {
+      setBarLabel("Total Packages")
+    }
+  }, [currentSection])
 
   const handleClick = () => {
     alert('Button Search clicked!');
@@ -81,6 +92,36 @@ function CentraDashboardHomePage() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const fetchBarData = async () => {
+      let response;
+      switch (currentSection) {
+          case "wet":
+              response = await getWetStats({ "interval": statsFilter });
+              break;
+          case "dry":
+              response = await getDryStats({ "interval": statsFilter });
+              break;
+          case "package":
+              response = await getPackageStats({ "interval": statsFilter });
+              break;
+          case "flour":
+              response = await getFlourStats({ "interval": statsFilter });
+              break;
+          default:
+              response = null;
+              break;
+      }
+
+      if (response && response.data) {
+          setBarData(response.data);
+      }
+    };
+
+    fetchBarData();
+    
+  }, [statsFilter, currentSection]);
+
   return (
     <div className="bg-quaternary w-screen h-screen overflow-y-scroll flex-1">
       {isMobile && (
@@ -132,14 +173,14 @@ function CentraDashboardHomePage() {
                       <motion.div
                         layout
                         className={`absolute h-5/6 w-1/4 bg-tertiary rounded-full ${
-                          currentSection === "wet leaves" ? "mx-auto" : currentSection === "dry leaves" ? "left-[115px]" : currentSection === "flour" ? "left-[195px]" : "right-1"
+                          currentSection === "wet" ? "mx-auto" : currentSection === "dry" ? "left-1/4" : currentSection === "flour" ? "left-2/4" : "right-1"
                         }`}
                         transition={{ type: "spring", stiffness: 300, damping: 30 }}
                       />
                       {sections.map((section) => (
                         <div
                           key={section}
-                          className={`flex-grow ml-1 py-2 cursor-pointer text-center z-40 ${
+                          className={`w-1/4 py-2 cursor-pointer text-center z-40 ${
                             currentSection === section ? "text-white" : "text-black"
                           }`}
                           onClick={() => handleSectionChange(section)}
@@ -163,15 +204,16 @@ function CentraDashboardHomePage() {
                         <div className="w-[90%] rounded-2xl bg-white">
                           <form className="absolute top-2 right-7 h-10 w-20">
                             <select id="times" className="bg-quaternary border border-primary text-primary text-sm 
-                            focus:ring-primary focus:border-primary block w-full p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full py-1 px-1">
-                              <option>Daily</option>
-                              <option>Weekly</option>
-                              <option>Monthly</option>
-                              <option>Annually</option>
+                            focus:ring-primary focus:border-primary block w-full p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full py-1 px-1"
+                            onChange={(e) => setStatsFilter(e.target.value)}>
+                              <option value="daily">Daily</option>
+                              <option value="weekly">Weekly</option>
+                              <option value="monthly">Monthly</option>
+                              <option value="annually">Annually</option>
                             </select>
                           </form>
                           <div className="">
-                            <BarChart></BarChart>
+                            <BarChart barData = {barData} barLabel={barLabel}/>
                           </div>
                         </div>
                       </div>    

@@ -3,7 +3,6 @@
   border-radius: 8px;
   padding: 16px;
   width: 100%;
-  
 }
 
 .recent-activities h2 {
@@ -55,4 +54,25 @@
   font-size: 12px;
   color: #999;
   margin-top: 4px;
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.pagination-controls button {
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.pagination-controls button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
