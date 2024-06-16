@@ -13,7 +13,7 @@ export const getArrivedPackage = async (page) => {
     return Packages
 }
 
-export const getWetLeafDatas = async() => {
+export const getWetLeafDatas = async () => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
     const WetLeaves = await axios.get(URL + "/xyz/get_wet_datas")
         .catch((error) => {
@@ -47,7 +47,7 @@ export const getDryStats = async (data) => {
     return DryDatas
 }
 
-export const getDryLeafDatas = async() => {
+export const getDryLeafDatas = async () => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
     const DryLeaves = await axios.get(URL + "/xyz/get_dry_datas")
         .catch((error) => {
@@ -69,7 +69,7 @@ export const getFlourStats = async (data) => {
     return FlourDatas
 }
 
-export const getFlourDatas = async() => {
+export const getFlourDatas = async () => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
     const FlourLeaves = await axios.get(URL + "/xyz/get_flour_datas")
         .catch((error) => {
@@ -79,7 +79,7 @@ export const getFlourDatas = async() => {
     return FlourLeaves
 }
 
-export const getShipmentNotification = async() => {
+export const getShipmentNotification = async () => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
     const Shipments = await axios.get(URL + "/xyz/get_shipment_notification")
         .catch((error) => {
@@ -89,7 +89,7 @@ export const getShipmentNotification = async() => {
     return Shipments
 }
 
-export const getArrivalNotification = async() => {
+export const getArrivalNotification = async () => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
     const Arrivals = await axios.get(URL + "/xyz/get_arrival_notification")
         .catch((error) => {
@@ -97,4 +97,35 @@ export const getArrivalNotification = async() => {
         });
 
     return Arrivals
+}
+
+
+export const getPackageByID = async (data) => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    const Package = await axios.get(URL + "/xyz/search_package_rescale", {
+        "params":{"s":data}
+    }).catch((error) => {
+        console.error(error);
+    });
+    return Package
+}
+
+export const rescalePackage = async (data) => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    const Package = await axios.put(URL + "/xyz/rescale/" + data.id, {
+        "weight": data.weight,
+        "material": data.material
+    }).catch((error) => {
+        console.error(error);
+    });
+    return Package
+}
+
+export const addReception = async (data) => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    const Package = await axios.post(URL + "/xyz/add_reception", data)
+    .catch((error) => {
+        console.error(error);
+    });
+    return Package
 }

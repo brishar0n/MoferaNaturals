@@ -81,3 +81,19 @@ export const getCentra = async() => {
 
     return Centra
 }
+
+export const updateUser = async (user) => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    await axios.put(URL + `/admin/users/${user.id}`, user)
+        .catch((error) => {
+            console.error(error);
+        });
+}
+
+export const deleteUser = async (id) => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    await axios.delete(URL + `/admin/users/${id}`)
+        .catch((error) => {
+            console.error(error);
+        });
+}

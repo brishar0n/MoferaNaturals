@@ -3,7 +3,7 @@ import React from "react";
 function PowderBox({ weight, driedDate, flouredDate, id }) {
 
     return (
-        <div className='bg-white mb-8 mx-auto py-5 px-7 rounded-2xl text-left relative flex flex-col'>
+        <div className='bg-white mb-8 mx-auto py-5 px-7 rounded-2xl text-left relative flex flex-col shadow-lg'>
             <div className="flex items-end justify-end w-full">
                 <p className="font-medium text-slate-500 text-xxs">PWD#{id}</p>
             </div>

@@ -5,11 +5,12 @@ import NavigationBar from "../../components/centra/CentraNavbar.jsx";
 import { motion } from "framer-motion";
 import ProfileContent from '../../components/profile/ProfileContent';
 import NavbarGH from '../../components/guard_harbour/NavbarGH';
+import { getCurrentUser } from '../../../api/profileAPI';
 
 function Profile() {
     const [isMobile, setIsMobile] = React.useState(false);
-    const role = "guardHarbour";
-    const name = "Oowwwlaf";
+    const [role, setRole] = useState("");
+    const [username, setUsername]= useState("");
 
     useEffect(() => {
       function handleResize() {
@@ -21,15 +22,29 @@ function Profile() {
   
       return () => window.removeEventListener("resize", handleResize);
     }, []);
+
+    useEffect(() => {
+      const fetchData = async () => {
+          try {
+              const user = await getCurrentUser();
+              console.log(user);
+              
+              setRole(user.role);
+              setUsername(user.username);
+          } catch (err) {
+              console.error("Error: ", err);
+          }
+      };
+
+      fetchData();
+  }, []);
   
     return (
       <div className='bg-white w-screen h-screen overflow-auto'>
         {isMobile && (
           <>
-            <div className='h-screen absolute inset-0 flex'>
-              <img src={bgupper} className="w-screen fixed -top-10"/>
-              <img src={bglower} className="w-screen fixed bottom-0"/>
-              <img src="src/assets/AddPage/mascotAddSide.svg" className="absolute right-0 bottom-10 z-50"></img>
+            <div className='relative'>
+              <img src={bgupper} className="absolute -top-10"/>
             </div>
             
             <motion.div
@@ -39,8 +54,10 @@ function Profile() {
               exit={{ x: -300, opacity: 0 }}
               transition={{ duration: 0.3 }}
             >
-                <div className='relative z-40'>
-                    <ProfileContent role={role} name={name}/>
+                <div className='relative'>
+                  <img src="src/assets/AddPage/mascotAddSide.svg" className="absolute right-0 bottom-10 z-50"></img>
+                  <ProfileContent role={role} name={username}/>
+                  <img src={bglower} className=" bottom-0 z-0"/>
                 </div>
               
             </motion.div>
@@ -48,7 +65,7 @@ function Profile() {
             {role === "centra" && (
               <NavigationBar/> 
             )}
-            {role === "guardHarbour" && (
+            {role === "GuardHarbor" && (
               <NavbarGH/> 
             )}
           </>

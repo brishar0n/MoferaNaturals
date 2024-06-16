@@ -81,7 +81,7 @@ function ProfileContent({ role, name }) {
     }
 
     return (
-        <div className='flex flex-col justify-center items-center py-10 w-5/6 mx-auto pb-36'>
+        <div className='flex flex-col justify-center items-center py-10 w-5/6 mx-auto'>
             <img src={profile} className="w-screen relative z-40 w-44 h-44 mt-2" />
 
             <div className='mt-3 flex justify-center'>

@@ -1,18 +1,20 @@
-import React, { useEffect, useState } from 'react' 
-import bgupper from '../../assets/profile/element1.svg'
-import bglower from '../../assets/profile/element2.svg'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import bgupper from '../../assets/profile/element1.svg';
+import bglower from '../../assets/profile/element2.svg';
 import NavigationBar from "../../components/centra/CentraNavbar.jsx";
 import { motion } from "framer-motion";
 import EditProfileContent from '../../components/profile/EditProfileContent';
 import NavbarGH from '../../components/guard_harbour/NavbarGH';
-import { putProfile } from '../../../api/profileAPI.js';
 
 function EditProfile() {
-    const [isMobile, setIsMobile] = React.useState(false);
-    const role = "centra";
-    const name = "Oowwwlaf";
-    const email = "Oowwwlaf@gmail.com";
-    const centraUnit = 1;
+    const [isMobile, setIsMobile] = useState(false);
+    const [user, setUser] = useState({
+        role: "",
+        username: "",
+        email: "",
+        centraUnit: ""
+    });
     const [formSubmitted, setFormSubmitted] = useState(false);
 
     useEffect(() => {
@@ -22,29 +24,43 @@ function EditProfile() {
   
       handleResize();
       window.addEventListener("resize", handleResize);
+
+      // Fetch current user details
+      axios.get('/profile')
+        .then(response => {
+            setUser(response.data);
+        })
+        .catch(error => {
+            console.error("Error fetching current user:", error);
+        });
   
       return () => window.removeEventListener("resize", handleResize);
     }, []);
 
     function handleSubmit(data) {
         data.event.preventDefault();
-        putProfile({
-          "username": data.newName,
-          "new_password": data.newPassword,
-          "confirm_password": data.confirmPassword,
-          "email": data.newEmail
+        axios.put('https://mofera-backend-fork-o1xucajgl-mofera-2.vercel.app/update_profile', {
+          username: data.newName,
+          new_password: data.newPassword,
+          confirm_password: data.confirmPassword,
+          email: data.newEmail,
+          centra_unit: user.role === 'centra' ? data.centraUnit : undefined
         })
-        setFormSubmitted(true);
+        .then(response => {
+            setFormSubmitted(true);
+            setUser(response.data); // Update user data with the response
+        })
+        .catch(error => {
+            console.error("Error updating profile:", error);
+        });
     }
   
     return (
       <div className='bg-white w-screen h-screen overflow-auto'>
         {isMobile && (
           <>
-            <div className='h-screen absolute inset-0 flex'>
-              <img src={bgupper} className="w-screen fixed -top-10"/>
-              <img src={bglower} className="w-screen fixed bottom-0"/>
-              <img src="src/assets/AddPage/mascotAddSide.svg" className="absolute right-0 bottom-10 z-50"></img>
+            <div className='relative'>
+              <img src={bgupper} className="absolute -top-10"/>
             </div>
             
             <motion.div
@@ -54,23 +70,25 @@ function EditProfile() {
               exit={{ x: -300, opacity: 0 }}
               transition={{ duration: 0.3 }}
             >
-                <div className='relative z-40'>
+                <div className='relative'>
+                  <img src="src/assets/AddPage/mascotAddSide.svg" className="absolute right-0 bottom-10 z-50"></img>
                     <EditProfileContent 
-                        role={role} 
-                        name={name} 
-                        email={email} 
-                        centraUnit={centraUnit}
+                        role={user.role} 
+                        name={user.username} 
+                        email={user.email} 
+                        centraUnit={user.centraUnit}
                         handleSubmit={handleSubmit}
                         formSubmitted={formSubmitted}
                     />
+                    <img src={bglower} className="bottom-0"/>
                 </div>
               
             </motion.div>
             
-            {role === "centra" && (
+            {user.role === "centra" && (
               <NavigationBar/> 
             )}
-            {role === "guardHarbour" && (
+            {user.role === "guardHarbour" && (
               <NavbarGH/> 
             )}
           </>

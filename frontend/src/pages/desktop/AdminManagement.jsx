@@ -1,19 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../style/AdminDesktop.css"
 import AdminTable from "../../components/admin/AdminTable";
+import AdminTableUser from "../../components/admin/AdminTableUser";
 import AddUserButton from "../../components/admin/AddUserButton";
-import { initialRows, columns} from "../../components/admin/UserDataSample";
+import { columns, columnsCentra, columnsCheckpoint, columnsCollection, columnsDry, columnsFlour, columnsPackage, columnsShipping, columnsWet} from "../../components/admin/UserDataSample";
 import AdminSidebar from "../../components/admin/AdminSidebar";
 import SearchButtonData from "../../components/admin/SearchButtonData";
 import MasterDataFolder from "../../components/admin/MasterDataFolder";
 import PageTitleAll from "../../components/admin/PageTitleAll";
 import UserProfile from "../../components/admin/UserProfile";
 import DashboardContent from "../../components/admin/DashboardContent";
+import {getUsers, getCentra, getCheckpoints, getDryLeaves, getFlour, getPackages, getShippingInfo, getWetLeaves, updateUser, deleteUser} from "../../../api/adminAPI";
+
+const columnsMap = {
+    AdminTable: columns,
+    CentraData: columnsCentra,
+    CheckpointData: columnsCheckpoint,
+    CollectionData: columnsCollection,
+    DryLeavesData: columnsDry,
+    FlourData: columnsFlour,
+    PackageData: columnsPackage,
+    ShippingInfoData: columnsShipping,
+    WetLeavesData: columnsWet,
+};
 
 function AdminPage() {
-    const [rows, setRows] = useState(initialRows);
-    const [columnData, setColumnData] = useState(columns);
-
+    const [rows, setRows] = useState([]);
+    const [columnData, setColumnData] = useState(columnsMap.AdminTable);
+    
     const addUser = (newUser) => {
         console.log("Adding new user:", newUser);
         setRows((prevRows) => [
@@ -28,16 +42,26 @@ function AdminPage() {
         ]);
     };
 
-    const handleEditUser = (updatedUser) => {
-        setRows((prevUsers) =>
-          prevUsers.map((row) =>
-            row.id === updatedUser.id ? updatedUser : row
-          )
-        );
-      };
-       
-    const deleteRow = (id) => {
-        setRows(prevRows => prevRows.filter(row => row.id !== id));
+    const handleEditUser = async (updatedUser) => {
+        try {
+            await updateUser(updatedUser);
+            setRows((prevUsers) =>
+                prevUsers.map((row) =>
+                    row.id === updatedUser.id ? updatedUser : row
+                )
+            );
+        } catch (error) {
+            console.error("Failed to update user:", error);
+        }
+    };
+
+    const deleteRow = async (id) => {
+        try {
+            await deleteUser(id);
+            setRows(prevRows => prevRows.filter(row => row.id !== id));
+        } catch (error) {
+            console.error("Failed to delete user:", error);
+        }
     };
 
     const [isMinimized, setIsMinimized] = useState(false);
@@ -59,11 +83,49 @@ function AdminPage() {
         setRows(rows)
         setColumnData(columnData)
     };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            let data = [];
+            switch (currentComponent) {
+                case 'AdminTable':
+                    data = await getUsers();
+                    break;
+                case 'CentraData':
+                    data = await getCentra();
+                    break;
+                case 'CheckpointData':
+                    data = await getCheckpoints();
+                    break;
+                case 'WetLeavesData':
+                    data = await getWetLeaves();
+                    break;
+                case 'DryLeavesData':
+                    data = await getDryLeaves();
+                    break;
+                case 'FlourData':
+                    data = await getFlour();
+                    break;
+                case 'ShippingInfoData':
+                    data = await getShippingInfo();
+                    break;
+                case 'PackageData':
+                    data = await getPackages();
+                    break;
+                default:
+                    data = await getUsers();
+                    break;
+            }
+            setRows(data.data);
+            setColumnData(columnsMap[currentComponent]); // Update columns if needed
+        };
+        fetchData();
+    }, [currentComponent]);
     
     const renderComponent = () => {
         switch (currentComponent) {
             case 'AdminTable':
-                return <AdminTable columns={columnData} rows={rows} deleteRow={deleteRow} editRow={handleEditUser} />;
+                return <AdminTableUser columns={columnData} rows={rows} deleteRow={deleteRow} editRow={handleEditUser} />;
             case 'MasterDataFolder':
                 return <MasterDataFolder />;
             case 'Dashboard':

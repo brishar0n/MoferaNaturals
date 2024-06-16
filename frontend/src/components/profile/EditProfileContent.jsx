@@ -69,7 +69,7 @@ function EditProfileContent({ role, name, email, centraUnit, formSubmitted, hand
     }
 
     return (
-        <div className='flex flex-col justify-center items-center py-10 w-5/6 mx-auto pb-36 text-primary'>
+        <div className='flex flex-col justify-center items-center py-10 w-5/6 mx-auto text-primary'>
             {formSubmittedSuccessfully && <SuccessNotification htmlContent="You have successfully edited your user profile." />}
             {formSubmissionFailed && <FailedNotification htmlContent="Failed to update user profile." />}
             {!passwordsMatch && <FailedNotification htmlContent="Passwords do not match." />}
@@ -91,12 +91,12 @@ function EditProfileContent({ role, name, email, centraUnit, formSubmitted, hand
                 
                 <div className='mt-5 mb-2 w-full'>
                     <p className='font-bold text-left mb-2'>Username: </p>
-                    <input value={newName} onChange={handleNameChange} className="cursor-auto w-full border-b border-primary bg-transparent"/>
+                    <input value={newName} onChange={handleNameChange} className="cursor-auto w-full border-b border-primary bg-transparent" placeholder={name}/>
                 </div>
 
                 <div className='mb-2 mt-5 w-full'>
                     <p className='font-bold text-left mb-2'>Email: </p>
-                    <input value={newEmail} onChange={handleEmailChange} className="cursor-auto w-full border-b border-primary bg-transparent "/>
+                    <input value={newEmail} onChange={handleEmailChange} className="cursor-auto w-full border-b border-primary bg-transparent " placeholder={email}/>
                 </div>
 
                 <div className='mb-2 mt-5 w-full'>

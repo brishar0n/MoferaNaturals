@@ -7,7 +7,7 @@ function PackageBox({ weight, expDate, status, id, shippingDate, convertStatusTo
     const currentStatusStyle = statusStyles[statusText] || {};
 
     return (
-        <div className='bg-white mb-5 mx-auto py-5 px-7 rounded-2xl text-left relative flex flex-col'>
+        <div className='bg-white mb-5 mx-auto py-5 px-7 rounded-2xl text-left relative flex flex-col shadow-lg'>
             <div className="flex items-end justify-end w-full">
                 <p className="font-medium text-slate-500 text-xs">PKG#{id}</p>
             </div>
