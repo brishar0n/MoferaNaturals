@@ -11,8 +11,9 @@ import TopCorner from "../../assets/auth-desktop/login-tc.svg"
 import BottomCorner from "../../assets/auth-desktop/bc-login.svg"
 import Mascot from "../../assets/auth-desktop/login-mascot.svg"
 
+
 function LoginDesktop() {
-    const navigate = useNavigate()
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isVisible, setIsVisible] = useState(false);
@@ -38,22 +39,14 @@ function LoginDesktop() {
           console.error("Error: ", error)
         }
     };
-
-    const NavigateRegister = () => {
-        navigate('/registerdesktop');
-    }
-
-    const NavigateResetPage = () => {
-        navigate('/resetpassdesktop');
-    }
     
     return (
         <div className="bg-white h-screen">
             <div className="flex">
                 <div className="relative w-full">
                     <img src={MoferaLogo} alt="logo" className="absolute top-0 pt-5 pl-5 z-50 w-40"/>
-                    <img src={TopCorner} alt="topcorner" className="fixed z-10"/>
-                    <img src={BottomCorner} alt="bottomcorner" className="fixed bottom-0 right-0 h-99.999vh"/>
+                    <img src={TopCorner} alt="" className="fixed z-10"/>
+                    <img src={BottomCorner} alt="" className="fixed bottom-0 right-0 h-99.999vh"/>
                     <img 
                         src={Mascot}
                         alt="mascot" 
@@ -119,10 +112,7 @@ function LoginDesktop() {
                             <input type="checkbox" className=''></input>
                             <div className="flex gap-32">
                                 <label className='text-sm text-primary font-medium'>Remember me?</label> 
-                                <p className='text-sm text-senary font-medium hover:underline cursor-pointer' onClick={NavigateResetPage}
-                                >
-                                    Forgot Password?
-                                </p>
+                                <p className='text-sm text-senary font-medium'>Forgot Password?</p>
                             </div>
                         </div>
 
@@ -142,11 +132,7 @@ function LoginDesktop() {
 
                         <div className='text-primary flex items-center justify-center gap-1 mt-6 z-20 relative'>
                             <p className="font-medium"> Don't have an account? </p>
-                            <p className='text-primary font-bold underline transition-all hover:text-secondary duration-350 cursor-pointer'
-                            onClick={NavigateRegister}
-                            > 
-                            Sign Up
-                            </p>
+                            <p className='text-primary font-bold underline'> Sign Up</p>
                         </div>
                     </form>
                     </div>

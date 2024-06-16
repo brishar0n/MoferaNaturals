@@ -128,6 +128,8 @@ function App() {
         <Route path="/logindesktop" element={<LoginDesktop/>} exact/>
         <Route path="/welcomedesktop" element={<WelcomeDesktop/>} exact/>
         <Route path="/registerdesktop" element={<RegisterDesktop/>} exact/>
+        <Route path="/resetpassdesktop" element={<ResetPassDesktop/>} exact/>
+        <Route path="/verificationdesktop" element={<VerificationDesktop/>} exact/>
 
         {/* Desktop XYZ Routes */}
         {userRole === 'xyz' && (
