@@ -8,7 +8,8 @@ import NavigationBar from "../../components/centra/CentraNavbar.jsx";
 import NavbarGH from '../../components/guard_harbour/NavbarGH';
 import '../../style/centra/ShipmentHeader.css';
 import { getCurrentUser } from '../../../api/profileAPI';
-import { getPackages, getShippingInfo, getCheckpoints, getReceptionPackages } from "../../../api/centraAPI";
+import { getPackages as getCentraPackages, getShippingInfo as getCentraShippingInfo, getCheckpoints as getCentraCheckpoints, getReceptionPackages as getCentraReceptionPackages } from "../../../api/centraAPI";
+import { getPackages as getGHPackages, getShippingInfo as getGHShippingInfo, getCheckpoints as getGHCheckpoints, getReceptionPackages as getGHReceptionPackages} from "../../../api/guardHarborAPI";
 import TrackShippingDetails from '../../components/centra/TrackShippingDetails';
 
 function TrackShippingID() {
@@ -41,13 +42,25 @@ function TrackShippingID() {
               const user = await getCurrentUser();
               setRole(user.role);
 
-              const [shippingResponse, packagesResponse, checkpointsResponse, receptionResponse] = await Promise.all([
-                  getShippingInfo(),
-                  getPackages(),
-                  getCheckpoints(),
-                  getReceptionPackages()
-              ]);
+              let shippingResponse, packagesResponse, checkpointsResponse, receptionResponse;
 
+              if (role === "centra") {
+                [shippingResponse, packagesResponse, checkpointsResponse, receptionResponse] = await Promise.all([
+                  getCentraShippingInfo(shippingId),
+                  getCentraPackages(shippingId),
+                  getCentraCheckpoints(shippingId),
+                  getCentraReceptionPackages(shippingId)
+
+                ]);
+              } else if (role === "GuardHarbor") {
+                [shippingResponse, packagesResponse, checkpointsResponse, receptionResponse] = await Promise.all([
+                  getGHShippingInfo(shippingId),
+                  getGHPackages(shippingId),
+                  getGHCheckpoints(shippingId),
+                  getGHReceptionPackages(shippingId)
+                ]);
+              }
+       
               const shipment = shippingResponse.data.find(item => item.id === parsedShippingId);
               const pkg = packagesResponse.data.find(item => item.shipping_id === parsedShippingId);
               const checkpoint = checkpointsResponse.data.find(item => item.shipping_id === parsedShippingId);
@@ -57,6 +70,11 @@ function TrackShippingID() {
               setPackageData(pkg);
               setCheckpointData(checkpoint);
               setReceptionData(reception);
+
+              console.log(shipmentData);
+              console.log(packageData);
+              console.log(checkpointData);
+              console.log(receptionData);
               
               setLoading(false);  // Data has been fetched, set loading to false
           } catch (err) {
@@ -66,7 +84,7 @@ function TrackShippingID() {
       }
 
       fetchData();
-    }, [parsedShippingId]);
+    }, [parsedShippingId, role]);
 
     if (loading) {
       return <div className='bg-quaternary w-screen h-screen text-white '>Loading...</div>; // You can add a spinner or any loading indicator here
