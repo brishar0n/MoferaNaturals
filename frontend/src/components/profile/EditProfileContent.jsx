@@ -91,9 +91,11 @@ function EditProfileContent({ role, name, email, centraUnit, formSubmitted, hand
             <form className='flex flex-col my-2 w-full text-left bg-denary rounded-2xl p-5 mt-7 items-center' onSubmit={handleSubmit}>
                 <p className='font-bold text-green-900 mt-1 text-center text-xl'>User Profile</p>
                 
-                <div className='mt-5 w-full'>
-                    <p className='font-bold text-left'>Centra Unit: {centraUnit}</p>
-                </div>
+                {role == "centra" && (
+                    <div className='mt-5 w-full'>
+                        <p className='font-bold text-left'>Centra Unit: {centraUnit}</p>
+                    </div>
+                )}
                 
                 <div className='mt-5 mb-2 w-full'>
                     <p className='font-bold text-left mb-2'>Username: </p>

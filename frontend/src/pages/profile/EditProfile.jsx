@@ -22,30 +22,30 @@ function EditProfile() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        function handleResize() {
-            setIsMobile(window.innerWidth < 600);
-        }
+      function handleResize() {
+          setIsMobile(window.innerWidth < 600);
+      }
 
-        handleResize();
-        window.addEventListener("resize", handleResize);
+      handleResize();
+      window.addEventListener("resize", handleResize);
 
-        useEffect(() => {
-          const fetchData = async () => {
-              try {
-                  const user = await getCurrentUser();
-                  console.log(user);
-                  
-                  setUser(user);
-              } catch (err) {
-                  console.error("Error: ", err);
-              }
-          };
-    
-          fetchData();
-        }, []);
+      return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
+  useEffect(() => {
+      const fetchData = async () => {
+          try {
+              const user = await getCurrentUser();
+              console.log(user);
+              
+              setUser(user);
+          } catch (err) {
+              console.error("Error: ", err);
+          }
+      };
+
+      fetchData();
+  }, []);
 
     function handleSubmit(data) {
       data.event.preventDefault();
@@ -107,7 +107,7 @@ function EditProfile() {
                     {user.role === "centra" && (
                         <NavigationBar />
                     )}
-                    {user.role === "guardHarbour" && (
+                    {user.role === "GuardHarbor" && (
                         <NavbarGH />
                     )}
                 </>
