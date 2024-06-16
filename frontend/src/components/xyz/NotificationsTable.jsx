@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { FaShippingFast } from "react-icons/fa";
+import { LuPackageOpen } from "react-icons/lu";
 import { getArrivalNotification, getShipmentNotification } from '../../../api/xyzAPI';
 // import /*arrivalIcon*/1 from './../../assets/xyz/arrival-icon.svg';
 // import shipmentIcon from './../../assets/xyz/shipment-icon.svg';
@@ -16,8 +18,6 @@ import { getArrivalNotification, getShipmentNotification } from '../../../api/xy
 //   arrivalDate: '22 March 2024',
 //   timestamp: 'Monday 5:30pm',
 // });
-
-
 
 function NotificationsTable() {
   const [shipmentNotifications, setShipmentNotifications] = useState([])
@@ -52,7 +52,7 @@ function NotificationsTable() {
             showShipment ? 'bg-primary text-white' : 'bg-gray-300 text-gray-700'
           }`}
         >
-          <img src={/*shipmentIcon*/1} alt="Shipment Icon" className="w-6 h-6 mr-2" />
+          <FaShippingFast className="w-6 h-6 mr-4"/>
           Shipment Notifications
         </button>
         <button
@@ -61,7 +61,7 @@ function NotificationsTable() {
             showShipment ? 'bg-gray-300 text-gray-700' : 'bg-primary text-white'
           }`}
         >
-          <img src={/*arrivalIcon*/1} alt="Arrival Icon" className="w-6 h-6 mr-2" />
+          <LuPackageOpen className="w-6 h-6 mr-4"/>
           Arrival Notifications
         </button>
       </div>
@@ -87,10 +87,10 @@ function NotificationsTable() {
                         : `Arrival ID #${notification.id}`}
                     </span>{' '}
                     {showShipment
-                      ? `has been shipped by ${notification.shipper} (Estimated Time Arrival: ${new Date(notification.estimatedArrival).toDateString()})`
-                      : `arrived from ${notification.shipper} (Arrival Date: ${new Date(notification.timestamp).toDateString()})`}
+                      ? `has been shipped by ${notification.shipper})`
+                      : `arrived from ${notification.shipper} (Arrival Date: ${notification.timestamp})`}
                   </p>
-                  <p className="text-gray-500 text-left">{new Date(notification.timestamp).toDateString()}</p>
+                  <p className="text-gray-500 text-left">{notification.timestamp}</p>
                 </div>
               </div>
               <button className="bg-primary text-white font-bold px-4 py-2 rounded-lg focus:outline-none">

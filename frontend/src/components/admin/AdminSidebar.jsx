@@ -2,12 +2,6 @@ import { useEffect, useState } from 'react';
 import desktoplogo from '../../assets/desktop/mofera-logo.svg';
 import hamburger from '../../assets/desktop/menu-bar.svg';
 import exit from '../../assets/desktop/exit.svg';
-import dashboardlogo from '../../assets/desktop/dashboard-logo.svg';
-import usericon from "../../assets/desktop/user-icon.svg";
-import database from "../../assets/desktop/database.svg";
-import dashboardGreen from '../../assets/desktop/dashboard-green2.svg';
-import userGreen from '../../assets/desktop/user-green.svg'
-import dbGreen from '../../assets/desktop/db-green.svg';
 import "../../style/AdminDesktop.css";
 
 import { MdOutlineDashboardCustomize } from "react-icons/md";
@@ -159,7 +153,7 @@ function AdminSidebar({ onPageDataChange }) {
   return (
     <div
       className={`bg-primary h-screen flex flex-col justify-between items-center transition-all duration-300 ${
-        isMinimized ? 'w-16' : 'w-1/5'
+        isMinimized ? 'w-20 pl-2 pt-5' : 'w-3/20'
       }`}
     >
       <div className="bg-primary flex flex-col justify-center items-center gap-8">
