@@ -4,37 +4,30 @@ import { useNavigate } from "react-router-dom";
 import NavigationBar from "../../components/centra/CentraNavbar.jsx";
 import Datepicker from "react-tailwindcss-datepicker";
 import BatchBox from "../../components/centra/BatchBox";
+import { getCollection } from "../../../api/centraAPI";
+import { motion } from "framer-motion";
 
 function History() {
     const [isMobile, setIsMobile] = React.useState(false);
     const navigate = useNavigate();
 
-    const batchCollector = [
-        {
-            "id": 1,
-            "weight": 10,
-            "dateCollected": "10-05-2024",
-            "timeCollected": "10:30 AM"
-        },
-        {
-            "id": 2,
-            "weight": 10,
-            "dateCollected": "10-05-2024",
-            "timeCollected": "11:30 AM"
-        },
-        {
-            "id": 3,
-            "weight": 10,
-            "dateCollected": "10-05-2024",
-            "timeCollected": "12:30 PM"
-        },
-        {
-            "id": 4,
-            "weight": 10,
-            "dateCollected": "11-05-2024",
-            "timeCollected": "10:30 AM"
-        },
-    ];
+    const [collectionData, setCollectionData] = useState([]);
+
+    useEffect(() => {
+      const fetchData = async () => {
+          try {
+              const response = await getCollection();
+              const batchCollectionData = response.data;
+              
+              setCollectionData(batchCollectionData);
+              console.log(batchCollectionData);
+          } catch (err) {
+              console.error("Error: ", err);
+          }
+      };
+
+      fetchData();
+    }, []);
 
     const getTodayFormatted = () => {
         const today = new Date();
@@ -49,7 +42,7 @@ function History() {
         endDate: getTodayFormatted()
     });
 
-    const [filteredBatches, setFilteredBatches] = useState(batchCollector);
+    const [filteredBatches, setFilteredBatches] = useState(collectionData);
 
     const handleValueChange = (newValue) => {
         console.log("newValue:", newValue);
@@ -61,12 +54,12 @@ function History() {
             const month = selectedDate.getMonth() + 1; // Months are zero-indexed
             const year = selectedDate.getFullYear();
 
-            const formattedDate = `${day < 10 ? "0" + day : day}-${month < 10 ? "0" + month : month}-${year}`;
+            const formattedDate = `${year}-${month < 10 ? "0" + month : month}-${day < 10 ? "0" + day : day}`;
 
-            const filtered = batchCollector.filter(batch => batch.dateCollected === formattedDate);
+            const filtered = collectionData.filter(batch => batch.retrieval_datetime && batch.retrieval_datetime.split("T")[0] === formattedDate);
             setFilteredBatches(filtered);
         } else {
-            setFilteredBatches(batchCollector);
+            setFilteredBatches(collectionData);
         }
     };
 
@@ -85,7 +78,7 @@ function History() {
 
     useEffect(() => {
         handleValueChange(value);
-    }, []);
+    }, [collectionData]);
 
     const isToday = value.startDate === getTodayFormatted();
 
@@ -103,27 +96,37 @@ function History() {
                     <Datepicker inputClassName='rounded-md bg-quinary p-1 w-full text-xs border-none' containerClassName='mb-3 relative z-20' toggleClassName='absolute h-full right-0 px-1 text-gray-500 rounded-r-md' primaryColor={"blue"} useRange={false} asSingle={true} value={value} onChange={handleValueChange} />
                 </div>
                 <div className="w-full px-8 mt-8">
-                {filteredBatches.length > 0 ? 
-                    (filteredBatches.map((batch, index) => (
-                        <div key={batch.id} className="mb-10 relative">
-                            {index !== 0 && (
-                            <div className="w-0.5 bg-primary h-48 absolute -left-6 ml-3 -top-36 -mt-20"></div>
-                            )}
-                            <BatchBox 
-                                key={index}
-                                batch={index+1}
-                                weight={batch.weight}
-                                timeCollected={batch.timeCollected}
-                            />
+
+                <motion.div
+                    key="dry"
+                    initial={{ x: 300, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    exit={{ x: -300, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {filteredBatches.length > 0 ? 
+                        (filteredBatches.map((batch, index) => (
+                            <div key={batch.id} className="mb-10 relative">
+                                {index !== 0 && (
+                                <div className="w-0.5 bg-primary h-48 absolute -left-6 ml-3 -top-36 -mt-16"></div>
+                                )}
+                                <BatchBox 
+                                    key={index}
+                                    batch={index+1}
+                                    weight={batch.weight}
+                                    timeCollected={batch.retrieval_datetime.split("T")[1]}
+                                />
+                            </div>
+                        ))
+                    ) : (
+                        <div className="bg-primary p-4 rounded-3xl shadow-lg flex flex-col text-left relative w-3/4 mx-auto">
+                            <p className="text-white text-center">
+                                {isToday ? "No batches collected yet for today." : "No batches found for the selected date."}
+                            </p>
                         </div>
-                    ))
-                ) : (
-                    <div className="bg-primary p-4 rounded-3xl shadow-lg flex flex-col text-left relative w-3/4 mx-auto">
-                        <p className="text-white text-center">
-                            {isToday ? "No batches collected yet for today." : "No batches found for the selected date."}
-                        </p>
-                    </div>
-                )}
+                    )}
+                </motion.div>
+                
                 </div>
             
                 <NavigationBar/>
