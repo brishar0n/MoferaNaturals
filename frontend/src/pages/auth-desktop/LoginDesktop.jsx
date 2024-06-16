@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Modal, button } from "@nextui-org/react";
 import "../../style/AdminDesktop.css"
 import { login } from "../../../api/authAPI";
@@ -10,10 +10,11 @@ import MoferaLogo from "../../assets/auth-desktop/mofera-login.svg"
 import TopCorner from "../../assets/auth-desktop/login-tc.svg"
 import BottomCorner from "../../assets/auth-desktop/bc-login.svg"
 import Mascot from "../../assets/auth-desktop/login-mascot.svg"
+import { UserContext } from "../../App";
 import { motion } from "framer-motion";
 
 function LoginDesktop() {
-
+    const {setUserRefresh} = useContext(UserContext)
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isVisible, setIsVisible] = useState(false);
@@ -31,6 +32,7 @@ function LoginDesktop() {
           const response = await login(formData);
           if (response){
             const role = response.data.role
+            setUserRefresh(true)
             if(role === "xyz") Navigate('/dashboard-wet');
             if(role === "admin") Navigate('/adminpage');
           }

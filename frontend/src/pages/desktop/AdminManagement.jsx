@@ -44,7 +44,10 @@ function AdminPage() {
 
     const handleEditUser = async (updatedUser) => {
         try {
+            delete updatedUser.hashed_password
+            delete updatedUser.is_active
             await updateUser(updatedUser);
+            console.log("Updated user:", updatedUser);
             setRows((prevUsers) =>
                 prevUsers.map((row) =>
                     row.id === updatedUser.id ? updatedUser : row
