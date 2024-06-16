@@ -51,7 +51,7 @@ function App() {
   useEffect(() => {
     async function fetchUserRole() {
       try {
-        const response = await fetch('https://mofera-backend-fork-o1xucajgl-mofera-2.vercel.app/auth/role'); 
+        const response = await fetch('https://mofera-backend-fork-ten.vercel.app/auth/role'); 
         if (response.ok) {
           const data = await response.json();
           setUserRole(data.role);
