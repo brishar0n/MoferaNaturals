@@ -45,9 +45,16 @@ import EditProfile from './pages/profile/EditProfile';
 import GHDashboard from './pages/guard_harbour/GHDashboard';
 import RegisterDesktop from './pages/auth-desktop/RegisterDesktop';
 import Notifications from './pages/xyz/xyz_desktop/Notifications';
+import { createContext } from 'react';
+import ResetPassDesktop from './pages/auth-desktop/ResetPassDesktop';
+import VerificationDesktop from './pages/auth-desktop/VerificationDesktop';
+import Checkpoint from './pages/xyz/xyz_desktop/Checkpoint'
+
+export const UserContext = createContext()
 
 function App() {
   const [userRole, setUserRole] = useState(null);
+  const [userRefresh, setUserRefresh] = useState(false);
 
   useEffect(() => {
     async function fetchUserRole() {
@@ -65,7 +72,8 @@ function App() {
     }
 
     fetchUserRole();
-  }, []);
+    setUserRefresh(false)
+  }, [userRefresh]);
 
   const isMobileDevice = isMobile;
 
