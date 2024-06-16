@@ -218,3 +218,12 @@ export const getCheckpoints = async() => {
         });
     return Checkpoint
 }
+
+export const getReceptionPackages = async() => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    const Reception = await axios.get(URL + "/centra/reception_packages")
+        .catch((error) => {
+            console.error(error);
+        });
+    return Reception
+}
