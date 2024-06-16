@@ -151,7 +151,7 @@ const DryDashboard = () => {
             <div className="flex h-[440px] bg-quinary items-center justify-center rounded-3xl dark:bg-gray-800 p-4">
               <div className="text-2xl text-primary dark:text-gray-500 w-full">
                 <div className="text-left text-lg ml-3 text-black font-semibold">Dry Leaves Data</div>
-                <Table />
+                <Table data={wetDatas.map((data) => {return {...data, "date":data.received_date}})}/>
               </div>
             </div>
             <div className="flex flex-col bg-quinary rounded-3xl dark:bg-gray-800 p-4">
