@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
 import "../../style/AdminDesktop.css";
 
-import hamburgerBar from "s../../../src/assets/admin/hamburgerbar.svg"
-import mofera from "../../../src/assets/admin/mofera.svg"
+import hamburgerBar from "../../../src/assets/admin/hamburgerbar.svg";
+import moferaImg from "../../../src/assets/admin/mofera.svg";
+import dashboardIcon from "../../../src/assets/admin/dashboardicon.svg";
+import userProfileIcon from "../../../src/assets/admin/userprofile.svg";
+import databaseIcon from "../../../src/assets/admin/dbase.svg";
+import exitIcon from "../../../src/assets/desktop/exit.svg";
+import underlineImg from "../../../src/assets/desktop/underline.svg";
+
 const DesktopNavbar = () => {
   const [isOpen, setIsOpen] = useState(true);
 
@@ -15,14 +21,14 @@ const DesktopNavbar = () => {
       <div className="flex items-center justify-between py-6 px-4">
         <div onClick={toggleSidebar} className="flex items-center cursor-pointer">
           <img
-            src=""
+            src={hamburgerBar}
             alt="menu"
             className="w-12 mb-3 cursor-pointer"
           />
         </div>
         {isOpen && (
           <img
-            src={mofera}
+            src={moferaImg}
             alt="mofera"
             className="mr-16 w-40"
           />
@@ -31,12 +37,12 @@ const DesktopNavbar = () => {
 
       <div className="flex flex-col items-start justify-center space-y-6 px-4">
         <div className={`flex items-center space-x-3.5 space-y--0.5${isOpen ? "" : "ml-1"}`}>
-          <img src="src/assets/admin/dashboardicon.svg" alt="dashboard" className="w-11"/>
+          <img src={dashboardIcon} alt="dashboard" className="w-11"/>
           {isOpen && <p className="font-bold text-white text-2xl cursor-pointer">Dashboard</p>}
         </div>
 
         <div className={`flex items-center space-x-3 ${isOpen ? "ml-1" : "mr-2"}`}>
-          <img src="src/assets/admin/userprofile.svg" alt="user" className={`w-10 ${isOpen ? "w-11" : ""}`} />
+          <img src={userProfileIcon} alt="user" className={`w-10 ${isOpen ? "w-11" : ""}`} />
           {isOpen && (
             <div className="flex flex-col items-start">
               <p className="font-bold text-white text-2xl cursor-pointer">User</p>
@@ -46,7 +52,7 @@ const DesktopNavbar = () => {
         </div>
 
         <div className={`flex items-center space-x-3  ${isOpen ? "" : "mr-3 ml-1"}`}>
-          <img src="src/assets/admin/dbase.svg" alt="database" className="w-12" />
+          <img src={databaseIcon} alt="database" className="w-12" />
           {isOpen && (
             <div className="flex flex-col items-start">
               <p className="font-bold text-white text-2xl cursor-pointer">Data</p>
@@ -79,7 +85,7 @@ const DesktopNavbar = () => {
 
       <div className={`flex justify-center ${isOpen ? 'mt-72' : 'mt-96 pt-8'}`}>
         <img
-          src="src/assets/desktop/underline.svg"
+          src={underlineImg}
           alt="underline"
           className={`transition-all duration-300 ${isOpen ? 'w-5/6' : 'w-4/5'}`}
         />
@@ -87,7 +93,7 @@ const DesktopNavbar = () => {
 
       <div className={`flex items-center ${isOpen ? 'pt-3' : 'pt-2'} pl-6`}>
         <img
-          src="src/assets/desktop/exit.svg"
+          src={exitIcon}
           alt="exit"
           className="w-10"
         />
