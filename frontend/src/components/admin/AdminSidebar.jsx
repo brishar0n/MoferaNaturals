@@ -138,9 +138,9 @@ function AdminSidebar({ isMinimized, toggleMenu, onPageDataChange }) {
 
   return (
     <div
-      className={`bg-primary h-screen flex flex-col justify-between items-center transition-all duration-550 ${
-        isMinimized ? 'w-20 pl-2 pt-5' : 'w-3/20'
-      }`}
+      className={`bg-primary h-screen flex flex-col justify-between items-center transition-all duration-550 h-screen overflow-y-auto  ${
+        isMinimized ? 'w-20 pl-2 pt-5' : 'w-1/6' 
+      } hide-scrollbar`}
     >
       <div className="bg-primary flex flex-col justify-start gap-6">
         <div className="bg-primary flex items-center w-full p-5 pl-2">

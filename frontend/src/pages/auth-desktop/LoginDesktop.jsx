@@ -36,7 +36,7 @@ function LoginDesktop() {
             if(role === "xyz") Navigate('/dashboard-wet');
             if(role === "admin") Navigate('/adminpage');
           }
-          
+           
         } catch (error) {
           console.error("Error: ", error)
         }
@@ -49,6 +49,8 @@ function LoginDesktop() {
     const NavigateResetPage = () => {
         Navigate('/resetpassdesktop');
     };
+
+    
     
     return (
         <div className="bg-white h-screen">

@@ -142,13 +142,13 @@ function App() {
             </>
           )}
           {/* Admin Routes */}
-          {userRole === 'admin' && (
+          {/* {userRole === 'admin' && ( */}
             <>
               <Route path="/usermanagement" element={<UserManagement />} />
               <Route path="/adminpage" element={<AdminPage />} />
               <Route path="/navbaradmin" element={<NavbarAdmin />} />
             </>
-          )}
+          {/* )} */}
         </Routes>
       </Router>
     </UserContext.Provider>
