@@ -25,6 +25,8 @@ function AddDryLeaves() {
         };
         postDryLeaves(dryLeavesData);
         setFormSubmitted(true);
+        setDriedDate("");
+        setWeight("");
     }
 
     return (

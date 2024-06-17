@@ -80,6 +80,15 @@ function ShippingForm() {
             setTrigger(prev => prev + 1); // Increment the trigger to ensure notification shows
             console.log("Form submission failed");
         }
+
+        setWeight(0);
+        setExpedition("");
+        setShippingDate("");
+        setShippingTime("");
+        setEtaDate("");
+        setEtaTime("");
+        setPackages("");
+        setTotal(0);
     }
 
     const handleShippingDateChange = (event) => {

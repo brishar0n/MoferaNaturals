@@ -66,6 +66,9 @@ function CentraDashboardHomePage() {
       "retrieval_datetime": date+"T"+time,
     })
     setFormSubmitted(true);
+    setWeight(0);
+    setDate("");
+    setTime("");
   };
 
   useEffect(() => {
