@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Page, Text, View, Document, StyleSheet, PDFViewer, Image } from '@react-pdf/renderer';
 import logo from "../../../assets/desktop/mofera.svg";
 import { useParams } from 'react-router-dom';
+import { searchPackage, searchReceptionPackages } from '../../../../api/xyzAPI';
 // import { getReceptionDetails } from '../../../../api/xyzAPI'; // Assuming you have an API function to get the reception details
 const styles = StyleSheet.create({
     page: {
@@ -100,7 +101,7 @@ const styles = StyleSheet.create({
     }
   });
 
-function ReceptionDocPDF() {
+function ReceptionDocPDF({ doc_id }) {
     const [receptionData, setReceptionData] = useState({
         id: 0,
         package_id: [],
@@ -114,29 +115,65 @@ function ReceptionDocPDF() {
         package_data: []
     });
 
-    useEffect(() => {
-        const mockData = {
-            id: 1,
-            package_id: [1, 2, 3],
-            total_packages_received: 3,
-            weight: 150,
-            centra_id: [1, 2, 3],
-            receival_datetime: "2024-06-17T12:00:00.000Z",
-            guard_harbor_name: "John Doe",
-            xyz_name: "Jane Smith",
-            description: "Sample description",
-            package_data: [
-                { id: 1, weight: 50, centra_id: "C123" },
-                { id: 2, weight: 50, centra_id: "C123" },
-                { id: 3, weight: 50, centra_id: "C123" }
-            ]
-        };
-        setReceptionData(mockData);
-    }, []);
+    useEffect(async () => {
+        async function fetchReception() {
+            const response = await searchReceptionPackages(new String(doc_id));
+            if(response && response.data) {
+                const data = response.data;
+                
+                const package_ids = data.package_id.split(",").map((e) => parseInt(e));
+                let weight = 0;
+                const centra_id = new Set()
+                const package_data = []
+                for(let idx = 0; idx < package_ids.length; idx++){
+                    
+                    const packageResponse = await searchPackage(package_ids[idx])
+                    if(packageResponse && packageResponse.data) {
+                        
+                        weight += packageResponse.data.weight
+                        centra_id.add(packageResponse.data.centra_id)
+                        package_data.push({id: packageResponse.data.id, weight: packageResponse.data.weight, centra_id: packageResponse.data.centra_id})
+                    }
+                }
 
-    useEffect(() => {
-        console.log(receptionData);
-    })
+                
+                setReceptionData({
+                    id: data.id,
+                    package_id: package_ids,
+                    total_packages_received: package_ids.length,
+                    weight,
+                    centra_id: Array.from(centra_id),
+                    receival_datetime: new Date(data.receival_datetime).toLocaleDateString(),
+                    guard_harbor_name: data.guard_harbor_name,
+                    xyz_name: data.xyz_name,
+                    description: data.description,
+                    package_data
+                })
+                
+            }
+
+            
+        }
+        await fetchReception()
+        console.log(receptionData)
+        // const mockData = {
+        //     id: 1,
+        //     package_id: [1, 2, 3],
+        //     total_packages_received: 3,
+        //     weight: 150,
+        //     centra_id: [1, 2, 3],
+        //     receival_datetime: "2024-06-17T12:00:00.000Z",
+        //     guard_harbor_name: "John Doe",
+        //     xyz_name: "Jane Smith",
+        //     description: "Sample description",
+        //     package_data: [
+        //         { id: 1, weight: 50, centra_id: "C123" },
+        //         { id: 2, weight: 50, centra_id: "C123" },
+        //         { id: 3, weight: 50, centra_id: "C123" }
+        //     ]
+        // };
+        // setReceptionData(mockData);
+    }, []);
 
     // if (!receptionData) {
     //     // return <Text>Loading...</Text>;

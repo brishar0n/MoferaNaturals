@@ -131,7 +131,7 @@ function App() {
               <Route path="/rescalepackage/:packageId" element={<RescalingPackage />} />
               <Route path="/receptionpackage" element={<ReceptionPackage />} />
               <Route path="/receptiondocument" element={<ReceptionDocument />} />
-              {/* <Route path="/receptionpackage/:doc_id" element={<ReceptionDocPDF />} /> */}
+              <Route path="/receptionpackage/:doc_id" element={<PDFDownload />} />
               
               
             </>
@@ -174,7 +174,7 @@ function App() {
               <Route path="/navbaradmin" element={<NavbarAdmin />} />
             </>
           {/* )} */}
-          <Route path="/receptiondoc" element={<PDFDownload />} />
+          {/* <Route path="/receptiondoc" element={<PDFDownload />} /> */}
         </Routes>
       </Router>
     </UserContext.Provider>
