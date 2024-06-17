@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import { IoNotifications } from "react-icons/io5";
 import { motion } from "framer-motion";
-import { FaBoxOpen, FaShippingFast, FaClipboardList, FaBox } from "react-icons/fa"; // Import icons
-
 import Sidebar from '../../../components/xyz/Sidebar';
 import bell from '../../../assets/xyz/bell.svg';
 import profilepic from "../../../assets/desktop/profilepicdesktop.svg";
