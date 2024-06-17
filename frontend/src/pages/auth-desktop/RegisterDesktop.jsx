@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "../../style/AdminDesktop.css";
-import { login } from "../../../api/authAPI";
+import { login, register } from "../../../api/authAPI";
 import { useNavigate } from "react-router-dom";
 import { Input, Button } from "@nextui-org/react";
 import eye from "../../assets/auth-desktop/eye.svg";
@@ -15,22 +15,27 @@ import { motion } from "framer-motion";
 function RegisterDesktop() {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [isVisible, setIsVisible] = useState(false);
     const [isVisible2, setIsVisible2] = useState(false);
     const toggleVisibility = () => setIsVisible(!isVisible);
     const toggleVisibility2 = () => setIsVisible2(!isVisible2);
 
-    const handleLogin = async (event) => {
+    const handleRegister = async (event) => {
         event.preventDefault();
     
-        const formData = new FormData();
-        formData.append('username', email);
-        formData.append('password', password);
-    
+        const formData = {
+            username: username,
+            email: email,
+            password: password,
+            role: 'xyz',
+            centra_unit: null
+          }
+          
         try {
-          const response = await login(formData);
-          navigate('/centradashboard');
+          const response = await register(formData);
+          navigate('/logindesktop');
         } catch (error) {
           console.error("Error: ", error);
         }
@@ -65,15 +70,17 @@ function RegisterDesktop() {
                     transition={{ duration: 0.5 }}
                     className="absolute z-20 p-10"
                     >
-                         <form onSubmit={handleLogin} className="relative z-20 flex flex-col justify-start pt-16 pl-20 text-primary">
+                         <form onSubmit={handleRegister} className="relative z-20 flex flex-col justify-start pt-16 pl-20 text-primary">
                             <p className='text-secondary font-bold text-4xl text-left'> Register </p>
 
-                            <label htmlFor="name" className="text-left secondary font-medium pt-5 text-base">Full Name</label>
+                            <label htmlFor="name" className="text-left secondary font-medium pt-5 text-base">Username</label>
                             <Input
                                 type="name"
                                 name="name"
                                 radius="sm"
-                                className="pt-1 w-96 "
+                                className="pt-1 w-96"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
                             />
                             
                             <label htmlFor="email" className="text-left secondary font-medium pt-5 text-base">Email</label>
@@ -132,6 +139,7 @@ function RegisterDesktop() {
                                 <Button
                                     className="w-36 mt-8 bg-secondary text-white font-bold text-base"
                                     radius="full"
+                                    type="submit"
                                 >
                                     Register
                                 </Button>

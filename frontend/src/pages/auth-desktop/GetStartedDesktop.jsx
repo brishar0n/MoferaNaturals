@@ -4,6 +4,7 @@ import bg from "../../../src/assets/auth-desktop/gs-bg.svg"
 import mofera from "../../../src/assets/desktop/mofera.svg"
 import { Button } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 function GetStartedDesktop() {
     const navigate = useNavigate();
@@ -17,7 +18,13 @@ function GetStartedDesktop() {
             <div>
                 <img src={bg} alt="" className="h-screen w-screen absolute z-0"/>
                 <img src={mofera} alt="" className="pt-5 pl-5"/>
+                <motion.div
+                        initial={{ opacity: 0, scale: 0.5 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.7 }}
+                    >
                 <div className="flex flex-col justify-center items-center relative pt-44 gap-3 pr-2">
+                    
                     <div className="flex items-center justify-center gap-2">
                         <p className="italic font-semibold text-5xl">“ </p>
                         <p className="italic font-semibold text-5xl text-primary">Transforming</p>
@@ -42,13 +49,16 @@ function GetStartedDesktop() {
                     <div className="pt-5">
                         {/* <button className="bg-secondary w-36 h-8 rounded-lg text-white text-sm font-semibold hover:bg-primary" > Get Started </button> */}
                         <Button
-                        className="w-36 h-9 rounded-lg text-sm font-semibold"
+                        className="w-36 h-9 rounded-lg text-sm font-semibold drop-shadow-lg"
                         color="primary"
                         onClick={NavigateWelcome}>
                             Get Started
                         </Button>
                     </div>
+
+                    
                 </div>
+                </motion.div>
             </div>
 
             

@@ -64,11 +64,11 @@ function LoginDesktop() {
                     <img 
                         src={Mascot}
                         alt="mascot" 
-                        className="fixed right-24 top-32 h-md:top-32 h-lg:top-24 w-1/3"
+                        className="absolute right-36 top-32 h-md:top-32 h-lg:top-48 w-1/3"
                     />
 
 
-                    <div className="absolute bg-white">
+                    <div className="absolute bg-white px-20 py-36">
                     <motion.div
                     initial={{ opacity: 0, x: -200 }} // Start off-screen to the left
                     animate={{ opacity: 1, x: 0 }} // Slide to the right into view
@@ -76,7 +76,7 @@ function LoginDesktop() {
                     transition={{ duration: 0.5 }}
                     className="absolute z-20 p-10"
                     >
-                         <form onSubmit={handleLogin} className="relative z-20 flex flex-col justify-start pt-44 pl-20">
+                         <form onSubmit={handleLogin} className="relative z-20 flex flex-col justify-start ">
                         <p className='text-secondary font-bold text-4xl text-left'> Login </p>
                         {/* <label htmlFor='email' className='text-left text-secondary font-medium pt-5 text-xl'> Email </label>
                             <input
@@ -140,7 +140,7 @@ function LoginDesktop() {
                         <div className=''>
                             {/* <button className='rounded-full bg-secondary text-white font-bold px-4 py-2 w-36 btn-login mt-8'> Login </button> */}
                             <Button
-                            className="rounded-full mt-8 w-36 font-bold text-base"
+                            className="rounded-full mt-8 w-36 font-bold text-base drop-shadow-lg"
                             color="primary"
                             type="submit"
                             >
