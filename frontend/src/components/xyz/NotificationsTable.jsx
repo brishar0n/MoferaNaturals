@@ -87,10 +87,10 @@ function NotificationsTable() {
                         : `Arrival ID #${notification.id}`}
                     </span>{' '}
                     {showShipment
-                      ? `has been shipped by ${notification.shipper})`
-                      : `arrived from ${notification.shipper} (Arrival Date: ${notification.timestamp})`}
+                      ? `has been shipped by ${notification.shipper} (Estimated Date Arrival: ${new Date(notification.estimatedArrival).toDateString()})`
+                      : `arrived from ${notification.shipper} (Arrival Date: ${new Date(notification.timestamp).toDateString()})`}
                   </p>
-                  <p className="text-gray-500 text-left">{notification.timestamp}</p>
+                  <p className="text-gray-500 text-left">{new Date(notification.timestamp).toDateString()}</p>
                 </div>
               </div>
               <button className="bg-primary text-white font-bold px-4 py-2 rounded-lg focus:outline-none">
