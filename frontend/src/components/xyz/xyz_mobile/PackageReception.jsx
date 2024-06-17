@@ -20,14 +20,15 @@ function PackageReception({handleSubmit, formSubmitted}) {
     const [ghName, setGhName] = useState('');
     const [xyzName, setXYZName] = useState('');
     const [description, setDescription] = useState('');
-    const [trigger, setTrigger] = useState(false); 
+    const [trigger, setTrigger] = useState(false);
+    const [formSubmitted, setFormSubmitted] = useState(false);
 
     const navigate = useNavigate();
 
     const [packageData, setPackageData] = useState([])
     
     async function handleSubmit(e){
-        e.preventDefault()
+        e.preventDefault();
 
         const data = {
             "package_id": selectedPackageIDs,
