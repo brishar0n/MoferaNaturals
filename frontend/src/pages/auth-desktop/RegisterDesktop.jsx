@@ -130,7 +130,7 @@ function RegisterDesktop() {
 
                             <div className=''>
                                 <Button
-                                    className="w-36 mt-8 bg-secondary text-white font-bold"
+                                    className="w-36 mt-8 bg-secondary text-white font-bold text-base"
                                     radius="full"
                                 >
                                     Register

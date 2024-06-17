@@ -26,7 +26,7 @@ function SearchButtonData({ onSearch }) {
           onChange={handleChange}
         />
         <button type="submit">
-          <img src="src/assets/admin/searchbutton.svg" className="w-7" alt="Search Button" />
+          <img src={searchButton} className="w-7" alt="Search Button" />
         </button>
       </form>
     </div>

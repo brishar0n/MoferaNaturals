@@ -13,6 +13,7 @@ import Mascot from "../../assets/auth-desktop/login-mascot.svg"
 import component from "../../../src/assets/common/component.svg"
 import { UserContext } from "../../App";
 import { motion } from "framer-motion";
+import { Button } from "@nextui-org/react";
 
 function LoginDesktop() {
     const {setUserRefresh} = useContext(UserContext)
@@ -137,7 +138,13 @@ function LoginDesktop() {
                         </div>
 
                         <div className=''>
-                            <button className='rounded-full bg-secondary text-white font-bold px-4 py-2 w-36 btn-login mt-8'> Login </button>
+                            {/* <button className='rounded-full bg-secondary text-white font-bold px-4 py-2 w-36 btn-login mt-8'> Login </button> */}
+                            <Button
+                            className="rounded-full mt-8 w-36 font-bold text-base"
+                            color="primary"
+                            >
+                                Login
+                            </Button>
                         </div>
 
                         <div className='flex justify-center items-center mt-7 z-20'>
