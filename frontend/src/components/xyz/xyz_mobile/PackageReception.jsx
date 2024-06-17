@@ -17,6 +17,7 @@ function PackageReception({handleSubmit, formSubmitted}) {
     const [totalPackagesReceived, setTotalPackagesReceived] = useState(0);
     const [totalWeight, setTotalWeight] = useState(0);
     const [centraUnit, setCentraUnit] = useState('');
+    const [trigger, setTrigger] = useState(false); 
 
     const navigate = useNavigate();
 
@@ -32,6 +33,7 @@ function PackageReception({handleSubmit, formSubmitted}) {
         }
         console.log(data)
         addReception(data)
+        setTrigger(!trigger); 
         navigate(`/receptiondocument`);
     }
 
@@ -68,7 +70,7 @@ function PackageReception({handleSubmit, formSubmitted}) {
         
     return (
         <div className='pb-36'>
-            {formSubmitted && <SuccessNotification htmlContent={successMessage} />}
+            {formSubmitted && <SuccessNotification htmlContent={successMessage} trigger={trigger}/>}
             {/* {formSubmitted && weight <= 0 && <FailedNotification htmlContent={failedMessage} />} */}
 
             <ReceptionHeader />

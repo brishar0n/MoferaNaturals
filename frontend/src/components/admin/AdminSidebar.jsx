@@ -42,128 +42,12 @@ function AdminSidebar({ onPageDataChange }) {
     setIsMinimized(!isMinimized);
   };
 
-  async function fetchUserData(){
-    try{
-      const userData = await getUsers();
-      if(userData && userData.data){
-        setUserRows(userData.data);
-      }else{
-        console.error('Failed to fetch User data');
-      }
-    }
-    catch(error){
-      console.error('Error fetching User data:', error);
-    }
-  }
-
-  async function fetchCentraData() {
-    try {
-      const centraData = await getCentra();
-      if (centraData && centraData.data) {
-        setCentraRows(centraData.data);
-      } else {
-        console.error('Failed to fetch Centra data');
-      }
-    } catch (error) {
-      console.error('Error fetching Centra data:', error);
-    }
-  }
-
-  async function fetchCheckpointData() {
-    try {
-      const checkpointData = await getCheckpoints();
-      if (checkpointData && checkpointData.data) {
-        setCheckpointRows(checkpointData.data);
-      } else {
-        console.error('Failed to fetch Checkpoint data');
-      }
-    } catch (error) {
-      console.error('Error fetching Checkpoint data:', error);
-    }
-
-  }
-
-  async function fetchDryLeavesData() {
-    try {
-      const dryLeavesData = await getDryLeaves();
-      if (dryLeavesData && dryLeavesData.data) {
-        setDryRows(dryLeavesData.data);
-      } else {
-        console.error('Failed to fetch Dry Leaves data');
-      }
-    } catch (error) {
-      console.error('Error fetching Dry Leaves data:', error);
-    }
-  }
-
-  async function fetchFlourData() {
-    try {
-      const flourData = await getFlour();
-      if (flourData && flourData.data) {
-        setFlourRows(flourData.data);
-      } else {
-        console.error('Failed to fetch Flour data');
-      }
-    } catch (error) {
-      console.error('Error fetching Flour data:', error);
-    }
-  }
-
-  async function fetchPackageData() {
-    try {
-      const packageData = await getPackages();
-      if (packageData && packageData.data) {
-        setPackageRows(packageData.data);
-      }else {
-        console.error('Failed to fetch Flour data');
-      }
-    } catch (error) {
-      console.error('Error fetching Package data:', error);
-    }
-  }
-
-  async function fetchShippingData() {
-    try {
-      const shippingData = await getShippingInfo();
-      if (shippingData && shippingData.data) {
-        setShippingRows(shippingData.data);
-      }else {
-        console.error('Failed to fetch Shipping data');
-      }
-    } catch (error) {
-      console.error('Error fetching Shipping data:', error);
-    }
-  }
-
-  async function fetchWetData() {
-    try {
-      const wetData = await getWetLeaves();
-      if (wetData && wetData.data) {
-        setWetRows(wetData.data);
-      }else {
-        console.error('Failed to fetch Wet data');
-      }
-    } catch (error) {
-      console.error('Error fetching Wet data:', error);
-    }
-  }
-
-  useEffect(() => {
-    fetchUserData();
-    console.log(centraRows)
-    fetchCentraData();
-    fetchCheckpointData();
-    fetchDryLeavesData();
-    fetchFlourData();
-    fetchWetData();
-    fetchPackageData();
-    fetchShippingData();
-  }, []);
-
   const handleResize = () => {
     if (window.innerWidth <= 1274) {
       setIsMinimized(true);
-    } else {
+    } 
+    
+    else {
       setIsMinimized(false);
     }
   };
@@ -179,8 +63,8 @@ function AdminSidebar({ onPageDataChange }) {
 
   return (
     <div
-      className={`bg-primary h-screen flex flex-col justify-between items-center transition-all duration-300 h-screen overflow-y-auto  ${
-        isMinimized ? 'w-20 pl-2 pt-5' : 'w-1/6' 
+      className={`bg-primary h-screen flex flex-col justify-between items-center transition-all duration-300 h-screen ${
+        isMinimized ? 'w-20 pl-2 pt-5' : 'w-3/20' 
       } hide-scrollbar`}
     >
       <div className="bg-primary flex flex-col justify-center items-center gap-8">
@@ -235,7 +119,7 @@ function AdminSidebar({ onPageDataChange }) {
               </li>
 
               {dataManagementOpen && (
-                <div className="overflow-y-auto max-h-60">
+                <div className="overflow-y-auto hide-scrollbar max-h-60">
                   <li className="bg-primary py-4 px-5 text-left indent-6 text-white hover:bg-white rounded-xl hover:text-primary font-medium cursor-pointer w-full">
                     <p onClick={() => onPageDataChange('Centra Data', 'Search and added data for Centra', "CentraData", centraRows, columnsCentra)}>Centra Data</p>
                   </li>
