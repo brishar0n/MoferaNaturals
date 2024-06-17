@@ -100,9 +100,9 @@ export const getArrivalNotification = async() => {
 }
 
 
-export const getPackageByID = async(data) => {
+export const searchPackage = async(data) => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
-    const Package = await axios.get(URL + "/xyz/search_package_rescale", {
+    const Package = await axios.get(URL + "/xyz/get_package_by_id", {
         "params": { "s": data }
     }).catch((error) => {
         console.error(error);
@@ -140,6 +140,16 @@ export const getPackages = async() => {
     return Packages
 }
 
+export const getPackageByID = async(data) => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    const Package = await axios.get(URL + "/xyz/search_package_rescale", {
+        "params": { "s": data }
+    }).catch((error) => {
+        console.error(error);
+    });
+    return Package
+}
+
 export const getCheckpoints = async() => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
     const Checkpoints = await axios.get(URL + "/xyz/checkpoints")
@@ -171,6 +181,19 @@ export const getReceptionPackages = async() => {
         });
     return Reception
 }
+
+export const searchReceptionPackages = async (id) => {
+    console.log(id)
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    const Reception = await axios.get(URL + "/xyz/search_reception", {
+        "params":{id}
+    })
+    .catch((error) => {
+        console.error(error);
+    });
+    return Reception
+}
+
 
 
 export const getShippingInfo = async(ShippingInfo) => {

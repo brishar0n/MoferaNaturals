@@ -48,8 +48,8 @@ function PackageReception() {
                 setFormSubmitted(true);
                 setTrigger(!trigger); 
                 
-                doc_id = response.data.id;
-                navigate(`/receptionpackages/${doc_id}`);
+                const doc_id = response.data.id;
+                navigate(`/receptionpackage/${doc_id}`);
             } 
         } catch (error) {
             console.error('Failed to add reception document:', error);
