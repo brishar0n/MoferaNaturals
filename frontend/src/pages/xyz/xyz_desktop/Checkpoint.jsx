@@ -43,16 +43,16 @@ const Checkpoint = () => {
     const toggleSidebar = () => {
       setIsSidebarMinimized(!isSidebarMinimized);
     };
-    return(
+    return (
         <div className="bg-primary w-screen h-screen flex relative">
         <Sidebar isMinimized={isSidebarMinimized} toggleSidebar={toggleSidebar} />
         {/*<AdminSidebar isMinimized={isSidebarMinimized} toggleMenu={toggleSidebar} />*/}
-        <div className="flex-1 bg-white rounded-xl mt-3 mr-3 mb-3 p-4 flex flex-col overflow-hidden relative">
+        <div className="flex-1 bg-white rounded-3xl mt-3 mr-3 mb-3 p-4 flex flex-col overflow-hidden relative">
           <div className="flex justify-between items-center mb-5">
             <div className="grid grid-cols-2 gap-4 mb-4">
               <div className="flex items-center justify-around h-22 p-8 ">
                 <div className="flex items-center">
-                  <h2 className="text-5xl">Checkpoint Data </h2>
+                  <h2 className="text-4xl font-semibold">Checkpoint Data </h2>
                   
                 </div>
             </div>
@@ -69,7 +69,7 @@ const Checkpoint = () => {
               </div>
             </div>
           </div>
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} className="flex-1 overflow-y-auto">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} className="flex-1 overflow-y-auto hide-scrollbar">
            
             <div className="grid grid-rows grid-cols-5 gap-4 mb-4">
                 <div className="col-span-3">
@@ -88,7 +88,7 @@ const Checkpoint = () => {
                         </div>
                         <div className="h-24 bg-quinary rounded-3xl flex items-center justify-center dark:bg-gray-800 p-4">
                         <div>
-                            <p className="text-sm">Total Packages Arrived::</p>
+                            <p className="text-sm">Total Packages Arrived:</p>
                             <p className="text-lg font-bold">102 kg</p>
                         </div>
                         </div>

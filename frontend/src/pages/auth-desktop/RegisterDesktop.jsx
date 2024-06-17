@@ -40,7 +40,7 @@ function RegisterDesktop() {
     };
 
     const NavigateResetPage = () => {
-        navigate('/resetpassdesktop');
+        navigate('/verificationdesktop');
     };
 
     return (

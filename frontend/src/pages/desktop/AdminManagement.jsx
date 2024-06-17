@@ -58,7 +58,6 @@
 //         }
 //     };
 
-
 //     const [isMinimized, setIsMinimized] = useState(false);
 
 //     const toggleMenu = () => {
@@ -241,7 +240,7 @@ import PageTitleAll from "../../components/admin/PageTitleAll";
 import UserProfile from "../../components/admin/UserProfile";
 import AdminSidebar from "../../components/admin/AdminSidebar";
 import MasterDataFolder from "../../components/admin/MasterDataFolder";
-import DashboardContent from "../../components/admin/DashboardContent";
+
 import {
   getUsers,
   getCentra,
@@ -272,6 +271,8 @@ import {
   columnsShipping,
   columnsWet,
 } from "../../components/admin/UserDataSample";
+
+import DashboardDataFolder from "../../components/admin/DashboardDataFolder";
 
 const columnsMap = {
   AdminTable: columns,
@@ -458,7 +459,8 @@ function AdminPage() {
       case "MasterDataFolder":
         return <MasterDataFolder />;
       case "Dashboard":
-        return <DashboardContent />;
+        // return <DashboardContent />;
+        return <DashboardDataFolder/>
       case "CentraData":
         return (
           <AdminTable
@@ -542,9 +544,7 @@ function AdminPage() {
         onPageDataChange={handlePageDataChange}
       />
       <div
-        className={`bg-white h-97vh rounded-3xl transition-all duration-300 ${
-          isMinimized ? "w-19/20" : "w-41/50"
-        }`}
+        className={`bg-white h-97vh rounded-3xl transition-all duration-300 ${ isMinimized ? "w-19/20" : "w-41/50"}`}
       >
         <PageTitleAll
           title={pageData.title}
