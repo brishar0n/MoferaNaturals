@@ -115,6 +115,7 @@ function App() {
               <Route path="/addcheckpoint" element={<AddCheckpoint />} />
               <Route path="/viewcheckpoint" element={<ViewCheckpoint />} />
               <Route path="/shipmentnotification" element={<ShipmentNotification />} />
+              <Route path="/trackshipping/:shippingId" element={<TrackShippingID />} />
             </>
           )}
           {/* XYZ Mobile Routes */}
