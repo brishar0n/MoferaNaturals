@@ -32,6 +32,9 @@ function AddPowder(){
             "floured_date": flouredDate
         })
         setFormSubmitted(true);
+        setWeight(0);
+        setDriedDate("");
+        setFlouredDate("");
     }
     
     return (

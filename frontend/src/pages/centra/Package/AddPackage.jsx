@@ -29,6 +29,8 @@ function AddPackage(){
         };
         postPackage(packageData);
         setFormSubmitted(true);
+        setWeight(0);
+        setExpDate("");
     }
     
     return (

@@ -9,7 +9,7 @@ import SuccessNotification from "../../SuccessNotification";
 import FailedNotification from "../../FailedNotification";
 import { addReception, getArrivedPackage } from '../../../../api/xyzAPI';
 
-function PackageReception({handleSubmit, formSubmitted}) {
+function PackageReception({handleSubmit}) {
     const successMessage = `You have successfully added package reception data.`;
     const [selectedPackageIDs, setSelectedPackageIDs] = useState([]);
     const [receivalDate, setReceivalDate] = useState('');
@@ -21,6 +21,7 @@ function PackageReception({handleSubmit, formSubmitted}) {
     const [xyzName, setXYZName] = useState('');
     const [description, setDescription] = useState('');
     const [trigger, setTrigger] = useState(false); 
+    const [formSubmitted, setFormSubmitted] = useState(false);
 
     const navigate = useNavigate();
 
@@ -43,11 +44,12 @@ function PackageReception({handleSubmit, formSubmitted}) {
         try {
             const response = await addReception(data);
             if (response.status === 201) {
+                console.log(response);
                 setFormSubmitted(true);
                 setTrigger(!trigger); 
                 
-                doc_id = response.data.id;
-                navigate(`/receptionpackages/${doc_id}`);
+                // doc_id = response.data.id;
+                // navigate(`/receptionpackages/${doc_id}`);
             } 
         } catch (error) {
             console.error('Failed to add reception document:', error);
@@ -55,6 +57,15 @@ function PackageReception({handleSubmit, formSubmitted}) {
             setTrigger(!trigger);
         }
 
+        setSelectedPackageIDs("");
+        setTotalPackagesReceived(0);
+        setTotalWeight(0);
+        setCentraUnit("");
+        setReceivalDate("");
+        setReceivalTime("");
+        setGhName("");
+        setXYZName("");
+        setDescription("");
     }
 
     function handlePackageIDChange(selectedPackageIDs) {
@@ -151,7 +162,7 @@ function PackageReception({handleSubmit, formSubmitted}) {
                 <label htmlFor="ghName" className='items-start text-xs mb-2 font-medium'>GH Preparer:</label>
                 <input 
                     type="string" 
-                    id="ghName" 
+                    value={ghName}
                     className='mb-2 rounded-md bg-quinary px-2 py-1 w-full text-xs border-none' 
                     onChange={(e) => setGhName(e.target.value)}
                     required
@@ -160,7 +171,7 @@ function PackageReception({handleSubmit, formSubmitted}) {
                 <label htmlFor="xyzName" className='items-start text-xs mb-2 font-medium'>XYZ Receiver:</label>
                 <input 
                     type="string" 
-                    id="xyzName" 
+                    value={xyzName}
                     className='mb-2 rounded-md bg-quinary px-2 py-1 w-full text-xs border-none' 
                     onChange={(e) => setXYZName(e.target.value)}
                     required
@@ -169,7 +180,7 @@ function PackageReception({handleSubmit, formSubmitted}) {
                 <label htmlFor="description" className='items-start text-xs mb-2 font-medium'>Description:</label>
                 <input 
                     type="string" 
-                    id="description" 
+                    value={description} 
                     className='mb-2 rounded-md bg-quinary px-2 py-1 w-full text-xs border-none' 
                     onChange={(e) => setDescription(e.target.value)}
                     required

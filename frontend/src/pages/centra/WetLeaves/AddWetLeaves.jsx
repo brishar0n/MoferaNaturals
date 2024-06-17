@@ -65,6 +65,8 @@ function AddWetLeaves(){
             retrieval_date: dateCollected
         })
         setFormSubmitted(true);
+        setWeight(0);
+        setDateCollected("");
     }
     
     return (
