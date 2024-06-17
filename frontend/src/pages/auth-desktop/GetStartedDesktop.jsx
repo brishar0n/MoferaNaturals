@@ -16,7 +16,7 @@ function GetStartedDesktop() {
         <div className="bg-primary h-screen relative">
             <div>
                 <img src={bg} alt="" className="h-screen w-screen absolute z-0"/>
-                <img src={mofera} alt="" className="pt-5 pl-5"/>
+                <img src={mofera} alt="" className="pt-5 pl-5 w-40"/>
                 <div className="flex flex-col justify-center items-center relative pt-44 gap-3 pr-2">
                     <div className="flex items-center justify-center gap-2">
                         <p className="italic font-semibold text-5xl">“ </p>
