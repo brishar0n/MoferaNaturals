@@ -11,7 +11,7 @@ import { PiPackageFill } from "react-icons/pi";
 import { IoNotifications } from "react-icons/io5";
 import { MdOutlineMonitor } from "react-icons/md";
 
-function Sidebar() {
+function Sidebar({ onPageChange } ) {
   const [dashboardOpen, setDashboardOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
 
@@ -63,6 +63,8 @@ function Sidebar() {
             <ul>
               <li
                 onClick={toggleDropdown}
+                onMouseEnter={() => setHoveredItem({toggleDropdown})}
+                onMouseLeave={() => setHoveredItem(null)}
                 className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white"
               > 
                 <MdOutlineDashboardCustomize className='text-3xl mr-4'></MdOutlineDashboardCustomize>
@@ -70,34 +72,66 @@ function Sidebar() {
               </li>
               {dashboardOpen && (
                 <>
-                  <li className="bg-primary py-2 px-8 text-white hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none cursor-pointer w-full">
+                  <li 
+                    className="bg-primary py-2 px-8 text-white hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none cursor-pointer w-full"
+                    onMouseEnter={() => setHoveredItem('dashboard-wet')}
+                    onMouseLeave={() => setHoveredItem(null)}
+                  >
                     <Link to="/dashboard-wet">Wet Leaves</Link>
                   </li>
-                  <li className="bg-primary py-2 px-8 text-white hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none cursor-pointer w-full">
+                  <li 
+                    className="bg-primary py-2 px-8 text-white hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none cursor-pointer w-full"
+                    onMouseEnter={() => setHoveredItem('dashboard-dry')}
+                    onMouseLeave={() => setHoveredItem(null)}
+                    >
                     <Link to="/dashboard-dry">Dry Leaves</Link>
                   </li>
-                  <li className="bg-primary py-2 px-8 text-white hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none cursor-pointer w-full">
+                  <li 
+                    className="bg-primary py-2 px-8 text-white hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none cursor-pointer w-full"
+                    onMouseEnter={() => setHoveredItem('dashboard-powder')}
+                    onMouseLeave={() => setHoveredItem(null)}
+                    >
                     <Link to="/dashboard-powder">Powder</Link>
                   </li>
                 </>
               )}
-              <li className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white">
+              <li 
+                className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white"
+                onMouseEnter={() => setHoveredItem('shipmenttracker')}
+                onMouseLeave={() => setHoveredItem(null)}
+                >
                 <FaShippingFast className='text-4xl' />
                 <Link to="/shipmenttracker" className='ml-5 text-left'>Shipment Tracker</Link>
               </li>
-              <li className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white">
+              <li 
+                className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white"
+                onMouseEnter={() => setHoveredItem('checkpoint')}
+                onMouseLeave={() => setHoveredItem(null)}
+                >
                 <FaLocationDot className='text-3xl' />
                 <Link to="/checkpoint" className='ml-4'>Checkpoint</Link>
               </li>
-              <li className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white">
+              <li 
+                className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white"
+                onMouseEnter={() => setHoveredItem('arrivedpackages')}
+                onMouseLeave={() => setHoveredItem(null)}
+                >
                 <PiPackageFill className='text-4xl' />
                 <Link to="/arrivedpackages" className='ml-5 text-left'>Arrived Packages</Link>
               </li>
-              <li className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white">
+              <li 
+                className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white"
+                onMouseEnter={() => setHoveredItem('notifications')}
+                onMouseLeave={() => setHoveredItem(null)}
+                >
               <IoNotifications className='text-3xl' />
                 <Link to="/notifications" className='ml-4'>Notifications</Link>
               </li>
-              <li className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white">
+              <li 
+                className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white"
+                onMouseEnter={() => setHoveredItem('centraactivitymonitor')}
+                onMouseLeave={() => setHoveredItem(null)}
+                >
                 <MdOutlineMonitor className='text-5xl' />
                 <Link to="/centraactivitymonitor" className='text-left ml-5'>Centra Activity Monitor</Link>
               </li>
