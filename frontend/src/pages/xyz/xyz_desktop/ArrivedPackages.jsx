@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import SearchForm from "./Search";
 import { IoNotifications } from "react-icons/io5";
 import { motion } from "framer-motion";
+import SearchForm from "./Search";
 
 import Sidebar from '../../../components/xyz/Sidebar';
 import ArrivedPackagesTable from '../../../components/xyz/ArrivedPackagesTable';
@@ -18,7 +18,7 @@ const ArrivedPackages = ({ children }) => {
     return (
         <div className='bg-primary w-screen h-screen overflow-hidden flex'>
             <Sidebar isMinimized={isSidebarMinimized} toggleSidebar={toggleSidebar} />
-            <div className='flex-1 bg-white rounded-xl mt-3 mr-3 mb-3 p-4 overflow-y-auto relative'>
+            <div className='flex-1 bg-white rounded-3xl mt-3 mr-3 mb-3 p-4 overflow-y-auto relative'>
                 <div className="flex justify-between items-center">
                     <h1 className='text-4xl font-semibold text-left ml-6 mt-3'>Arrived Packages</h1>
 

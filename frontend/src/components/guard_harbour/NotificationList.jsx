@@ -4,12 +4,8 @@ import { GoChevronLeft, GoChevronRight } from "react-icons/go";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
-function NotificationList({formatDate, shipmentInfo, packages}) {
+function NotificationList({formatDate, notifications}) {
     const nav = useNavigate();
-
-    const getPackageData = (shippingId) => {
-        return packages.find(item => item.shippingId === shippingId);  
-    } 
 
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
@@ -17,10 +13,10 @@ function NotificationList({formatDate, shipmentInfo, packages}) {
     // Calculate the current items to display
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = shipmentInfo.slice(indexOfFirstItem, indexOfLastItem);
+    const currentItems = notifications.slice(indexOfFirstItem, indexOfLastItem);
 
     // Calculate total pages
-    const totalPages = Math.ceil(shipmentInfo.length / itemsPerPage);
+    const totalPages = Math.ceil(notifications.length / itemsPerPage);
 
     const handleNextPage = () => {
         if (currentPage < totalPages) {
@@ -58,18 +54,16 @@ function NotificationList({formatDate, shipmentInfo, packages}) {
                 <div className="h-full pt-2 pb-3">
                     <div className="overflow-auto max-h-full pt">
                         <div>
-                            {currentItems.map(shipment => {
-                                const packageInfo = getPackageData(shipment.shippingId);
+                            {currentItems.map((notification, index) => {
                                 return (
                                     <Notification
-                                        key={shipment.shippingId}
-                                        shipmentId={shipment.shippingId}
-                                        centra={packageInfo?.centraUnit || 'N/A'}
-                                        date={formatDate(shipment.shippingDate)}
-                                        time={shipment.shippingTime}
+                                        key={index}
+                                        text={notification.message}
+                                        datetime={new Date(notification.date)}
                                         handleTrack={handleTrack}
+                                        shipmentId={notification.shipping_id}
                                     />
-                                );
+                                )
                             })}
                         </div>
                         

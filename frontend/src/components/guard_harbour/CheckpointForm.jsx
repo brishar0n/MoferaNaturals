@@ -7,9 +7,10 @@ import PackageIDInput from '../centra/PackageIDInput';
 import { motion } from 'framer-motion';
 import { postCheckpoint, getPackages, getShippingInfo } from '../../../api/guardHarborAPI';
 
-function CheckpointForm({ handleSubmit }) {
+function CheckpointForm() {
     const navigate = useNavigate();
     const [formSubmitted, setFormSubmitted] = useState(false);
+    const [trigger, setTrigger] = useState(false); 
 
     const [shippingId, setShippingId] = useState('');
     const [totalPackagesSent, setTotalPackagesSent] = useState('');
@@ -24,6 +25,11 @@ function CheckpointForm({ handleSubmit }) {
 
     const [shippingData, setShippingData] = useState([]);
     const [packageData, setPackageData] = useState([]);
+    const [addedShippingIds, setAddedShippingIds] = useState(() => {
+        // Retrieve saved added IDs from localStorage on initial load
+        const saved = localStorage.getItem('addedShippingIds');
+        return saved ? JSON.parse(saved) : [];
+    });  
 
     useEffect(() => {
         async function fetchData() {
@@ -38,8 +44,13 @@ function CheckpointForm({ handleSubmit }) {
             }
         }
         fetchData();
-
     }, []);
+
+    useEffect(() => {
+        console.log("Added shipping IDs:", addedShippingIds);
+        // Save added IDs to localStorage whenever it changes
+        localStorage.setItem('addedShippingIds', JSON.stringify(addedShippingIds));
+    }, [addedShippingIds]);
 
     function handleView() {
         navigate('/viewcheckpoint');
@@ -57,6 +68,21 @@ function CheckpointForm({ handleSubmit }) {
         try {
             await postCheckpoint(data);
             setFormSubmitted(true);
+            setTrigger(!trigger); 
+
+
+            // Add the submitted shipping ID to the list of added IDs
+            setAddedShippingIds(prevIds => [...prevIds, shippingId]);
+
+            // Reset form fields
+            setShippingId('');
+            setTotalPackagesSent('');
+            setCentra('');
+            setArrivalDate('');
+            setArrivalTime('');
+            setTotalPackagesArrived('');
+            setSelectedPackageIDs([]);
+            setNotes('');
         } catch (error) {
             console.error('Error submitting checkpoint data:', error);
         }
@@ -94,7 +120,7 @@ function CheckpointForm({ handleSubmit }) {
 
     return (
         <div>
-            {formSubmitted && <SuccessNotification htmlContent="You have successfully added checkpoint data." />}
+            {formSubmitted && <SuccessNotification htmlContent="You have successfully added checkpoint data." trigger={trigger} />}
 
             <div className="flex flex-col items-center">
                 <div className="flex pt-16 z-10 items-center justify-center mb-5">
@@ -118,7 +144,7 @@ function CheckpointForm({ handleSubmit }) {
             >
                 <div className="pb-36">
                     <div
-                        className="bg-white mb-5 w-3/4 mx-auto py-5 px-7 rounded-2xl text-left relative mt-5 flex flex-col"
+                        className="bg-white mb-5 w-3/4 mx-auto py-5 px-7 rounded-2xl text-left relative mt-5 flex flex-col shadow-lg"
                         onSubmit={handleSubmit}
                     >
                         <form>
@@ -137,10 +163,12 @@ function CheckpointForm({ handleSubmit }) {
                                 <option value="" disabled>
                                     Select Shipping ID
                                 </option>
-                                {shippingData.map((shippingId) => (
-                                    <option key={shippingId.id} value={shippingId.id}>
-                                        {shippingId.id}
-                                    </option>
+                                {shippingData
+                                    .filter(shipping => !addedShippingIds.includes(shipping.id))  // Filter out added IDs
+                                    .map((shipping) => (
+                                        <option key={shipping.id} value={shipping.id}>
+                                            {shipping.id}
+                                        </option>
                                 ))}
                             </select>
 

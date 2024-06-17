@@ -1,10 +1,12 @@
 import './style/App.css';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { isMobile } from 'react-device-detect';
 import Homepage from './pages/Homepage';
 import Login from './components/auth/Login';
 import Verification from './components/auth/Verification';
 import ResetPassword from './components/auth/ResetPassword';
 import WelcomeBack from './pages/WelcomeBack';
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Register from './components/auth/Register';
 import Notify from './components/notif/notify';
 import FindRescalePackage from './pages/xyz/xyz_mobile/FindRescalePackage';
@@ -43,10 +45,11 @@ import EditProfile from './pages/profile/EditProfile';
 import GHDashboard from './pages/guard_harbour/GHDashboard';
 import RegisterDesktop from './pages/auth-desktop/RegisterDesktop';
 import Notifications from './pages/xyz/xyz_desktop/Notifications';
-import { createContext, useEffect, useState } from 'react';
+import { createContext } from 'react';
 import axios from 'axios';
 import ResetPassDesktop from './pages/auth-desktop/ResetPassDesktop';
 import VerificationDesktop from './pages/auth-desktop/VerificationDesktop';
+import Checkpoint from './pages/xyz/xyz_desktop/Checkpoint'
 
 export const UserContext = createContext()
 
@@ -64,15 +67,19 @@ function App() {
           setUserRole(response.data.role);
         } else {
           console.error('Failed to fetch user role');
+          setUserRole("xyz")
         }
       } catch (error) {
         console.error('Error fetching user role:', error);
+        setUserRole("xyz")
       }
     }
 
     fetchUserRole();
     setUserRefresh(false)
   }, [userRefresh]);
+
+  const isMobileDevice = isMobile;
 
   return (
     <UserContext.Provider value={{setUserRefresh}}>
@@ -85,6 +92,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/verification" element={<Verification />} />
           <Route path="/resetpass" element={<ResetPassword />} />
+
           {/* Centra Routes */}
           {userRole === 'centra' && (
             <>
@@ -101,16 +109,17 @@ function App() {
             </>
           )}
           {/* Guard Harbour Routes */}
-          {userRole === 'guard_harbour' && (
+          {userRole === 'GuardHarbor' && (
             <>
               <Route path="/ghdashboard" element={<GHDashboard />} />
               <Route path="/addcheckpoint" element={<AddCheckpoint />} />
               <Route path="/viewcheckpoint" element={<ViewCheckpoint />} />
               <Route path="/shipmentnotification" element={<ShipmentNotification />} />
+              <Route path="/trackshipping/:shippingId" element={<TrackShippingID />} />
             </>
           )}
           {/* XYZ Mobile Routes */}
-          {userRole === 'xyz' && (
+          {userRole === 'xyz' && isMobileDevice && (
             <>
               <Route path="/findrescale" element={<FindRescalePackage />} />
               <Route path="/rescalepackage/:packageId" element={<RescalingPackage />} />
@@ -118,9 +127,11 @@ function App() {
               <Route path="/receptiondocument" element={<ReceptionDocument />} />
             </>
           )}
+
           {/* Profile Routes */}
           <Route path="/profile" element={<Profile />} />
           <Route path="/editprofile" element={<EditProfile />} />
+
           {/* Authentication Desktop */}
           <Route path="/getstarteddesktop" element={<GetStartedDesktop/>} exact/>
           <Route path="/logindesktop" element={<LoginDesktop/>} exact/>
@@ -128,8 +139,9 @@ function App() {
           <Route path="/registerdesktop" element={<RegisterDesktop/>} exact/>
           <Route path="/resetpassdesktop" element={<ResetPassDesktop/>} exact/>
           <Route path="/verificationdesktop" element={<VerificationDesktop/>} exact/>
+          
           {/* Desktop XYZ Routes */}
-          {userRole === 'xyz' && (
+          {userRole === 'xyz' && !isMobileDevice && (
             <>
               <Route path="/notifications" element={<Notifications />} />
               <Route path="/arrivedpackages" element={<ArrivedPackages />} />
@@ -139,8 +151,10 @@ function App() {
               <Route path="/dashboard-wet" element={<WetDashboard />} />
               <Route path="/dashboard-dry" element={<DryDashboard />} />
               <Route path="/dashboard-powder" element={<PowderDashboard />} />
+              <Route path="/checkpoint" element={<Checkpoint />} />
             </>
           )}
+
           {/* Admin Routes */}
           {/* {userRole === 'admin' && ( */}
             <>

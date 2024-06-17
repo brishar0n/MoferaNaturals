@@ -18,9 +18,9 @@ const Notifications = ({ children }) => {
     return (
         <div className='bg-primary w-screen h-screen overflow-hidden flex'>
             <Sidebar isMinimized={isSidebarMinimized} toggleSidebar={toggleSidebar} />
-            <div className='flex-1 bg-white rounded-xl mt-3 mr-3 mb-3 p-4 overflow-y-auto relative'>
+            <div className='flex-1 bg-white rounded-3xl mt-3 mr-3 mb-3 p-4 overflow-y-auto relative'>
                 <div className="flex justify-between items-center">
-                    <h1 className='text-4xl font-semibold text-left ml-6 mt-3'>Shipment Notificationss</h1>
+                    <h1 className='text-4xl font-semibold text-left ml-6 mt-3'>Shipment Notifications</h1>
 
                     <div className="flex items-center justify-center mt-3 rounded dark:bg-gray-800 relative">
                         <div className="p-4 bg-quinary rounded-full right-0 top-0 ml-12 mt-3 mr-6">

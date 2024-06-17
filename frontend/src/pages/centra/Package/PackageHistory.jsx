@@ -19,6 +19,34 @@ function PackageHistory(){
     //     { id: 200425, weight: 5, expDate: "2024-06-15", status: "EXPIRED", shippingDate: "" }, // package not sent and expired
     //   ];
 
+    const formatDate = (dateString) => {
+        const [year, month, day] = dateString.split('-');
+        const date = new Date(`${year}-${month}-${day}`);
+        
+        const options = {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+        };
+        
+        return date.toLocaleDateString('en-US', options);
+    };
+
+    const formatTime = (timeString) => {
+        const [hour, minute, second] = timeString.split(':');
+        let period = 'AM';
+        let hourInt = parseInt(hour, 10);
+        
+        if (hourInt >= 12) {
+            period = 'PM';
+            if (hourInt > 12) hourInt -= 12;
+        } else if (hourInt === 0) {
+            hourInt = 12;
+        }
+        
+        return `${hourInt}:${minute} ${period}`;
+    };
+
     const convertStatus = (filter) => {
         switch (filter) {
             case "READY TO SHIP":
@@ -72,12 +100,12 @@ function PackageHistory(){
                 // Fetch shipping date for each package
                 const updatedPackages = await Promise.all(packageData.map(async (pkg) => {
                     if (pkg.shipping_id) {
-                        const shippingDate = await fetchShippingDate(pkg.shipping_id, shippingsResponse.data);
-                        console.log(`Package ID: ${pkg.id}, Shipping ID: ${pkg.shipping_id}, Shipping Date: ${shippingDate}`);
-                        return { ...pkg, shippingDate: shippingDate };
+                        const [shippingDate, shippingTime] = await fetchShippingDateTime(pkg.shipping_id, shippingsResponse.data);
+                        console.log(`Package ID: ${pkg.id}, Shipping ID: ${pkg.shipping_id}, Shipping Date: ${shippingDate}, Shipping Time: ${shippingTime}`);
+                        return { ...pkg, shippingDate: shippingDate, shippingTime: shippingTime };
                     } else {
                         console.log(`Package ID: ${pkg.id} has no shipping_id`);
-                        return { ...pkg, shippingDate: null };
+                        return { ...pkg, shippingDate: null, shippingTime: null };
                     }
                 }));
                 setPackages(updatedPackages)
@@ -88,14 +116,15 @@ function PackageHistory(){
         fetchData();
     }, [statusFilter]);
 
-    const fetchShippingDate = (shippingId, shippings) => {
+    const fetchShippingDateTime = (shippingId, shippings) => {
         const shipping = shippings.find(ship => ship.id === shippingId);
         const shippingDate = String(shipping.departure_datetime).split("T")[0];
-        return shipping ? shippingDate : null;
+        const shippingTime = String(shipping.departure_datetime).split("T")[1];
+        return shipping ? [shippingDate, shippingTime] : null;
     };
     
     return (
-        <div className="w-72">
+        <div className="w-4/5 mx-auto">
             <div className="relative"> 
                 <label htmlFor="statusFilter" className="font-medium">Filter by Status:</label>
                 <select id="statusFilter" onChange={(e) => setStatusFilter(e.target.value)} className="ml-3 z-100 rounded-3xl p-1">
@@ -115,9 +144,14 @@ function PackageHistory(){
                     key={pkg.id} 
                     weight={pkg.weight} 
                     expDate={pkg.exp_date} 
+                    formatDate={formatDate}
+                    formatTime={formatTime}
+                    createdDate={pkg.created_datetime ? pkg.created_datetime.split("T")[0] : "N/A"}
+                    createdTime={pkg.created_datetime ? pkg.created_datetime.split("T")[1] : "N/A"}
                     status={pkg.status}
                     id={pkg.id}
                     shippingDate={pkg.shippingDate}
+                    shippingTime={pkg.shippingTime}
                     convertStatusToString={convertStatusToString}
                 />
             ))}

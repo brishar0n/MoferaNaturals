@@ -1,8 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
-const FailedNotification = ({htmlContent}) => {
+const FailedNotification = ({ htmlContent, trigger }) => {
+  const [show, setShow] = useState(false);
+
   const showError = () => {
     withReactContent(Swal).fire({
       icon: 'error',
@@ -15,19 +17,25 @@ const FailedNotification = ({htmlContent}) => {
         popup: 'rounded-3xl w-96 montserrat',
       },
     }).then((result) => {
-        if (result.isConfirmed) {
-          // Reload the page after the user clicks on "Done"
-          window.location.reload();
-        }
-      });
+      if (result.isConfirmed) {
+        setShow(false); // Close the notification
+      }
+    });
   };
 
   useEffect(() => {
-    // Show success notification when the component mounts
-    showError();
-  }, []); // Empty dependency array ensures the effect runs only once after the component mounts
+    if (trigger) {
+      setShow(true);
+    }
+  }, [trigger]);
 
-  // Since we are triggering the success notification directly in the useEffect,
+  useEffect(() => {
+    if (show) {
+      showError();
+    }
+  }, [show]);
+
+  // Since we are triggering the error notification directly in the useEffect,
   // we don't need to return any JSX here.
   return null;
 };

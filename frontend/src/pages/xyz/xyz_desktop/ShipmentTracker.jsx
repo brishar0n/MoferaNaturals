@@ -45,7 +45,7 @@ const ShipmentTracker = ({ children }) => {
     return (
         <div className='bg-primary w-screen h-screen flex flex-row overflow-hidden'>
             <Sidebar />
-            <div className='flex-1 bg-white rounded-xl mt-3 mr-3 mb-3 p-4 flex flex-col overflow-hidden'>
+            <div className='flex-1 bg-white rounded-3xl mt-3 mr-3 mb-3 p-4 flex flex-col overflow-hidden'>
                 <div className="flex justify-between items-center">
                     <h1 className='text-4xl font-semibold text-left ml-6 mt-3'>Shipment Tracker</h1>
                     <div className="p-4 bg-quinary rounded-full right-0 top-0 ml-[567px] mt-6">

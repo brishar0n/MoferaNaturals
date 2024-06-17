@@ -6,7 +6,7 @@ function CheckpointBox({id, fromCentra, totalPackagesSent, totalPackagesArrived,
 
     return (
         <>
-            <div className='bg-white mb-5 w-3/4 mx-auto py-5 px-7 rounded-2xl text-left relative mt-5 flex flex-col' onSubmit={handleSubmit}>
+            <div className='bg-white mb-5 w-3/4 mx-auto py-5 px-7 rounded-2xl text-left relative mt-5 flex flex-col shadow-lg' onSubmit={handleSubmit}>
                 <p className='items-end text-center text-lg mb-2 font-bold text-primary'>Checkpoint ID #{id}</p>
                 {/* <p className='mb-2 rounded-md bg-quinary px-2 py-2 w-full text-xs border-none'>{id}</p> */}
                             

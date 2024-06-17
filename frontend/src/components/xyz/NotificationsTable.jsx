@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { FaShippingFast } from "react-icons/fa";
+import { LuPackageOpen } from "react-icons/lu";
 import { getArrivalNotification, getShipmentNotification } from '../../../api/xyzAPI';
 // import /*arrivalIcon*/1 from './../../assets/xyz/arrival-icon.svg';
 // import shipmentIcon from './../../assets/xyz/shipment-icon.svg';
@@ -16,8 +18,6 @@ import { getArrivalNotification, getShipmentNotification } from '../../../api/xy
 //   arrivalDate: '22 March 2024',
 //   timestamp: 'Monday 5:30pm',
 // });
-
-
 
 function NotificationsTable() {
   const [shipmentNotifications, setShipmentNotifications] = useState([])
@@ -52,7 +52,7 @@ function NotificationsTable() {
             showShipment ? 'bg-primary text-white' : 'bg-gray-300 text-gray-700'
           }`}
         >
-          <img src={/*shipmentIcon*/1} alt="Shipment Icon" className="w-6 h-6 mr-2" />
+          <FaShippingFast className="w-6 h-6 mr-4"/>
           Shipment Notifications
         </button>
         <button
@@ -61,7 +61,7 @@ function NotificationsTable() {
             showShipment ? 'bg-gray-300 text-gray-700' : 'bg-primary text-white'
           }`}
         >
-          <img src={/*arrivalIcon*/1} alt="Arrival Icon" className="w-6 h-6 mr-2" />
+          <LuPackageOpen className="w-6 h-6 mr-4"/>
           Arrival Notifications
         </button>
       </div>

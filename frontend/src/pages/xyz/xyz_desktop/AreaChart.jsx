@@ -43,21 +43,23 @@ const options = {
   },
 };
 
+const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
-const AreaChart= ({lineData}) =>  {
-  const data = {
-    labels: lineData.label,
-    datasets: [
-      {
-        fill: true,
-        label: 'Dataset',
-        data: lineData.data, // Generate random integer between 0 and 1000
-        backgroundColor: "rgb(1,107,69, 0.5)",
-        borderColor: "rgb(1,107,69)",
-      },
-    ],
-  };
-  
+// Generate random data between 0 and 1000
+const data = {
+  labels,
+  datasets: [
+    {
+      fill: true,
+      label: 'Dataset',
+      data: labels.map(() => Math.floor(Math.random() * 1001)), // Generate random integer between 0 and 1000
+      backgroundColor: "rgb(1,107,69, 0.5)",
+      borderColor: "rgb(1,107,69)",
+    },
+  ],
+};
+
+const AreaChart= () =>  {
   return (
     <div className="flex-grow flex-shrink">
         <Line options={options} data={data} />
