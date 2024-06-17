@@ -78,7 +78,7 @@ function App() {
   }, [userRefresh]);
 
   return (
-    <>
+    <UserContext.Provider value={{setUserRefresh}}>
       <Router>
         <Routes>
           <Route path="/" element={<Homepage />} />
@@ -155,7 +155,7 @@ function App() {
           )}
         </Routes>
       </Router>
-    </>
+    </UserContext.Provider>
   );
 }
 
