@@ -13,7 +13,6 @@ const styles = StyleSheet.create({
       lineHeight: 1.5,
       color: '#000000',
       font: 'Helvetica',
-      flexDirection: 'column',
     },
     hr: {
         borderBottomWidth: 1,
@@ -65,16 +64,16 @@ const styles = StyleSheet.create({
     // },
     theader: {
         marginTop : 5,
-        fontSize : 12,
+        fontSize : 10,
         fontStyle: 'bold',
         paddingTop: 4 ,
         paddingLeft: 7 ,
         flex:1,
-        height:20,
         backgroundColor : '#DEDEDE',
         borderColor : 'whitesmoke',
         borderRightWidth:1,
         borderBottomWidth:1,
+        color: '#000000'
     },
     tbody:{ 
         fontSize : 9, 
@@ -185,9 +184,9 @@ function ReceptionDocPDF() {
         <View style={styles.section}>
           <Text style={styles.subtitle}>Package Data</Text>
           
-            <View style={{ width:'100%', flexDirection :'row', marginTop:10}}>
+            <View style={{ width:'100%', flexDirection :'row', marginTop:10, key:0}}>
                 <View style={styles.theader}>
-                    <Text >Package ID</Text>   
+                    <Text>Package ID</Text>   
                 </View>
                 <View style={styles.theader}>
                     <Text>Weight</Text>   
