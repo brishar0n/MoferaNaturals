@@ -42,6 +42,123 @@ function AdminSidebar({ onPageDataChange }) {
     setIsMinimized(!isMinimized);
   };
 
+  async function fetchUserData() {
+    try {
+      const userData = await getUsers();
+      if (userData && userData.data) {
+        setUserRows(userData.data);
+      } else {
+        console.error('Failed to fetch user data');
+      }
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  }
+
+  async function fetchCentraData() {
+    try {
+      const centraData = await getCentra();
+      if (centraData && centraData.data) {
+        setCentraRows(centraData.data);
+      } else {
+        console.error('Failed to fetch Centra data');
+      }
+    } catch (error) {
+      console.error('Error fetching Centra data:', error);
+    }
+  }
+
+  async function fetchCheckpointData() {
+    try {
+      const checkpointData = await getCheckpoints();
+      if (checkpointData && checkpointData.data) {
+        setCheckpointRows(checkpointData.data);
+      } else {
+        console.error('Failed to fetch Checkpoint data');
+      }
+    } catch (error) {
+      console.error('Error fetching Checkpoint data:', error);
+    }
+
+  }
+
+  async function fetchDryLeavesData() {
+    try {
+      const dryLeavesData = await getDryLeaves();
+      if (dryLeavesData && dryLeavesData.data) {
+        setDryRows(dryLeavesData.data);
+      } else {
+        console.error('Failed to fetch Dry Leaves data');
+      }
+    } catch (error) {
+      console.error('Error fetching Dry Leaves data:', error);
+    }
+  }
+
+  async function fetchFlourData() {
+    try {
+      const flourData = await getFlour();
+      if (flourData && flourData.data) {
+        setFlourRows(flourData.data);
+      } else {
+        console.error('Failed to fetch Flour data');
+      }
+    } catch (error) {
+      console.error('Error fetching Flour data:', error);
+    }
+  }
+
+  async function fetchPackageData() {
+    try {
+      const packageData = await getPackages();
+      if (packageData && packageData.data) {
+        setPackageRows(packageData.data);
+      }else {
+        console.error('Failed to fetch Flour data');
+      }
+    } catch (error) {
+      console.error('Error fetching Package data:', error);
+    }
+  }
+
+  async function fetchShippingData() {
+    try {
+      const shippingData = await getShippingInfo();
+      if (shippingData && shippingData.data) {
+        setShippingRows(shippingData.data);
+      }else {
+        console.error('Failed to fetch Shipping data');
+      }
+    } catch (error) {
+      console.error('Error fetching Shipping data:', error);
+    }
+  }
+
+  async function fetchWetData() {
+    try {
+      const wetData = await getWetLeaves();
+      if (wetData && wetData.data) {
+        setWetRows(wetData.data);
+      }else {
+        console.error('Failed to fetch Wet data');
+      }
+    } catch (error) {
+      console.error('Error fetching Wet data:', error);
+    }
+  }
+
+  useEffect(() => {
+    fetchUserData();
+    fetchCentraData();
+    fetchCheckpointData();
+    fetchDryLeavesData();
+    fetchFlourData();
+    fetchWetData();
+    fetchPackageData();
+    fetchShippingData();
+  }, []);
+
+
   const handleResize = () => {
     if (window.innerWidth <= 1274) {
       setIsMinimized(true);
