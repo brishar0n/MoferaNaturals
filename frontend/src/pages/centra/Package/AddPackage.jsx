@@ -17,12 +17,12 @@ function AddPackage(){
     };
 
     const handleExpDateChange = (event) => {
-        setExpDate(new Date(event.target.value));
+        setExpDate(event.target.value);
     };
 
     function handleSubmit(event) {
         event.preventDefault();
-        const formattedDate = expDate.toISOString().substring(0,10);
+        const formattedDate = expDate;
         const packageData = {
             weight,
             exp_date: formattedDate,
