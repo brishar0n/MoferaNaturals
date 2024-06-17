@@ -72,19 +72,38 @@ function CheckpointSearch() {
         if (!dateString) return 'Invalid Date';
         const dateParts = dateString.split('-');
         if (dateParts.length !== 3) return 'Invalid Date';
-        const [day, month, year] = dateParts;
+        const [year, month, day] = dateParts;
         const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
         return `${parseInt(day, 10)} ${months[parseInt(month, 10) - 1]} ${year}`;
     };
 
     const groupedCheckpoints = {};
     searchResult.forEach(checkpoint => {
-        const formattedDate = formatDate(checkpoint.arrival_datetime);
+        const formattedDate = formatDate(checkpoint.arrival_datetime.split("T")[0]);
         if (!groupedCheckpoints[formattedDate]) {
             groupedCheckpoints[formattedDate] = [];
         }
         groupedCheckpoints[formattedDate].push(checkpoint);
     });
+
+    const formatTime = (timeString) => {
+        const [hour, minute, second] = timeString.split(':');
+        let period = 'AM';
+        let hourInt = parseInt(hour, 10);
+        
+        if (hourInt >= 12) {
+            period = 'PM';
+            if (hourInt > 12) hourInt -= 12;
+        } else if (hourInt === 0) {
+            hourInt = 12;
+        }
+        
+        return `${hourInt}:${minute} ${period}`;
+    };
+
+    useEffect(() => {
+        console.log(checkpoints);
+    })
 
     return (
         <div className="pb-36">
@@ -129,7 +148,7 @@ function CheckpointSearch() {
                                         fromCentra={getUnitCentra(checkpoint.shipping_id)}
                                         totalPackagesSent={getTotalPackagesSent(checkpoint.shipping_id)}
                                         totalPackagesArrived={checkpoint.total_packages}
-                                        arrivedTime={checkpoint.arrival_datetime}
+                                        arrivedTime={formatTime(checkpoint.arrival_datetime.split("T")[1])}
                                     />
                                 ))}
                             </div>

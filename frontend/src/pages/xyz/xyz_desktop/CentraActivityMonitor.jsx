@@ -36,7 +36,7 @@ const CentraActivityMonitor = () => {
   return (
     <div className='bg-primary w-screen h-screen overflow-hidden flex'>
       <Sidebar />
-      <div className='flex-1 bg-white rounded-xl mt-3 mr-3 mb-3 p-4 overflow-y-auto relative'>
+      <div className='flex-1 bg-white rounded-3xl mt-3 mr-3 mb-3 p-4 overflow-y-auto relative'>
         <div className="flex justify-between items-center mb-5">
           <h1 className='text-4xl font-semibold text-left ml-6 mt-6'>Centra Activity Monitor</h1>
           <div className="p-4 bg-quinary rounded-full right-0 top-0 mt-10 mr-[118px] absolute">

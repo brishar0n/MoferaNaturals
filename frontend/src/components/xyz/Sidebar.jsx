@@ -43,7 +43,7 @@ function Sidebar() {
   return (
     <div
       className={`bg-primary h-screen flex flex-col justify-between items-center transition-all duration-300 ${
-        isMinimized ? 'w-16' : 'w-1/5'
+        isMinimized ? 'w-20 pl-2 pt-5' : 'w-3/20'
       }`}
     >
       <div className="bg-primary flex flex-col justify-center items-center gap-8">
@@ -63,46 +63,43 @@ function Sidebar() {
             <ul>
               <li
                 onClick={toggleDropdown}
-                className="bg-primary py-4 px-5 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-xl font-medium cursor-pointer text-white"
+                className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white"
               > 
                 <MdOutlineDashboardCustomize className='text-3xl mr-4'></MdOutlineDashboardCustomize>
                   Dashboard
               </li>
               {dashboardOpen && (
                 <>
-                  <li className="bg-primary py-4 px-8 text-left text-white hover:bg-white hover:text-green-800 rounded hover:rounded-xl  cursor-pointer w-full">
-                    <Link to="/dashboard-wet" className='flex flex-auto justify-normal ml-4'>
-                   Wet Leaves</Link>
+                  <li className="bg-primary py-2 px-8 text-white hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none cursor-pointer w-full">
+                    <Link to="/dashboard-wet">Wet Leaves</Link>
                   </li>
-                  <li className="bg-primary py-4 px-8 text-left text-white hover:bg-white hover:text-green-800 rounded hover:rounded-xl  cursor-pointer w-full">
-                    <Link to="/dashboard-dry" className='flex flex-auto justify-normal ml-4'>
-                   Dry Leaves</Link>
+                  <li className="bg-primary py-2 px-8 text-white hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none cursor-pointer w-full">
+                    <Link to="/dashboard-dry">Dry Leaves</Link>
                   </li>
-                  <li className="bg-primary py-4 px-8 text-left text-white hover:bg-white hover:text-green-800 rounded hover:rounded-xl  cursor-pointer w-full">
-                    <Link to="/dashboard-powder" className='flex flex-auto justify-normal ml-4'>
-                    Powder</Link>
+                  <li className="bg-primary py-2 px-8 text-white hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none cursor-pointer w-full">
+                    <Link to="/dashboard-powder">Powder</Link>
                   </li>
                 </>
               )}
-              <li className="bg-primary py-4 px-5 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-xl  font-medium cursor-pointer text-white">
-                <FaShippingFast className='text-3xl' />
-                <Link to="/shipmenttracker" className='ml-4'>Shipment Tracker</Link>
+              <li className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white">
+                <FaShippingFast className='text-4xl' />
+                <Link to="/shipmenttracker" className='ml-5 text-left'>Shipment Tracker</Link>
               </li>
-              <li className="bg-primary py-4 px-5 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-xl  font-medium cursor-pointer text-white">
+              <li className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white">
                 <FaLocationDot className='text-3xl' />
                 <Link to="/checkpoint" className='ml-4'>Checkpoint</Link>
               </li>
-              <li className="bg-primary py-4 px-5 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-xl  font-medium cursor-pointer text-white">
-                <PiPackageFill className='text-3xl' />
-                <Link to="/arrivedpackages" className='ml-4'>Arrived Packages</Link>
+              <li className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white">
+                <PiPackageFill className='text-4xl' />
+                <Link to="/arrivedpackages" className='ml-5 text-left'>Arrived Packages</Link>
               </li>
-              <li className="bg-primary py-4 px-5 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-xl  font-medium cursor-pointer text-white">
+              <li className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white">
               <IoNotifications className='text-3xl' />
                 <Link to="/notifications" className='ml-4'>Notifications</Link>
               </li>
-              <li className="bg-primary py-4 px-5 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-xl  font-medium cursor-pointer text-white">
-                <MdOutlineMonitor className='text-4xl' />
-                <Link to="/centraactivitymonitor" className='text-left ml-4'>Centra Activity Monitor</Link>
+              <li className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white">
+                <MdOutlineMonitor className='text-5xl' />
+                <Link to="/centraactivitymonitor" className='text-left ml-5'>Centra Activity Monitor</Link>
               </li>
             </ul>
           </nav>
