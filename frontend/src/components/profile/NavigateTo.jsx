@@ -8,6 +8,8 @@ import { Link } from "react-router-dom";
 import { IoNotificationsOutline } from "react-icons/io5";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { MdOutlineHistoryEdu } from "react-icons/md";
+import { MdOutlineScale } from "react-icons/md";
+import { TbPackage } from "react-icons/tb";
 
 function NavigateTo({role}) {
     return (
@@ -94,6 +96,28 @@ function NavigateTo({role}) {
                         <LiaShippingFastSolid className="text-primary w-6 h-6" />
                         <Link to="/trackshipping/1">
                             <button className="font-medium text-primary">Track Shipping</button>
+                        </Link>
+                    </div>
+                </div>
+            )}
+            {role === "xyz" && (
+                <div className="w-full bg-denary mt-2 rounded-2xl px-5 py-5 flex flex-col">
+                    <div className="flex items-center justify-start gap-x-8 mb-4">
+                        <LuLayoutDashboard className="text-primary w-6 h-6" />
+                        <Link to="/xyzdashboard">
+                            <button className="font-medium text-primary">XYZ Dashboard</button>
+                        </Link>
+                    </div>
+                    <div className="flex mb-4 items-center justify-start gap-x-8">
+                        <MdOutlineScale className="text-primary w-6 h-6" />
+                        <Link to="/findrescale">
+                            <button className="font-medium text-primary">Rescale Package</button>
+                        </Link>
+                    </div>
+                    <div className="flex items-center justify-start gap-x-8">
+                        <TbPackage className="text-primary w-6 h-6" />
+                        <Link to="/receptionpackage">
+                            <button className="font-medium text-primary">Receive Package Form</button>
                         </Link>
                     </div>
                 </div>
