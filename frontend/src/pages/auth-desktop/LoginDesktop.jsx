@@ -142,6 +142,7 @@ function LoginDesktop() {
                             <Button
                             className="rounded-full mt-8 w-36 font-bold text-base"
                             color="primary"
+                            type="submit"
                             >
                                 Login
                             </Button>
