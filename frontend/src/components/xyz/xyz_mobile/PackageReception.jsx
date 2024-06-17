@@ -9,7 +9,7 @@ import SuccessNotification from "../../SuccessNotification";
 import FailedNotification from "../../FailedNotification";
 import { addReception, getArrivedPackage } from '../../../../api/xyzAPI';
 
-function PackageReception({handleSubmit, formSubmitted}) {
+function PackageReception() {
     const successMessage = `You have successfully added package reception data.`;
     const [selectedPackageIDs, setSelectedPackageIDs] = useState([]);
     const [receivalDate, setReceivalDate] = useState('');
