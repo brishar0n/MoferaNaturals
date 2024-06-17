@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import ProfileContent from '../../components/profile/ProfileContent';
 import NavbarGH from '../../components/guard_harbour/NavbarGH';
 import { getCurrentUser } from '../../../api/profileAPI';
+import NavbarXYZ from '../../components/xyz/xyz_mobile/NavbarXYZ';
 
 function Profile() {
     const [isMobile, setIsMobile] = React.useState(false);
@@ -67,6 +68,9 @@ function Profile() {
             )}
             {role === "GuardHarbor" && (
               <NavbarGH/> 
+            )}
+            {role === "xyz" && (
+              <NavbarXYZ/> 
             )}
           </>
         )}

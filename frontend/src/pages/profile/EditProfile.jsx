@@ -16,7 +16,7 @@ function EditProfile() {
         role: "",
         username: "",
         email: "",
-        centraUnit: ""
+        centra_unit: ""
     });
     const [formSubmitted, setFormSubmitted] = useState(false);
     const navigate = useNavigate();
@@ -46,24 +46,6 @@ function EditProfile() {
 
       fetchData();
   }, []);
-
-    function handleSubmit(data) {
-      data.event.preventDefault();
-      axios.put('https://mofera-backend-fork-o1xucajgl-mofera-2.vercel.app/update_profile', {
-        username: data.newName,
-        new_password: data.newPassword,
-        confirm_password: data.confirmPassword,
-        email: data.newEmail,
-        centra_unit: user.role === 'centra' ? data.centraUnit : undefined
-      })
-      .then(response => {
-          setFormSubmitted(true);
-          setUser(response.data); // Update user data with the response
-      })
-      .catch(error => {
-          console.error("Error updating profile:", error);
-      });
-  }
 
     function handleFormSubmission(updatedUser) {
         setUser(updatedUser);
@@ -96,7 +78,7 @@ function EditProfile() {
                                 role={user.role}
                                 name={user.username}
                                 email={user.email}
-                                centraUnit={user.centraUnit}
+                                centraUnit={user.centra_unit}
                                 handleFormSubmission={handleFormSubmission}
                                 formSubmitted={formSubmitted}
                             />
