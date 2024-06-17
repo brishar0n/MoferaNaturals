@@ -109,9 +109,9 @@ function Sidebar() {
       <div className="flex-grow"></div>
 
       <div className="bg-primary w-full col-span-10 flex flex-col justify-between">
-        <button className="bg-primary mb-5">
+        <button className="bg-primary mb-4 bottom-1">
           {!isMinimized && (
-            <img src={exit} className="bg-primary ml-6 mt-20" />
+            <img src={exit} className="bg-primary w-10 ml-6 mt-20" />
           )}
         </button>
       </div>
