@@ -48,7 +48,7 @@ function LoginDesktop() {
     };
 
     const NavigateResetPage = () => {
-        Navigate('/resetpassdesktop');
+        Navigate('/verificationdesktop');
     };
 
     

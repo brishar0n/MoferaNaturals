@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Sidebar from "../../../components/xyz/Sidebar";
 import BarChart from "./BarChart";
 import AreaChart from "./AreaChart";
@@ -10,28 +10,74 @@ import { motion } from "framer-motion";
 
 import profilepic from "../../../assets/desktop/profilepicdesktop.svg";
 import mascot from "../../../assets/xyz/half-mascot.svg";
+import { getDryLeafDatas, getDryStats } from '../../../../api/xyzAPI';
 
-const activities = [
-  { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-10@2x.png' },
-  { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-9@2x.png' },
-  { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-22@2x.png' },
-  { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-18@2x.png' },
-  { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-10@2x.png' },
-  { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-9@2x.png' },
-  { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-22@2x.png' },
-  { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-18@2x.png' },
+// const activities = [
+//   { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-10@2x.png' },
+//   { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-9@2x.png' },
+//   { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-22@2x.png' },
+//   { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-18@2x.png' },
+//   { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-10@2x.png' },
+//   { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-9@2x.png' },
+//   { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-22@2x.png' },
+//   { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-18@2x.png' },
 
-];
+// ];
 
 const DryDashboard = () => {
   const [isSidebarMinimized, setIsSidebarMinimized] = useState(false);
   const [centraFilter, setCentraFilter] = useState("1");
   const [statsFilter, setStatsFilter] = useState("daily");
   const [trendFilter, setTrendFilter] = useState("monthly");
+  const [activities, setActivities] = useState([])
 
   const toggleSidebar = () => {
     setIsSidebarMinimized(!isSidebarMinimized);
   };
+
+  const [barData, setBarData] = useState(new Object())
+  const [lineChartData, setLineChartData] = useState(new Object())
+  const [dryDatas, setDryDatas] = useState([])
+  useEffect(() => {
+      const fetchBarData = async () => {
+          const response = await getDryStats({"interval": statsFilter});
+          if(response && response.data) {
+              setBarData(response.data);
+            }
+      }
+
+      fetchBarData();
+      
+  }, [statsFilter]);
+
+  useEffect(() => {
+    const fetchLineData = async () => {
+        const response = await getDryStats({"interval": trendFilter});
+        if(response && response.data) {
+            setLineChartData(response.data);
+          }
+    }
+
+    fetchLineData();
+    
+  }, [trendFilter]);
+
+  useEffect(() => {
+      const fetchDryData = async () => {
+        const response = await getDryLeafDatas();
+        if(response && response.data) {
+            setDryDatas(response.data);
+            setActivities(response.data.map((data) => {return {
+              "day": data.retrieval_date,
+              "time": "10 mins ago",
+              "description": `Centra ${data.centra_id} just added ${data.weight}kg of dry leaves data into the system.`,
+              "image": 'src/assets/DashboardDesktop/ellipse-18@2x.png'}
+            }))
+          }
+      }
+      fetchDryData();
+
+  }, [])
 
   return (
     <div className="bg-primary w-screen h-screen flex relative">
@@ -105,7 +151,7 @@ const DryDashboard = () => {
                 </form>
               </div>
               <div className="flex-1 flex-grow flex-shrink">
-                <BarChart />
+                <BarChart barData={barData}/>
               </div>
             </div>
             <div className="flex flex-col h-[288px] bg-quinary rounded-3xl dark:bg-gray-800 p-8">
@@ -123,7 +169,7 @@ const DryDashboard = () => {
                 </form>
               </div>
               <div className="flex-1 flex-grow flex-shrink">
-                <AreaChart />
+                <AreaChart lineData={lineChartData}/>
               </div>
             </div>
             <div className="grid grid-cols-3 gap-4 mb-4">
@@ -151,7 +197,7 @@ const DryDashboard = () => {
             <div className="flex h-[440px] bg-quinary items-center justify-center rounded-3xl dark:bg-gray-800 p-4">
               <div className="text-2xl text-primary dark:text-gray-500 w-full">
                 <div className="text-left text-lg ml-3 text-black font-semibold">Dry Leaves Data</div>
-                <Table data={wetDatas.map((data) => {return {...data, "date":data.received_date}})}/>
+                <Table data={dryDatas.map((data) => {return {...data, "date":data.received_date}})}/>
               </div>
             </div>
             <div className="flex flex-col bg-quinary rounded-3xl dark:bg-gray-800 p-4">

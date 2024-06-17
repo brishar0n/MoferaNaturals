@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CgAdd } from 'react-icons/cg';
 import SuccessNotification from '../SuccessNotification';
+import FailedNotification from '../FailedNotification'; // Add the failed notification if needed
 import AddNotesModal from './AddNotesModal';
 import PackageIDInput from '../centra/PackageIDInput';
 import { motion } from 'framer-motion';
@@ -10,7 +11,8 @@ import { postCheckpoint, getPackages, getShippingInfo } from '../../../api/guard
 function CheckpointForm() {
     const navigate = useNavigate();
     const [formSubmitted, setFormSubmitted] = useState(false);
-    const [trigger, setTrigger] = useState(false); 
+    const [isFormValid, setIsFormValid] = useState(true); // State to track form validity
+    const [trigger, setTrigger] = useState(0); // State to control notifications
 
     const [shippingId, setShippingId] = useState('');
     const [totalPackagesSent, setTotalPackagesSent] = useState('');
@@ -25,11 +27,6 @@ function CheckpointForm() {
 
     const [shippingData, setShippingData] = useState([]);
     const [packageData, setPackageData] = useState([]);
-    const [addedShippingIds, setAddedShippingIds] = useState(() => {
-        // Retrieve saved added IDs from localStorage on initial load
-        const saved = localStorage.getItem('addedShippingIds');
-        return saved ? JSON.parse(saved) : [];
-    });  
 
     useEffect(() => {
         async function fetchData() {
@@ -46,45 +43,59 @@ function CheckpointForm() {
         fetchData();
     }, []);
 
-    useEffect(() => {
-        console.log("Added shipping IDs:", addedShippingIds);
-        // Save added IDs to localStorage whenever it changes
-        localStorage.setItem('addedShippingIds', JSON.stringify(addedShippingIds));
-    }, [addedShippingIds]);
-
     function handleView() {
         navigate('/viewcheckpoint');
     }
 
+    const validateForm = () => {
+        return shippingId && arrivalDate && arrivalTime && selectedPackageIDs.length > 0;
+    };
+
     async function handleSubmit(event) {
         event.preventDefault();
+        const arrival_datetime = `${arrivalDate}T${arrivalTime}`;
         const data = {
             shipping_id: shippingId,
             total_packages: totalPackagesArrived,
             package_ids: selectedPackageIDs,
-            arrival_datetime: arrivalDate + 'T' + arrivalTime,
+            arrival_datetime,
             note: notes,
         };
-        try {
-            await postCheckpoint(data);
+
+        if (validateForm()) {
+            try {
+                await postCheckpoint(data);
+                setIsFormValid(true);
+                setFormSubmitted(true);
+                setTrigger(prev => prev + 1); // Increment the trigger to show notification
+
+                // Reset form fields
+                setShippingId('');
+                setTotalPackagesSent('');
+                setCentra('');
+                setArrivalDate('');
+                setArrivalTime('');
+                setTotalPackagesArrived('');
+                setSelectedPackageIDs([]);
+                setNotes('');
+
+                fetchShippingData();
+            } catch (error) {
+                console.error('Error submitting checkpoint data:', error);
+            }
+        } else {
+            setIsFormValid(false);
             setFormSubmitted(true);
-            setTrigger(!trigger); 
+            setTrigger(prev => prev + 1); // Increment the trigger to show notification
+        }
+    }
 
-
-            // Add the submitted shipping ID to the list of added IDs
-            setAddedShippingIds(prevIds => [...prevIds, shippingId]);
-
-            // Reset form fields
-            setShippingId('');
-            setTotalPackagesSent('');
-            setCentra('');
-            setArrivalDate('');
-            setArrivalTime('');
-            setTotalPackagesArrived('');
-            setSelectedPackageIDs([]);
-            setNotes('');
+    async function fetchShippingData() {
+        try {
+            const shippingResponse = await getShippingInfo();
+            setShippingData(shippingResponse.data);
         } catch (error) {
-            console.error('Error submitting checkpoint data:', error);
+            console.error('Error fetching shipping data:', error);
         }
     }
 
@@ -120,7 +131,8 @@ function CheckpointForm() {
 
     return (
         <div>
-            {formSubmitted && <SuccessNotification htmlContent="You have successfully added checkpoint data." trigger={trigger} />}
+            {formSubmitted && isFormValid && <SuccessNotification htmlContent="You have successfully added checkpoint data." trigger={trigger} />}
+            {formSubmitted && !isFormValid && <FailedNotification htmlContent="Failed to add checkpoint data. Please fill in all required fields." trigger={trigger} />}
 
             <div className="flex flex-col items-center">
                 <div className="flex pt-16 z-10 items-center justify-center mb-5">
@@ -144,7 +156,7 @@ function CheckpointForm() {
             >
                 <div className="pb-36">
                     <div
-                        className="bg-white mb-5 w-3/4 mx-auto py-5 px-7 rounded-2xl text-left relative mt-5 flex flex-col shadow-lg"
+                        className="bg-white mb-5 w-3/4 mx-auto py-5 px-7 rounded-2xl text-left relative mt-5 flex flex-col"
                         onSubmit={handleSubmit}
                     >
                         <form>
@@ -164,7 +176,7 @@ function CheckpointForm() {
                                     Select Shipping ID
                                 </option>
                                 {shippingData
-                                    .filter(shipping => !addedShippingIds.includes(shipping.id))  // Filter out added IDs
+                                    .filter(shipping => !shipping.arrival_datetime)  // Filter out IDs with arrival_datetime set
                                     .map((shipping) => (
                                         <option key={shipping.id} value={shipping.id}>
                                             {shipping.id}

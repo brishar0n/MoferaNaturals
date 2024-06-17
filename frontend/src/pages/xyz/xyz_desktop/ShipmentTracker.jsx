@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { IoNotifications } from "react-icons/io5";
 import { motion } from "framer-motion";
+
 import Sidebar from '../../../components/xyz/Sidebar';
 import bell from '../../../assets/xyz/bell.svg';
 import profilepic from "../../../assets/desktop/profilepicdesktop.svg";
@@ -20,12 +22,18 @@ const shipmentData = {
             { lat: 23.05586, lng: 34.23391, status: 'Processing', time: '13:40 PM', details: 'Your product is being processed' },
             { lat: 23.055868, lng: 34.23391, status: 'Packaging', time: '15:30 PM', details: 'Your product is being packaged' },
         ],
+    '212123': [
+            { lat: -7.797068, lng: 110.370529, status: 'Processing', time: '9:48 AM', details: 'Your product is being processed' },
+            { lat: -7.807068, lng: 110.380529, status: 'Packaging', time: '10:26 AM', details: 'Your product is being packaged' },
+            { lat: -7.817068, lng: 110.390529, status: 'Shipped', time: '12:36 PM', details: 'Product is currently being shipped out' }
+        ],
 };
 
-const ShipmentTracker = ({ children }) => {
-    const [shipment, setShipment] = useState(shipmentData['1223123']);
-    const [shipmentID, setShipmentID] = useState('1223123');
-    const [tempID, setTempID] = useState('1223123');
+const ShipmentTracker = ({ shipmentTracking }) => {
+    const location = useLocation();
+    const [shipment, setShipment] = useState(shipmentData[location.state || 2523423]);
+    const [shipmentID, setShipmentID] = useState(location.state || 2523423);
+    const [tempID, setTempID] = useState(location.state || 2523423);
 
     const statusIcons = {
         Processing: <img src={clipboard}/>,

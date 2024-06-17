@@ -51,6 +51,7 @@ import ResetPassDesktop from './pages/auth-desktop/ResetPassDesktop';
 import VerificationDesktop from './pages/auth-desktop/VerificationDesktop';
 import Checkpoint from './pages/xyz/xyz_desktop/Checkpoint'
 import XYZDashboard from './pages/xyz/xyz_mobile/XYZDashboard';
+import ShipmentTrackerDashboard from './pages/xyz/xyz_desktop/ShipmentTrackerDashboard';
 import ReceptionDocPDF from './pages/xyz/xyz_mobile/ReceptionDocPDF';
 import PDFDownload from './pages/xyz/xyz_mobile/PDFDownload';
 
@@ -152,7 +153,8 @@ function App() {
             <>
               <Route path="/notifications" element={<Notifications />} />
               <Route path="/arrivedpackages" element={<ArrivedPackages />} />
-              <Route path="/shipmenttracker" element={<ShipmentTracker />} />
+              <Route path="/shipmenttrackermap" element={<ShipmentTracker />} exact />
+              <Route path="/shipmenttracker" element={<ShipmentTrackerDashboard />} exact />
               <Route path="/centraactivitymonitor" element={<CentraActivityMonitor />} />
               <Route path="/dashboard" element={<WetDashboard />} />
               <Route path="/dashboard-wet" element={<WetDashboard />} />

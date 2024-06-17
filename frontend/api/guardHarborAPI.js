@@ -20,6 +20,15 @@ export const getShippingInfo = async(ShippingInfo) => {
     return ShippingInfos
 }
 
+// export const updateShippingArrival = async (id, data) => {
+//     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`;
+//     const response = await axios.put(`${URL}/guard_harbor/shipping/${id}/`, data)
+//         .catch((error) => {
+//             console.error(error);
+//         });
+//     return response;
+// }
+
 export const getPackages = async() => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
     const Packages = await axios.get(URL + "/guard_harbor/packages")
