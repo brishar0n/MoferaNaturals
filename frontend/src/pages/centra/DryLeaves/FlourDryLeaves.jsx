@@ -19,6 +19,7 @@ function FlourDryLeaves() {
     const [dateRanges, setDateRanges] = useState([]);
 
     const [dryLeaves, setDryLeaves] = useState([]);
+    const [refresh, setRefresh] = useState(false)
     // const [dryLeaves, setDryLeaves] = useState([
         // {
         //     id: 1,
@@ -73,8 +74,9 @@ function FlourDryLeaves() {
         fetchDryLeaves();
         
         console.log(dateRanges)
+        setRefresh(false)
 
-    }, [selectedDate, interval]);
+    }, [selectedDate, interval, refresh]);
 
     useEffect(() => {
         const totalWeight = dateRanges.reduce((sum, date) => {
@@ -110,6 +112,7 @@ function FlourDryLeaves() {
             })
         })
         setIsModalOpen(false);
+        setRefresh(true)
     };
 
     const handleButtonClick = () => {

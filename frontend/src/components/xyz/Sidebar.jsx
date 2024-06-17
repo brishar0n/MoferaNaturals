@@ -63,41 +63,57 @@ function Sidebar() {
             <ul>
               <li
                 onClick={toggleDropdown}
-                className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white"
+                className="bg-primary py-3 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white"
               > 
                 <MdOutlineDashboardCustomize className='text-3xl mr-4'></MdOutlineDashboardCustomize>
                   Dashboard
               </li>
               {dashboardOpen && (
                 <>
-                  <li className="bg-primary py-2 px-8 text-white hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none cursor-pointer w-full">
+                  <li 
+                    className="bg-primary py-2 px-8 text-white hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none cursor-pointer w-full"
+                  >
                     <Link to="/dashboard-wet">Wet Leaves</Link>
                   </li>
-                  <li className="bg-primary py-2 px-8 text-white hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none cursor-pointer w-full">
+                  <li 
+                    className="bg-primary py-2 px-8 text-white hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none cursor-pointer w-full"
+                    >
                     <Link to="/dashboard-dry">Dry Leaves</Link>
                   </li>
-                  <li className="bg-primary py-2 px-8 text-white hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none cursor-pointer w-full">
+                  <li 
+                    className="bg-primary py-2 px-8 text-white hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none cursor-pointer w-full"
+                    >
                     <Link to="/dashboard-powder">Powder</Link>
                   </li>
                 </>
               )}
-              <li className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white">
+              <li 
+                className="bg-primary py-3 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white"
+                >
                 <FaShippingFast className='text-4xl' />
                 <Link to="/shipmenttracker" className='ml-5 text-left'>Shipment Tracker</Link>
               </li>
-              <li className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white">
+              <li 
+                className="bg-primary py-3 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white"
+                >
                 <FaLocationDot className='text-3xl' />
                 <Link to="/checkpoint" className='ml-4'>Checkpoint</Link>
               </li>
-              <li className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white">
+              <li 
+                className="bg-primary py-3 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white"
+                >
                 <PiPackageFill className='text-4xl' />
                 <Link to="/arrivedpackages" className='ml-5 text-left'>Arrived Packages</Link>
               </li>
-              <li className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white">
+              <li 
+                className="bg-primary py-3 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white"
+                >
               <IoNotifications className='text-3xl' />
                 <Link to="/notifications" className='ml-4'>Notifications</Link>
               </li>
-              <li className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white">
+              <li 
+                className="bg-primary py-3 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white"
+                >
                 <MdOutlineMonitor className='text-5xl' />
                 <Link to="/centraactivitymonitor" className='text-left ml-5'>Centra Activity Monitor</Link>
               </li>
@@ -109,9 +125,9 @@ function Sidebar() {
       <div className="flex-grow"></div>
 
       <div className="bg-primary w-full col-span-10 flex flex-col justify-between">
-        <button className="bg-primary mb-5">
+        <button className="bg-primary mb-4 bottom-1">
           {!isMinimized && (
-            <img src={exit} className="bg-primary ml-6 mt-20" />
+            <img src={exit} className="bg-primary w-10 ml-6 mt-20" />
           )}
         </button>
       </div>

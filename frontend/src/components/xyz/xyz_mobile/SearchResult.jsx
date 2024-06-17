@@ -2,22 +2,29 @@ import React from 'react';
 import box from '../../../assets/xyz/package.svg';
 import '../../../style/xyz/xyz_mobile/FindRescalePackage.css';
 
-function SearchResult({ searchResult, onPackageClick, shippingData }) {
+function SearchResult({ searchResult, onPackageClick }) {
     const formatDate = (dateString) => {
-        const [year, month, day] = dateString.split('-');
-        const date = new Date(`${day}-${month}-${year}`);
-
-        const options = {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric',
-        };
-        
-        return date.toLocaleDateString('en-US', options);
+        if (!dateString) return 'Invalid Date';
+        const dateParts = dateString.split('-');
+        if (dateParts.length !== 3) return 'Invalid Date';
+        const [year, month, day] = dateParts;
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        return `${parseInt(day, 10)} ${months[parseInt(month, 10) - 1]} ${year}`;
     };
 
-    const getShippingForPackages = (shipping_id) => {
-        return shippingData.find(ship => ship.shipping_id === shipping_id);
+    const formatTime = (timeString) => {
+        const [hour, minute, second] = timeString.split(':');
+        let period = 'AM';
+        let hourInt = parseInt(hour, 10);
+        
+        if (hourInt >= 12) {
+            period = 'PM';
+            if (hourInt > 12) hourInt -= 12;
+        } else if (hourInt === 0) {
+            hourInt = 12;
+        }
+        
+        return `${hourInt}:${minute} ${period}`;
     };
 
     return (
@@ -30,7 +37,7 @@ function SearchResult({ searchResult, onPackageClick, shippingData }) {
                             <img src={box} alt="box" className="absolute"/>
                             <div className="mleft-10">
                                 <p className="mb-1 font-bold text-sm">Package ID #{item.id}</p>
-                                <p className="text-sm">{item.received_date}</p>
+                                <p className="text-sm">{item.received_datetime ? formatDate(item.received_datetime.split("T")[0]) : "Invalid Date"}, {item.received_datetime ? formatTime(item.received_datetime.split("T")[1]) : "Invalid Time"}</p>
                             </div>
                         </a>
                     </div>
