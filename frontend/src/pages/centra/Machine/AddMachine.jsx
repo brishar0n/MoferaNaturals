@@ -5,6 +5,10 @@ import { useNavigate } from "react-router-dom";
 import NavigationBar from "../../../components/centra/CentraNavbar";
 import { Dropdown } from 'primereact/dropdown';
 
+import mascotAdd from "../../../../src/assets/AddPage/mascotAdd.svg"
+import frameAdd from "../../../../src/assets/AddPage/frameAdd.svg";
+import backArrow from "../../../../src/assets/common/backarrow.svg";
+
 function AddMachine(){
     const [weight, setWeight] = useState(0);
     const [date, setDate] = useState(new Date());
@@ -47,11 +51,11 @@ function AddMachine(){
         {isMobile && (
           <>
             <div className="overflow-auto h-[calc(100vh-6rem)] md:h-auto bg-quaternary min-h-screen flex flex-col items-center overflow-auto resize-none pb-24">
-                <img src="src/assets/AddPage/frameAdd.svg" className="absolute top-100vh w-screen z-0"></img>
-                <img src="src/assets/AddPage/mascotAdd.svg" className="absolute right-72 pt-96 pr-4 top-16 z-40"></img>
+                <img src={frameAdd} className="absolute top-100vh w-screen z-0"></img>
+                <img src={mascotAdd} className="absolute right-72 pt-96 pr-4 top-16 z-40"></img>
 
                 <div className="flex pt-16 gap-16 pr-20 z-10">
-                    <img src="src/assets/common/backarrow.svg" onClick={handleBack}></img>
+                    <img src={backArrow} onClick={handleBack}></img>
                     <p className="font-bold text-primary text-3xl"> Machine </p>
                 </div>
 

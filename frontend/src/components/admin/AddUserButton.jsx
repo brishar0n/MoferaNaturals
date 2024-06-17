@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Input, useDisclosure } from "@nextui-org/react";
 import {Select, SelectItem} from "@nextui-org/react";
+import black_plus from "../../../src/assets/admin/black_plus.svg"
 
 function AddUserButton({ onAddUser }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -35,7 +36,7 @@ function AddUserButton({ onAddUser }) {
   return (
     <>
       <Button onClick={onOpen} className="bg-quinary font-bold text-base drop-shadow-md">
-        <img src="src/assets/admin/black_plus.svg" className="w-5" alt="Add Icon" />
+        <img src={black_plus} className="w-5" alt="Add Icon" />
         Add User
       </Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>

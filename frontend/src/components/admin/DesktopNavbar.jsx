@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import "../../style/AdminDesktop.css";
 
+import hamburgerBar from "s../../../src/assets/admin/hamburgerbar.svg"
+import mofera from "../../../src/assets/admin/mofera.svg"
 const DesktopNavbar = () => {
   const [isOpen, setIsOpen] = useState(true);
 
@@ -13,14 +15,14 @@ const DesktopNavbar = () => {
       <div className="flex items-center justify-between py-6 px-4">
         <div onClick={toggleSidebar} className="flex items-center cursor-pointer">
           <img
-            src="src/assets/admin/hamburgerbar.svg"
+            src=""
             alt="menu"
             className="w-12 mb-3 cursor-pointer"
           />
         </div>
         {isOpen && (
           <img
-            src="src/assets/desktop/mofera.svg"
+            src={mofera}
             alt="mofera"
             className="mr-16 w-40"
           />

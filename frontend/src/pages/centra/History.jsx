@@ -7,6 +7,9 @@ import BatchBox from "../../components/centra/BatchBox";
 import { getCollection } from "../../../api/centraAPI";
 import { motion } from "framer-motion";
 
+import leftFrame from "../../assets/history/leftFrame.svg";
+import back from "../../assets/history/back.svg";
+
 function History() {
     const [isMobile, setIsMobile] = React.useState(false);
     const navigate = useNavigate();
@@ -86,9 +89,9 @@ function History() {
         <div className="overflow-auto h-[calc(100vh-6rem)] md:h-auto bg-quaternary min-h-screen flex flex-col items-center overflow-auto pt-4 resize-none pb-24">
             {isMobile && (
             <>
-                <img src={"src/assets/history/leftFrame.svg"} alt="leftframe" className="right-0 absolute h-full top-0 " />
+                <img src={leftFrame} alt="leftframe" className="right-0 absolute h-full top-0 " />
                 <button onClick={handleBack} className="relative -top-4 -left-32 text-gray-600 text-sm font-semibold z-10 mt-8 md-flex">
-                    <img src={"src/assets/history/back.svg"} alt="back" className="w-10 mt-8 " />
+                    <img src={back} alt="back" className="w-10 mt-8 " />
                 </button>
                 <h1 className="text-3xl font-bold text-primary z-10 relative -top-14">History</h1>
                 <div className="relative mr-auto ml-3 -mt-7 flex">

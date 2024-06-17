@@ -96,23 +96,6 @@ function ProfileContent({ role, name }) {
                 <p className='text-primary font-medium flex gap-1 items-center text-base'><IoLocationSharp />Ponchiki, Aroma Ketek</p>
             </div>
 
-            <div className='flex mt-3 justify-between w-full gap-x-3'>
-                <div className='px-3 py-5 rounded-lg bg-primary flex flex-col justify-center items-center gap-y-1 flex-1'>
-                    <img src={trophy} className="text-white w-8 h-8" />
-                    <p className='text-xs text-white font-medium'>Achievements</p>
-                    <p className='text-xxs text-white -mt-1'>8 achievements</p>
-                </div>
-                <div className='px-3 py-5 rounded-lg bg-primary flex flex-col justify-center items-center gap-y-1 flex-1'>
-                    <img src={reward} className="text-white w-8 h-8" />
-                    <p className='text-xs text-white font-medium'>Rewards</p>
-                    <p className='text-xxs text-white -mt-1'>10 rewards</p>
-                </div>
-                <div className='px-3 py-5 rounded-lg bg-primary flex flex-col justify-center items-center gap-y-1 flex-1'>
-                    <img src={collect} className="text-white w-8 h-8" />
-                    <p className='text-xs text-white font-medium'>Collects</p>
-                    <p className='text-xxs text-white -mt-1'>20 collects</p>
-                </div>
-            </div>
 
             <div className='my-2 text-left w-full'>
                 <p className='text-primary font-bold ml-5'>Navigate To</p>
