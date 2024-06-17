@@ -1,23 +1,40 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import SuccessNotification from "../SuccessNotification";
 import FailedNotification from "../FailedNotification";
 
-function CollectorForm({ weight, handleWeightChange, date, handleDateChange, time, handleTimeChange, formSubmitted, handleSubmit }) {
+function CollectorForm({ weight, handleWeightChange, date, handleDateChange, time, handleTimeChange, handleSubmit }) {
     const successMessage = `You have successfully collected ${weight} wet leaves data.`;
     const failedMessage = `Failed to collect wet leaves data. Weight must be greater than zero.`;
 
-    const [trigger, setTrigger] = useState(false);
+    const [trigger, setTrigger] = useState(0);
+    const [isFormValid, setIsFormValid] = useState(true);
+    const [formSubmitted, setFormSubmitted] = useState(false);
+
+    const validateForm = () => {
+        return weight > 0 && date && time;
+    };
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
-        handleSubmit(event); // Call the original handleSubmit function
-        setTrigger(!trigger); // Toggle the trigger state to show the notification
+
+        if (validateForm()) {
+            handleSubmit(event); 
+            setIsFormValid(true);
+            setFormSubmitted(true);
+            setTrigger(prev => prev + 1);
+            console.log("Form submitted successfully");
+        } else {
+            setIsFormValid(false);
+            setFormSubmitted(true);
+            setTrigger(prev => prev + 1); 
+            console.log("Form submission failed");
+        }
     };
 
     return (
         <div className="w-[80%] rounded-2xl shadow-lg bg-white rounded px-8 py-5 flex flex-col ">
-            {formSubmitted && weight > 0 && <SuccessNotification htmlContent={successMessage} trigger={trigger} />}
-            {formSubmitted && weight <= 0 && <FailedNotification htmlContent={failedMessage} trigger={trigger} />}
+            {formSubmitted && isFormValid && <SuccessNotification htmlContent={successMessage} trigger={trigger} />}
+            {formSubmitted && !isFormValid && <FailedNotification htmlContent={failedMessage} trigger={trigger} />}
 
             <b className="text-lg text-black inline-block mb-2">
                 Wet Leaves from Plasma
