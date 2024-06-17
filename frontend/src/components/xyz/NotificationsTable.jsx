@@ -28,7 +28,7 @@ function NotificationsTable() {
   const navigate = useNavigate();
 
   const navigateToMap = () => {
-    navigate('/shipmenttracker/map');
+    navigate('/shipmenttrackermap', {state: e.currentTarget.getAttribute('trackingNumber')});
   };
 
   useEffect(() => {
@@ -100,7 +100,7 @@ function NotificationsTable() {
                   <p className="text-gray-500 text-left">{new Date(notification.timestamp).toDateString()}</p>
                 </div>
               </div>
-              <button onClick={navigateToMap} className="bg-primary text-white font-bold px-4 py-2 rounded-lg focus:outline-none">
+              <button trackingNumber={notification.id} onClick={navigateToMap} className="bg-primary text-white font-bold px-4 py-2 rounded-lg focus:outline-none">
                 TRACK
               </button>
             </div>
