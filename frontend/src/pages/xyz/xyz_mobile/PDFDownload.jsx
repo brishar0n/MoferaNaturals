@@ -4,7 +4,7 @@ import ReceptionDocPDF from "./ReceptionDocPDF";
 function PDFDownload() {
     return (
         <button className="px-7 py-3 bg-secondary text-white rounded-full font-semibold mt-5">
-            <PDFDownloadLink document={<ReceptionDocPDF />} fileName={`Reception Documentation #{reception.id}`}>
+            <PDFDownloadLink document={<ReceptionDocPDF />} fileName={`Reception Documentation #.pdf`}>
                 {({ loading }) =>
                     loading ? (
                         <button>loading document....</button>

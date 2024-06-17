@@ -9,7 +9,7 @@ import SuccessNotification from "../../SuccessNotification";
 import FailedNotification from "../../FailedNotification";
 import { addReception, getArrivedPackage } from '../../../../api/xyzAPI';
 
-function PackageReception({handleSubmit}) {
+function PackageReception() {
     const successMessage = `You have successfully added package reception data.`;
     const [selectedPackageIDs, setSelectedPackageIDs] = useState([]);
     const [receivalDate, setReceivalDate] = useState('');
@@ -28,7 +28,7 @@ function PackageReception({handleSubmit}) {
     const [packageData, setPackageData] = useState([])
     
     async function handleSubmit(e){
-        e.preventDefault()
+        e.preventDefault();
 
         const data = {
             "package_id": selectedPackageIDs,
@@ -48,8 +48,8 @@ function PackageReception({handleSubmit}) {
                 setFormSubmitted(true);
                 setTrigger(!trigger); 
                 
-                // doc_id = response.data.id;
-                // navigate(`/receptionpackages/${doc_id}`);
+                doc_id = response.data.id;
+                navigate(`/receptionpackages/${doc_id}`);
             } 
         } catch (error) {
             console.error('Failed to add reception document:', error);
