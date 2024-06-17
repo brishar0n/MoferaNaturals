@@ -1,8 +1,8 @@
- import { useState, useEffect } from 'react'
-import '../style/App.css'
+import { useState, useEffect } from 'react';
+import '../style/App.css';
 import { useNavigate } from 'react-router-dom';
-import logo from '../assets/logo.svg'
-import homeBg from '../assets/home/homebg.svg'
+import logo from '../assets/logo.svg';
+import homeBg from '../assets/home/homebg.svg';
 
 function Homepage() {
   const [isMobile, setIsMobile] = useState(false);
@@ -27,27 +27,34 @@ function Homepage() {
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      navigate('/welcomeback');
+      if (isMobile) {
+        navigate('/welcomeback');
+      } else {
+        navigate('/getstarteddesktop');
+      }
     }, 2000);
 
-    // Cleanup timeout
     return () => clearTimeout(timeout);
-  }, [navigate]);
+  }, [isMobile, navigate]);
 
   return (
     <div className="bg-white h-screen flex justify-center items-center">
-      {isMobile && (
+      {isMobile ? (
         <>
-            <div className='object-cover w-full h-screen absolute inset-0 flex'>
-                <img src={homeBg} alt="homeBg"/>
-            </div>
-            <div className="relative">
-                <img src={logo} alt="logo"/>
-            </div>
+          <div className='object-cover w-full h-screen absolute inset-0 flex'>
+            <img src={homeBg} alt="homeBg"/>
+          </div>
+          <div className="relative">
+            <img src={logo} alt="logo"/>
+          </div>
         </>
+      ) : (
+        <div className="flex justify-center bg-primary w-full h-full items-center">
+          <img src={logo} alt="logo" className="w-64 h-64 justify-center item-center"/>
+        </div>
       )}
     </div>
-  )
+  );
 }
 
-export default Homepage
+export default Homepage;

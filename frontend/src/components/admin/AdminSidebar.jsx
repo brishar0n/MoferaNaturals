@@ -236,7 +236,7 @@ function AdminSidebar({ onPageDataChange }) {
               </li>
 
               {dataManagementOpen && (
-                <div className="overflow-y-auto hide-scrollbar max-h-60">
+                <div className="overflow-y-auto hide-scrollbar">
                   <li className="bg-primary py-4 px-5 text-left indent-6 text-white hover:bg-white rounded-xl hover:text-primary font-medium cursor-pointer w-full">
                     <p onClick={() => onPageDataChange('Centra Data', 'Search and added data for Centra', "CentraData", centraRows, columnsCentra)}>Centra Data</p>
                   </li>
@@ -256,7 +256,7 @@ function AdminSidebar({ onPageDataChange }) {
                     <p onClick={() => onPageDataChange('Checkpoint Data', 'List of Checkpoint Data and Total Package Arrival notice', 'CheckpointData', checkpointRows, columnsCheckpoint )}>Checkpoint Data</p>
                   </li>
                   <li className="bg-primary py-4 px-5 text-left indent-6 text-white hover:bg-white rounded-xl hover:text-primary font-medium cursor-pointer w-full">
-                    <p onClick={() => onPageDataChange('Package Data', 'Package details including tracking and delivery statuses', "PackageData", initialPackageRows, columnsPackage)}>Package Data</p>
+                    <p onClick={() => onPageDataChange('Package Data', 'Package details including tracking and delivery statuses', "PackageData", packageRows, columnsPackage)}>Package Data</p>
                   </li>
                 </div>
               )}

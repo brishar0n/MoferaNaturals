@@ -54,6 +54,7 @@ import XYZDashboard from './pages/xyz/xyz_mobile/XYZDashboard';
 import ShipmentTrackerDashboard from './pages/xyz/xyz_desktop/ShipmentTrackerDashboard';
 import ReceptionDocPDF from './pages/xyz/xyz_mobile/ReceptionDocPDF';
 import PDFDownload from './pages/xyz/xyz_mobile/PDFDownload';
+import WarningPage from './pages/auth-desktop/WarningPage';
 
 export const UserContext = createContext()
 
@@ -130,7 +131,7 @@ function App() {
               <Route path="/rescalepackage/:packageId" element={<RescalingPackage />} />
               <Route path="/receptionpackage" element={<ReceptionPackage />} />
               <Route path="/receptiondocument" element={<ReceptionDocument />} />
-              {/* <Route path="/receptionpackage/:doc_id" element={<ReceptionDocPDF />} /> */}
+              <Route path="/receptionpackage/:doc_id" element={<PDFDownload />} />
               
               
             </>
@@ -147,6 +148,7 @@ function App() {
           <Route path="/registerdesktop" element={<RegisterDesktop/>} exact/>
           <Route path="/resetpassdesktop" element={<ResetPassDesktop/>} exact/>
           <Route path="/verificationdesktop" element={<VerificationDesktop/>} exact/>
+          <Route path="/warningpage" element={<WarningPage/>} exact/>
           
           {/* Desktop XYZ Routes */}
           {userRole === 'xyz' && !isMobileDevice && (
@@ -172,7 +174,7 @@ function App() {
               <Route path="/navbaradmin" element={<NavbarAdmin />} />
             </>
           {/* )} */}
-          <Route path="/receptiondoc" element={<PDFDownload />} />
+          {/* <Route path="/receptiondoc" element={<PDFDownload />} /> */}
         </Routes>
       </Router>
     </UserContext.Provider>
