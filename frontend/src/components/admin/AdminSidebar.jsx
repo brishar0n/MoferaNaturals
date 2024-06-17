@@ -1,27 +1,22 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import desktoplogo from '../../assets/desktop/mofera-logo.svg';
 import hamburger from '../../assets/desktop/menu-bar.svg';
 import exit from '../../assets/desktop/exit.svg';
 import "../../style/AdminDesktop.css";
 
+import { columns, columnsCentra, columnsCheckpoint, columnsDry, columnsFlour, columnsPackage, columnsShipping, columnsWet, initialCentraRows, initialCheckpointRows, initialDryRows, initialFlourRows, initialPackageRows, initialRows, initialShippingRows, initialWetRows } from './UserDataSample';
 import { MdOutlineDashboardCustomize } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
 import { BsDatabaseFillGear } from "react-icons/bs";
-
-import { columns, columnsCentra, columnsCheckpoint, columnsDry, columnsFlour, columnsPackage, columnsShipping, columnsWet, initialCentraRows, initialCheckpointRows, initialDryRows, initialFlourRows, initialPackageRows, initialRows, initialShippingRows, initialWetRows } from './UserDataSample';
-import {getUsers, getCentra, getCheckpoints, getDryLeaves, getFlour, getPackages, getShippingInfo, getWetLeaves, updateUser, deleteUser} from "../../../api/adminAPI";
 
 function AdminSidebar({ onPageDataChange }) {
   const [dataManagementOpen, setDataManagementOpen] = useState(false);
   const [hoveredItem, setHoveredItem] = useState(null); 
   const [isMinimized, setIsMinimized] = useState(false);
-  const [centraRows, setCentraRows] = useState([]);
-  const [checkpointRows, setCheckpointRows] = useState([]);
-  const [dryRows, setDryRows] = useState([]);
-  const [flourRows, setFlourRows] = useState([]);
-  const [packageRows, setPackageRows] = useState([]);
-  const [shippingRows, setShippingRows] = useState([]);
-  const [wetRows, setWetRows] = useState([]);
+
+  const toggleDropdown = () => {
+    setDataManagementOpen(!dataManagementOpen);
+  };
 
   const toggleMenu = () => {
     setIsMinimized(!isMinimized);
@@ -44,112 +39,6 @@ function AdminSidebar({ onPageDataChange }) {
     };
   }, []);
 
-    async function fetchCentraData() {
-      try {
-        const centraData = await getCentra();
-        if (centraData && centraData.data) {
-          setCentraRows(centraData.data);
-        } else {
-          console.error('Failed to fetch Centra data');
-        }
-      } catch (error) {
-        console.error('Error fetching Centra data:', error);
-      }
-    }
-
-    async function fetchCheckpointData() {
-      try {
-        const checkpointData = await getCheckpoints();
-        if (checkpointData && checkpointData.data) {
-          setCheckpointRows(checkpointData.data);
-        } else {
-          console.error('Failed to fetch Checkpoint data');
-        }
-      } catch (error) {
-        console.error('Error fetching Checkpoint data:', error);
-      }
-
-    }
-
-    async function fetchDryLeavesData() {
-      try {
-        const dryLeavesData = await getDryLeaves();
-        if (dryLeavesData && dryLeavesData.data) {
-          setDryRows(dryLeavesData.data);
-        } else {
-          console.error('Failed to fetch Dry Leaves data');
-        }
-      } catch (error) {
-        console.error('Error fetching Dry Leaves data:', error);
-      }
-    }
-
-    async function fetchFlourData() {
-      try {
-        const flourData = await getFlour();
-        if (flourData && flourData.data) {
-          setFlourRows(flourData.data);
-        } else {
-          console.error('Failed to fetch Flour data');
-        }
-      } catch (error) {
-        console.error('Error fetching Flour data:', error);
-      }
-    }
-
-    async function fetchPackageData() {
-      try {
-        const packageData = await getPackages();
-        if (packageData && packageData.data) {
-          setPackageRows(packageData.data);
-        }else {
-          console.error('Failed to fetch Flour data');
-        }
-      } catch (error) {
-        console.error('Error fetching Package data:', error);
-      }
-    }
-
-    async function fetchShippingData() {
-      try {
-        const shippingData = await getShippingInfo();
-        if (shippingData && shippingData.data) {
-          setShippingRows(shippingData.data);
-        }else {
-          console.error('Failed to fetch Shipping data');
-        }
-      } catch (error) {
-        console.error('Error fetching Shipping data:', error);
-      }
-    }
-
-    async function fetchWetData() {
-      try {
-        const wetData = await getWetLeaves();
-        if (wetData && wetData.data) {
-          setWetRows(wetData.data);
-        }else {
-          console.error('Failed to fetch Wet data');
-        }
-      } catch (error) {
-        console.error('Error fetching Wet data:', error);
-      }
-    }
-
-    useEffect(() => {
-      fetchCentraData();
-      fetchCheckpointData();
-      fetchDryLeavesData();
-      fetchFlourData();
-      fetchWetData();
-      fetchPackageData();
-      fetchShippingData();
-    }, []);
-
-  const toggleDropdown = () => {
-    setDataManagementOpen(!dataManagementOpen);
-  };
-
   return (
     <div
       className={`bg-primary h-screen flex flex-col justify-between items-center transition-all duration-300 ${
@@ -169,8 +58,8 @@ function AdminSidebar({ onPageDataChange }) {
         </div>
 
         {!isMinimized && (
-          <nav className="w-full">
-            <ul>
+          <nav className="w-full h-full overflow-y-auto">
+            <ul className="flex flex-col h-full">
               <li
                 className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white"
                 onMouseEnter={() => setHoveredItem('dashboard')}
@@ -208,7 +97,7 @@ function AdminSidebar({ onPageDataChange }) {
               </li>
 
               {dataManagementOpen && (
-                <>
+                <div className="overflow-y-auto max-h-60">
                   <li className="bg-primary py-4 px-5 text-left indent-6 text-white hover:bg-white rounded-xl hover:text-primary font-medium cursor-pointer w-full">
                     <p onClick={() => onPageDataChange('Centra Data', 'Search and added data for Centra', "CentraData", initialCentraRows, columnsCentra)}>Centra Data</p>
                   </li>
@@ -230,7 +119,7 @@ function AdminSidebar({ onPageDataChange }) {
                   <li className="bg-primary py-4 px-5 text-left indent-6 text-white hover:bg-white rounded-xl hover:text-primary font-medium cursor-pointer w-full">
                     <p onClick={() => onPageDataChange('Package Data', 'Package details including tracking and delivery statuses', "PackageData", initialPackageRows, columnsPackage)}>Package Data</p>
                   </li>
-                </>
+                </div>
               )}
             </ul>
           </nav>
@@ -239,14 +128,14 @@ function AdminSidebar({ onPageDataChange }) {
 
       <div className="bg-primary w-full col-span-10 flex flex-col justify-between">
         <button
-          className="bg-primary mb-5"
+          className="bg-primary mb-4 fixed bottom-1"
           onMouseEnter={() => setHoveredItem('exit')}
           onMouseLeave={() => setHoveredItem(null)}
         >
           {!isMinimized && (
             <img
               src={exit}
-              className="w-10 bg-primary ml-8 mt-20"
+              className="w-10 bg-primary ml-6"
             />
           )}
         </button>
