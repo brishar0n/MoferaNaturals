@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../../../style/App.css";
 import { postDryLeaves } from "../../../../api/centraAPI";
 import LeavesForm from "../../../components/centra/LeavesForm";
+import mascotAdd from "../../../../src/assets/AddPage/mascotAdd.svg"
 
 function AddDryLeaves() {
     const [weight, setWeight] = useState(0);
@@ -28,7 +29,7 @@ function AddDryLeaves() {
 
     return (
         <div className="w-full">
-            <img src="src/assets/AddPage/mascotAdd.svg" className="absolute left-6 top-96 pt-10 z-40" alt="Mascot" />
+            <img src={mascotAdd} className="absolute left-6 top-96 pt-10 z-40" alt="Mascot" />
             <p className="text-lg text-septenary font-semibold"> Total Dried Leaves Daily </p>
             <br />
             <LeavesForm

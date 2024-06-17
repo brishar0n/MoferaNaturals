@@ -5,6 +5,9 @@ import NavigationBar from "../centra/CentraNavbar";
 import CentraNotification from "./CentraNotification";
 import CentraNotificationList from "./CentraNotificationList";
 
+import greenShape from "../../../src/assets/notifications/green-shape.svg"
+import warningSprite from "../../../src/assets/notifications/warning-sprite.svg"
+
 
 function Notify() {
     const [isMobile, setIsMobile] = useState(false);
@@ -34,8 +37,8 @@ function Notify() {
             {isMobile && (
             <>
                 <div className="overflow-auto h-[calc(100vh-6rem)] md:h-auto bg-primary min-h-screen flex flex-col items-center overflow-auto resize-none pb-36">
-                    <img src="src/assets/notifications/green-shape.svg" className="fixed z-0 top-48 w-screen"></img>
-                    <img src="src/assets/notifications/warning-sprite.svg" className='w-45 z-20 absolute bottom-20 right-1'/>
+                    <img src={greenShape} className="fixed z-0 top-48 w-screen"></img>
+                    <img src={warningSprite} className='w-45 z-20 absolute bottom-20 right-1'/>
                         
                     <br></br>
                     <br></br>

@@ -6,6 +6,8 @@ import { getCurrentUser } from '../../../api/profileAPI';
 
 import bgupper from '../../assets/profile/element1.svg';
 import bglower from '../../assets/profile/element2.svg';
+import back from "../../assets/shipping/back.svg";
+import mascotAdd from "../../assets/AddPage/mascotAddSide.svg"
 import NavigationBar from "../../components/centra/CentraNavbar.jsx";
 import EditProfileContent from '../../components/profile/EditProfileContent';
 import NavbarGH from '../../components/guard_harbour/NavbarGH';
@@ -60,7 +62,7 @@ function EditProfile() {
                         <button 
                           onClick={() => navigate('/profile')} 
                           className='absolute left-10 text-gray-600 text-sm font-semibold mt-8 md-flex -top-5 z-50'>
-                          <img src="/src/assets/shipping/back.svg" alt="back" class="mt-8"></img>
+                          <img src={back} alt="back" class="mt-8"></img>
                         </button>
                         <img src={bgupper} className="absolute -top-10" />
                     </div>
@@ -73,7 +75,7 @@ function EditProfile() {
                         transition={{ duration: 0.3 }}
                     >
                         <div className='relative'>
-                            <img src="src/assets/AddPage/mascotAddSide.svg" className="absolute right-0 bottom-10 z-50"></img>
+                            <img src={mascotAdd} className="absolute right-0 bottom-10 z-50"></img>
                             <EditProfileContent
                                 role={user.role}
                                 name={user.username}

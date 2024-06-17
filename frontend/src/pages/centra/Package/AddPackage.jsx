@@ -4,6 +4,9 @@ import { useState } from "react";
 import PackageForm from "../../../components/centra/PackageForm";
 import { postPackage } from "../../../../api/centraAPI";
 
+import mascotAdd from "../../../../src/assets/AddPage/mascotAdd.svg"
+
+
 function AddPackage(){
     const [weight, setWeight] = useState(0);
     const [expDate, setExpDate] = useState(new Date());
@@ -31,7 +34,7 @@ function AddPackage(){
     return (
       
         <div className="">
-            <img src="src/assets/AddPage/mascotAdd.svg" className="absolute left-6 top-96 pt-20 z-40"></img>
+            <img src={mascotAdd} className="absolute left-6 top-96 pt-20 z-40"></img>
 
             <p className="text-lg text-septenary font-semibold"> Add New Package </p>
 

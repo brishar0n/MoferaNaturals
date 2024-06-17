@@ -9,6 +9,9 @@ import { getFlour } from "../../../../api/centraAPI";
 import { formatISOToUTC } from "../../../../utils/utils";
 import { sync } from "framer-motion";
 
+import calendar from "../../../../src/assets/centra/calendar.svg";
+import weights from "../../../../src/assets/centra/weight.svg";
+
 function FlourDryLeaves() {
     const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split("T")[0]);
     const [weight, setWeight] = useState(0);
@@ -131,7 +134,7 @@ function FlourDryLeaves() {
     return (
         <div className="flex flex-col items-center">
             <div className="w-30 bg-white rounded-lg flex items-center gap-1 z-40 relative">
-                <img src="src/assets/centra/calendar.svg" className="pl-2" alt="calendar" />
+                <img src={calendar} className="pl-2" alt="calendar" />
                 <input
                     type="date"
                     value={selectedDate}
@@ -142,7 +145,7 @@ function FlourDryLeaves() {
             </div>
 
             <div className="w-30 pl-3 pr-3 bg-white rounded-lg flex items-center gap-1 mt-4">
-                <img src="src/assets/centra/weight.svg" alt="weight" />
+                <img src={weights} alt="weight" />
                 <p className="font-semibold text-xs text-primary pt-1 pb-1 pr-5 pl-2">Weight: {weight}Kg</p>
             </div>
 

@@ -6,6 +6,7 @@ import withReactContent from 'sweetalert2-react-content'
 import axios from "axios"
 import { postWetLeaves } from "../../../../api/centraAPI"
 import LeavesForm from "../../../components/centra/LeavesForm";
+import mascotAdd from "../../../../src/assets/AddPage/mascotAdd.svg"
 
 function AddWetLeaves(){
     const [weight, setWeight] = useState(0);
@@ -68,7 +69,7 @@ function AddWetLeaves(){
     
     return (
         <div className="w-full">
-            <img src="src/assets/AddPage/mascotAdd.svg" className="absolute left-6 top-96 pt-10 z-40"></img>
+            <img src={mascotAdd} className="absolute left-6 top-96 pt-10 z-40"></img>
 
             <p className="italic text-base text-primary font-semibold"> Daily Received Wet Leaves </p>
 

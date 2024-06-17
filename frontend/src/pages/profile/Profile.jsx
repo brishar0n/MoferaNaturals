@@ -7,6 +7,7 @@ import ProfileContent from '../../components/profile/ProfileContent';
 import NavbarGH from '../../components/guard_harbour/NavbarGH';
 import { getCurrentUser } from '../../../api/profileAPI';
 import NavbarXYZ from '../../components/xyz/xyz_mobile/NavbarXYZ';
+import mascotAddSide from '../../assets/AddPage/mascotAddSide.svg';
 
 function Profile() {
     const [isMobile, setIsMobile] = React.useState(false);
@@ -56,7 +57,7 @@ function Profile() {
               transition={{ duration: 0.3 }}
             >
                 <div className='relative'>
-                  <img src="src/assets/AddPage/mascotAddSide.svg" className="absolute right-0 bottom-10 z-50"></img>
+                  <img src={mascotAddSide} className="absolute right-0 bottom-10 z-50"></img>
                   <ProfileContent role={role} name={username}/>
                   <img src={bglower} className=" bottom-0 z-0"/>
                 </div>

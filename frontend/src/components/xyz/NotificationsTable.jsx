@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { FaShippingFast } from "react-icons/fa";
 import { LuPackageOpen } from "react-icons/lu";
-import { getArrivalNotification, getShipmentNotification } from '../../../api/xyzAPI';
-// import /*arrivalIcon*/1 from './../../assets/xyz/arrival-icon.svg';
-// import shipmentIcon from './../../assets/xyz/shipment-icon.svg';
 
+import { getArrivalNotification, getShipmentNotification } from '../../../api/xyzAPI';
+
+// static data arrays for testing:
 // const shipmentNotifications = new Array(10).fill({
 //   id: '212123',
 //   shipper: 'Centra 1',
@@ -20,9 +22,14 @@ import { getArrivalNotification, getShipmentNotification } from '../../../api/xy
 // });
 
 function NotificationsTable() {
-  const [shipmentNotifications, setShipmentNotifications] = useState([])
-  const [arrivalNotifications, setArrivalNotifications] = useState([])
+  const [shipmentNotifications, setShipmentNotifications] = useState([]);
+  const [arrivalNotifications, setArrivalNotifications] = useState([]);
   const [showShipment, setShowShipment] = useState(true);
+  const navigate = useNavigate();
+
+  const navigateToMap = () => {
+    navigate('/shipmenttracker/map');
+  };
 
   useEffect(() => {
       async function fetchShipmentNotification() {
@@ -93,7 +100,7 @@ function NotificationsTable() {
                   <p className="text-gray-500 text-left">{new Date(notification.timestamp).toDateString()}</p>
                 </div>
               </div>
-              <button className="bg-primary text-white font-bold px-4 py-2 rounded-lg focus:outline-none">
+              <button onClick={navigateToMap} className="bg-primary text-white font-bold px-4 py-2 rounded-lg focus:outline-none">
                 TRACK
               </button>
             </div>
