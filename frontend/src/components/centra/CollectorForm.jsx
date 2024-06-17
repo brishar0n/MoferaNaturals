@@ -1,21 +1,30 @@
+import React, { useState, useEffect } from 'react';
 import SuccessNotification from "../SuccessNotification";
 import FailedNotification from "../FailedNotification";
 
-function CollectorForm({weight, handleWeightChange, date, handleDateChange, time, handleTimeChange, formSubmitted, handleSubmit}) {
+function CollectorForm({ weight, handleWeightChange, date, handleDateChange, time, handleTimeChange, formSubmitted, handleSubmit }) {
     const successMessage = `You have successfully collected ${weight} wet leaves data.`;
     const failedMessage = `Failed to collect wet leaves data. Weight must be greater than zero.`;
 
+    const [trigger, setTrigger] = useState(false);
+
+    const handleFormSubmit = (event) => {
+        event.preventDefault();
+        handleSubmit(event); // Call the original handleSubmit function
+        setTrigger(!trigger); // Toggle the trigger state to show the notification
+    };
+
     return (
         <div className="w-[80%] rounded-2xl shadow-lg bg-white rounded px-8 py-5 flex flex-col ">
-            {formSubmitted && weight > 0 && <SuccessNotification htmlContent={successMessage} />}
-            {formSubmitted && weight <= 0 && <FailedNotification htmlContent={failedMessage} />}
+            {formSubmitted && weight > 0 && <SuccessNotification htmlContent={successMessage} trigger={trigger} />}
+            {formSubmitted && weight <= 0 && <FailedNotification htmlContent={failedMessage} trigger={trigger} />}
 
             <b className="text-lg text-black inline-block mb-2">
                 Wet Leaves from Plasma
             </b>
 
             <div className="w-full flex flex-col text-left text-black">
-                <form className="" onSubmit={handleSubmit}>
+                <form className="" onSubmit={handleFormSubmit}>
                     <label htmlFor="weight" className="text-sm text-black mb-2 font-medium">Weight:</label>
                     <input 
                         type="number" 
@@ -49,7 +58,7 @@ function CollectorForm({weight, handleWeightChange, date, handleDateChange, time
                 </form>
             </div>
         </div>
-    )
+    );
 }
 
 export default CollectorForm;
