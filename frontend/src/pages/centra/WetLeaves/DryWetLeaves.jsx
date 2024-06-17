@@ -7,6 +7,7 @@ import { formatISOToUTC } from "../../../../utils/utils";
 
 function DryWetLeaves() {
   const [statusFilter, setStatusFilter] = useState("drying");
+  const [refresh, setRefresh] = useState(false)
   // filter wet leaves data that the washed datetime is not null.
   // const [wetLeaves, setWetLeaves] = useState([
   //   {
@@ -44,11 +45,15 @@ function DryWetLeaves() {
     }
     
     fetchWetLeaves();
-  },[])
+    setRefresh(false)
+  },[refresh])
 
   const handleWashOrDry = (id, newStatus, newDatetime) => {
     console.log(id, newStatus, newDatetime)
-    if (newStatus === "drying") dryWetLeaves({id, "date":newDatetime})
+    if (newStatus === "drying"){
+      dryWetLeaves({id, "date":newDatetime})
+      setRefresh(true)
+    }
     // setWetLeaves(prevData =>
     //   prevData.map(leaf => 
     //     leaf.id === id ? { 

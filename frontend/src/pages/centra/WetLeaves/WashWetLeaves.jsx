@@ -7,6 +7,7 @@ import { formatISOToUTC } from "../../../../utils/utils";
 function WashWetLeaves() {
   const [statusFilter, setStatusFilter] = useState("washing");
   const [wetLeaves,setWetLeaves] = useState([])
+  const [refresh, setRefresh] = useState(false)
   // const [wetLeaves, setWetLeaves] = useState([
   //   {
   //       id: 1,
@@ -34,11 +35,15 @@ function WashWetLeaves() {
     }
     
     fetchWetLeaves();
-  }, [])
+    setRefresh(false)
+  }, [refresh])
 
   const handleWashOrDry = (id, newStatus, newDatetime) => {
     console.log(id, newStatus, newDatetime)
-    if (newStatus === "washing") washWetLeaves({id, "date":newDatetime})
+    if (newStatus === "washing") {
+      washWetLeaves({id, "date":newDatetime})
+      setRefresh(true)
+    }
     // if (newStatus === "washing") dryWetLeaves({id, "date":newDatetime})
     // setWetLeaves(prevData =>
     //   prevData.map(leaf => 

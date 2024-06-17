@@ -30,7 +30,7 @@ function SearchResult({ searchResult, onPackageClick, shippingData }) {
                             <img src={box} alt="box" className="absolute"/>
                             <div className="mleft-10">
                                 <p className="mb-1 font-bold text-sm">Package ID #{item.id}</p>
-                                <p className="text-sm">{item.received_date}</p>
+                                <p className="text-sm">{new Date(item.received_datetime).toLocaleString()}</p>
                             </div>
                         </a>
                     </div>
