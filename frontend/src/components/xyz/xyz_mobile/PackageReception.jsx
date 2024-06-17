@@ -17,24 +17,45 @@ function PackageReception({handleSubmit, formSubmitted}) {
     const [totalPackagesReceived, setTotalPackagesReceived] = useState(0);
     const [totalWeight, setTotalWeight] = useState(0);
     const [centraUnit, setCentraUnit] = useState('');
-    const [trigger, setTrigger] = useState(false); 
+    const [ghName, setGhName] = useState('');
+    const [xyzName, setXYZName] = useState('');
+    const [description, setDescription] = useState('');
+    const [trigger, setTrigger] = useState(false);
+    const [formSubmitted, setFormSubmitted] = useState(false);
 
     const navigate = useNavigate();
 
     const [packageData, setPackageData] = useState([])
-    function handleSubmit(e){
-        e.preventDefault()
+    
+    async function handleSubmit(e){
+        e.preventDefault();
+
         const data = {
             "package_id": selectedPackageIDs,
             "total_packages_received": totalPackagesReceived,
             "weight": totalWeight,
             "centra_id": centraUnit,
-            "receival_datetime": receivalDate+"T"+receivalTime+":00.000Z"
+            "receival_datetime": receivalDate+"T"+receivalTime+":00.000Z",
+            "guard_harbor_name": ghName, 
+            "xyz_name": xyzName,
+            "description": description
         }
-        console.log(data)
-        addReception(data)
-        setTrigger(!trigger); 
-        navigate(`/receptiondocument`);
+
+        try {
+            const response = await addReception(data);
+            if (response.status === 201) {
+                setFormSubmitted(true);
+                setTrigger(!trigger); 
+                
+                doc_id = response.data.id;
+                navigate(`/receptionpackages/${doc_id}`);
+            } 
+        } catch (error) {
+            console.error('Failed to add reception document:', error);
+            setFormSubmitted(false);
+            setTrigger(!trigger);
+        }
+
     }
 
     function handlePackageIDChange(selectedPackageIDs) {
@@ -128,9 +149,32 @@ function PackageReception({handleSubmit, formSubmitted}) {
                     readOnly
                 />
 
-                <div className='mx-auto mt-3'>
-                    <button className='bg-secondary text-white rounded-3xl px-7 py-2 font-medium hover:bg-primary'>Reception Doc</button>
-                </div>
+                <label htmlFor="ghName" className='items-start text-xs mb-2 font-medium'>GH Preparer:</label>
+                <input 
+                    type="string" 
+                    id="ghName" 
+                    className='mb-2 rounded-md bg-quinary px-2 py-1 w-full text-xs border-none' 
+                    onChange={(e) => setGhName(e.target.value)}
+                    required
+                />
+
+                <label htmlFor="xyzName" className='items-start text-xs mb-2 font-medium'>XYZ Receiver:</label>
+                <input 
+                    type="string" 
+                    id="xyzName" 
+                    className='mb-2 rounded-md bg-quinary px-2 py-1 w-full text-xs border-none' 
+                    onChange={(e) => setXYZName(e.target.value)}
+                    required
+                />
+
+                <label htmlFor="description" className='items-start text-xs mb-2 font-medium'>Description:</label>
+                <input 
+                    type="string" 
+                    id="description" 
+                    className='mb-2 rounded-md bg-quinary px-2 py-1 w-full text-xs border-none' 
+                    onChange={(e) => setDescription(e.target.value)}
+                    required
+                />
 
                 <div className='flex mx-auto w-full justify-center mt-3'>
                     <div className=''>

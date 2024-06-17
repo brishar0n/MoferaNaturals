@@ -28,7 +28,7 @@ const DryDashboard = () => {
   const [isSidebarMinimized, setIsSidebarMinimized] = useState(false);
   const [centraFilter, setCentraFilter] = useState("1");
   const [statsFilter, setStatsFilter] = useState("daily");
-  const [trendFilter, setTrendFilter] = useState("monthly");
+  const [trendFilter, setTrendFilter] = useState("daily");
   const [activities, setActivities] = useState([])
 
   const toggleSidebar = () => {
@@ -146,7 +146,7 @@ const DryDashboard = () => {
                     <option value="daily">Daily</option>
                     <option value="weekly">Weekly</option>
                     <option value="monthly">Monthly</option>
-                    <option value="annually">Annually</option>
+                    <option value="yearly">Annually</option>
                   </select>
                 </form>
               </div>
@@ -164,7 +164,7 @@ const DryDashboard = () => {
                     <option value="daily">Daily</option>
                     <option value="weekly">Weekly</option>
                     <option value="monthly">Monthly</option>
-                    <option value="annually">Annually</option>
+                    <option value="yearly">Annually</option>
                   </select>
                 </form>
               </div>

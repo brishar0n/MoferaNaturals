@@ -73,7 +73,7 @@ function DashboardStats({section}) {
                     </div>
                     <div className="flex justify-between mt-2">
                         <span>Average Wet Leaves Collected:</span>
-                        <span className="font-bold">{averageWetLeaves} Kg</span>
+                        <span className="font-bold">{averageWetLeaves.toFixed(2)} Kg</span>
                     </div>    
                 </>
             )}
@@ -86,7 +86,7 @@ function DashboardStats({section}) {
                     </div>
                     <div className="flex justify-between mt-2">
                         <span>Average Dry Leaves Collected:</span>
-                        <span className="font-bold">{averageDryLeaves}  Kg</span>
+                        <span className="font-bold">{averageDryLeaves.toFixed(2)}  Kg</span>
                     </div>    
                 </>
             )}
@@ -99,7 +99,7 @@ function DashboardStats({section}) {
                     </div>
                     <div className="flex justify-between mt-2">
                         <span>Average Flour Collected:</span>
-                        <span className="font-bold">{averageFlour} Kg</span>
+                        <span className="font-bold">{averageFlour.toFixed(2)} Kg</span>
                     </div>    
                 </>
             )}

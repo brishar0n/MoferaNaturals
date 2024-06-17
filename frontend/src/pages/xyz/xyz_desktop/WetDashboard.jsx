@@ -23,7 +23,7 @@ const WetDashboard = () => {
   const [isSidebarMinimized, setIsSidebarMinimized] = useState(false);
   const [centraFilter, setCentraFilter] = useState("1");
   const [statsFilter, setStatsFilter] = useState("daily");
-  const [trendFilter, setTrendFilter] = useState("monthly");
+  const [trendFilter, setTrendFilter] = useState("daily");
   const [activities, setActivities] = useState([])
 
   const toggleSidebar = () => {
