@@ -6,6 +6,12 @@ import '../../style/App.css';
 import Card from './Card';
 import '../../style/auth/Register.css';
 
+import topFrame from '../../../src/assets/common/topframe.svg';
+import mascot from '../../../src/assets/common/mascot.svg';
+import backButton from '../../../src/assets/verification/backbutton.svg';
+import bottomFrame from '../../../src/assets/verification/bottomframe.svg';
+
+
 function Verification() {
   const [isMobile, setIsMobile] = useState(false);
   const [email, setEmail] = useState('');
@@ -46,11 +52,11 @@ function Verification() {
       {isMobile && (
         <>
           <div className='h-screen'>
-            <img src="src/assets/common/topframe.svg" className='w-screen absolute '/>
+            <img src={topFrame} className='w-screen absolute '/>
 
-            <img src="src/assets/common/mascot.svg" className='absolute top-11 right-7 mascot'/>
+            <img src={mascot} className='absolute top-11 right-7 mascot'/>
 
-            <img src="src/assets/verification/backbutton.svg" className="absolute mt-14 ml-8 btn"/>
+            <img src={backButton} className="absolute mt-14 ml-8 btn"/>
 
             <p className='text-white text-4xl font-bold absolute text-left top-32 left-14 text'> Forgot <br></br> Password</p>
 
@@ -75,7 +81,7 @@ function Verification() {
 
                 {message && <p>{message}</p>}
 
-                <img src='src/assets/verification/bottomframe.svg' className='w-screen fixed bottom-0' />
+                <img src={bottomFrame} className='w-screen fixed bottom-0' />
               </form>
             </Card>
           </div>

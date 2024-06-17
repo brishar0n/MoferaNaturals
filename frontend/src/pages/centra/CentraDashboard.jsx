@@ -8,6 +8,15 @@ import DashboardStats from "../../components/centra/DashboardStats.jsx";
 import { getCurrentUser } from '../../../api/profileAPI';
 import { Link } from 'react-router-dom';
 
+import vector414 from "../../../src/assets/dashboard/vector-414.svg";
+import vector412 from "../../../src/assets/dashboard/vector-412.svg";
+import ellipse from "../../../src/assets/dashboard/ellipse-8@2x.png";
+import rectangle from "../../../src/assets/dashboard/rectangle-3.svg";
+import gembrot from "../../../src/assets/dashboard/gembrot-4@2x.png";
+import group52 from "../../../src/assets/dashboard/group-52.svg";
+import frame from "../../../src/assets/dashboard/frame.svg";
+import bottomElement from "../../../src/assets/dashboard/vector-382.svg";
+
 function CentraDashboardHomePage() {
   const [isMobile, setIsMobile] = useState(false);
   const [currentSection, setCurrentSection] = useState("wet");
@@ -19,7 +28,7 @@ function CentraDashboardHomePage() {
   const [centraUnit, setCentraUnit] = useState(0);
   const [username, setUsername]= useState("");
   const [statsFilter, setStatsFilter] = useState("daily");
-  const [barData, setBarData] = useState(new Object())
+  const [barData, setBarData] = useState({});
   const [barLabel, setBarLabel] = useState("");
 
   useEffect(() => {
@@ -128,8 +137,8 @@ function CentraDashboardHomePage() {
         <>     
           <div className="transparent bg-quaternary text-base text-white font-montserrat">
             <div className="absolute bg-beige w-screen h-screen overflow-y-scroll">
-              <img className="absolute" alt="" src={"src/assets/dashboard/vector-414.svg"}/>
-              <img className="absolute"src={"src/assets/dashboard/vector-412.svg"}/>
+              <img className="absolute" alt="Vector 414" src={vector414} />
+              <img className="absolute" alt="Vector 412" src={vector412} />
 
               <div className="absolute mt-12 ml-5 font-medium text-left">
                 <p className="m-0 text-lg">Hello,</p>
@@ -138,10 +147,10 @@ function CentraDashboardHomePage() {
                 <p className="m-0 text-[27px]"><b>Centra Unit {centraUnit}</b></p>
               </div>
               
-              <img className="absolute top-[46px] left-[365px] rounded-[50%] w-11 h-11 object-cover" alt="" src={"src/assets/dashboard/ellipse-8@2x.png"}/>
-              <img className="absolute top-1/4 -mt-5 left-[0px] w-full h-[703px]" alt="" src={"src/assets/dashboard/rectangle-3.svg"}/>
-              <img className="absolute top-[53px] left-[250px] w-[91px] h-[179px] object-cover hidden" alt="" src={"src/assets/dashboard/gembrot-4@2x.png"}/>
-              <img className="absolute top-[53px] left-2/3 -ml-7 w-[91px] h-[179px] object-cover" alt="" src={"src/assets/dashboard/gembrot-4@2x.png"} />
+              <img className="absolute top-[46px] left-[365px] rounded-[50%] w-11 h-11 object-cover" alt="Ellipse" src={ellipse} />
+              <img className="absolute top-1/4 -mt-5 left-[0px] w-full h-[703px]" alt="Rectangle" src={rectangle} />
+              <img className="absolute top-[53px] left-[250px] w-[91px] h-[179px] object-cover hidden" alt="Gembrot" src={gembrot} />
+              <img className="absolute top-[53px] left-2/3 -ml-7 w-[91px] h-[179px] object-cover" alt="Gembrot" src={gembrot} />
 
               <div className="relative top-64 w-full">
                 
@@ -155,11 +164,11 @@ function CentraDashboardHomePage() {
                             placeholder="Search..."
                           />
                           <div className="absolute inset-y-0 right-0 flex items-center">
-                            <img className="mr-1" alt="" src={"src/assets/dashboard/group-52.svg"} />
+                            <img className="mr-1" alt="Group 52" src={group52} />
                           </div>
                         </div>
                         <Link to="/history">
-                          <img alt="" src={"src/assets/dashboard/frame.svg"} />
+                          <img alt="Frame" src={frame} />
                         </Link>
                       </div>
                     </div>
@@ -213,7 +222,7 @@ function CentraDashboardHomePage() {
                             </select>
                           </form>
                           <div className="">
-                            <BarChart barData = {barData} barLabel={barLabel}/>
+                            <BarChart barData={barData} barLabel={barLabel}/>
                           </div>
                         </div>
                       </div>    
@@ -280,7 +289,7 @@ function CentraDashboardHomePage() {
                     </div> 
                   </motion.div>
                 </div>
-                <img className="relative bottom-5" alt="" src={"src/assets/dashboard/vector-382.svg"}/>
+                <img className="relative bottom-5" alt="Bottom Element" src={bottomElement} />
               </div>
             </div>
           </div>

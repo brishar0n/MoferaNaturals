@@ -5,6 +5,11 @@ import '../../style/auth/ResetPass.css';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import topFrame from '../../../src/assets/common/topframe.svg';
+import mascot from '../../../src/assets/common/mascot.svg';
+import backButton from '../../../src/assets/verification/backbutton.svg';
+import bottomFrame from '../../../src/assets/verification/bottomframe.svg';
+
 function ResetPassword() {
   const [isMobile, setIsMobile] = useState(false);
   const [password, setPassword] = useState('');
@@ -51,9 +56,9 @@ function ResetPassword() {
       {isMobile && (
         <>
           <div className='h-screen'>
-            <img src="src/assets/common/topframe.svg" className='w-screen absolute '/>
-            <img src="src/assets/common/mascot.svg" className='absolute top-11 right-7 mascot'/>
-            <img src="src/assets/verification/backbutton.svg" className="absolute mt-14 ml-8 btn"/>
+            <img src={topFrame} className='w-screen absolute' alt="Top Frame" />
+            <img src={mascot} className='absolute top-11 right-7 mascot' alt="Mascot" />
+            <img src={backButton} className="absolute mt-14 ml-8 btn" alt="Back Button" />
             <p className='text-white text-4xl font-bold absolute text-left top-32 left-14 text'> Reset <br/> Password</p>
             <Card>
               <form onSubmit={handleSubmit} className='py-3 flex flex-col w-3/4 mx-auto mt-16 relative z-20'>
@@ -83,7 +88,7 @@ function ResetPassword() {
                   <button type='submit' className='rounded-full bg-secondary text-white font-bold px-4 py-2 w-36 btn-login'> Reset </button>
                 </div>
               </form>
-              <img src='src/assets/verification/bottomframe.svg' className='w-screen fixed bottom-0'/>
+              <img src={bottomFrame} className='w-screen fixed bottom-0' alt="Bottom Frame" />
             </Card>
           </div>
         </>

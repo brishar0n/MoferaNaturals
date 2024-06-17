@@ -4,6 +4,8 @@ import { useState } from "react";
 import PowderForm from "../../../components/centra/PowderForm";
 import { postFlour } from "../../../../api/centraAPI";
 
+import mascotAddSide from "../../../../src/assets/AddPage/mascotAddSide.svg"
+
 function AddPowder(){
     const [weight, setWeight] = useState(0);
     const [driedDate, setDriedDate] = useState(new Date());
@@ -34,7 +36,7 @@ function AddPowder(){
     
     return (
         <div className="w-full">
-            <img src="src/assets/AddPage/mascotAddSide.svg" className="absolute right-0 bottom-10 z-40"></img>
+            <img src={mascotAddSide} className="absolute right-0 bottom-10 z-40"></img>
 
             <p className="text-base text-septenary font-semibold italic"> Add a new powder collection </p>
 

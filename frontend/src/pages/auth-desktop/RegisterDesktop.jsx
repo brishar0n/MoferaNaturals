@@ -9,6 +9,7 @@ import MoferaLogo from "../../assets/auth-desktop/mofera-login.svg"
 import TopCorner from "../../assets/auth-desktop/login-tc.svg"
 import BottomCorner from "../../assets/auth-desktop/bc-login.svg"
 import Mascot from "../../assets/auth-desktop/login-mascot.svg"
+import component from "../../../src/assets/common/component.svg"
 import { motion } from "framer-motion";
 
 function RegisterDesktop() {
@@ -137,7 +138,7 @@ function RegisterDesktop() {
                             </div>
 
                             <div className='flex justify-center items-center mt-7 z-20'>
-                                <img src="src/assets/common/component.svg" className='w-3/4'></img>
+                                <img src={component} className='w-3/4'></img>
                             </div>
 
                             <div className='text-primary flex items-center justify-center gap-1 mt-6 z-20 relative'>

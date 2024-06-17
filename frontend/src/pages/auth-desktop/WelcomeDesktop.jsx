@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import "../../style/AdminDesktop.css"
+import bg from "../../../src/assets/auth-desktop/bg-welcome.svg"
+import mofera from "../../../src/assets/auth-desktop/mofera-login.svg"
 
 function WelcomeDesktop() {
     return (
         <div className="">
-            <img src="src/assets/auth-desktop/bg-welcome.svg" alt="" className="bottom-0 fixed right-0 h-99.999vh" />
-            <img src="src/assets/auth-desktop/mofera-login.svg" alt="" className="pt-8 pl-5"/>
+            <img src={bg} alt="" className="bottom-0 fixed right-0 h-99.999vh" />
+            <img src={mofera} alt="" className="pt-8 pl-5"/>
 
             <div className="w-1/2 ml-20 mt-36">
                 <div className="flex flex-col text-start gap-4 ">

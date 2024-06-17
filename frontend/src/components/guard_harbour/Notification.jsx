@@ -1,9 +1,11 @@
+import sampleProfile from  "../../../src/assets/notifications/sample_profile.svg"
+
 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
 function Notification({text, datetime, handleTrack, shipmentId}) {
     return (
         <div className="flex justify-start gap-3 px-5 py-3">
-            <img src="src/assets/notifications/sample_profile.svg" className="w-8 h-8"></img>
+            <img src={sampleProfile} className="w-8 h-8"></img>
             <div className="flex flex-col gap-1 text-start">
                 <p className="text-sm leading-5" dangerouslySetInnerHTML={{ __html: text }}></p>
                 <div className="flex flex-row items-center">

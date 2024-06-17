@@ -2,7 +2,7 @@ import profile from '../../assets/profile/profile.svg';
 import { IoLocationSharp } from "react-icons/io5";
 import SuccessNotification from "../SuccessNotification";
 import FailedNotification from "../FailedNotification";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import { Input } from "@nextui-org/react";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
@@ -10,6 +10,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa6";
 function EditProfileContent({ role, name, email, centraUnit, formSubmitted, handleFormSubmission }) {
     const [newName, setNewName] = useState(name);
     const [newEmail, setNewEmail] = useState(email);
+    const [trigger, setTrigger] = useState(0);
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [passwordsMatch, setPasswordsMatch] = useState(true);
@@ -48,37 +49,54 @@ function EditProfileContent({ role, name, email, centraUnit, formSubmitted, hand
     async function handleSubmit(event) {
         event.preventDefault();
         if (!validatePasswordsMatch()) return;
-
+    
         const payload = {
             username: newName,
             email: newEmail,
             new_password: newPassword,
             confirm_password: confirmPassword,
-            centra_unit: role === 'centra' ? centraUnit : null
         };
-
+    
         try {
-            const response = await axios.put('https://mofera-backend-fork-o1xucajgl-mofera-2.vercel.app/profile/', payload, {
+            const response = await axios.put('http://127.0.0.1:8000/profile/', payload, {
                 headers: {
                     'Content-Type': 'application/json',
                 }
             });
-
+    
             if (response.status === 200) {
                 setFormSubmittedSuccessfully(true);
-                handleFormSubmission(response.data);
+                setFormSubmissionFailed(false);
+                handleFormSubmission(response.data); 
+            } else {
+                setFormSubmissionFailed(true);
+                setFormSubmittedSuccessfully(false);
             }
         } catch (error) {
             console.error('Failed to update user profile:', error);
             setFormSubmissionFailed(true);
+            setFormSubmittedSuccessfully(false);
         }
     }
+    
+    const handleFormSubmit = async (event) => {
+        event.preventDefault();
+    
+        if (validatePasswordsMatch()) {
+            await handleSubmit(event);
+        } else {
+            setFormSubmissionFailed(true);
+            setFormSubmittedSuccessfully(false);
+        }
+        setTrigger(prev => prev + 1); // Update trigger state
+    };
+    
 
     return (
         <div className='flex flex-col justify-center items-center py-10 w-5/6 mx-auto text-primary'>
-            {formSubmittedSuccessfully && <SuccessNotification htmlContent="You have successfully edited your user profile." />}
-            {formSubmissionFailed && <FailedNotification htmlContent="Failed to update user profile." />}
-            {!passwordsMatch && <FailedNotification htmlContent="Passwords do not match." />}
+            {formSubmittedSuccessfully && <SuccessNotification htmlContent="You have successfully edited your user profile." trigger={trigger} />}
+            {formSubmissionFailed && <FailedNotification htmlContent="Failed to update user profile." trigger={trigger} />}
+            {!passwordsMatch && <FailedNotification htmlContent="Passwords do not match." trigger={trigger} />}
 
             <img src={profile} className="w-screen relative z-40 w-44 h-44 mt-2" alt="profile" />
 
@@ -88,7 +106,7 @@ function EditProfileContent({ role, name, email, centraUnit, formSubmitted, hand
                 <p className='font-medium flex gap-1 items-center text-base'><IoLocationSharp />Ponchiki, Aroma Ketek</p>
             </div>
 
-            <form className='flex flex-col my-2 w-full text-left bg-denary rounded-2xl p-5 mt-7 items-center' onSubmit={handleSubmit}>
+            <form className='flex flex-col my-2 w-full text-left bg-denary rounded-2xl p-5 mt-7 items-center' onSubmit={handleFormSubmit}>
                 <p className='font-bold text-green-900 mt-1 text-center text-xl'>User Profile</p>
                 
                 {role == "centra" && (

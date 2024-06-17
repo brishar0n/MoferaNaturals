@@ -8,6 +8,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { getWetLeaves } from "../../../../api/centraAPI"
 
+import frameAdd from "../../../../src/assets/AddPage/frameAdd.svg";
+import backArrow from "../../../../src/assets/common/backarrow.svg";
+
 function WetLeavesManager() {
   const [currentSection, setCurrentSection] = useState("add");
   const [isMobile, setIsMobile] = useState(false);
@@ -38,12 +41,12 @@ function WetLeavesManager() {
         {isMobile && (
           <>
             <div className="overflow-auto h-[calc(100vh-6rem)] md:h-auto bg-quaternary min-h-screen flex flex-col items-center overflow-auto resize-none pb-36">
-              <img src="src/assets/AddPage/frameAdd.svg" className="fixed w-screen z-0"></img>
+              <img src={frameAdd} className="fixed w-screen z-0"></img>
               <div className="flex pt-16 gap-11 pr-20 z-10">
                 {currentSection === "add" ? (
-                    <img src="src/assets/common/backarrow.svg" onClick={handleBack}></img>
+                    <img src={backArrow} onClick={handleBack}></img>
                   ) : (
-                    <img src="src/assets/common/backarrow.svg" onClick={() => handleSectionChange("add")}></img>
+                    <img src={backArrow} onClick={() => handleSectionChange("add")}></img>
                   )}
                 <p className="font-bold text-primary text-3xl">Wet Leaves</p>
               </div>

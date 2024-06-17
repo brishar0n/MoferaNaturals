@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { Input } from "@nextui-org/react";
 import "../../style/App.css"; // Make sure to adjust the path to your CSS file
+import searchButton from "../../../src/assets/admin/searchbutton.svg"
 
 function SearchButtonData({ onSearch }) {
   const [searchTerm, setSearchTerm] = useState("");

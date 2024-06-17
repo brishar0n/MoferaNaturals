@@ -50,6 +50,7 @@ import axios from 'axios';
 import ResetPassDesktop from './pages/auth-desktop/ResetPassDesktop';
 import VerificationDesktop from './pages/auth-desktop/VerificationDesktop';
 import Checkpoint from './pages/xyz/xyz_desktop/Checkpoint'
+import XYZDashboard from './pages/xyz/xyz_mobile/XYZDashboard';
 
 export const UserContext = createContext()
 
@@ -121,6 +122,7 @@ function App() {
           {/* XYZ Mobile Routes */}
           {userRole === 'xyz' && isMobileDevice && (
             <>
+              <Route path="/xyzdashboard" element={<XYZDashboard />} />
               <Route path="/findrescale" element={<FindRescalePackage />} />
               <Route path="/rescalepackage/:packageId" element={<RescalingPackage />} />
               <Route path="/receptionpackage" element={<ReceptionPackage />} />
