@@ -6,7 +6,6 @@ import collect from '../../assets/profile/collect.svg'
 import trophy from '../../assets/profile/trophy.svg'
 import NavigateTo from './NavigateTo';
 import Account from './Account';
-import SupportnAbout from './SupportnAbout';
 import ConfirmNotification from '../ConfirmNotification';
 import { useState } from "react";
 
@@ -105,11 +104,6 @@ function ProfileContent({ role, name }) {
             <div className='my-2 text-left w-full'>
                 <p className='text-primary font-bold ml-5'>Account</p>
                 <Account handleLogOut={handleLogOut} handleDelete={handleDelete} />
-            </div>
-
-            <div className='my-2 text-left w-full'>
-                <p className='text-primary font-bold ml-5'>Support & About</p>
-                <SupportnAbout />
             </div>
 
             {showConfirm && <ConfirmNotification
