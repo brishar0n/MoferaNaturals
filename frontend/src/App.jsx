@@ -151,14 +151,13 @@ function App() {
           <Route path="/warningpage" element={<WarningPage/>} exact/>
           
           {/* Desktop XYZ Routes */}
-          {userRole === 'xyz' && !isMobileDevice && (
+          {userRole === 'xyz' && (
             <>
               <Route path="/notifications" element={<Notifications />} />
               <Route path="/arrivedpackages" element={<ArrivedPackages />} />
               <Route path="/shipmenttrackermap" element={<ShipmentTracker />} exact />
               <Route path="/shipmenttracker" element={<ShipmentTrackerDashboard />} exact />
               <Route path="/centraactivitymonitor" element={<CentraActivityMonitor />} />
-              <Route path="/dashboard" element={<WetDashboard />} />
               <Route path="/dashboard-wet" element={<WetDashboard />} />
               <Route path="/dashboard-dry" element={<DryDashboard />} />
               <Route path="/dashboard-powder" element={<PowderDashboard />} />

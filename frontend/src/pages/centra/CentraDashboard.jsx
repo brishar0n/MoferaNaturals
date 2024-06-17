@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import DashboardStats from "../../components/centra/DashboardStats.jsx";
 import { getCurrentUser } from '../../../api/profileAPI';
 import { Link } from 'react-router-dom';
-
+import { useNavigate } from "react-router-dom";
 import vector414 from "../../../src/assets/dashboard/vector-414.svg";
 import vector412 from "../../../src/assets/dashboard/vector-412.svg";
 import ellipse from "../../../src/assets/dashboard/ellipse-8@2x.png";
@@ -18,6 +18,7 @@ import frame from "../../../src/assets/dashboard/frame.svg";
 import bottomElement from "../../../src/assets/dashboard/vector-382.svg";
 
 function CentraDashboardHomePage() {
+  const navigate = useNavigate()
   const [isMobile, setIsMobile] = useState(false);
   const [currentSection, setCurrentSection] = useState("wet");
   const [date, setDate] = useState("");
@@ -103,6 +104,16 @@ function CentraDashboardHomePage() {
 
     fetchData();
   }, []);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (!isMobile) {
+        navigate('/warningpage');
+      } 
+    }, 750);
+
+    return () => clearTimeout(timeout);
+  }, [isMobile, navigate]);
 
   useEffect(() => {
     const fetchBarData = async () => {
