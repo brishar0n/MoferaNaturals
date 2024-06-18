@@ -4,10 +4,10 @@ import { motion } from "framer-motion";
 import SearchForm from "./Search";
 
 import Sidebar from '../../../components/xyz/Sidebar';
-import ArrivedPackagesTable from '../../../components/xyz/ArrivedPackagesTable';
+import PackagesTable from '../../../components/xyz/PackagesTable';
 import profilepic from "../../../assets/desktop/profilepicdesktop.svg";
 
-const ArrivedPackages = ({ children }) => {
+const Packages = ({ children }) => {
 
     const [isSidebarMinimized, setIsSidebarMinimized] = useState(false);
 
@@ -42,7 +42,7 @@ const ArrivedPackages = ({ children }) => {
                 <h2 className='text-left font-medium text-sm ml-6 mb-5'> Track the status of your packages: </h2>
           
                 <div className='bg-quinary rounded-xl mt-4 mx-6'>
-                    <ArrivedPackagesTable/>
+                    <PackagesTable/>
                 </div>
                 </motion.div>
             </div>
@@ -50,4 +50,4 @@ const ArrivedPackages = ({ children }) => {
     );
 }
 
-export default ArrivedPackages;
+export default Packages;

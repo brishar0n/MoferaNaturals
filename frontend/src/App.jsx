@@ -20,7 +20,7 @@ import ReceptionPackage from './pages/xyz/xyz_mobile/ReceptionPackage';
 import ReceptionDocument from './pages/xyz/xyz_mobile/ReceptionDocument';
 import AddCheckpoint from './pages/guard_harbour/AddCheckpoint';
 import ViewCheckpoint from './pages/guard_harbour/ViewCheckpoint';
-import ArrivedPackages from './pages/xyz/xyz_desktop/ArrivedPackages';
+import Packages from './pages/xyz/xyz_desktop/Packages';
 import ShipmentNotification from './pages/guard_harbour/ShipmentNotification';
 import AdminPage from './pages/desktop/AdminManagement';
 import CentraActivityMonitor from './pages/xyz/xyz_desktop/CentraActivityMonitor';
@@ -152,7 +152,7 @@ function App() {
           {userRole === 'xyz' && (
             <>
               <Route path="/notifications" element={<Notifications />} />
-              <Route path="/arrivedpackages" element={<ArrivedPackages />} />
+              <Route path="/packages" element={<Packages />} />
               <Route path="/shipmenttrackermap" element={<ShipmentTracker />} exact />
               <Route path="/shipmenttracker" element={<ShipmentTrackerDashboard />} exact />
               <Route path="/centraactivitymonitor" element={<CentraActivityMonitor />} />

@@ -25,7 +25,7 @@ const columns = [
 
 const centraOptions = Array.from({ length: 32 }, (_, i) => i + 1);
 
-function ArrivedPackagesTable() {
+function PackagesTable() {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [sortBy, setSortBy] = useState("");
@@ -180,4 +180,4 @@ function ArrivedPackagesTable() {
   );
 }
 
-export default ArrivedPackagesTable;
+export default PackagesTable;
