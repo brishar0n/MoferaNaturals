@@ -144,15 +144,15 @@ function AdminTable({ rows , columns , deleteRow, editRow, pageName}) {
         <TableBody items={paginatedRows}>
           {(item) => (
             <TableRow key={item.key}>
-              {(columnKey) => (
+              {(columnKeys) => (
                 <TableCell className="text-base justify-center">
-                  {columnKey.key === "created_datetime"
-                      ? formatDateTime(item[column.key])
-                      : columnKey.key === "status"
-                      ? getStatusLabel(item[columnKey.key])
-                      : item[columnKey.key]
+                  {columnKeys.key === "created_datetime"
+                      ? formatDateTime(item[columnKeys.key])
+                      : columnKeys.key === "status"
+                      ? getStatusLabel(item[columnKeys.key])
+                      : item[columnKeys.key]
                   }
-                  {columnKey === "actions" ? (
+                  {columnKeys === "actions" ? (
                     <div className="flex gap-2 justify-center">
                       <Button
                         size="md"
@@ -166,7 +166,7 @@ function AdminTable({ rows , columns , deleteRow, editRow, pageName}) {
                       </Button>
                     </div>
                   ) : (
-                    getKeyValue(item, columnKey)
+                    getKeyValue(item, columnKeys)
                   )}
                 </TableCell>
               )}
