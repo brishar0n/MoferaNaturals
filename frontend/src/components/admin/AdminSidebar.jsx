@@ -197,7 +197,7 @@ function AdminSidebar({ isMinimized, toggleMenu, onPageDataChange }) {
         </div>
 
         {!isMinimized && (
-          <nav className="w-full h-full overflow-y-auto">
+          <nav className="w-full h-full overflow-y-auto hide-scrollbar">
             <ul className="flex flex-col h-full">
               <li
                 className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white"

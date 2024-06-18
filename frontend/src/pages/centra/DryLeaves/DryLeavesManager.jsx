@@ -17,6 +17,7 @@ function DryLeavesManager() {
   const [isMobile, setIsMobile] = useState(false);
   const [dryLeaves, setDryLeaves] = useState([]);
   const nav = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     function handleResize() {
@@ -29,6 +30,16 @@ function DryLeavesManager() {
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (!isMobile) {
+        navigate('/warningpage');
+      } 
+    }, 750);
+
+    return () => clearTimeout(timeout);
+  }, [isMobile, navigate]);
 
   const handleSectionChange = (section) => {
     setCurrentSection(section);

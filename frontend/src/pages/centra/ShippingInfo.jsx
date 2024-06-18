@@ -6,7 +6,10 @@ import NavigationBar from "../../components/centra/CentraNavbar.jsx";
 import '../../style/Shipping.css'
 import ShippingForm from '../../components/centra/ShippingForm';
 import { motion } from "framer-motion";
+import { useNavigate } from 'react-router-dom';
+
 export const ShippingInfo = () => {
+    const navigate = useNavigate();
     const [isMobile, setIsMobile] = React.useState(false);
 
     useEffect(() => {
@@ -19,6 +22,16 @@ export const ShippingInfo = () => {
   
       return () => window.removeEventListener("resize", handleResize);
     }, []);
+
+    useEffect(() => {
+      const timeout = setTimeout(() => {
+        if (!isMobile) {
+          navigate('/warningpage');
+        } 
+      }, 750);
+  
+      return () => clearTimeout(timeout);
+    }, [isMobile, navigate]);
   
     return (
       <div className='bg-primary w-screen h-screen overflow-auto'>

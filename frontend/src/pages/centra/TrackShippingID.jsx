@@ -11,6 +11,8 @@ import { getCurrentUser } from '../../../api/profileAPI';
 import { getPackages as getCentraPackages, getShippingInfo as getCentraShippingInfo, getCheckpoints as getCentraCheckpoints, getReceptionPackages as getCentraReceptionPackages } from "../../../api/centraAPI";
 import { getPackages as getGHPackages, getShippingInfo as getGHShippingInfo, getCheckpoints as getGHCheckpoints, getReceptionPackages as getGHReceptionPackages} from "../../../api/guardHarborAPI";
 import TrackShippingDetails from '../../components/centra/TrackShippingDetails';
+import { useNavigate } from 'react-router-dom';
+
 
 function TrackShippingID() {
     const { shippingId } = useParams();
@@ -35,6 +37,16 @@ function TrackShippingID() {
   
       return () => window.removeEventListener("resize", handleResize);
     }, []);
+
+    useEffect(() => {
+      const timeout = setTimeout(() => {
+        if (!isMobile) {
+          navigate('/warningpage');
+        } 
+      }, 750);
+  
+      return () => clearTimeout(timeout);
+    }, [isMobile, navigate]);
 
     useEffect(() => {
       async function fetchData() {
