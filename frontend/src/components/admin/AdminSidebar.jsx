@@ -43,6 +43,31 @@ function AdminSidebar({ isMinimized, toggleMenu, onPageDataChange }) {
   //   setIsMinimized(!isMinimized);
   // };
 
+  function getStatusDescription(status) {
+    switch (status) {
+      case 0:
+        return "Ready to Ship";
+      case 1:
+        return "Shipping";
+      case 2:
+        return "Confirmed Arrival";
+      case 3:
+        return "Collected";
+      case 4:
+        return "Expired";
+      default:
+        return "Unknown Status";
+    }
+  }
+
+  function formatDate(dateString) {
+    return dateString.replace('T', ' ');
+  }
+
+  function formatWeight(weight) {
+    return `${weight} KG`;
+  }
+
   async function fetchUserData() {
     try {
       const userData = await getUsers();

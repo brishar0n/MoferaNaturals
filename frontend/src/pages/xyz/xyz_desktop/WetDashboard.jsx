@@ -10,29 +10,22 @@ import { motion } from "framer-motion";
 
 import profilepic from "../../../assets/desktop/profilepicdesktop.svg";
 import mascot from "../../../assets/xyz/half-mascot.svg";
-import { getWetLeafDatas, getWetStats, getWetSummary } from '../../../../api/xyzAPI';
-
-// const activities = [
-//   { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of wet leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-10@2x.png' },
-//   { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of wet leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-9@2x.png' },
-//   { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of wet leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-22@2x.png' },
-//   { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of wet leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-18@2x.png' },
-// ];
+import { getWetLeafDatas, getWetStats } from '../../../../api/xyzAPI';
 
 const WetDashboard = () => {
   const [isSidebarMinimized, setIsSidebarMinimized] = useState(false);
   const [centraFilter, setCentraFilter] = useState("1");
   const [statsFilter, setStatsFilter] = useState("daily");
   const [trendFilter, setTrendFilter] = useState("daily");
-  const [activities, setActivities] = useState([])
+  const [activities, setActivities] = useState([]);
 
   const toggleSidebar = () => {
     setIsSidebarMinimized(!isSidebarMinimized);
   };
 
-  const [barData, setBarData] = useState(new Object())
-  const [lineChartData, setLineChartData] = useState(new Object())
-  const [wetDatas, setWetDatas] = useState([])
+  const [barData, setBarData] = useState({});
+  const [lineChartData, setLineChartData] = useState({});
+  const [wetDatas, setWetDatas] = useState([]);
 
   const formatDate = (dateStr) => {
     const date = new Date(dateStr);
@@ -41,58 +34,44 @@ const WetDashboard = () => {
   };
 
   useEffect(() => {
-      const fetchBarData = async () => {
-          const response = await getWetStats({"interval": statsFilter});
-          if(response && response.data) {
-              setBarData(response.data);
-            }
+    const fetchBarData = async () => {
+      const response = await getWetStats({ "interval": statsFilter });
+      if (response && response.data) {
+        setBarData(response.data);
       }
+    };
 
-      fetchBarData();
-      
+    fetchBarData();
   }, [statsFilter]);
 
   useEffect(() => {
     const fetchLineData = async () => {
-        const response = await getWetStats({"interval": trendFilter});
-        if(response && response.data) {
-            setLineChartData(response.data);
-          }
-    }
+      const response = await getWetStats({ "interval": trendFilter });
+      if (response && response.data) {
+        setLineChartData(response.data);
+      }
+    };
 
     fetchLineData();
-    
   }, [trendFilter]);
 
-  const [wetSummary, setWetSummary] = useState({
-    "total": 0,
-    "monthly": 0,
-    "today": 0
-  })
   useEffect(() => {
-      const fetchWetData = async () => {
-        const response = await getWetLeafDatas();
-        if(response && response.data) {
-            setWetDatas(response.data);
-            setActivities(response.data.map((data) => {return {
-              "day": data.retrieval_date,
-              "time": "10 mins ago",
-              "description": `Centra ${data.centra_id} just added ${data.weight}kg of wet leaves data into the system.`,
-              "image": 'src/assets/DashboardDesktop/ellipse-18@2x.png'}
-            }))
-          }
+    const fetchWetData = async () => {
+      const response = await getWetLeafDatas();
+      if (response && response.data) {
+        setWetDatas(response.data);
+        setActivities(response.data.map((data) => ({
+          "day": data.retrieval_date,
+          "time": "10 mins ago",
+          "description": `Centra ${data.centra_id} just added ${data.weight}kg of wet leaves data into the system.`,
+          "image": 'src/assets/DashboardDesktop/ellipse-18@2x.png'
+        })));
       }
-      fetchWetData();
+    };
+    fetchWetData();
+  }, []);
 
-      const fetchWetSummary = async () => {
-        const response = await getWetSummary()
-        if(response && response.data) {
-          setWetSummary(response.data)
-        }
-      }
-
-      fetchWetSummary();
-  }, [])
+  const filteredWetDatas = wetDatas.filter(data => data.centra_id === parseInt(centraFilter));
 
   return (
     <div className="bg-primary w-screen h-screen flex relative">
@@ -105,7 +84,7 @@ const WetDashboard = () => {
                 <h2 className="text-4xl font-bold">Hello Maimunah!</h2>
                 <img src={mascot} alt="mascot" className="ml-10" style={{ height: "112px" }} />
               </div>
-          </div>
+            </div>
 
             <div className="flex items-center justify-center gap-20 h-22 rounded dark:bg-gray-800">
               <div>
@@ -116,36 +95,26 @@ const WetDashboard = () => {
               </div>
               <div>
                 <span className="flex items-center mr-6 mt-6">
-                  <img src={profilepic} alt='profile picture' className='flex align-right mb-6 absolute right-0 top-0 mr-12 mt-12'/>
+                  <img src={profilepic} alt='profile picture' className='flex align-right mb-6 absolute right-0 top-0 mr-12 mt-12' />
                 </span>
               </div>
             </div>
           </div>
         </div>
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} className="flex-1 overflow-y-auto">
-        <div className="flex items-center justify-between h-12 ml-4 mb-4 rounded dark:bg-gray-800">
+          <div className="flex items-center justify-between h-12 ml-4 mb-4 rounded dark:bg-gray-800">
             <div className="flow-root">
               <p align="left"><span className="text-2xl font-bold">Wet Leaves Data</span></p>
               <p>Observe the statistics, trends, data of Wet Leaves</p>
             </div>
             <div className="flex justify-center gap-2">
               <form className="h-10 w-40">
-                <select id="times" className="bg-quinary border border-primary text-black text-sm 
+                <select id="centra" className="bg-quinary border border-primary text-black text-sm 
                 focus:ring-primary focus:border-primary block w-full p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-xl py-1 px-2"
-                onChange={(e) => setCentraFilter(e.target.value)} >
-                  <option value="1">Select Centra</option>
-                  <option value="1">Select Centra 1</option>
-                  <option value="2">Select Centra 2</option>
-                  <option value="3">Select Centra 3</option>
-                </select>
-              </form>
-              <form className="h-10 w-28">
-                <select id="times" className="bg-quinary border border-primary text-black text-sm 
-                focus:ring-primary focus:border-primary block w-full p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-xl py-1 px-2">
-                  <option>Filter</option>
-                  <option>Filter 1</option>
-                  <option>Filter 2</option>
-                  <option>Filter 3</option>
+                  onChange={(e) => setCentraFilter(e.target.value)} >
+                  {[...Array(32).keys()].map(i => (
+                    <option key={i + 1} value={i + 1}>{`Centra ${i + 1}`}</option>
+                  ))}
                 </select>
               </form>
             </div>
@@ -155,9 +124,9 @@ const WetDashboard = () => {
               <div className="flex justify-between items-center mb-4">
                 <div className="text-lg text-black font-semibold">Wet Leaves Statistics</div>
                 <form className="h-10 w-28">
-                  <select id="times" className="bg-quinary border border-primary text-black text-sm 
+                  <select id="stats" className="bg-quinary border border-primary text-black text-sm 
                   focus:ring-primary focus:border-primary block w-full p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full py-1 px-2"
-                  onChange={(e) => setStatsFilter(e.target.value)}>
+                    onChange={(e) => setStatsFilter(e.target.value)}>
                     <option value="daily">Daily</option>
                     <option value="weekly">Weekly</option>
                     <option value="monthly">Monthly</option>
@@ -166,16 +135,16 @@ const WetDashboard = () => {
                 </form>
               </div>
               <div className="flex-1 flex-grow flex-shrink">
-                <BarChart barData = {barData}/>
+                <BarChart barData={barData} />
               </div>
             </div>
             <div className="flex flex-col h-[288px] bg-quinary rounded-3xl dark:bg-gray-800 p-8">
               <div className="flex justify-between items-center mb-4">
                 <div className="text-lg text-black font-semibold">Wet Leaves Trends</div>
                 <form className="h-10 w-28">
-                  <select id="times" className="bg-quinary border border-primary text-black text-sm 
+                  <select id="trend" className="bg-quinary border border-primary text-black text-sm 
                   focus:ring-primary focus:border-primary block w-full p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full py-1 px-2"
-                  onChange={(e) => setTrendFilter(e.target.value)}>
+                    onChange={(e) => setTrendFilter(e.target.value)}>
                     <option value="daily">Daily</option>
                     <option value="weekly">Weekly</option>
                     <option value="monthly">Monthly</option>
@@ -184,26 +153,26 @@ const WetDashboard = () => {
                 </form>
               </div>
               <div className="flex-1 flex-grow flex-shrink">
-                <AreaChart lineData={lineChartData}/>
+                <AreaChart lineData={lineChartData} />
               </div>
             </div>
             <div className="grid grid-cols-3 gap-4 mb-4">
               <div className="h-24 bg-quinary rounded-3xl flex items-center justify-center dark:bg-gray-800 p-4">
                 <div>
                   <p className="text-sm">Total Wet Leaves <br /> Collected:</p>
-                  <p className="text-lg font-bold">{wetSummary.total.toFixed(2)} kg</p>
+                  <p className="text-lg font-bold">10,300 kg</p>
                 </div>
               </div>
               <div className="h-24 bg-quinary rounded-3xl flex items-center justify-center dark:bg-gray-800 p-4">
                 <div>
                   <p className="text-sm">Average Wet Leaves Collected Each Day:</p>
-                  <p className="text-lg font-bold">{wetSummary.monthly.toFixed(2)} kg</p>
+                  <p className="text-lg font-bold">500 kg</p>
                 </div>
               </div>
               <div className="h-24 bg-quinary rounded-3xl flex items-center justify-center dark:bg-gray-800 p-4">
                 <div>
-                  <p className="text-sm">Today's Wet Leaves <br /> Collected:</p>
-                  <p className="text-lg font-bold">{wetSummary.today.toFixed(2)} kg</p>
+                  <p className="text-sm">Total Wet Leaves <br /> Disposed:</p>
+                  <p className="text-lg font-bold">102 kg</p>
                 </div>
               </div>
             </div>
@@ -212,14 +181,14 @@ const WetDashboard = () => {
             <div className="flex h-[440px] bg-quinary items-center justify-center rounded-3xl dark:bg-gray-800 p-4">
               <div className="text-2xl text-primary dark:text-gray-500 w-full">
                 <div className="text-left text-lg ml-3 text-black font-semibold">Wet Leaves Data</div>
-                <Table data={wetDatas.map((data) => {return {...data, "date":formatDate(data.retrieval_date)}})}/>
+                <Table data={filteredWetDatas.map((data) => ({ ...data, "date": formatDate(data.retrieval_date) }))} />
               </div>
             </div>
             <div className="flex flex-col bg-quinary rounded-3xl dark:bg-gray-800 p-4">
-              <div className="text-lg text-left text-black font-semibold px-4 mt-4">Recent Activities</div>              
-                <div>
-                  <RecentActivities activities={activities} />
-                </div>
+              <div className="text-lg text-left text-black font-semibold px-4 mt-4">Recent Activities</div>
+              <div>
+                <RecentActivities activities={activities.filter(activity => activity.description.includes(`Centra ${centraFilter}`))} />
+              </div>
             </div>
           </div>
         </motion.div>
