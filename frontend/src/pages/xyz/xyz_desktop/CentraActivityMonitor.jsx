@@ -7,16 +7,31 @@ import Sidebar from '../../../components/xyz/Sidebar';
 import CentraMonitorTable from '../../../components/xyz/CentraMonitorTable';
 import CentraMonitorBar from '../../../components/xyz/CentraMonitorBar';
 import profilepic from "../../../assets/desktop/profilepicdesktop.svg";
+import { getPackageSummary } from '../../../../api/xyzAPI';
 
 const CentraActivityMonitor = () => {
   const [date, setDate] = useState(new Date());
   const navigate = useNavigate(); 
   const [filter, setFilter] = useState('daily');
+  const [packageSummary, setPackageSummary] = useState({
+    total: 0,
+    pending: 0,
+    arrived: 0
+  })
 
   useEffect(() => {
     const timer = setInterval(() => {
       setDate(new Date());
     }, 1000);
+
+    const fetchPackageSummary = async () => {
+        const response = await getPackageSummary();
+        if (response && response.data) {
+            setPackageSummary(response.data);
+        }
+    }
+    
+    fetchPackageSummary()
 
     return () => clearInterval(timer);
   }, []);
@@ -81,13 +96,13 @@ const CentraActivityMonitor = () => {
             <h2 className='text-left font-medium text-xl ml-2 mt-5'>Shipped Packages</h2>
             <div className='mt-4'>
               <p className='text-left ml-3 mt-10'>Total Packages Sent:</p>
-              <p className='text-left text-xl font-medium ml-3 mt-4'>300</p>
+              <p className='text-left text-xl font-medium ml-3 mt-4'>{packageSummary.total}</p>
               <br />
               <p className='text-left ml-3'>Pending Packages:</p>
-              <p className='text-left text-xl font-medium ml-3 mt-4'>105</p>
+              <p className='text-left text-xl font-medium ml-3 mt-4'>{packageSummary.pending}</p>
               <br />
               <p className='text-left ml-3'>Packages Arrived:</p>
-              <p className='text-left text-xl font-medium ml-3 mt-4'>195</p>
+              <p className='text-left text-xl font-medium ml-3 mt-4'>{packageSummary.arrived}</p>
               <br />
               <button className='bg-primary rounded-3xl text-white py-2 px-4' onClick={handleShipmentTrack}>View Shipment Tracker</button>
             </div>
