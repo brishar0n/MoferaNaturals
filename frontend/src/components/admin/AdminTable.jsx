@@ -105,7 +105,7 @@ function AdminTable({ rows , columns , deleteRow, editRow, pageName}) {
               {(columnKey) => (
                 <TableCell className="text-base justify-center">
                   {columnKey === "actions" ? (
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 justify-center">
                       <Button
                         size="md"
                         auto
