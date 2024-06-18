@@ -20,7 +20,7 @@ const ArrivedPackages = ({ children }) => {
             <Sidebar isMinimized={isSidebarMinimized} toggleSidebar={toggleSidebar} />
             <div className='flex-1 bg-white rounded-3xl mt-3 mr-3 mb-3 p-4 overflow-y-auto relative'>
                 <div className="flex justify-between items-center">
-                    <h1 className='text-4xl font-semibold text-left ml-6 mt-3'>Arrived Packages</h1>
+                    <h1 className='text-4xl font-semibold text-left ml-6 mt-3'>Packages</h1>
 
                     <div className="flex items-center justify-center mt-3 rounded dark:bg-gray-800 relative">
                         <div className='mt-3'>

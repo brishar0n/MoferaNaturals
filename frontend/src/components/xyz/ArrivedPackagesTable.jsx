@@ -1,186 +1,183 @@
-import React, { useEffect, useState } from 'react';
-import DataTable,{ createTheme } from 'react-data-table-component';
-import { getArrivedPackage } from '../../../api/xyzAPI';
-
-const ExpandedComponent = ({ data }) => <pre>{JSON.stringify(data, null, 2)}</pre>;
+import React, { useEffect, useState } from "react";
+import {
+  Table,
+  TableHeader,
+  TableColumn,
+  TableBody,
+  TableRow,
+  TableCell,
+  Pagination,
+} from "@nextui-org/react";
+import { getPackages } from "../../../api/xyzAPI";
+import { ArrowUp, ArrowDown } from "react-feather"; // Importing sorting icons
+import "../../style/AdminDesktop.css";
 
 const columns = [
-	{
-		name: 'Package ID',
-		selector: row => row.id,
-        sortable: true,
-        width: "220px",   
-	},
-	{
-		name: 'Centra',
-		selector: row => row.centra_id,
-        sortable: true,
-        width: "217px"   
-	},
-    {
-		name: 'Weight',
-		selector: row => row.weight,
-        sortable: true,
-        width: "180px"
-	},
-    {
-		name: 'Receival Date',
-		selector: row => row.received_date,
-        sortable: true,
-        width: "180px"   
-	},
+  { key: "id", label: "Package ID" },
+  { key: "weight", label: "Weight (Kg)" },
+  { key: "created_datetime", label: "Created Datetime" },
+  { key: "exp_date", label: "Expiry Date" },
+  { key: "status", label: "Status" },
+  { key: "centra_id", label: "Centra" },
+  { key: "shipping_id", label: "Shipping ID" },
+  { key: "reception_id", label: "Reception ID" },
 ];
 
-// const data = [
-//     {
-//         id: 'PKG#3439320',
-//         Centra: 'Centra Unit 1',
-//         Weight: 30,
-//         Date: '31/08/2023',
-        
-//     },
-//     {
-//         id: 'PKG#3493050',
-//         Centra: 'Centra Unit 2',
-//         Weight: 20,
-//         Date: '31/08/2023',
-
-//     },
-//     {
-//         id: 'PKG#05939539',
-//         Centra: 'Centra Unit 2',
-//         Weight: 40,
-//         Date: '31/08/2023',
-        
-//     },
-//     {
-//         id: 'PKG#29393293',
-//         Centra: 'Centra Unit 2',
-//         Weight: 15,
-//         Date: '31/08/2023',
-        
-//     },
-//     {
-//         id: 'PKG#5588538',
-//         Centra: 'Centra Unit 2',
-//         Weight: 10,
-//         Date: '31/08/2023',
-        
-//     },
-//     {
-//         id: 'PKG#70203929',
-//         Centra: 'Centra Unit 2',
-//         Weight: 20,
-//         Date: '31/08/2023',
-        
-//     },
-//     {
-//         id: 'PKG#93828423',
-//         Centra: 'Centra Unit 2',
-//         Weight: 17,
-//         Date: '31/08/2023',
-        
-//     },
-//     {
-//         id: 'PKG#79992392',
-//         Centra: 'Centra Unit 2',
-//         Weight: 28,
-//         Date: '31/08/2023',
-        
-//     },
-//     {
-//         id: 'PKG#79812392',
-//         Centra: 'Centra Unit 1',
-//         Weight: 15,
-//         Date: '31/08/2023',
-        
-//     },
-//     {
-//         id: 'PKG#62342392',
-//         Centra: 'Centra Unit 1',
-//         Weight: 12,
-//         Date: '31/08/2023',
-        
-//     },
-//     {
-//         id: 'PKG#62344445',
-//         Centra: 'Centra Unit 1',
-//         Weight: 24,
-//         Date: '31/08/2023',
-        
-//     }
-// ]
-
-// const customTheme = createTheme('custom', {
-//     background: {
-//         default: 'rgba(230,241,237,255)', 
-//     },
-//     divider: {
-//         default: 'none', 
-//     },
-// });
+const centraOptions = Array.from({ length: 32 }, (_, i) => i + 1);
 
 function ArrivedPackagesTable() {
+  const [data, setData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [sortBy, setSortBy] = useState("");
+  const [sortOrder, setSortOrder] = useState("asc"); // asc or desc
+  const [selectedCentra, setSelectedCentra] = useState(0);
+  const itemsPerPage = 5;
 
-    const [data, setData] = useState([])
-    useEffect(() => {
-        const fetchData = async () => {
-            const response = await getArrivedPackage(0)
-            console.log(response.data)
-            if(response && response.data) {
-                setData(response.data)
-            }
-        }
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await getPackages();
+      if (response && response.data) {
+        setData(response.data);
+      }
+    };
 
-        fetchData()
-    }, [])
-    return (
-        <div className='bg-quinary px-4 pt-3 pb-4 rounded-lg flex-1 overflow'>
-            <div className='relative'>
-                <p className="text-xl text-left text-black font-medium ml-4 pt-6 mb-4">Package Status</p>
-                <div>
-                    <form className="w-40">
-                        <select id="times" className="bg-quinary absolute top-0 right-0 border border-primary text-primary text-sm focus:ring-primary focus:border-primary block p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full px-1 mr-28 mt-5">
-                            <option>Select Centra</option>
-                            <option>Centra 1</option>
-                            <option>Centra 2</option>
-                            <option>Centra 3</option>
-                        </select>
-                    </form>
+    fetchData();
+  }, []);
 
-                    <form className="w-40">
-                        <select id="times" className="bg-quinary absolute top-0 right-0 border border-primary text-primary text-sm focus:ring-primary focus:border-primary block p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full px-1 mr-4 mt-5">
-                            <option>Filter</option>
-                            <option>Date</option>
-                            <option>Weight</option>
-                        </select>
-                    </form>
-                </div>
-            </div>
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
 
-            <DataTable
-                columns={columns}
-                data={data}
-                pagination
-                theme='custom'
-                customStyles={{
-                    table: {
-                        style: {
-                            backgroundColor: 'rgba(230,241,237,255)',
-                        },
-                    },
-                    headCells: {
-                        style: {
-                            borderTop: '1px solid rgba(26,127,93,255)',
-                            borderBottom: '1px solid rgba(26,127,93,255)',
-                            color: '#000',
-                            fontWeight: 'bold',
-                        },
-                    },
-                }}
-            />
+  const handleSortByChange = (selectedSortBy) => {
+    setSortBy(selectedSortBy);
+  };
+
+  const handleSort = () => {
+    setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+  };
+
+  const handleCentraChange = (e) => {
+    setSelectedCentra(e.target.value);
+    console.log(e.target.value);
+  };
+
+  const filteredData = selectedCentra
+    ? data.filter((item) => String(item.centra_id) === selectedCentra)
+    : data;
+
+  const sortedData = [...filteredData].sort((a, b) => {
+    if (sortBy === "") return 0;
+    const aValue = sortBy === "created_datetime" ? new Date(b[sortBy]) : a[sortBy];
+    const bValue = sortBy === "created_datetime" ? new Date(a[sortBy]) : b[sortBy];
+    if (aValue < bValue) return sortOrder === "asc" ? -1 : 1;
+    if (aValue > bValue) return sortOrder === "asc" ? 1 : -1;
+    return 0;
+  });
+
+  const totalPages = Math.ceil(sortedData.length / itemsPerPage);
+  const paginatedRows = sortedData.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  const formatDateTime = (dateTimeString) => {
+    if (!dateTimeString) return "N/A";
+    const [date, time] = dateTimeString.split("T");
+    return `${date} ${time}`;
+  };
+
+  const getStatusLabel = (status) => {
+    switch (status) {
+      case 0:
+        return "Ready to ship";
+      case 1:
+        return "Shipping";
+      case 2:
+        return "Confirmed";
+      case 3:
+        return "Arrived";
+      case 4:
+        return "Expired";
+      default:
+        return "Unknown";
+    }
+  };
+
+  return (
+    <div className="bg-quinary px-4 pt-3 pb-4 rounded-lg flex-1 overflow">
+      <div className="relative">
+        <p className="text-xl text-left text-black font-medium ml-4 pt-6 mb-4">
+          Package Status
+        </p>
+        <div>
+        <form className="w-40">
+            <select
+              className="bg-quinary absolute top-0 right-0 border border-primary text-primary text-sm focus:ring-primary focus:border-primary block p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full px-1 mr-40 mt-5"
+              onChange={handleCentraChange}
+              value={selectedCentra}
+            >
+              <option value="">Select Centra</option>
+              {centraOptions.map((centra) => (
+                <option key={centra} value={centra}>
+                  Centra {centra}
+                </option>
+              ))}
+            </select>
+          </form>
+          <form className="w-40">
+            <select
+              className="bg-quinary absolute top-0 right-0 border border-primary text-primary text-sm focus:ring-primary focus:border-primary block p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full px-1 mr-4 mt-5"
+              onChange={(e) => handleSortByChange(e.target.value)}
+              value={sortBy}
+            >
+              <option value="">Sort By</option>
+              <option value="weight">Weight</option>
+              <option value="created_datetime">Created Date</option>
+            </select>
+          </form>
         </div>
-    );
-};
+      </div>
+
+      <div className="flex items-center flex-col">
+        <Table
+          aria-label="Example table with dynamic content"
+          className="text-left drop-shadow-md border-collapse mb-5"
+        >
+          <TableHeader columns={columns}>
+            {(column) => (
+              <TableColumn key={column.key} className="bg-quinary text-black text-sm" style={{ textAlign: 'center' }}>
+                {column.label}
+              </TableColumn>
+            )}
+          </TableHeader>
+          <TableBody items={paginatedRows} style={{ textAlign: 'center' }}>
+            {(item) => (
+              <TableRow key={item.id}>
+                {columns.map((column) => (
+                  <TableCell key={column.key} className="text-base">
+                    {column.key === "created_datetime"
+                      ? formatDateTime(item[column.key])
+                      : column.key === "status"
+                      ? getStatusLabel(item[column.key])
+                      : item[column.key]}
+                  </TableCell>
+                ))}
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+
+        <Pagination
+          isCompact
+          showControls
+          total={totalPages}
+          onChange={handlePageChange}
+          color="quinary"
+          className="drop-shadow-lg"
+        />
+      </div>
+    </div>
+  );
+}
 
 export default ArrivedPackagesTable;
