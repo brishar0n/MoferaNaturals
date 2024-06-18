@@ -33,13 +33,18 @@ function AdminTable({ rows , columns , deleteRow, editRow, pageName}) {
     setSortBy(sortingBy);
   };
   
-  const filteredRows = 
-  selectedCentra ? rows.filter((row) => String(row.centra_id) === selectedCentra) :
-  sortBy ? rows.filter((row) => String(row.status) === sortBy) :
-  rows;
+  let filteredRows;
+
+  if (selectedCentra != 0) {
+    filteredRows = rows.filter((row) => String(row.centra_id) === selectedCentra);
+  } else if (sortBy == 'status') {
+    filteredRows = rows.filter((row) => row.status === sortBy);
+  } else {
+    filteredRows = rows;
+  }
   
   const sortedData = [...filteredRows].sort((a, b) => {
-    if (sortBy === "") return 0;
+    if (sortBy === "") return;
     const aValue = sortBy === "created_datetime" ? new Date(b[sortBy]) : a[sortBy];
     const bValue = sortBy === "created_datetime" ? new Date(a[sortBy]) : b[sortBy];
     if (aValue < bValue) return sortOrder === "asc" ? -1 : 1;
@@ -53,7 +58,7 @@ function AdminTable({ rows , columns , deleteRow, editRow, pageName}) {
   return (
     <div className="flex flex-col w-97/100 pl-14 items-center gap-8 border-collapse" >
       <div className="flex justify-end w-full">
-        {pageName != 'CentraData' ? 
+        {pageName != 'CentraData' && pageName != 'CheckpointData' ? 
             <form className="w-40">
               <select
                 className="flex bg-quinary border border-primary text-primary text-sm focus:ring-primary focus:border-primary block p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full px-1 mr-4"
@@ -71,14 +76,14 @@ function AdminTable({ rows , columns , deleteRow, editRow, pageName}) {
             :
             null
           }
-        {pageName !== 'CentraData' && pageName !== 'ShippingInfoData' ? 
+        {pageName !== 'CentraData' && pageName !== 'ShippingInfoData' && pageName != 'CheckpointData' ? 
           <form onSubmit={(e) => e.preventDefault()}>
             <select
               className="flex bg-quinary border border-primary text-primary text-sm focus:ring-primary focus:border-primary block p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full px-1 mr-4"
               value={sortBy}  
               onChange={(e) => handleFilterChange(e.target.value)}
             >
-              <option value="">All</option>
+              <option value="">Sort By</option>
               {pageName === 'DryLeavesData' || pageName === 'WetLeavesData' || pageName == 'FlourData' ? 
                 <option value="weight">Weight</option>
                 : 
