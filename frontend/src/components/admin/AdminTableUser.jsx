@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue, Button, Pagination} from "@nextui-org/react";
+import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue, Button, Pagination } from "@nextui-org/react";
 import "../../style/AdminDesktop.css";
-import { initialRows, columns} from "./UserDataSample";
+import { initialRows, columns } from "./UserDataSample";
 import EditUserButton from "./EditUserButton";
 
-
-function AdminTable({ rows , columns , deleteRow, editRow}) {
-  const [currentPage, SetCurrentPage] = useState(1)
+function AdminTable({ rows, columns, deleteRow, editRow }) {
+  const [currentPage, SetCurrentPage] = useState(1);
+  const [filterCategory, setFilterCategory] = useState("");
 
   const itemsPerPage = 5;
 
   const handleDelete = (id) => {
-    deleteRow(id)
+    deleteRow(id);
   };
 
   const handleEdit = (updatedUser) => {
@@ -19,20 +19,47 @@ function AdminTable({ rows , columns , deleteRow, editRow}) {
   };
 
   const handlePageChange = (page) => {
-    SetCurrentPage(page)
-  }
+    SetCurrentPage(page);
+  };
 
+  const handleFilterChange = (e) => {
+    setFilterCategory(e.target.value);
+    const map = rows.map((row) => (
+      console.log(row.role)
+    ))
+    console.log(e.target.value);
+  };
 
-  const totalPages = Math.ceil(rows.length / itemsPerPage);
-
-  const paginatedRows = rows.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+  const filteredRows = filterCategory
+    ? rows.filter((row) => row.role === filterCategory)
+    : rows;
+  
+  const totalPages = Math.ceil(filteredRows.length / itemsPerPage);
+  const paginatedRows = filteredRows.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   return (
-    <div className="flex flex-col w-97/100 pl-14 items-center gap-8 border-collapse" >
-      <Table aria-label="Example table with dynamic content" className="text-left drop-shadow-md border-collapse">
+    <div className="flex flex-col w-97/100 pl-14 items-center gap-8 border-collapse">
+      <div className="flex justify-end w-full">
+        <form onSubmit={(e) => e.preventDefault()}>
+          <select
+            id="categoryFilter"
+            value={filterCategory}
+            onChange={handleFilterChange}
+            className="flex bg-quinary border border-primary text-primary text-sm focus:ring-primary focus:border-primary block p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full px-1 mr-4"
+          >
+            <option value="">All</option>
+            <option value="xyz">XYZ</option>
+            <option value="admin">Admin</option>
+            <option value="centra">Centra</option>
+            <option value="guardharbour">Guard Harbour</option>
+          </select>
+        </form>
+      </div>
+
+      <Table aria-label="Example table with dynamic content" className="text-center drop-shadow-md border-collapse">
         <TableHeader columns={columns}>
           {(column) => (
-            <TableColumn key={column.key} className="bg-quinary text-black text-sm">
+            <TableColumn key={column.key} className="bg-quinary text-black text-sm text-center">
               {column.label}
             </TableColumn>
           )}
@@ -44,7 +71,7 @@ function AdminTable({ rows , columns , deleteRow, editRow}) {
               {(columnKey) => (
                 <TableCell className="text-base">
                   {columnKey === "actions" ? (
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 justify-center">
                       <EditUserButton
                         user={item}
                         onEditUser={handleEdit}
@@ -69,16 +96,15 @@ function AdminTable({ rows , columns , deleteRow, editRow}) {
           )}
         </TableBody>
       </Table>
-    
-      <Pagination 
-       isCompact
-       showControls
-       total={totalPages}
-       onChange={handlePageChange}
-       color="quinary"
-       className="drop-shadow-lg"
+
+      <Pagination
+        isCompact
+        showControls
+        total={totalPages}
+        onChange={handlePageChange}
+        color="quinary"
+        className="drop-shadow-lg"
       />
-      
     </div>
   );
 }
