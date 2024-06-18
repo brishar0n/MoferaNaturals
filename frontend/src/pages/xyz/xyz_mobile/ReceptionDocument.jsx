@@ -5,9 +5,12 @@ import elementrecdoc2 from '../../../assets/xyz/elementrecdoc2.svg'
 import elementrecdoc3 from '../../../assets/xyz/elementrecdoc3.svg'
 import ReceiptDocumentation from '../../../components/xyz/xyz_mobile/ReceiptDocumentation.jsx'
 import { motion } from "framer-motion";
+import { useNavigate } from 'react-router-dom'
+
 
 function ReceptionDocument() {
     const [isMobile, setIsMobile] = useState(false);
+    const navigate = useNavigate();
     const onSaveDocument = {};
 
     useEffect(() => {
@@ -26,6 +29,16 @@ function ReceptionDocument() {
         window.removeEventListener('resize', handleResize);
         };
     }, []);
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+          if (!isMobile) {
+            navigate('/warningpage');
+          } 
+        }, 750);
+    
+        return () => clearTimeout(timeout);
+    }, [isMobile, navigate]);
 
     return (
         <div className='overflow-auto md:h-auto bg-quaternary min-h-screen flex flex-col items-center pt-4 resize-none pb-24 h-screen'>
