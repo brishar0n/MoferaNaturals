@@ -87,7 +87,7 @@ const ShipmentLink = ({trackingNumber, carrier, status, from, to, startDate, end
           {status == 'Shipped' ? (
               <img className='mx-auto justify-center w-1/2' src={delivery_truck}/>
             ) : (
-              name
+              null
             )}
           </div>
         </div>
@@ -97,7 +97,7 @@ const ShipmentLink = ({trackingNumber, carrier, status, from, to, startDate, end
           {status == 'Delivered' ? (
               <img className='mx-auto justify-center w-1/2' src={delivery_truck}/>
             ) : (
-              name
+              null
             )}
           </div>
         </div>

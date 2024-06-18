@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 
 import profilepic from "../../../assets/desktop/profilepicdesktop.svg";
 import mascot from "../../../assets/xyz/half-mascot.svg";
-import { getDryLeafDatas, getDryStats } from '../../../../api/xyzAPI';
+import { getDryLeafDatas, getDryStats, getDrySummary } from '../../../../api/xyzAPI';
 
 // const activities = [
 //   { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-10@2x.png' },
@@ -62,6 +62,11 @@ const DryDashboard = () => {
     
   }, [trendFilter]);
 
+  const [drySummary, setDrySummary] = useState({
+    "total": 0,
+    "monthly": 0,
+    "today": 0
+  })
   useEffect(() => {
       const fetchDryData = async () => {
         const response = await getDryLeafDatas();
@@ -77,6 +82,15 @@ const DryDashboard = () => {
       }
       fetchDryData();
 
+      const fetchDrySummary = async () => {
+        const response = await getDrySummary()
+        if(response && response.data) {
+          setDrySummary(response.data)
+        }
+      }
+
+      fetchDrySummary();
+      console.log(drySummary)
   }, [])
 
   return (
@@ -176,19 +190,19 @@ const DryDashboard = () => {
               <div className="h-24 bg-quinary rounded-3xl flex items-center justify-center dark:bg-gray-800 p-4">
                 <div>
                   <p className="text-sm">Total Dry Leaves <br /> Collected:</p>
-                  <p className="text-lg font-bold">10,300 kg</p>
+                  <p className="text-lg font-bold">{drySummary.total.toFixed(2)} kg</p>
                 </div>
               </div>
               <div className="h-24 bg-quinary rounded-3xl flex items-center justify-center dark:bg-gray-800 p-4">
                 <div>
                   <p className="text-sm">Average Dry Leaves Collected Each Day:</p>
-                  <p className="text-lg font-bold">500 kg</p>
+                  <p className="text-lg font-bold">{drySummary.monthly.toFixed(2)} kg</p>
                 </div>
               </div>
               <div className="h-24 bg-quinary rounded-3xl flex items-center justify-center dark:bg-gray-800 p-4">
                 <div>
-                  <p className="text-sm">Total Dry Leaves <br /> Disposed:</p>
-                  <p className="text-lg font-bold">102 kg</p>
+                  <p className="text-sm">Today's Dry Leaves <br /> Collected:</p>
+                  <p className="text-lg font-bold">{drySummary.today.toFixed(2)} kg</p>
                 </div>
               </div>
             </div>

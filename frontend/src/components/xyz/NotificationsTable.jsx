@@ -91,18 +91,22 @@ function NotificationsTable() {
                     <span className="font-bold">
                       {showShipment
                         ? `Shipping ID #${notification.id}`
-                        : `Arrival ID #${notification.id}`}
+                        : `Shipping ID #${notification.id}`}
                     </span>{' '}
                     {showShipment
                       ? `has been shipped by ${notification.shipper} (Estimated Date Arrival: ${new Date(notification.estimatedArrival).toDateString()})`
-                      : `arrived from ${notification.shipper} (Arrival Date: ${new Date(notification.timestamp).toDateString()})`}
+                      : `has successfully reached the Harbour`}
                   </p>
                   <p className="text-gray-500 text-left">{new Date(notification.timestamp).toDateString()}</p>
                 </div>
               </div>
-              <button trackingNumber={notification.id} onClick={navigateToMap} className="bg-primary text-white font-bold px-4 py-2 rounded-lg focus:outline-none">
+              {showShipment ? (
+                <button trackingNumber={notification.id} onClick={navigateToMap} className="bg-primary text-white font-bold px-4 py-2 rounded-lg focus:outline-none">
                 TRACK
-              </button>
+                </button>
+              ) : (
+                null
+              )}
             </div>
           )
         )}

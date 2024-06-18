@@ -108,7 +108,7 @@ const Checkpoint = () => {
                         </form>
                         </div>
                         <div className="flex-1 flex-grow flex-shrink">
-                        <BarChart />
+                        <BarChart barData={columnData}/>
                         </div>
                     </div>
                 </div>
