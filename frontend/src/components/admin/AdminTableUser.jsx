@@ -24,10 +24,6 @@ function AdminTable({ rows, columns, deleteRow, editRow }) {
 
   const handleFilterChange = (e) => {
     setFilterCategory(e.target.value);
-    const map = rows.map((row) => (
-      console.log(row.role)
-    ))
-    console.log(e.target.value);
   };
 
   const filteredRows = filterCategory

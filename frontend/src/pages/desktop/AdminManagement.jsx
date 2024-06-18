@@ -373,7 +373,7 @@ function AdminPage() {
             rows={filteredRows.length > 0 ? filteredRows : rows}
             deleteRow={deleteRow}
             editRow={handleEditUser}
-            pageName={'PackageDate'}
+            pageName={'PackageData'}
           />
         );
       default:

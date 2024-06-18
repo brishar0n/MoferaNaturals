@@ -40,7 +40,7 @@ const DryDashboard = () => {
   const [dryDatas, setDryDatas] = useState([])
   useEffect(() => {
       const fetchBarData = async () => {
-          const response = await getDryStats({"interval": statsFilter});
+          const response = await getDryStats({"interval": statsFilter, "centra_id": centraFilter});
           if(response && response.data) {
               setBarData(response.data);
             }
@@ -48,11 +48,11 @@ const DryDashboard = () => {
 
       fetchBarData();
       
-  }, [statsFilter]);
+  }, [statsFilter, centraFilter]);
 
   useEffect(() => {
     const fetchLineData = async () => {
-        const response = await getDryStats({"interval": trendFilter});
+        const response = await getDryStats({"interval": trendFilter, "centra_id": centraFilter});
         if(response && response.data) {
             setLineChartData(response.data);
           }
@@ -60,7 +60,7 @@ const DryDashboard = () => {
 
     fetchLineData();
     
-  }, [trendFilter]);
+  }, [trendFilter, centraFilter]);
 
   const [drySummary, setDrySummary] = useState({
     "total": 0,
