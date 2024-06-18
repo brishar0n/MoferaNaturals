@@ -33,9 +33,10 @@ function AdminTable({ rows , columns , deleteRow, editRow, pageName}) {
     setSortBy(sortingBy);
   };
   
-  const filteredRows = selectedCentra
-  ? rows.filter((row) => String(row.centra_id) === selectedCentra)
-  : rows;
+  const filteredRows = 
+  selectedCentra ? rows.filter((row) => String(row.centra_id) === selectedCentra) :
+  sortBy ? rows.filter((row) => String(row.status) === sortBy) :
+  rows;
   
   const sortedData = [...filteredRows].sort((a, b) => {
     if (sortBy === "") return 0;
@@ -52,25 +53,25 @@ function AdminTable({ rows , columns , deleteRow, editRow, pageName}) {
   return (
     <div className="flex flex-col w-97/100 pl-14 items-center gap-8 border-collapse" >
       <div className="flex justify-end w-full">
-        {pageName === 'CentraData' ? 
-          <form className="w-40">
-            <select
-              className="flex bg-quinary border border-primary text-primary text-sm focus:ring-primary focus:border-primary block p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full px-1 mr-4"
-              onChange={handleCentraChange}
-              value={selectedCentra}
-            >
-              <option value="">Select Centra</option>
-              {centraOptions.map((centra) => (
-                <option key={centra} value={centra}>
-                  Centra {centra}
-                </option>
-              ))}
-            </select>
-          </form>
-        : 
-          null
-        }
         {pageName != 'CentraData' ? 
+            <form className="w-40">
+              <select
+                className="flex bg-quinary border border-primary text-primary text-sm focus:ring-primary focus:border-primary block p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full px-1 mr-4"
+                onChange={handleCentraChange}
+                value={selectedCentra}
+              >
+                <option value="">Select Centra</option>
+                {centraOptions.map((centra) => (
+                  <option key={centra} value={centra}>
+                    Centra {centra}
+                  </option>
+                ))}
+              </select>
+            </form>
+            :
+            null
+          }
+        {pageName !== 'CentraData' && pageName !== 'ShippingInfoData' ? 
           <form onSubmit={(e) => e.preventDefault()}>
             <select
               className="flex bg-quinary border border-primary text-primary text-sm focus:ring-primary focus:border-primary block p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full px-1 mr-4"
@@ -83,10 +84,46 @@ function AdminTable({ rows , columns , deleteRow, editRow, pageName}) {
                 : 
                 null
               }
+              
+              {pageName === 'PackageData' ? 
+                <option value="0">Ready to Ship</option>
+                :
+                null
+              }
+
+              {pageName === 'PackageData' ? 
+                <option value="1">Shipping</option>
+                :
+                null
+              }
+
+              {pageName === 'PackageData' ? 
+                <option value="2">Confirmed Arrival</option>
+                :
+                null
+              }
+
+              {pageName === 'PackageData' ? 
+                <option value="3">Collected</option>
+                :
+                null
+              }
+
+              {pageName === 'PackageData' ? 
+                <option value="4">Expired</option>
+                :
+                null
+              }
+
+              {pageName === 'PackageData' ? 
+                <option value="created_datetime">Created Date</option>
+                :
+                null
+              }
             </select>
-        </form>
-        :
-          null
+          </form>
+          :
+            null
         }
       </div>
 
