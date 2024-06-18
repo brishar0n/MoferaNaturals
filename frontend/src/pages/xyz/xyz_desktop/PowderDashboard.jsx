@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 
 import profilepic from "../../../assets/desktop/profilepicdesktop.svg";
 import mascot from "../../../assets/xyz/half-mascot.svg";
-import { getFlourStats, getFlourDatas } from '../../../../api/xyzAPI';
+import { getFlourStats, getFlourDatas, getFlourSummary } from '../../../../api/xyzAPI';
 
 const activities = [
   { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-10@2x.png' },
@@ -81,7 +81,8 @@ const PowderDashboard = () => {
     fetchPowderData();
     
     const fetchPowderSummary = async () => {
-      const response = await getDrySummary()
+      const response = await getFlourSummary()
+      console.log(response)
       if(response && response.data) {
         setPowderSummary(response.data)
       }
