@@ -4,10 +4,10 @@ import { motion } from "framer-motion";
 import SearchForm from "./Search";
 
 import Sidebar from '../../../components/xyz/Sidebar';
-import ArrivedPackagesTable from '../../../components/xyz/ArrivedPackagesTable';
+import PackagesTable from '../../../components/xyz/PackagesTable';
 import profilepic from "../../../assets/desktop/profilepicdesktop.svg";
 
-const ArrivedPackages = ({ children }) => {
+const Packages = ({ children }) => {
 
     const [isSidebarMinimized, setIsSidebarMinimized] = useState(false);
 
@@ -20,7 +20,7 @@ const ArrivedPackages = ({ children }) => {
             <Sidebar isMinimized={isSidebarMinimized} toggleSidebar={toggleSidebar} />
             <div className='flex-1 bg-white rounded-3xl mt-3 mr-3 mb-3 p-4 overflow-y-auto relative'>
                 <div className="flex justify-between items-center">
-                    <h1 className='text-4xl font-semibold text-left ml-6 mt-3'>Arrived Packages</h1>
+                    <h1 className='text-4xl font-semibold text-left ml-6 mt-3'>Packages</h1>
 
                     <div className="flex items-center justify-center mt-3 rounded dark:bg-gray-800 relative">
                         <div className='mt-3'>
@@ -42,7 +42,7 @@ const ArrivedPackages = ({ children }) => {
                 <h2 className='text-left font-medium text-sm ml-6 mb-5'> Track the status of your packages: </h2>
           
                 <div className='bg-quinary rounded-xl mt-4 mx-6'>
-                    <ArrivedPackagesTable/>
+                    <PackagesTable/>
                 </div>
                 </motion.div>
             </div>
@@ -50,4 +50,4 @@ const ArrivedPackages = ({ children }) => {
     );
 }
 
-export default ArrivedPackages;
+export default Packages;

@@ -103,7 +103,7 @@ function Sidebar() {
                 className="bg-primary py-4 pl-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white"
                 >
                 <PiPackageFill className='h-8 w-8 mr-5' />
-                <Link to="/arrivedpackages" className='text-left'>Arrived Packages</Link>
+                <Link to="/packages" className='text-left'>Packages</Link>
               </li>
               <li 
                 className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white"

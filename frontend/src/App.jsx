@@ -18,10 +18,9 @@ import TrackShippingID from './pages/centra/TrackShippingID';
 import { ShippingInfo } from './pages/centra/ShippingInfo';
 import ReceptionPackage from './pages/xyz/xyz_mobile/ReceptionPackage';
 import ReceptionDocument from './pages/xyz/xyz_mobile/ReceptionDocument';
-import UserManagement from './pages/admin/UserManagement';
 import AddCheckpoint from './pages/guard_harbour/AddCheckpoint';
 import ViewCheckpoint from './pages/guard_harbour/ViewCheckpoint';
-import ArrivedPackages from './pages/xyz/xyz_desktop/ArrivedPackages';
+import Packages from './pages/xyz/xyz_desktop/Packages';
 import ShipmentNotification from './pages/guard_harbour/ShipmentNotification';
 import AdminPage from './pages/desktop/AdminManagement';
 import CentraActivityMonitor from './pages/xyz/xyz_desktop/CentraActivityMonitor';
@@ -29,8 +28,7 @@ import GetStartedDesktop from './pages/auth-desktop/GetStartedDesktop';
 import WelcomeDesktop from './pages/auth-desktop/WelcomeDesktop';
 import LoginDesktop from './pages/auth-desktop/LoginDesktop';
 import AdminTable from './components/admin/AdminTable';
-import AddUserButton from './components/admin/AddUserButton';
-import NavbarAdmin from './components/admin/NavbarAdmin';
+import AddUserButton from './components/admin/AddCentraButton';
 import EditUserButton from './components/admin/EditUserButton';
 import ShipmentTracker from './pages/xyz/xyz_desktop/ShipmentTracker';
 import WetLeavesManager from './pages/centra/WetLeaves/WetLeavesManager';
@@ -154,7 +152,7 @@ function App() {
           {userRole === 'xyz' && (
             <>
               <Route path="/notifications" element={<Notifications />} />
-              <Route path="/arrivedpackages" element={<ArrivedPackages />} />
+              <Route path="/packages" element={<Packages />} />
               <Route path="/shipmenttrackermap" element={<ShipmentTracker />} exact />
               <Route path="/shipmenttracker" element={<ShipmentTrackerDashboard />} exact />
               <Route path="/centraactivitymonitor" element={<CentraActivityMonitor />} />
@@ -168,9 +166,16 @@ function App() {
           {/* Admin Routes */}
           {/* {userRole === 'admin' && ( */}
             <>
-              <Route path="/usermanagement" element={<UserManagement />} />
               <Route path="/adminpage" element={<AdminPage />} />
-              <Route path="/navbaradmin" element={<NavbarAdmin />} />
+              {/* <Route path="/notifications" element={<Notifications />} />
+              <Route path="/arrivedpackages" element={<ArrivedPackages />} />
+              <Route path="/shipmenttrackermap" element={<ShipmentTracker />} exact />
+              <Route path="/shipmenttracker" element={<ShipmentTrackerDashboard />} exact />
+              <Route path="/centraactivitymonitor" element={<CentraActivityMonitor />} />
+              <Route path="/dashboard-wet" element={<WetDashboard />} />
+              <Route path="/dashboard-dry" element={<DryDashboard />} />
+              <Route path="/dashboard-powder" element={<PowderDashboard />} />
+              <Route path="/checkpoint" element={<Checkpoint />} /> */}
             </>
           {/* )} */}
           {/* <Route path="/receptiondoc" element={<PDFDownload />} /> */}

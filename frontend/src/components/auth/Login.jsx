@@ -52,7 +52,7 @@ function Login() {
         setUserRefresh(true)
         if(role === "centra") navigate("/centradashboard")
         else if(role === "GuardHarbor") navigate("/ghdashboard")
-        else if(role === "xyz") navigate("/findrescale")
+        else if(role === "xyz") navigate("/xyzdashboard")
         else if(role === "admin") navigate("/adminpage")
       }
     } catch (error) {
