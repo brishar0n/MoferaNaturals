@@ -20,10 +20,10 @@ import {
   getWetLeaves,
 } from "../../../api/adminAPI";
 
-function AdminSidebar({ onPageDataChange }) {
+function AdminSidebar({ isMinimized, toggleMenu, onPageDataChange }) {
   const [dataManagementOpen, setDataManagementOpen] = useState(false);
   const [hoveredItem, setHoveredItem] = useState(null); 
-  const [isMinimized, setIsMinimized] = useState(false);
+  // const [isMinimized, setIsMinimized] = useState(false);
   const [centraRows, setCentraRows] = useState([]);
   const [checkpointRows, setCheckpointRows] = useState([]);
   const [dryRows, setDryRows] = useState([]);
@@ -38,9 +38,9 @@ function AdminSidebar({ onPageDataChange }) {
     setDataManagementOpen(!dataManagementOpen);
   };
 
-  const toggleMenu = () => {
-    setIsMinimized(!isMinimized);
-  };
+  // const toggleMenu = () => {
+  //   setIsMinimized(!isMinimized);
+  // };
 
   async function fetchUserData() {
     try {
@@ -159,30 +159,30 @@ function AdminSidebar({ onPageDataChange }) {
   }, []);
 
 
-  const handleResize = () => {
-    if (window.innerWidth <= 1274) {
-      setIsMinimized(true);
-    } 
+  // const handleResize = () => {
+  //   if (window.innerWidth <= 1274) {
+  //     setIsMinimized(true);
+  //   } 
     
-    else {
-      setIsMinimized(false);
-    }
-  };
+  //   else {
+  //     setIsMinimized(false);
+  //   }
+  // };
 
-  useEffect(() => {
-    window.addEventListener('resize', handleResize);
-    handleResize();
+  // useEffect(() => {
+  //   window.addEventListener('resize', handleResize);
+  //   handleResize();
 
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener('resize', handleResize);
+  //   };
+  // }, []);
 
   return (
     <div
-      className={`bg-primary h-screen flex flex-col justify-between items-center transition-all duration-300 h-screen ${
+      className={`bg-primary h-screen flex flex-col justify-between items-center transition-all duration-550 h-screen ${
         isMinimized ? 'w-20 pl-2 pt-5' : 'w-3/20' 
-      } hide-scrollbar`}
+      } `}
     >
       <div className="bg-primary flex flex-col justify-center items-center gap-8">
         <div className="bg-primary flex items-center w-full p-5">
@@ -197,7 +197,7 @@ function AdminSidebar({ onPageDataChange }) {
         </div>
 
         {!isMinimized && (
-          <nav className="w-full h-full overflow-y-auto">
+          <nav className="w-full h-full overflow-y-auto hide-scrollbar">
             <ul className="flex flex-col h-full">
               <li
                 className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white"

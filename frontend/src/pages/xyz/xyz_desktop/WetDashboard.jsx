@@ -33,6 +33,13 @@ const WetDashboard = () => {
   const [barData, setBarData] = useState(new Object())
   const [lineChartData, setLineChartData] = useState(new Object())
   const [wetDatas, setWetDatas] = useState([])
+
+  const formatDate = (dateStr) => {
+    const date = new Date(dateStr);
+    const options = { day: 'numeric', month: 'long', year: 'numeric' };
+    return date.toLocaleDateString('en-GB', options);
+  };
+
   useEffect(() => {
       const fetchBarData = async () => {
           const response = await getWetStats({"interval": statsFilter});
@@ -123,8 +130,8 @@ const WetDashboard = () => {
             </div>
             <div className="flex justify-center gap-2">
               <form className="h-10 w-40">
-                <select id="times" className="bg-quaternary border border-primary text-primary text-sm 
-                focus:ring-primary focus:border-primary block w-full p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full py-1 px-1"
+                <select id="times" className="bg-quinary border border-primary text-black text-sm 
+                focus:ring-primary focus:border-primary block w-full p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-xl py-1 px-2"
                 onChange={(e) => setCentraFilter(e.target.value)} >
                   <option value="1">Select Centra</option>
                   <option value="1">Select Centra 1</option>
@@ -133,8 +140,8 @@ const WetDashboard = () => {
                 </select>
               </form>
               <form className="h-10 w-28">
-                <select id="times" className="bg-quaternary border border-primary text-primary text-sm 
-                focus:ring-primary focus:border-primary block w-full p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full py-1 px-1">
+                <select id="times" className="bg-quinary border border-primary text-black text-sm 
+                focus:ring-primary focus:border-primary block w-full p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-xl py-1 px-2">
                   <option>Filter</option>
                   <option>Filter 1</option>
                   <option>Filter 2</option>
@@ -148,8 +155,8 @@ const WetDashboard = () => {
               <div className="flex justify-between items-center mb-4">
                 <div className="text-lg text-black font-semibold">Wet Leaves Statistics</div>
                 <form className="h-10 w-28">
-                  <select id="times" className="bg-quaternary border border-primary text-primary text-sm 
-                  focus:ring-primary focus:border-primary block w-full p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full py-1 px-1"
+                  <select id="times" className="bg-quinary border border-primary text-black text-sm 
+                  focus:ring-primary focus:border-primary block w-full p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full py-1 px-2"
                   onChange={(e) => setStatsFilter(e.target.value)}>
                     <option value="daily">Daily</option>
                     <option value="weekly">Weekly</option>
@@ -166,8 +173,8 @@ const WetDashboard = () => {
               <div className="flex justify-between items-center mb-4">
                 <div className="text-lg text-black font-semibold">Wet Leaves Trends</div>
                 <form className="h-10 w-28">
-                  <select id="times" className="bg-quaternary border border-primary text-primary text-sm 
-                  focus:ring-primary focus:border-primary block w-full p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full py-1 px-1"
+                  <select id="times" className="bg-quinary border border-primary text-black text-sm 
+                  focus:ring-primary focus:border-primary block w-full p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full py-1 px-2"
                   onChange={(e) => setTrendFilter(e.target.value)}>
                     <option value="daily">Daily</option>
                     <option value="weekly">Weekly</option>
@@ -205,7 +212,7 @@ const WetDashboard = () => {
             <div className="flex h-[440px] bg-quinary items-center justify-center rounded-3xl dark:bg-gray-800 p-4">
               <div className="text-2xl text-primary dark:text-gray-500 w-full">
                 <div className="text-left text-lg ml-3 text-black font-semibold">Wet Leaves Data</div>
-                <Table data={wetDatas.map((data) => {return {...data, "date":data.received_date}})}/>
+                <Table data={wetDatas.map((data) => {return {...data, "date":formatDate(data.retrieval_date)}})}/>
               </div>
             </div>
             <div className="flex flex-col bg-quinary rounded-3xl dark:bg-gray-800 p-4">

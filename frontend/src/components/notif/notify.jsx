@@ -4,13 +4,14 @@ import '../../style/App.css';
 import NavigationBar from "../centra/CentraNavbar";
 import CentraNotification from "./CentraNotification";
 import CentraNotificationList from "./CentraNotificationList";
-
 import greenShape from "../../../src/assets/notifications/green-shape.svg"
 import warningSprite from "../../../src/assets/notifications/warning-sprite.svg"
+import { useNavigate } from "react-router-dom";
 
 
 function Notify() {
     const [isMobile, setIsMobile] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const handleResize = () => {
@@ -28,6 +29,16 @@ function Notify() {
             window.removeEventListener('resize', handleResize);
         };
     }, []);
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+          if (!isMobile) {
+            navigate('/warningpage');
+          } 
+        }, 750);
+    
+        return () => clearTimeout(timeout);
+      }, [isMobile, navigate]);
 
     const handleBack = () => navigate("/dashboard");
   

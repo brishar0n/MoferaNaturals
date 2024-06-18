@@ -60,62 +60,62 @@ function Sidebar() {
 
         {!isMinimized && (
           <nav className="w-full">
-            <ul>
+            <ul className='flex flex-col h-full'>
               <li
                 onClick={toggleDropdown}
-                className="bg-primary py-3 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white"
+                className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white"
               > 
-                <MdOutlineDashboardCustomize className='text-3xl mr-4'></MdOutlineDashboardCustomize>
+                <MdOutlineDashboardCustomize className='h-8 w-8 mr-5'></MdOutlineDashboardCustomize>
                   Dashboard
               </li>
               {dashboardOpen && (
                 <>
                   <li 
-                    className="bg-primary py-2 px-8 text-white hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none cursor-pointer w-full"
+                    className="mb-1 text-left bg-primary py-2 pl-20 text-white hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none cursor-pointer w-full"
                   >
                     <Link to="/dashboard-wet">Wet Leaves</Link>
                   </li>
                   <li 
-                    className="bg-primary py-2 px-8 text-white hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none cursor-pointer w-full"
+                    className="mb-1 text-left bg-primary py-2 pl-20 text-white hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none cursor-pointer w-full"
                     >
                     <Link to="/dashboard-dry">Dry Leaves</Link>
                   </li>
                   <li 
-                    className="bg-primary py-2 px-8 text-white hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none cursor-pointer w-full"
+                    className="mb-1 text-left bg-primary py-2 pl-20 text-white hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none cursor-pointer w-full"
                     >
                     <Link to="/dashboard-powder">Powder</Link>
                   </li>
                 </>
               )}
               <li 
-                className="bg-primary py-3 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white"
+                className="bg-primary py-4 pl-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white"
                 >
-                <FaShippingFast className='text-4xl' />
-                <Link to="/shipmenttracker" className='ml-5 text-left'>Shipment Tracker</Link>
+                <FaShippingFast className='h-8 w-8 mr-5' />
+                <Link to="/shipmenttracker" className='text-left'>Shipment Tracker</Link>
               </li>
               <li 
-                className="bg-primary py-3 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white"
+                className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white"
                 >
-                <FaLocationDot className='text-3xl' />
-                <Link to="/checkpoint" className='ml-4'>Checkpoint</Link>
+                <FaLocationDot className='h-7 w-7 mr-6' />
+                <Link to="/checkpoint" className='text-left'>Checkpoint</Link>
               </li>
               <li 
-                className="bg-primary py-3 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white"
+                className="bg-primary py-4 pl-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white"
                 >
-                <PiPackageFill className='text-4xl' />
-                <Link to="/arrivedpackages" className='ml-5 text-left'>Arrived Packages</Link>
+                <PiPackageFill className='h-8 w-8 mr-5' />
+                <Link to="/arrivedpackages" className='text-left'>Arrived Packages</Link>
               </li>
               <li 
-                className="bg-primary py-3 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white"
+                className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white"
                 >
-              <IoNotifications className='text-3xl' />
-                <Link to="/notifications" className='ml-4'>Notifications</Link>
+              <IoNotifications className='h-7 w-7 mr-6' />
+                <Link to="/notifications" className='text-left'>Notifications</Link>
               </li>
               <li 
-                className="bg-primary py-3 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white"
+                className="bg-primary py-4 pl-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white"
                 >
-                <MdOutlineMonitor className='text-5xl' />
-                <Link to="/centraactivitymonitor" className='text-left ml-5'>Centra Activity Monitor</Link>
+                <MdOutlineMonitor className='h-7 w-7 mr-6' />
+                <Link to="/centraactivitymonitor" className='text-left'>Centra Activity Monitor</Link>
               </li>
             </ul>
           </nav>

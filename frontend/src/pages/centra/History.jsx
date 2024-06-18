@@ -17,6 +17,16 @@ function History() {
     const [collectionData, setCollectionData] = useState([]);
 
     useEffect(() => {
+        const timeout = setTimeout(() => {
+          if (!isMobile) {
+            navigate('/warningpage');
+          } 
+        }, 750);
+    
+        return () => clearTimeout(timeout);
+    }, [isMobile, navigate]);
+
+    useEffect(() => {
       const fetchData = async () => {
           try {
               const response = await getCollection();

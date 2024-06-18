@@ -13,6 +13,7 @@ function PackageManager() {
   const [currentSection, setCurrentSection] = useState("add");
   const [isMobile, setIsMobile] = useState(false);
   const nav = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     function handleResize() {
@@ -24,6 +25,16 @@ function PackageManager() {
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (!isMobile) {
+        navigate('/warningpage');
+      } 
+    }, 750);
+
+    return () => clearTimeout(timeout);
+  }, [isMobile, navigate]);
 
   const handleSectionChange = (section) => {
     setCurrentSection(section);

@@ -4,10 +4,11 @@ import bgshipmentnotif from '../../assets/guardharbour/bgshipmentnotif.svg';
 import ShipmentNotifHeader from '../../components/guard_harbour/ShipmentNotifHeader';
 import NotificationList from '../../components/guard_harbour/NotificationList';
 import { getGuardHarborNotification } from '../../../api/guardHarborAPI';
+import { useNavigate } from 'react-router-dom';
 
 function ShipmentNotification() {
     const [isMobile, setIsMobile] = useState(false);
-
+    const navigate = useNavigate();
     const [notifications, setNotifications] = useState([])
 
     useEffect(() => {
@@ -19,6 +20,16 @@ function ShipmentNotification() {
         
         fetchNotification();
     }, [])
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+          if (!isMobile) {
+            navigate('/warningpage');
+          } 
+        }, 750);
+    
+        return () => clearTimeout(timeout);
+    }, [isMobile, navigate]);
 
     useEffect(() => {
         const handleResize = () => {

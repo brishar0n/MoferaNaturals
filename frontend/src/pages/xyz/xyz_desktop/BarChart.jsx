@@ -8,10 +8,11 @@ const BarChart = ({barData}) => {
     datasets: [
       {
         label: "Weight",
-        backgroundColor: "rgb(1,107,69,0.5)",
+        backgroundColor: "#016B45",
         borderColor: "rgb(1,107,69)",
         borderWidth: 2,
         data: barData.data,
+        cubicInterpolationMode: 'monotone'
       },
     ],
   };
@@ -22,8 +23,15 @@ const BarChart = ({barData}) => {
     scales: {
       y: {
         beginAtZero: true
+      },
+      x: {
+        grid: {
+        drawBorder: false,
+        display: false,
+      },
       }
-    }
+    },
+ 
   };
 
   return (

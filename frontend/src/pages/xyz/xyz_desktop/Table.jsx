@@ -1,3 +1,4 @@
+import { fontWeight } from '@mui/system';
 import DataTable,{ createTheme } from 'react-data-table-component';
 
 // A super simple expandable component.
@@ -66,40 +67,21 @@ const columns = [
 //         Date:"31 Aug 2023"
 // 	},
 // ]
-
-createTheme('solarized', {
-    text: {
-      primary: '#016B45',
-      secondary: '#2aa198',
-    },
-    background: {
-      default: '#E6F1ED',
-    },
-    context: {
-      background: '#E6F1ED',
-      text: '#016B45',
-    },
-    divider: {
-      default: '#016B45',
-    },
-    action: {
-      button: 'rgba(0,0,0,.54)',
-      hover: 'rgba(0,0,0,.08)',
-      disabled: 'rgba(0,0,0,.12)',
-    },
-  }, 'dark');
   
 function Table({data}) {
+  
 	return (
 		<DataTable
+      // customStyles={tableHeaderStyle}
 			columns={columns}
 			data={data}
-			//expandableRows
+			// expandableRows
 			//expandableRowsComponent={ExpandedComponent}
-            pagination
-            //theme="solarized"
-            fixedHeader
-            fixedHeaderScrollHeight="300px"
+      pagination
+      theme="solarized"
+      fixedHeader
+      fixedHeaderScrollHeight="300px"
+      // style={tableStyle}
 		/>
 	);
 };

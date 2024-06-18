@@ -5,11 +5,13 @@ import NavigationBar from "../../components/centra/CentraNavbar.jsx";
 import '../../style/Shipping.css'
 import TrackShippingSearch from '../../components/centra/TrackShippingSearch';
 import { getPackages, getShippingInfo } from "../../../api/centraAPI";
+import { useNavigate } from 'react-router-dom';
 
 function TrackShipping() {
     const [isMobile, setIsMobile] = React.useState(false);
     const [shippingData, setShippingData] = useState([]);
     const [packageData, setPackageData] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
       const fetchData = async () => {
@@ -29,8 +31,18 @@ function TrackShipping() {
     }, []);
 
     useEffect(() => {
+      const timeout = setTimeout(() => {
+        if (!isMobile) {
+          navigate('/warningpage');
+        } 
+      }, 750);
+  
+      return () => clearTimeout(timeout);
+    }, [isMobile, navigate]);
+
+    useEffect(() => {
       console.log("updated shipping data", shippingData)
-  }, [shippingData]);
+    }, [shippingData]);
 
 
   //   const shippingData = [

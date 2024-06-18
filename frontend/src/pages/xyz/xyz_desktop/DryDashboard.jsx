@@ -129,18 +129,18 @@ const DryDashboard = () => {
             </div>
             <div className="flex justify-center gap-2">
               <form className="h-10 w-40">
-              <select id="times" className="bg-quaternary border border-primary text-primary text-sm 
-                focus:ring-primary focus:border-primary block w-full p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full py-1 px-1"
+              <select id="times" className="bg-quinary border border-primary text-black text-sm 
+                focus:ring-primary focus:border-primary block w-full p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-xl py-1 px-2"
                 onChange={(e) => setCentraFilter(e.target.value)} >
-                  <option value="0">Select Centra</option>
+                  <option value="1">Select Centra</option>
                   <option value="1">Select Centra 1</option>
                   <option value="2">Select Centra 2</option>
                   <option value="3">Select Centra 3</option>
                 </select>
               </form>
               <form className="h-10 w-28">
-              <select id="times" className="bg-quaternary border border-primary text-primary text-sm 
-                focus:ring-primary focus:border-primary block w-full p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full py-1 px-1">
+               <select id="times" className="bg-quinary border border-primary text-black text-sm 
+                focus:ring-primary focus:border-primary block w-full p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-xl py-1 px-2">
                   <option>Filter</option>
                   <option>Filter 1</option>
                   <option>Filter 2</option>
@@ -154,8 +154,8 @@ const DryDashboard = () => {
               <div className="flex justify-between items-center mb-4">
                 <div className="text-lg text-black font-semibold">Dry Leaves Statistics</div>
                 <form className="h-10 w-28">
-                  <select id="times2" className="bg-quaternary border border-primary text-primary text-sm 
-                  focus:ring-primary focus:border-primary block w-full p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full py-1 px-1"
+                  <select id="times" className="bg-quinary border border-primary text-black text-sm 
+                  focus:ring-primary focus:border-primary block w-full p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full py-1 px-2"
                   onChange={(e) => setStatsFilter(e.target.value)}>
                     <option value="daily">Daily</option>
                     <option value="weekly">Weekly</option>
@@ -172,8 +172,8 @@ const DryDashboard = () => {
               <div className="flex justify-between items-center mb-4">
                 <div className="text-lg text-black font-semibold">Dry Leaves Trends</div>
                 <form className="h-10 w-28">
-                  <select id="times3" name="times3" className="bg-quaternary border border-primary text-primary text-sm 
-                  focus:ring-primary focus:border-primary block w-full p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full py-1 px-1"
+                  <select id="times" className="bg-quinary border border-primary text-black text-sm 
+                  focus:ring-primary focus:border-primary block w-full p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full py-1 px-2"
                   onChange={(e) => setTrendFilter(e.target.value)}>
                     <option value="daily">Daily</option>
                     <option value="weekly">Weekly</option>

@@ -2,6 +2,7 @@ import CheckpointForm from '../../components/guard_harbour/CheckpointForm';
 import NavbarGH from '../../components/guard_harbour/NavbarGH';
 import { useState, useEffect } from 'react'
 import bgcheckpoint1 from '../../assets/guardharbour/bgcheckpoint1.svg';
+import { useNavigate } from 'react-router-dom';
 
 function AddCheckpoint() {
     const [isMobile, setIsMobile] = useState(false);
@@ -22,6 +23,16 @@ function AddCheckpoint() {
         window.removeEventListener('resize', handleResize);
         };
     }, []);
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+          if (!isMobile) {
+            navigate('/warningpage');
+          } 
+        }, 750);
+    
+        return () => clearTimeout(timeout);
+    }, [isMobile, navigate]);
 
     return (
         <div className='bg-quaternary w-screen h-screen overflow-y-scroll'>

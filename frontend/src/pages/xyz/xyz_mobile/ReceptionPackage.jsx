@@ -4,10 +4,13 @@ import { useState, useEffect } from 'react'
 import receptionBg from '../../../assets/xyz/bgreception.svg'
 import '../../../style/xyz/xyz_mobile/ReceptionPackage.css'
 import { motion } from "framer-motion";
+import { useNavigate } from 'react-router-dom'
+
 
 function ReceptionPackage() {
     const [isMobile, setIsMobile] = useState(false);
     const [formSubmitted, setFormSubmitted] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const handleResize = () => {
@@ -25,6 +28,16 @@ function ReceptionPackage() {
         window.removeEventListener('resize', handleResize);
         };
     }, []);
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+          if (!isMobile) {
+            navigate('/warningpage');
+          } 
+        }, 750);
+    
+        return () => clearTimeout(timeout);
+    }, [isMobile, navigate]);
 
     function handleSubmit(event) {
         event.preventDefault();

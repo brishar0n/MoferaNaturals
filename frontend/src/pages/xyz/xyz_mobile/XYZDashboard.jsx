@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { getCurrentUser } from '../../../../api/profileAPI';
 import NavbarXYZ from "../../../components/xyz/xyz_mobile/NavbarXYZ";
 import XYZDashboardContent from "../../../components/xyz/xyz_mobile/XYZDashboardContent";
-
+import { useNavigate } from "react-router-dom";
 import vector414Img from "../../../../src/assets/dashboard/vector-414.svg";
 import vector412Img from "../../../../src/assets/dashboard/vector-412.svg";
 import ellipse8Img from "../../../../src/assets/dashboard/ellipse-8@2x.png";
@@ -14,6 +14,7 @@ import bottomElementImg from "../../../../src/assets/dashboard/bottom-element.sv
 function XYZDashboard() {
     const [isMobile, setIsMobile] = useState(false);
     const [username, setUsername]= useState("");
+    const navigate = useNavigate();
 
     useEffect(() => {
         const handleResize = () => {
@@ -31,6 +32,16 @@ function XYZDashboard() {
           window.removeEventListener("resize", handleResize);
         };
     }, []);
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+          if (!isMobile) {
+            navigate('/warningpage');
+          } 
+        }, 750);
+    
+        return () => clearTimeout(timeout);
+      }, [isMobile, navigate]);
 
     useEffect(() => {
         const fetchData = async () => {
