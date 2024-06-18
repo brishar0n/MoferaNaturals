@@ -49,6 +49,10 @@ const ShipmentTrackerDashboard = () => {
         setIsSidebarMinimized(!isSidebarMinimized);
     };
 
+    const handleStatsFilter = (e) => {
+        setStatsFilter(e.target.value)
+    }
+
     useEffect(() => {
         const fetchBarData = async () => {
             const response = await getShippingStats({interval: statsFilter})
@@ -91,7 +95,7 @@ const ShipmentTrackerDashboard = () => {
         }
 
         fetchActivities()
-    }, [])
+    }, [statsFilter])
 
     return (
     <div className="bg-primary w-screen h-screen flex relative">
@@ -165,11 +169,11 @@ const ShipmentTrackerDashboard = () => {
                 <div className="text-lg text-black font-semibold">Shipment Statistics</div>
                 <form className="h-10 w-28">
                     <select id="times" className="bg-quaternary border border-primary text-primary text-sm 
-                    focus:ring-primary focus:border-primary block w-full p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full py-1 px-1">
-                    <option>Daily</option>
-                    <option>Weekly</option>
-                    <option>Monthly</option>
-                    <option>Annually</option>
+                    focus:ring-primary focus:border-primary block w-full p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full py-1 px-1" onChange={(e) => handleStatsFilter(e)}>
+                    <option value="daily">Daily</option>
+                    <option value="weekly">Weekly</option>
+                    <option value="monthly">Monthly</option>
+                    <option value="yearly">Annually</option>
                     </select>
                 </form>
                 </div>
