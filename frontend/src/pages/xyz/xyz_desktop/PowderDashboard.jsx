@@ -59,7 +59,11 @@ const PowderDashboard = () => {
   const [powderDatas, setPowderDatas] = useState([])
   const [activities, setActivities] = useState([])
 
-
+  const [powderSummary, setPowderSummary] = useState({
+    "total": 0,
+    "monthly": 0,
+    "today": 0
+  })
   useEffect(() => {
     const fetchPowderData = async () => {
       const response = await getFlourDatas();
@@ -76,6 +80,14 @@ const PowderDashboard = () => {
 
     fetchPowderData();
     
+    const fetchPowderSummary = async () => {
+      const response = await getDrySummary()
+      if(response && response.data) {
+        setPowderSummary(response.data)
+      }
+    }
+
+    fetchPowderSummary();
   }, [])
 
 
@@ -176,19 +188,19 @@ const PowderDashboard = () => {
               <div className="h-24 bg-quinary rounded-3xl flex items-center justify-center dark:bg-gray-800 p-4">
                 <div>
                   <p className="text-sm">Total Powder <br /> Collected:</p>
-                  <p className="text-lg font-bold">10,300 kg</p>
+                  <p className="text-lg font-bold">{powderSummary.total.toFixed(2)}kg</p>
                 </div>
               </div>
               <div className="h-24 bg-quinary rounded-3xl flex items-center justify-center dark:bg-gray-800 p-4">
                 <div>
                   <p className="text-sm">Average Powder Collected Each Day:</p>
-                  <p className="text-lg font-bold">500 kg</p>
+                  <p className="text-lg font-bold">{powderSummary.monthly.toFixed(2)} kg</p>
                 </div>
               </div>
               <div className="h-24 bg-quinary rounded-3xl flex items-center justify-center dark:bg-gray-800 p-4">
                 <div>
-                  <p className="text-sm">Total Powder <br /> Disposed:</p>
-                  <p className="text-lg font-bold">102 kg</p>
+                  <p className="text-sm">Today's Total Powder <br /> Collected:</p>
+                  <p className="text-lg font-bold">{powderSummary.today.toFixed(2)} kg</p>
                 </div>
               </div>
             </div>

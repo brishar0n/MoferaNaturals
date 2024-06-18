@@ -35,6 +35,18 @@ export const getWetStats = async(data) => {
     return WetDatas
 }
 
+export const getWetSummary = async(data) => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    const WetDatas = await axios.get(URL + "/xyz/get_wet_summary", {
+            "params": {...data }
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+
+    return WetDatas
+}
+
 export const getDryStats = async(data) => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
     const DryDatas = await axios.get(URL + "/xyz/quick_get_dry_stats", {
@@ -55,6 +67,18 @@ export const getDryLeafDatas = async() => {
         });
 
     return DryLeaves
+}
+
+export const getDrySummary = async(data) => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    const DryDatas = await axios.get(URL + "/xyz/get_dry_summary", {
+            "params": {...data }
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+
+    return DryDatas
 }
 
 export const getFlourStats = async(data) => {
