@@ -9,7 +9,6 @@ import '../../../style/xyz/xyz_mobile/RescalePackage.css'
 import rescaleBg from '../../../assets/xyz/bgrescale.svg'
 import { motion } from 'framer-motion';
 import { getPackageByID, rescalePackage } from '../../../../api/xyzAPI.js';
-import { useNavigate } from 'react-router-dom';
 
 
 function RescalingPackage() {
