@@ -199,7 +199,7 @@ function AdminSidebar({ isMinimized, toggleMenu, onPageDataChange }) {
         {!isMinimized && (
           <nav className="w-full h-full overflow-y-auto hide-scrollbar">
             <ul className="flex flex-col h-full">
-              <li
+              {/* <li
                 className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white"
                 onMouseEnter={() => setHoveredItem('dashboard')}
                 onMouseLeave={() => setHoveredItem(null)}
@@ -207,7 +207,7 @@ function AdminSidebar({ isMinimized, toggleMenu, onPageDataChange }) {
               >
                 <MdOutlineDashboardCustomize className='text-3xl mr-4'></MdOutlineDashboardCustomize>
                   Dashboard
-              </li>
+              </li> */}
 
               <li
                 className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white"

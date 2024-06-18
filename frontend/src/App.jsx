@@ -175,9 +175,9 @@ function App() {
               <Route path="/dashboard-wet" element={<WetDashboard />} />
               <Route path="/dashboard-dry" element={<DryDashboard />} />
               <Route path="/dashboard-powder" element={<PowderDashboard />} />
-              <Route path="/checkpoint" element={<Checkpoint />} /> */}
+              <Route path="/checkpoint" element={<Checkpoint />} />  */}
             </>
-          {/* )} */}
+          {/* )
           {/* <Route path="/receptiondoc" element={<PDFDownload />} /> */}
         </Routes>
       </Router>
