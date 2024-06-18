@@ -60,10 +60,13 @@ function AdminPage() {
   const [columnData, setColumnData] = useState(columnsMap.AdminTable);
   const [filteredRows, setFilteredRows] = useState([]);
   const [isMinimized, setIsMinimized] = useState(false);
+  const [selectedRole, setSelectedRole] = useState("");
   const [pageData, setPageData] = useState({
     title: "Manage Users",
     description: "Arrange username and data collections of ID",
   });
+
+  
 
   function getStatusDescription(status) {
     switch (status) {
@@ -308,6 +311,7 @@ function AdminPage() {
             rows={filteredRows.length > 0 ? filteredRows : rows}
             deleteRow={deleteRow}
             editRow={handleEditUser}
+            pageName={'CentraData'}
           />
         );
       case "WetLeavesData":
@@ -317,6 +321,7 @@ function AdminPage() {
             rows={filteredRows.length > 0 ? filteredRows : rows}
             deleteRow={deleteRow}
             editRow={handleEditUser}
+            pageName={'WetLeavesData'}
           />
         );
       case "DryLeavesData":
@@ -326,6 +331,7 @@ function AdminPage() {
             rows={filteredRows.length > 0 ? filteredRows : rows}
             deleteRow={deleteRow}
             editRow={handleEditUser}
+            pageName={'DryLeavesData'}
           />
         )
       case "FlourData":
@@ -335,6 +341,7 @@ function AdminPage() {
             rows={filteredRows.length > 0 ? filteredRows : rows}
             deleteRow={deleteRow}
             editRow={handleEditUser}
+            pageName={'FlourData'}
           />
         );
       case "ShippingInfoData":
@@ -344,6 +351,7 @@ function AdminPage() {
             rows={filteredRows.length > 0 ? filteredRows : rows}
             deleteRow={deleteRow}
             editRow={handleEditUser}
+            pageName={'ShippingInfoData'}
           />
         );
       case "CheckpointData":
@@ -353,6 +361,7 @@ function AdminPage() {
             rows={filteredRows.length > 0 ? filteredRows : rows}
             deleteRow={deleteRow}
             editRow={handleEditUser}
+            pageName={'CheckpointData'}
           />
         );
       case "PackageData":
@@ -362,6 +371,7 @@ function AdminPage() {
             rows={filteredRows.length > 0 ? filteredRows : rows}
             deleteRow={deleteRow}
             editRow={handleEditUser}
+            pageName={'PackageDate'}
           />
         );
       default:
@@ -400,6 +410,7 @@ function AdminPage() {
             </div>
           
         </div>
+        
         <div
           className={`flex justify-start pt-10 items-center gap-8 ${
             pageData.title !== "Data Master" && pageData.title !== "Dashboard"
