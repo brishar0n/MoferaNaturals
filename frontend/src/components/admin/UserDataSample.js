@@ -676,6 +676,15 @@ export const initialRows = [
       key: "retrieval_date",
       label: "Retrieval Date",
     },
+    
+    {
+      key: "weight",
+      label: "Weight",
+    },
+    {
+      key: "centra_id",
+      label: "Centra ID",
+    },
 
     {
       key: "washed_datetime",
@@ -686,14 +695,7 @@ export const initialRows = [
       key: "dried_datetime",
       label: "Dried Date",
     },
-    {
-      key: "weight",
-      label: "Weight",
-    },
-    {
-      key: "centra_id",
-      label: "Centra ID",
-    },
+    
     {
       key: "actions",
       label: "Actions",
@@ -706,7 +708,6 @@ export const initialRows = [
       key: "id",
       label: "ID",
     },
-
     
     {
       key: "weight",
@@ -714,8 +715,18 @@ export const initialRows = [
     },
 
     {
+      key: "centra_id",
+      label: "Centra ID",
+    },
+
+    {
       key: "floured_datetime",
       label: "Floured Date",
+    },
+
+    {
+      key: "dried_date",
+      label: "Dried Date",
     },
 
     {
@@ -730,16 +741,26 @@ export const initialRows = [
       key: "id",
       label: "ID",
     },
+    {
+      key: "weight",
+      label: "Weight",
+    },
+    {
+      key: "centra_id",
+      label: "Centra ID",
+    }, 
+
+    {
+      key: "dried_date",
+      label: "Dried Date",
+    },
 
     {
       key: "floured_date",
       label: "Floured Date",
     },
 
-    {
-      key: "weight",
-      label: "Weight",
-    },
+   
 
     {
       key: "actions",
@@ -782,6 +803,10 @@ export const initialRows = [
       key: "departure_datetime",
       label: "Departure Date",
     },
+    {
+      key: "eta_datetime",
+      label: "Estimated Arrival"
+    },
 
     {
       key: "total_weight",
@@ -818,34 +843,32 @@ export const initialRows = [
       label: "Weight",
     },
     {
-      key: "received_date",
-      label: "Received Date",
+      key: "created_datetime",
+      label: "Created Date"
     },
+    {
+      key: "exp_date",
+      label: "Expiry Date"
+    },
+    {
+      key: "status",
+      label: "Status",
+    },    
+    {
+      key: "centra_id",
+      label: "Centra ID",
+    },   
+    {
+      key: "shipping_id",
+      label: "Shipping ID",
+    },    
     {
       key: "reception_id",
       label: "Reception ID",
     },
     {
-      key: "shipping_id",
-      label: "Shipping ID",
-    },
-
-    {
-      key: "status",
-      label: "Status",
-    },
-    
-    {
-      key: "exp_date",
-      label: "Expiry Date",
-    },
-    {
-      key: "expedition",
-      label: "Expedition",
-    },
-    {
-      key: "centra_id",
-      label: "Centra ID",
+      key: "received_datetime",
+      label: "Received Date",
     },
     {
       key: "actions",

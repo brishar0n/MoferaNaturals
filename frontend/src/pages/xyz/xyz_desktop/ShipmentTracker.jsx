@@ -61,7 +61,7 @@ const ShipmentTracker = ({ shipmentTracking }) => {
             <div className='flex-1 bg-white rounded-xl mt-3 mr-3 mb-3 p-4 flex flex-col overflow-hidden'>
                 <div className="flex justify-between items-center">
                     <h1 className='text-4xl font-semibold text-left ml-6 mt-3'>Shipment Tracker</h1>
-                    <div className="p-4 bg-quinary rounded-full right-0 top-0 ml-[567px] mt-6">
+                    <div className="p-4 bg-quinary rounded-full absolute right-0 top-0 mr-32 mt-11">
                         <a href="/dashboard"><IoNotifications className="text-2xl" /></a>
                     </div>
                     <div>
