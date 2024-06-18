@@ -4,7 +4,7 @@ import hamburger from '../../assets/desktop/menu-bar.svg';
 import exit from '../../assets/desktop/exit.svg';
 import "../../style/AdminDesktop.css";
 
-import { columns, columnsCentra, columnsCheckpoint, columnsDry, columnsFlour, columnsPackage, columnsShipping, columnsWet} from './UserDataSample';
+import { columns, columnsCentra, columnsCheckpoint, columnsDry, columnsFlour, columnsPackage, columnsShipping, columnsWet } from './UserDataSample';
 import { MdOutlineDashboardCustomize } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
 import { BsDatabaseFillGear } from "react-icons/bs";
@@ -20,11 +20,11 @@ import {
   getWetLeaves,
 } from "../../../api/adminAPI";
 import axios from 'axios';
+import MasterDataFolder from './MasterDataFolder';
 
 function AdminSidebar({ isMinimized, toggleMenu, onPageDataChange }) {
   const [dataManagementOpen, setDataManagementOpen] = useState(false);
   const [hoveredItem, setHoveredItem] = useState(null); 
-  // const [isMinimized, setIsMinimized] = useState(false);
   const [centraRows, setCentraRows] = useState([]);
   const [checkpointRows, setCheckpointRows] = useState([]);
   const [dryRows, setDryRows] = useState([]);
@@ -34,14 +34,9 @@ function AdminSidebar({ isMinimized, toggleMenu, onPageDataChange }) {
   const [wetRows, setWetRows] = useState([]);
   const [userRows, setUserRows] = useState([]);
 
-
   const toggleDropdown = () => {
     setDataManagementOpen(!dataManagementOpen);
   };
-
-  // const toggleMenu = () => {
-  //   setIsMinimized(!isMinimized);
-  // };
 
   function getStatusDescription(status) {
     switch (status) {
@@ -61,6 +56,7 @@ function AdminSidebar({ isMinimized, toggleMenu, onPageDataChange }) {
   }
 
   function formatDate(dateString) {
+    if (!dateString) return "N/A";
     return dateString.replace('T', ' ');
   }
 
@@ -71,6 +67,7 @@ function AdminSidebar({ isMinimized, toggleMenu, onPageDataChange }) {
   async function fetchUserData() {
     try {
       const userData = await getUsers();
+      console.log("User data fetched:", userData);
       if (userData && userData.data) {
         setUserRows(userData.data);
       } else {
@@ -84,6 +81,7 @@ function AdminSidebar({ isMinimized, toggleMenu, onPageDataChange }) {
   async function fetchCentraData() {
     try {
       const centraData = await getCentra();
+      console.log("Centra data fetched:", centraData);
       if (centraData && centraData.data) {
         setCentraRows(centraData.data);
       } else {
@@ -97,22 +95,54 @@ function AdminSidebar({ isMinimized, toggleMenu, onPageDataChange }) {
   async function fetchCheckpointData() {
     try {
       const checkpointData = await getCheckpoints();
+      console.log("Checkpoint data fetched:", checkpointData);
       if (checkpointData && checkpointData.data) {
-        setCheckpointRows(checkpointData.data);
+        const formattedData = checkpointData.data.map(pkg => {
+          console.log("Processing checkpoint:", pkg);
+  
+          const formattedArrivalDate = formatDate(pkg.arrival_datetime);
+  
+          console.log("Formatted checkpoint data:", {
+            ...pkg,
+            arrival_datetime: formattedArrivalDate,
+          });
+  
+          return {
+            ...pkg,
+            arrival_datetime: formattedArrivalDate,
+          };
+        });
+  
+        setCheckpointRows(formattedData);
+        console.log("Formatted checkpoint data set:", formattedData);
       } else {
         console.error('Failed to fetch Checkpoint data');
       }
     } catch (error) {
       console.error('Error fetching Checkpoint data:', error);
     }
-
   }
-
+  
   async function fetchDryLeavesData() {
     try {
       const dryLeavesData = await getDryLeaves();
+      console.log("Dry Leaves data fetched:", dryLeavesData);
       if (dryLeavesData && dryLeavesData.data) {
-        setDryRows(dryLeavesData.data);
+        const formattedData = dryLeavesData.data.map(pkg => {
+          console.log("Processing dry leaves:", pkg);
+
+          const formattedWeight = formatWeight(pkg.weight);
+          const formattedFlouredDate = formatDate(pkg.floured_datetime);
+  
+          return {
+            ...pkg,
+            weight: formattedWeight,
+            floured_datetime: formattedFlouredDate,
+          };
+        });
+  
+        setDryRows(formattedData);
+        console.log("Formatted dry leaves data set:", formattedData);
       } else {
         console.error('Failed to fetch Dry Leaves data');
       }
@@ -124,8 +154,21 @@ function AdminSidebar({ isMinimized, toggleMenu, onPageDataChange }) {
   async function fetchFlourData() {
     try {
       const flourData = await getFlour();
+      console.log("Flour data fetched:", flourData);
       if (flourData && flourData.data) {
-        setFlourRows(flourData.data);
+        const formattedData = flourData.data.map(pkg => {
+          console.log("Processing flour:", pkg);
+  
+          const formattedWeight = formatWeight(pkg.weight);
+  
+          return {
+            ...pkg,
+            weight: formattedWeight,
+          };
+        });
+  
+        setFlourRows(formattedData);
+        console.log("Formatted flour data set:", formattedData);
       } else {
         console.error('Failed to fetch Flour data');
       }
@@ -137,22 +180,66 @@ function AdminSidebar({ isMinimized, toggleMenu, onPageDataChange }) {
   async function fetchPackageData() {
     try {
       const packageData = await getPackages();
+      console.log("Package data fetched:", packageData);
+  
       if (packageData && packageData.data) {
-        setPackageRows(packageData.data);
-      }else {
-        console.error('Failed to fetch Flour data');
+        const formattedData = packageData.data.map(pkg => {
+          console.log("Processing package:", pkg);
+  
+          const statusDescription = getStatusDescription(pkg.status);
+          const formattedWeight = formatWeight(pkg.weight);
+          const formattedCreatedDate = formatDate(pkg.created_datetime);
+          const formattedReceivedDate = formatDate(pkg.received_datetime);
+  
+          return {
+            ...pkg,
+            status: statusDescription,
+            weight: formattedWeight,
+            created_datetime: formattedCreatedDate,
+            received_datetime: formattedReceivedDate
+          };
+        });
+  
+        setPackageRows(formattedData);
+        console.log("Formatted package data set:", formattedData);
+      } else {
+        console.error('Failed to fetch Package data');
       }
     } catch (error) {
       console.error('Error fetching Package data:', error);
     }
   }
-
+  
   async function fetchShippingData() {
     try {
       const shippingData = await getShippingInfo();
+      console.log("Shipping data fetched:", shippingData);
       if (shippingData && shippingData.data) {
-        setShippingRows(shippingData.data);
-      }else {
+        const formattedData = shippingData.data.map(pkg => {
+          console.log("Processing shipping:", pkg);
+  
+          const weightData = formatWeight(pkg.total_weight);
+          const departureData = formatDate(pkg.departure_datetime);
+          const etaData = formatDate(pkg.eta_datetime);
+  
+          console.log("Formatted shipping data:", {
+            ...pkg,
+            total_weight: weightData,
+            departure_datetime: departureData,
+            eta_datetime: etaData,
+          });
+  
+          return {
+            ...pkg,
+            total_weight: weightData,
+            departure_datetime: departureData,
+            eta_datetime: etaData,
+          };
+        });
+  
+        setShippingRows(formattedData);
+        console.log("Formatted shipping data set:", formattedData);
+      } else {
         console.error('Failed to fetch Shipping data');
       }
     } catch (error) {
@@ -163,9 +250,26 @@ function AdminSidebar({ isMinimized, toggleMenu, onPageDataChange }) {
   async function fetchWetData() {
     try {
       const wetData = await getWetLeaves();
+      console.log("Wet data fetched:", wetData);
       if (wetData && wetData.data) {
-        setWetRows(wetData.data);
-      }else {
+        const formattedData = wetData.data.map(pkg => {
+          console.log("Processing wet leaves:", pkg);
+  
+          const formattedWashedDate = formatDate(pkg.washed_datetime);
+          const formattedDriedDate = formatDate(pkg.dried_datetime);
+          const weight = formatWeight(pkg.weight);
+  
+          return {
+            ...pkg,
+            washed_datetime: formattedWashedDate,
+            dried_datetime: formattedDriedDate,
+            weight: weight,
+          };
+        });
+  
+        setWetRows(formattedData);
+        console.log("Formatted wet leaves data set:", formattedData);
+      } else {
         console.error('Failed to fetch Wet data');
       }
     } catch (error) {
@@ -186,39 +290,48 @@ function AdminSidebar({ isMinimized, toggleMenu, onPageDataChange }) {
 
   const handleLogout = async () => {
     try {
-        axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
-        const response = await axios.post('http://localhost:8000/auth/logout')
+      axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+      const response = await axios.post('http://localhost:8000/auth/logout')
 
-        localStorage.removeItem('token');
+      localStorage.removeItem('token');
 
-
-        if (response.status === 200) {
-            window.location.href = '/logindesktop';
-        } else {
-            console.error("Logout failed");
-        }
+      if (response.status === 200) {
+        window.location.href = '/logindesktop';
+      } else {
+        console.error("Logout failed");
+      }
     } catch (error) {
-        console.error("Error logging out:", error);
+      console.error("Error logging out:", error);
     }
   };
-  // const handleResize = () => {
-  //   if (window.innerWidth <= 1274) {
-  //     setIsMinimized(true);
-  //   } 
-    
-  //   else {
-  //     setIsMinimized(false);
-  //   }
-  // };
 
-  // useEffect(() => {
-  //   window.addEventListener('resize', handleResize);
-  //   handleResize();
-
-  //   return () => {
-  //     window.removeEventListener('resize', handleResize);
-  //   };
-  // }, []);
+  const handleSelectDataCategory = (label) => {
+    switch (label) {
+      case "Centra":
+        onPageDataChange('Centra Data', 'Search and added data for Centra', "CentraData", centraRows, columnsCentra);
+        break;
+      case "Wet Leaves":
+        onPageDataChange('Wet Leaves Data', 'Search and added data for Wet Leaves', 'WetLeavesData', wetRows, columnsWet);
+        break;
+      case "Dry Leaves":
+        onPageDataChange('Dry Leaves Data', 'Search and added data for Dry Leaves', 'DryLeavesData', dryRows, columnsDry);
+        break;
+      case "Flour":
+        onPageDataChange('Flour Data', 'Search and added data for Flour', 'FlourData', flourRows, columnsFlour);
+        break;
+      case "Shipping Info":
+        onPageDataChange('Shipping Info Data', 'List of Shipping Arrival and Departure Data', 'ShippingInfoData', shippingRows, columnsShipping);
+        break;
+      case "Checkpoint Data":
+        onPageDataChange('Checkpoint Data', 'List of Checkpoint Data and Total Package Arrival notice', 'CheckpointData', checkpointRows, columnsCheckpoint);
+        break;
+      case "Package":
+        onPageDataChange('Package Data', 'Package details including tracking and delivery statuses', "PackageData", packageRows, columnsPackage);
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
     <div
@@ -241,16 +354,6 @@ function AdminSidebar({ isMinimized, toggleMenu, onPageDataChange }) {
         {!isMinimized && (
           <nav className="w-full h-full overflow-y-auto hide-scrollbar">
             <ul className="flex flex-col h-full">
-              {/* <li
-                className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white"
-                onMouseEnter={() => setHoveredItem('dashboard')}
-                onMouseLeave={() => setHoveredItem(null)}
-                onClick={() => onPageDataChange('Dashboard', 'Indicate Centra and Guard Harbour through data', 'Dashboard')}
-              >
-                <MdOutlineDashboardCustomize className='text-3xl mr-4'></MdOutlineDashboardCustomize>
-                  Dashboard
-              </li> */}
-
               <li
                 className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white"
                 onMouseEnter={() => setHoveredItem('user')}
@@ -280,25 +383,25 @@ function AdminSidebar({ isMinimized, toggleMenu, onPageDataChange }) {
               {dataManagementOpen && (
                 <div className="overflow-y-auto hide-scrollbar">
                   <li className="bg-primary py-4 px-5 text-left indent-6 text-white hover:bg-white rounded-xl hover:text-primary font-medium cursor-pointer w-full">
-                    <p onClick={() => onPageDataChange('Centra Data', 'Search and added data for Centra', "CentraData", centraRows, columnsCentra)}>Centra Data</p>
+                    <p onClick={() => handleSelectDataCategory('Centra')}>Centra Data</p>
                   </li>
                   <li className="bg-primary py-4 px-5 text-left indent-6 text-white hover:bg-white rounded-xl hover:text-primary font-medium cursor-pointer w-full">
-                    <p onClick={() => onPageDataChange('Wet Leaves Data', 'Search and added data for Wet Leaves', 'WetLeavesData', wetRows, columnsWet)}>Wet Leaves Data</p>
+                    <p onClick={() => handleSelectDataCategory('Wet Leaves')}>Wet Leaves Data</p>
                   </li>
                   <li className="bg-primary py-4 px-5 text-left indent-6 text-white hover:bg-white rounded-xl hover:text-primary font-medium cursor-pointer w-full">
-                    <p onClick={() => onPageDataChange('Dry Leaves Data', 'Search and added data for Dry Leaves', 'DryLeavesData', dryRows, columnsDry)}>Dry Leaves Data</p>
+                    <p onClick={() => handleSelectDataCategory('Dry Leaves')}>Dry Leaves Data</p>
                   </li>
                   <li className="bg-primary py-4 px-5 text-left indent-6 text-white hover:bg-white rounded-xl hover:text-primary font-medium cursor-pointer w-full">
-                    <p onClick={() => onPageDataChange('Flour Data', 'Search and added data for Flour', 'FlourData', flourRows, columnsFlour)}>Flour Data</p>
+                    <p onClick={() => handleSelectDataCategory('Flour')}>Flour Data</p>
                   </li>
                   <li className="bg-primary py-4 px-5 text-left indent-6 text-white hover:bg-white rounded-xl hover:text-primary font-medium cursor-pointer w-full">
-                    <p onClick={() => onPageDataChange('Shipping Info Data', 'List of Shipping Arrival and Departure Data', 'ShippingInfoData', shippingRows, columnsShipping)}>Shipping Info Data</p>
+                    <p onClick={() => handleSelectDataCategory('Shipping Info')}>Shipping Info Data</p>
                   </li>
                   <li className="bg-primary py-4 px-5 text-left indent-6 text-white hover:bg-white rounded-xl hover:text-primary font-medium cursor-pointer w-full">
-                    <p onClick={() => onPageDataChange('Checkpoint Data', 'List of Checkpoint Data and Total Package Arrival notice', 'CheckpointData', checkpointRows, columnsCheckpoint )}>Checkpoint Data</p>
+                    <p onClick={() => handleSelectDataCategory('Checkpoint Data')}>Checkpoint Data</p>
                   </li>
                   <li className="bg-primary py-4 px-5 text-left indent-6 text-white hover:bg-white rounded-xl hover:text-primary font-medium cursor-pointer w-full">
-                    <p onClick={() => onPageDataChange('Package Data', 'Package details including tracking and delivery statuses', "PackageData", packageRows, columnsPackage)}>Package Data</p>
+                    <p onClick={() => handleSelectDataCategory('Package')}>Package Data</p>
                   </li>
                 </div>
               )}
