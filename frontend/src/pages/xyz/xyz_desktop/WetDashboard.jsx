@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Sidebar from "../../../components/xyz/Sidebar";
 import BarChart from "./BarChart";
 import AreaChart from "./AreaChart";
-import Table from "./Table";
+import Table from "./TableWet";
 import RecentActivities from "./RecentActivities";
 import SearchForm from "./Search";
 import { IoNotifications } from "react-icons/io5";

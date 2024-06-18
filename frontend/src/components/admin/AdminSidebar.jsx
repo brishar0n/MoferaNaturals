@@ -4,7 +4,7 @@ import hamburger from '../../assets/desktop/menu-bar.svg';
 import exit from '../../assets/desktop/exit.svg';
 import "../../style/AdminDesktop.css";
 
-import { columns, columnsCentra, columnsCheckpoint, columnsDry, columnsFlour, columnsPackage, columnsShipping, columnsWet, initialCentraRows, initialCheckpointRows, initialDryRows, initialFlourRows, initialPackageRows, initialRows, initialShippingRows, initialWetRows } from './UserDataSample';
+import { columns, columnsCentra, columnsCheckpoint, columnsDry, columnsFlour, columnsPackage, columnsShipping, columnsWet} from './UserDataSample';
 import { MdOutlineDashboardCustomize } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
 import { BsDatabaseFillGear } from "react-icons/bs";
