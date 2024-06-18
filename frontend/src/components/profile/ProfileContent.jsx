@@ -8,6 +8,7 @@ import NavigateTo from './NavigateTo';
 import Account from './Account';
 import ConfirmNotification from '../ConfirmNotification';
 import { useState } from "react";
+import axios from 'axios';
 
 function ProfileContent({ role, name }) {
     const [showConfirm, setShowConfirm] = useState(false);
@@ -16,6 +17,46 @@ function ProfileContent({ role, name }) {
     const [confirmedText, setConfirmedText] = useState("");
     const [confirmedTitle, setConfirmedTitle] = useState("");
     const [cancelledText, setCancelledText] = useState("");
+    const [confirmationFunction, setConfirmationFunction] = useState({"func": new Function()})
+
+
+    const confirmLogout = async () => {
+        try {
+            axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+            const response = await axios.post('http://localhost:8000/auth/logout')
+
+            localStorage.removeItem('token');
+
+
+            if (response.status === 200) {
+                window.location.href = '/login';
+            } else {
+                console.error("Logout failed");
+            }
+        } catch (error) {
+            console.error("Error logging out:", error);
+        }
+    };
+
+    const confirmDelete = async () => {
+        try {
+            const response = await fetch('http://localhost:8000/auth/delete', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include'
+            });
+
+            if (response.status === 200) {
+                window.location.href = '/';
+            } else {
+                console.error("Delete account failed");
+            }
+        } catch (error) {
+            console.error("Error deleting account:", error);
+        }
+    };
 
     function handleLogOut() {
         setShowConfirm(true);
@@ -24,29 +65,7 @@ function ProfileContent({ role, name }) {
         setConfirmedText("Logged Out!");
         setConfirmedTitle("You have logged out from the app.");
         setCancelledText("You are still in the app :)");
-
-        const confirmLogout = async () => {
-            try {
-                localStorage.removeItem('token');
-
-                const response = await fetch('https://mofera-backend-fork-o1xucajgl-mofera-2.vercel.app/auth/logout', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    credentials: 'include'
-                });
-
-                if (response.ok) {
-                    window.location.href = '/login';
-                } else {
-                    console.error("Logout failed");
-                }
-            } catch (error) {
-                console.error("Error logging out:", error);
-            }
-        };
-        document.querySelector('#confirmationButton').addEventListener('click', confirmLogout);
+        setConfirmationFunction({"func": confirmLogout})
     }
 
     function handleDelete() {
@@ -56,27 +75,7 @@ function ProfileContent({ role, name }) {
         setConfirmedText("Deleted!");
         setConfirmedTitle("Your account has been deleted");
         setCancelledText(`You still have access to the ${role} data :>`);
-
-        const confirmDelete = async () => {
-            try {
-                const response = await fetch('https://mofera-backend-fork-o1xucajgl-mofera-2.vercel.app/auth/delete', {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    credentials: 'include'
-                });
-
-                if (response.ok) {
-                    window.location.href = '/';
-                } else {
-                    console.error("Delete account failed");
-                }
-            } catch (error) {
-                console.error("Error deleting account:", error);
-            }
-        };
-        document.querySelector('#confirmationButton').addEventListener('click', confirmDelete);
+        setConfirmationFunction({"func": confirmDelete})
     }
 
     return (
@@ -113,6 +112,7 @@ function ProfileContent({ role, name }) {
                 confirmedText={confirmedText}
                 confirmedTitle={confirmedTitle}
                 cancelledText={cancelledText}
+                confirmFunction={confirmationFunction}
             />}
         </div>
     );

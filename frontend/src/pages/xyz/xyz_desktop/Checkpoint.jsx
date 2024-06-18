@@ -122,7 +122,7 @@ const Checkpoint = () => {
                         <div className="h-24 bg-quinary rounded-3xl flex items-center justify-center dark:bg-gray-800 p-4">
                         <div>
                             <p className="text-sm">Total Checkpoints:</p>
-                            <p className="text-lg font-bold">{checkpointSummary.total.toFixed(2)}</p>
+                            <p className="text-lg font-bold">{checkpointSummary.total}</p>
                         </div>
                         </div>
                         <div className="h-24 bg-quinary rounded-3xl flex items-center justify-center dark:bg-gray-800 p-4">
@@ -134,7 +134,7 @@ const Checkpoint = () => {
                         <div className="h-24 bg-quinary rounded-3xl flex items-center justify-center dark:bg-gray-800 p-4">
                         <div>
                             <p className="text-sm">Today's Total Shipments Arrived:</p>
-                            <p className="text-lg font-bold">{checkpointSummary.today.toFixed(2)}</p>
+                            <p className="text-lg font-bold">{checkpointSummary.today}</p>
                         </div>
                         </div>
                     </div>
