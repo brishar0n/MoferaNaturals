@@ -253,6 +253,25 @@ export const searchReceptionPackages = async (id) => {
     return Reception
 }
 
+export const getShippingSummary = async(data) => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    const ShippingSummary = await axios.get(URL + "/xyz/get_shipping_summary")
+        .catch((error) => {
+            console.error(error);
+        });
+    return ShippingSummary
+}
+
+export const getShippingStats = async(data) => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    const ShippingStats = await axios.get(URL + "/xyz/quick_get_shipping_stats", {
+        "params":{...data}
+    })
+        .catch((error) => {
+            console.error(error);
+        });
+    return ShippingStats
+}
 
 
 export const getShippingInfo = async(ShippingInfo) => {
