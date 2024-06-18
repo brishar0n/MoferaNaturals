@@ -9,7 +9,6 @@ import {
   Pagination,
 } from "@nextui-org/react";
 import { getPackages } from "../../../api/xyzAPI";
-import { ArrowUp, ArrowDown } from "react-feather"; // Importing sorting icons
 import "../../style/AdminDesktop.css";
 
 const columns = [
