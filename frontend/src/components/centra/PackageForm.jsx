@@ -45,8 +45,8 @@ function PackageForm({ weight, handleWeightChange, expDate, handleExpDateChange,
         <label htmlFor="expDate" className="items-start text-sm mb-3 font-medium">Expiry Date:</label>
         <input 
           type="date" 
-          value={expDate.toISOString().substring(0, 10)} 
-          onChange={handleExpDateChange}
+          value={expDate} 
+          onChange={(e) => handleExpDateChange(e)}
           className="mb-2 rounded-md bg-quinary px-2 py-1 w-full text-xs border-none mt-1"
           required 
         />
