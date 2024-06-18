@@ -197,71 +197,72 @@ function AdminPage() {
     setFilteredRows(filteredData);
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      let data = [];
-      switch (currentComponent) {
-        case "AdminTable":
-          data = await getUsers();
-          break;
-        case "CentraData":
-          data = await getCentra();
-          break;
-        case "CheckpointData":
-          data = await getCheckpoints();
-          data = data?.data?.map(pkg => ({
-            ...pkg,
-            arrival_datetime: formatDate(pkg.arrival_datetime)
-          })) || [];          break;
-        case "WetLeavesData":
-          data = await getWetLeaves();
-          data = data?.data?.map(pkg => ({
-            ...pkg,
-            weight: formatWeight(pkg.weight),
-            dried_datetime: formatDate(pkg.dried_datetime),
-            floured_datetime: formatDate(pkg.floured_datetime)
-          })) || [];
-          break;
-        case "DryLeavesData":
-          data = await getDryLeaves();
-          data = data?.data?.map(pkg => ({
-            ...pkg,
-            weight: formatWeight(pkg.weight),
-            floured_datetime: formatDate(pkg.floured_datetime)
-          })) || [];
-          break;
-        case "FlourData":
-          data = await getFlour();
-          break;
-        case "ShippingInfoData":
-          data = await getShippingInfo();
-          data = data?.data?.map(pkg => ({
-            ...pkg,
-            departure_datetime: formatDate(pkg.departure_datetime),
-            eta_datetime: formatDate(pkg.eta_datetime)
-          })) || [];
-          break;
-        case "PackageData":
-          data = await getPackages();
-          console.log("Fetched package data:", data); // Log the data
-          data = data?.data?.map(pkg => ({
-            ...pkg,
-            status: getStatusDescription(pkg.status),
-            weight: formatWeight(pkg.weight),
-            created_datetime: formatDate(pkg.created_datetime),
-            received_datetime: formatDate(pkg.received_datetime)
-          })) || [];
-          break;
-        default:
-          data = await getUsers();
-          break;
-      }
-      setRows(data?.data || data); // Adjust depending on your API response format
-      setFilteredRows([]); // Reset filteredRows when new data is fetched
-      setColumnData(columnsMap[currentComponent]); // Update columns if needed
-    };
-    fetchData();
-  }, [currentComponent]);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     let data = [];
+  //     switch (currentComponent) {
+  //       case "AdminTable":
+  //         data = await getUsers();
+  //         break;
+  //       case "CentraData":
+  //         data = await getCentra();
+  //         break;
+  //       case "CheckpointData":
+  //         data = await getCheckpoints();
+  //         data = data?.data?.map(pkg => ({
+  //           ...pkg,
+  //           arrival_datetime: formatDate(pkg.arrival_datetime)
+  //         })) || [];          break;
+  //       case "WetLeavesData":
+  //         data = await getWetLeaves();
+  //         data = data?.data?.map(pkg => ({
+  //           ...pkg,
+  //           weight: formatWeight(pkg.weight),
+  //           dried_datetime: formatDate(pkg.dried_datetime),
+  //           floured_datetime: formatDate(pkg.floured_datetime)
+  //         })) || [];
+  //         break;
+  //       case "DryLeavesData":
+  //         data = await getDryLeaves();
+  //         data = data?.data?.map(pkg => ({
+  //           ...pkg,
+  //           weight: formatWeight(pkg.weight),
+  //           floured_datetime: formatDate(pkg.floured_datetime)
+  //         })) || [];
+  //         break;
+  //       case "FlourData":
+  //         data = await getFlour();
+  //         break;
+  //       case "ShippingInfoData":
+  //         data = await getShippingInfo();
+  //         data = data?.data?.map(pkg => ({
+  //           ...pkg,
+  //           weight: formatWeight(pkg.weight),
+  //           departure_datetime: formatDate(pkg.departure_datetime),
+  //           eta_datetime: formatDate(pkg.eta_datetime)
+  //         })) || [];
+  //         break;
+  //       case "PackageData":
+  //         data = await getPackages();
+  //         console.log("Fetched package data:", data); // Log the data
+  //         data = data?.data?.map(pkg => ({
+  //           ...pkg,
+  //           status: getStatusDescription(pkg.status),
+  //           weight: formatWeight(pkg.weight),
+  //           created_datetime: formatDate(pkg.created_datetime),
+  //           received_datetime: formatDate(pkg.received_datetime)
+  //         })) || [];
+  //         break;
+  //       default:
+  //         data = await getUsers();
+  //         break;
+  //     }
+  //     setRows(data?.data || data); // Adjust depending on your API response format
+  //     setFilteredRows([]); // Reset filteredRows when new data is fetched
+  //     setColumnData(columnsMap[currentComponent]); // Update columns if needed
+  //   };
+  //   fetchData();
+  // }, [currentComponent]);
 
   const renderComponent = () => {
     switch (currentComponent) {
