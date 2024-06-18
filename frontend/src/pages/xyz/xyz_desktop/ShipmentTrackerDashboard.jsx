@@ -97,7 +97,7 @@ const ShipmentTrackerDashboard = () => {
     <div className="bg-primary w-screen h-screen flex relative">
         <Sidebar isMinimized={isSidebarMinimized} toggleSidebar={toggleSidebar} />
         <div className="flex-1 bg-white rounded-xl mt-3 mr-3 mb-3 p-4 flex flex-col overflow-hidden relative">
-        <div className="flex justify-between items-center mb-5">
+        {/* <div className="flex justify-between items-center mb-5">
             <div className="grid grid-cols-2 gap-4 mb-4">
             <div className="flex items-center justify-around h-28 p-8 bg-quinary rounded-3xl dark:bg-gray-800">
                 <div className="flex items-center">
@@ -131,7 +131,7 @@ const ShipmentTrackerDashboard = () => {
                 </div>
             </div>
             </div>
-        </div>
+        </div> */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} className="flex-1 overflow-y-auto">
         <div className="flex items-center justify-between h-12 ml-4 mb-4 rounded dark:bg-gray-800">
             <div className="flow-root">
