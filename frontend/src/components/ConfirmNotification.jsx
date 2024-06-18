@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
-const ConfirmNotification = ({onClose, text, confirmationText, confirmedText, confirmedTitle, cancelledText}) => {
+const ConfirmNotification = ({onClose, text, confirmationText, confirmedText, confirmedTitle, cancelledText, confirmFunction}) => {
     const nav = useNavigate();
 
     const showConfirm = () => {
@@ -33,7 +33,7 @@ const ConfirmNotification = ({onClose, text, confirmationText, confirmedText, co
                 }
                 
                 });
-                nav("/welcomeback");
+                confirmFunction.func()
             } else if (
             /* Read more about handling dismissals below */
             result.dismiss === Swal.DismissReason.cancel
