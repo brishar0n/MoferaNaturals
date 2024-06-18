@@ -35,25 +35,25 @@ const WetDashboard = () => {
 
   useEffect(() => {
     const fetchBarData = async () => {
-      const response = await getWetStats({ "interval": statsFilter });
+      const response = await getWetStats({ "interval": statsFilter, "centra_id": centraFilter });
       if (response && response.data) {
         setBarData(response.data);
       }
     };
 
     fetchBarData();
-  }, [statsFilter]);
+  }, [statsFilter, centraFilter]);
 
   useEffect(() => {
     const fetchLineData = async () => {
-      const response = await getWetStats({ "interval": trendFilter });
+      const response = await getWetStats({ "interval": trendFilter, "centra_id": centraFilter });
       if (response && response.data) {
         setLineChartData(response.data);
       }
     };
 
     fetchLineData();
-  }, [trendFilter]);
+  }, [trendFilter, centraFilter]);
 
   useEffect(() => {
     const fetchWetData = async () => {

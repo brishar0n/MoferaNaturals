@@ -32,7 +32,7 @@ const PowderDashboard = () => {
   const [barData, setBarData] = useState(new Object());
   useEffect(() => {
       const fetchBarData = async () => {
-          const response = await getFlourStats({"interval": statsFilter});
+          const response = await getFlourStats({"interval": statsFilter, "centra_id": centraFilter});
           if(response && response.data) {
               setBarData(response.data);
             }
@@ -40,13 +40,13 @@ const PowderDashboard = () => {
 
       fetchBarData();
       
-  }, [statsFilter])
+  }, [statsFilter, centraFilter])
 
 
   const [lineChartData, setLineChartData] = useState([]);
   useEffect(() => {
       const fetchLineData = async () => {
-          const response = await getFlourStats({"interval": trendFilter});
+          const response = await getFlourStats({"interval": trendFilter, "centra_id": centraFilter});
           if(response && response.data) {
               setLineChartData(response.data);
             }
@@ -54,7 +54,7 @@ const PowderDashboard = () => {
 
       fetchLineData();
       
-  }, [trendFilter]);
+  }, [trendFilter, centraFilter]);
 
   const [powderDatas, setPowderDatas] = useState([])
   const [activities, setActivities] = useState([])
