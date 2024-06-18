@@ -146,11 +146,11 @@ function AdminTable({ rows , columns , deleteRow, editRow, pageName}) {
             <TableRow key={item.key}>
               {(columnKey) => (
                 <TableCell className="text-base justify-center">
-                  {column.key === "created_datetime"
+                  {columnKey.key === "created_datetime"
                       ? formatDateTime(item[column.key])
-                      : column.key === "status"
-                      ? getStatusLabel(item[column.key])
-                      : item[column.key]
+                      : columnKey.key === "status"
+                      ? getStatusLabel(item[columnKey.key])
+                      : item[columnKey.key]
                   }
                   {columnKey === "actions" ? (
                     <div className="flex gap-2 justify-center">
