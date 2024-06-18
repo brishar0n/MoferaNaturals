@@ -18,7 +18,7 @@ function VerificationDesktop() {
     event.preventDefault();
 
     try {
-      const response = await axios.post("https://mofera-backend-fork-o1xucajgl-mofera-2.vercel.app/auth/forgot-password", {
+      const response = await axios.post("http://localhost:8000/auth/forgot-password", {
         email,
       });
       console.log("Verification email sent:", response.data);

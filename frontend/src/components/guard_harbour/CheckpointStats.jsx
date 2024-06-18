@@ -31,7 +31,7 @@ function CheckpointStats({checkpointData, packageShippedData, packageConfirmedDa
                 </div>
                 <div className="flex justify-between mb-2 items-center gap-x-5">
                     <p className="text-left text-sm">Average Checkpoints Accumulated Each Day:</p>
-                    <p className="text-base font-bold">{avgCheckpointsPerDay}</p>
+                    <p className="text-base font-bold">{avgCheckpointsPerDay.toFixed(2)}</p>
                 </div>
                 <div className="flex justify-between mb-2 items-center gap-x-5">
                     <p className="text-left text-sm">Total Packages in Shipping:</p>

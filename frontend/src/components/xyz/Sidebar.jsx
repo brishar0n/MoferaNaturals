@@ -10,6 +10,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import { PiPackageFill } from "react-icons/pi";
 import { IoNotifications } from "react-icons/io5";
 import { MdOutlineMonitor } from "react-icons/md";
+import axios from 'axios';
 
 function Sidebar() {
   const [dashboardOpen, setDashboardOpen] = useState(false);
@@ -30,6 +31,24 @@ function Sidebar() {
       setIsMinimized(false);
     }
   };
+
+  const handleLogout = async () => {
+    try {
+        axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+        const response = await axios.post('http://localhost:8000/auth/logout')
+
+        localStorage.removeItem('token');
+
+
+        if (response.status === 200) {
+            window.location.href = '/logindesktop';
+        } else {
+            console.error("Logout failed");
+        }
+    } catch (error) {
+        console.error("Error logging out:", error);
+    }
+};
 
   useEffect(() => {
     window.addEventListener('resize', handleResize);
@@ -125,7 +144,7 @@ function Sidebar() {
       <div className="flex-grow"></div>
 
       <div className="bg-primary w-full col-span-10 flex flex-col justify-between">
-        <button className="bg-primary mb-4 bottom-1">
+        <button onClick={handleLogout} className="bg-primary mb-4 bottom-1">
           {!isMinimized && (
             <img src={exit} className="bg-primary w-10 ml-6 mt-20" />
           )}

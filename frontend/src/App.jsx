@@ -50,8 +50,7 @@ import VerificationDesktop from './pages/auth-desktop/VerificationDesktop';
 import Checkpoint from './pages/xyz/xyz_desktop/Checkpoint'
 import XYZDashboard from './pages/xyz/xyz_mobile/XYZDashboard';
 import ShipmentTrackerDashboard from './pages/xyz/xyz_desktop/ShipmentTrackerDashboard';
-import ReceptionDocPDF from './pages/xyz/xyz_mobile/ReceptionDocPDF';
-import PDFDownload from './pages/xyz/xyz_mobile/PDFDownload';
+import PDFDownload from './components/PDFDownload';
 import WarningPage from './pages/auth-desktop/WarningPage';
 
 export const UserContext = createContext()
@@ -175,9 +174,9 @@ function App() {
               <Route path="/dashboard-wet" element={<WetDashboard />} />
               <Route path="/dashboard-dry" element={<DryDashboard />} />
               <Route path="/dashboard-powder" element={<PowderDashboard />} />
-              <Route path="/checkpoint" element={<Checkpoint />} /> */}
+              <Route path="/checkpoint" element={<Checkpoint />} />  */}
             </>
-          {/* )} */}
+          {/* )
           {/* <Route path="/receptiondoc" element={<PDFDownload />} /> */}
         </Routes>
       </Router>

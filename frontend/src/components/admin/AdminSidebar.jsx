@@ -19,6 +19,7 @@ import {
   getShippingInfo,
   getWetLeaves,
 } from "../../../api/adminAPI";
+import axios from 'axios';
 
 function AdminSidebar({ isMinimized, toggleMenu, onPageDataChange }) {
   const [dataManagementOpen, setDataManagementOpen] = useState(false);
@@ -158,7 +159,23 @@ function AdminSidebar({ isMinimized, toggleMenu, onPageDataChange }) {
     fetchShippingData();
   }, []);
 
+  const handleLogout = async () => {
+    try {
+        axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+        const response = await axios.post('http://localhost:8000/auth/logout')
 
+        localStorage.removeItem('token');
+
+
+        if (response.status === 200) {
+            window.location.href = '/logindesktop';
+        } else {
+            console.error("Logout failed");
+        }
+    } catch (error) {
+        console.error("Error logging out:", error);
+    }
+  };
   // const handleResize = () => {
   //   if (window.innerWidth <= 1274) {
   //     setIsMinimized(true);
@@ -199,7 +216,7 @@ function AdminSidebar({ isMinimized, toggleMenu, onPageDataChange }) {
         {!isMinimized && (
           <nav className="w-full h-full overflow-y-auto hide-scrollbar">
             <ul className="flex flex-col h-full">
-              <li
+              {/* <li
                 className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white"
                 onMouseEnter={() => setHoveredItem('dashboard')}
                 onMouseLeave={() => setHoveredItem(null)}
@@ -207,7 +224,7 @@ function AdminSidebar({ isMinimized, toggleMenu, onPageDataChange }) {
               >
                 <MdOutlineDashboardCustomize className='text-3xl mr-4'></MdOutlineDashboardCustomize>
                   Dashboard
-              </li>
+              </li> */}
 
               <li
                 className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white"
@@ -268,6 +285,7 @@ function AdminSidebar({ isMinimized, toggleMenu, onPageDataChange }) {
       <div className="bg-primary w-full col-span-10 flex flex-col justify-between">
         <button
           className="bg-primary mb-4 fixed bottom-1"
+          onClick={handleLogout}
           onMouseEnter={() => setHoveredItem('exit')}
           onMouseLeave={() => setHoveredItem(null)}
         >

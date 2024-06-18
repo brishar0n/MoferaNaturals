@@ -86,6 +86,7 @@ function AdminPage() {
   }
 
   function formatDate(dateString) {
+    if (!dateString) return "N/A"
     return dateString.replace('T', ' ');
   }
 
