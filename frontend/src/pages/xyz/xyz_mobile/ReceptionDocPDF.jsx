@@ -120,8 +120,18 @@ function ReceptionDocPDF({ doc_id }) {
             const response = await searchReceptionPackages(new String(doc_id));
             if(response && response.data) {
                 const data = response.data;
+
+                console.log(data);
                 
-                const package_ids = data.package_id.split(",").map((e) => parseInt(e));
+                let package_ids = [];
+                if (typeof data.package_id === 'string') {
+                    package_ids = data.package_id.split(",").map((e) => parseInt(e));
+                } else if (Array.isArray(data.package_id)) {
+                    package_ids = data.package_id.map((e) => parseInt(e));
+                } else {
+                    console.error('Package ID is not in the expected format:', data.package_id);
+                }
+
                 let weight = 0;
                 const centra_id = new Set()
                 const package_data = []
@@ -149,7 +159,7 @@ function ReceptionDocPDF({ doc_id }) {
                     description: data.description,
                     package_data
                 })
-                
+                console.log(receptionData);
             }
 
             

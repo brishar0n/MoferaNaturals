@@ -26,6 +26,7 @@ import {
   deletePackage,
   deleteShippingInfo,
   deleteWetLeaves,
+  postCentra,
 } from "../../../api/adminAPI";
 import {
   columns,
@@ -40,6 +41,7 @@ import {
 } from "../../components/admin/UserDataSample";
 
 import DashboardDataFolder from "../../components/admin/DashboardDataFolder";
+import AddCentraButton from "../../components/admin/AddCentraButton";
 
 const columnsMap = {
   AdminTable: columns,
@@ -58,10 +60,13 @@ function AdminPage() {
   const [columnData, setColumnData] = useState(columnsMap.AdminTable);
   const [filteredRows, setFilteredRows] = useState([]);
   const [isMinimized, setIsMinimized] = useState(false);
+  const [selectedRole, setSelectedRole] = useState("");
   const [pageData, setPageData] = useState({
     title: "Manage Users",
     description: "Arrange username and data collections of ID",
   });
+
+  
 
   function getStatusDescription(status) {
     switch (status) {
@@ -81,27 +86,49 @@ function AdminPage() {
   }
 
   function formatDate(dateString) {
+    if (!dateString) return "N/A"
     return dateString.replace('T', ' ');
   }
 
   function formatWeight(weight) {
     return `${weight} KG`;
   }
-  
-  
-  const addUser = (newUser) => {
-    console.log("Adding new user:", newUser);
-    setRows((prevRows) => [
-      ...prevRows,
-      {
-        key: String(prevRows.length + 1),
-        id: newUser.id,
-        name: newUser.name,
-        email: newUser.email,
-        role: newUser.role,
-      },
-    ]);
+
+  const handleResize = () => {
+    if (window.innerWidth <= 1274) {
+      setIsMinimized(true);
+    } else {
+      setIsMinimized(false);
+    }
   };
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    handleResize();
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  const addCentra = async (newCentra) => {
+    console.log("Adding new centra:", newCentra);
+    try {
+      const response = await postCentra(newCentra);
+      console.log("Response:", response);
+      
+      // Update the UI state with the newly added centra data
+      setRows((prevRows) => [
+        ...prevRows,
+        {
+          key: String(prevRows.length + 1),
+          id: response.id,
+          location: newCentra.location,
+        },
+      ]);
+    } catch (error) {
+      console.error("Failed to add centra:", error);
+    }
+  }
 
   const handleEditUser = async (updatedUser) => {
     try {
@@ -286,6 +313,7 @@ function AdminPage() {
             rows={filteredRows.length > 0 ? filteredRows : rows}
             deleteRow={deleteRow}
             editRow={handleEditUser}
+            pageName={'CentraData'}
           />
         );
       case "WetLeavesData":
@@ -295,6 +323,7 @@ function AdminPage() {
             rows={filteredRows.length > 0 ? filteredRows : rows}
             deleteRow={deleteRow}
             editRow={handleEditUser}
+            pageName={'WetLeavesData'}
           />
         );
       case "DryLeavesData":
@@ -304,6 +333,7 @@ function AdminPage() {
             rows={filteredRows.length > 0 ? filteredRows : rows}
             deleteRow={deleteRow}
             editRow={handleEditUser}
+            pageName={'DryLeavesData'}
           />
         )
       case "FlourData":
@@ -313,6 +343,7 @@ function AdminPage() {
             rows={filteredRows.length > 0 ? filteredRows : rows}
             deleteRow={deleteRow}
             editRow={handleEditUser}
+            pageName={'FlourData'}
           />
         );
       case "ShippingInfoData":
@@ -322,6 +353,7 @@ function AdminPage() {
             rows={filteredRows.length > 0 ? filteredRows : rows}
             deleteRow={deleteRow}
             editRow={handleEditUser}
+            pageName={'ShippingInfoData'}
           />
         );
       case "CheckpointData":
@@ -331,6 +363,7 @@ function AdminPage() {
             rows={filteredRows.length > 0 ? filteredRows : rows}
             deleteRow={deleteRow}
             editRow={handleEditUser}
+            pageName={'CheckpointData'}
           />
         );
       case "PackageData":
@@ -340,6 +373,7 @@ function AdminPage() {
             rows={filteredRows.length > 0 ? filteredRows : rows}
             deleteRow={deleteRow}
             editRow={handleEditUser}
+            pageName={'PackageDate'}
           />
         );
       default:
@@ -368,7 +402,17 @@ function AdminPage() {
       >
         <PageTitleAll title={pageData.title} description={pageData.description} />
         <UserProfile />
-        <SearchButtonData onSearch={handleSearch} />
+        
+        <div className="flex justify-around items-center pr-10">
+            <div className="grow">
+                <SearchButtonData onSearch={handleSearch}/>
+            </div>
+            <div className="pt-7">
+                {pageData.title === "Centra Data" && <AddCentraButton onAddCentra={addCentra} />}
+            </div>
+          
+        </div>
+        
         <div
           className={`flex justify-start pt-10 items-center gap-8 ${
             pageData.title !== "Data Master" && pageData.title !== "Dashboard"

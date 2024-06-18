@@ -196,6 +196,29 @@ export const getCheckpoints = async() => {
     return Checkpoints
 }
 
+export const getCheckpointStats = async(data) => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    const CheckpointDatas = await axios.get(URL + "/xyz/quick_get_checkpoint_stats", {
+            "params": {...data }
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+
+    return CheckpointDatas
+}
+
+export const getCheckpointSummary = async() => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    const CheckpointDatas = await axios.get(URL + "/xyz/get_checkpoint_summary")
+        .catch((error) => {
+            console.error(error);
+        });
+
+    return CheckpointDatas
+}
+
+
 export const getPackagesWithStatus = async(status) => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
     const Packages = await axios.get(URL + "/xyz/packages_status", {
@@ -230,6 +253,25 @@ export const searchReceptionPackages = async (id) => {
     return Reception
 }
 
+export const getShippingSummary = async(data) => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    const ShippingSummary = await axios.get(URL + "/xyz/get_shipping_summary")
+        .catch((error) => {
+            console.error(error);
+        });
+    return ShippingSummary
+}
+
+export const getShippingStats = async(data) => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    const ShippingStats = await axios.get(URL + "/xyz/quick_get_shipping_stats", {
+        "params":{...data}
+    })
+        .catch((error) => {
+            console.error(error);
+        });
+    return ShippingStats
+}
 
 
 export const getShippingInfo = async(ShippingInfo) => {

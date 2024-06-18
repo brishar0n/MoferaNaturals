@@ -5,16 +5,6 @@ import clipboard from './../../assets/desktop/clipboard.svg';
 import settings from './../../assets/desktop/settings.svg';
 import delivery_truck from './../../assets/desktop/delivery_truck.svg';
 
-const dummyData = {
-  trackingNumber: '3728 4892 7584',
-  carrier: 'SiCepat Express',
-  from: 'Bandung',
-  to: 'Surabaya',
-  startDate: '20 August 2023',
-  endDate: '31 August 2023',
-  status: 'Packaging'
-}
-
 const ShipmentLink = ({trackingNumber, carrier, status, from, to, startDate, endDate}) => {
 
   const nav = useNavigate();

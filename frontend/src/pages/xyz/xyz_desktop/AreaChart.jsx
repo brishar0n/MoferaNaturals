@@ -71,7 +71,6 @@ const AreaChart= ({lineData}) =>  {
             'rgba(1, 107, 69, 0.2)',
             'rgba(255, 255, 255, 0)'
           ]
-          console.log(context.chart.chartArea);
           if (!context.chart.chartArea) {
             return;
           }

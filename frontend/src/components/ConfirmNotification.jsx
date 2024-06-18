@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
-const ConfirmNotification = ({onClose, text, confirmationText, confirmedText, confirmedTitle, cancelledText}) => {
+const ConfirmNotification = ({onClose, text, confirmationText, confirmedText, confirmedTitle, cancelledText, confirmFunction}) => {
     const nav = useNavigate();
 
     const showConfirm = () => {
@@ -13,6 +13,7 @@ const ConfirmNotification = ({onClose, text, confirmationText, confirmedText, co
             icon: "warning",
             showCancelButton: true,
             confirmButtonText: confirmationText,
+            confirmButtonColor: '#016B45',
             cancelButtonText: "No, cancel!",
             reverseButtons: true,
             customClass: {
@@ -26,12 +27,13 @@ const ConfirmNotification = ({onClose, text, confirmationText, confirmedText, co
                 title: confirmedTitle,
                 text: confirmedText,
                 icon: "success",
+                confirmButtonColor: "#016B45",
                 customClass: {
                     popup: 'rounded-3xl w-96 montserrat', 
                 }
                 
                 });
-                nav("/welcomeback");
+                confirmFunction.func()
             } else if (
             /* Read more about handling dismissals below */
             result.dismiss === Swal.DismissReason.cancel
@@ -40,6 +42,7 @@ const ConfirmNotification = ({onClose, text, confirmationText, confirmedText, co
                 title: "Cancelled",
                 text: cancelledText,
                 icon: "error",
+                confirmButtonColor: "#016B45",
                 customClass: {
                     popup: 'rounded-3xl w-96 montserrat',
                 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Sidebar from "../../../components/xyz/Sidebar";
 import BarChart from "./BarChart";
 import RecentActivities from "./RecentActivities";
@@ -8,13 +8,15 @@ import { IoNotifications } from "react-icons/io5";
 import { motion } from "framer-motion";
 
 import profilepic from "../../../assets/desktop/profilepicdesktop.svg";
+import { getShippingInfo, getShippingStats, getShippingSummary } from '../../../../api/xyzAPI';
+import { PiBreadDuotone } from 'react-icons/pi';
 
-const activities = [
-  { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of wet leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-10@2x.png' },
-  { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of wet leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-9@2x.png' },
-  { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of wet leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-22@2x.png' },
-  { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of wet leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-18@2x.png' },
-];
+// const activities = [
+//   { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of wet leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-10@2x.png' },
+//   { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of wet leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-9@2x.png' },
+//   { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of wet leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-22@2x.png' },
+//   { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of wet leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-18@2x.png' },
+// ];
 
 const shippingData = [
     { id: "SHIPID#12034", fromCentra: "Centra Unit 1", weight: "30 kg", dateShipped: "31 July 2023", expedition: "JNE", arrivalTime: "1 May 2024", status: "Pending", img: profilepic},
@@ -25,6 +27,8 @@ const shippingData = [
 
 
 const ShipmentTrackerDashboard = () => {
+    const [shippingData, setShippingData] = useState([])
+
     const [isSidebarMinimized, setIsSidebarMinimized] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const rowsPerPage = 4;
@@ -32,10 +36,62 @@ const ShipmentTrackerDashboard = () => {
     const startRow = (currentPage - 1) * rowsPerPage;
     const endRow = startRow + rowsPerPage;
     const currentData = shippingData.slice(startRow, endRow);
-
+    const [statsFilter, setStatsFilter] = useState("daily")
+    const [barData, setBarData] = useState([])
+    const [shippingSummary, setShippingSummary] = useState({
+        "total": 0,
+        "monthly": 0,
+        "today": 0
+    })
+    const [activities, setActivities] = useState([])
+    
     const toggleSidebar = () => {
         setIsSidebarMinimized(!isSidebarMinimized);
     };
+
+    useEffect(() => {
+        const fetchBarData = async () => {
+            const response = await getShippingStats({interval: statsFilter})
+            if(response && response.data) {
+                setBarData(response.data)
+            }
+        } 
+        
+        fetchBarData()
+
+        const fetchShippingSummary = async () => {
+            const response = await getShippingSummary({interval: statsFilter})
+            if(response && response.data) {
+                setShippingSummary(response.data)
+            }
+        } 
+        
+        fetchShippingSummary()
+
+        const fetchActivities = async () => {
+            const response = await getShippingInfo()
+            if(response && response.data) {
+                setActivities(response.data.map((data) => ({
+                    "day": new Date(data.departure_datetime).toLocaleString(),
+                    "time": "",
+                    "description": `Shipment #${data.id} has departed`,
+                    "image": 'src/assets/DashboardDesktop/ellipse-18@2x.png'
+                })))
+                setShippingData(response.data.map((data) => ({
+                    "id":data.id,
+                    "fromCentra": data.centra_id,
+                    "weight": data.total_weight,
+                    "dateShipped": new Date(data.departure_datetime).toLocaleDateString(),
+                    "expedition": data.expedition,
+                    "arrivalTime": new Date(data.arrival_datetime).toLocaleString(),
+                    "status": data.arrival_datetime ? "Arrived" : "Pending",
+                    "image": profilepic
+                })))
+            }
+        }
+
+        fetchActivities()
+    }, [])
 
     return (
     <div className="bg-primary w-screen h-screen flex relative">
@@ -118,26 +174,26 @@ const ShipmentTrackerDashboard = () => {
                 </form>
                 </div>
                 <div className="flex-1 flex-grow flex-shrink">
-                <BarChart barData={shippingData}/>
+                <BarChart barData={barData} label={"Shipment"}/>
                 </div>
             </div>
             <div className="grid grid-cols-3 gap-4 mb-4">
                 <div className="h-30 bg-quinary rounded-3xl flex items-center justify-center dark:bg-gray-800 p-4">
                 <div>
                     <p className="text-base">Total Shipments:</p>
-                    <p className="text-3xl font-medium">130</p>
+                    <p className="text-3xl font-medium">{shippingSummary.total}</p>
                 </div>
                 </div>
                 <div className="h-30 bg-quinary rounded-3xl flex items-center justify-center dark:bg-gray-800 p-4">
                 <div>
-                    <p className="text-base">Pending Packages:</p>
-                    <p className="text-3xl font-medium">40</p>
+                    <p className="text-base">Average Shipments per Day:</p>
+                    <p className="text-3xl font-medium">{shippingSummary.monthly.toFixed(2)}</p>
                 </div>
                 </div>
                 <div className="h-30 bg-quinary rounded-3xl flex items-center justify-center dark:bg-gray-800 p-4">
                 <div>
-                    <p className="text-base">Arrival at Guard <br /> Harbour:</p>
-                    <p className="text-3xl font-medium">10,300 kg</p>
+                    <p className="text-base">Today's shipment:</p>
+                    <p className="text-3xl font-medium">{shippingSummary.today}</p>
                 </div>
                 </div>
             </div>
