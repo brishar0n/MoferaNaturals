@@ -2,12 +2,12 @@ import React from "react";
 import Chart from "chart.js/auto";
 import { Bar } from "react-chartjs-2";
 
-const BarChart = ({barData}) => {
+const BarChart = ({barData, label}) => {
   const data = {
     labels: barData.label,
     datasets: [
       {
-        label: "Weight",
+        label: label ? label : "Weight",
         backgroundColor: "#016B45",
         borderColor: "rgb(1,107,69)",
         borderWidth: 2,

@@ -118,7 +118,7 @@ const ShipmentTrackerDashboard = () => {
                 </form>
                 </div>
                 <div className="flex-1 flex-grow flex-shrink">
-                <BarChart />
+                <BarChart barData={shippingData}/>
                 </div>
             </div>
             <div className="grid grid-cols-3 gap-4 mb-4">
