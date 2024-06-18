@@ -2,7 +2,7 @@ import { URL } from "./APIconst"
 import axios from "axios";
 
 
-export const getUsers = async () => {
+export const getUsers = async() => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
     const Users = await axios.get(URL + "/admin/users")
         .catch((error) => {
@@ -12,7 +12,20 @@ export const getUsers = async () => {
     return Users
 }
 
-export const getShippingInfo = async (ShippingInfo) => {
+export const postCentra = async(Centra) => {
+    console.log(Centra)
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    try {
+        const response = await axios.post(URL + "/admin/new_centra", Centra);
+        console.log("Success");
+        return response.data; // Return the response data
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
+
+export const getShippingInfo = async(ShippingInfo) => {
     console.log(ShippingInfo)
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
     const ShippingInfos = await axios.get(URL + "/admin/shipping")
@@ -20,24 +33,24 @@ export const getShippingInfo = async (ShippingInfo) => {
             console.error(error);
         });
     return ShippingInfos
-}   
+}
 
-export const getPackages = async () => {
+export const getPackages = async() => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
     const Packages = await axios.get(URL + "/admin/packages")
-    .catch((error) => {
-        console.error(error);
-    });
+        .catch((error) => {
+            console.error(error);
+        });
 
     return Packages
 }
 
-export const getCheckpoints = async () => {
+export const getCheckpoints = async() => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
     const Checkpoints = await axios.get(URL + "/admin/checkpoints")
-    .catch((error) => {
-        console.error(error);
-    });
+        .catch((error) => {
+            console.error(error);
+        });
 
     return Checkpoints
 }
@@ -82,7 +95,7 @@ export const getCentra = async() => {
     return Centra
 }
 
-export const updateUser = async (user) => {
+export const updateUser = async(user) => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
     console.log(user)
     const userData = {
@@ -99,7 +112,7 @@ export const updateUser = async (user) => {
         });
 }
 
-export const deleteUser = async (id) => {
+export const deleteUser = async(id) => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
     await axios.delete(URL + `/admin/users/${id}`)
         .catch((error) => {
@@ -107,7 +120,7 @@ export const deleteUser = async (id) => {
         });
 }
 
-export const deleteCheckpoint = async (id) => {
+export const deleteCheckpoint = async(id) => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
     await axios.delete(URL + `/admin/checkpoints/${id}`)
         .catch((error) => {
@@ -115,7 +128,7 @@ export const deleteCheckpoint = async (id) => {
         });
 }
 
-export const deletePackage = async (id) => {
+export const deletePackage = async(id) => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
     await axios.delete(URL + `/admin/packages/${id}`)
         .catch((error) => {
@@ -123,7 +136,7 @@ export const deletePackage = async (id) => {
         });
 }
 
-export const deleteShippingInfo = async (id) => {
+export const deleteShippingInfo = async(id) => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
     await axios.delete(URL + `/admin/shipping/${id}`)
         .catch((error) => {
@@ -131,7 +144,7 @@ export const deleteShippingInfo = async (id) => {
         });
 }
 
-export const deleteDryLeaves = async (id) => {
+export const deleteDryLeaves = async(id) => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
     await axios.delete(URL + `/admin/dry_leaves/${id}`)
         .catch((error) => {
@@ -139,7 +152,7 @@ export const deleteDryLeaves = async (id) => {
         });
 }
 
-export const deleteFlour = async (id) => {
+export const deleteFlour = async(id) => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
     await axios.delete(URL + `/admin/flour/${id}`)
         .catch((error) => {
@@ -147,7 +160,7 @@ export const deleteFlour = async (id) => {
         });
 }
 
-export const deleteWetLeaves = async (id) => {
+export const deleteWetLeaves = async(id) => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
     await axios.delete(URL + `/admin/wet_leaves/${id}`)
         .catch((error) => {
@@ -155,7 +168,7 @@ export const deleteWetLeaves = async (id) => {
         });
 }
 
-export const deleteCentra = async (id) => {
+export const deleteCentra = async(id) => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
     await axios.delete(URL + `/admin/centra/${id}`)
         .catch((error) => {
