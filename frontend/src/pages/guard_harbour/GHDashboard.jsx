@@ -3,7 +3,7 @@ import GuardHarbourDashboardContent from "../../components/guard_harbour/GuardHa
 import NavbarGH from "../../components/guard_harbour/NavbarGH";
 import { motion } from "framer-motion";
 import { getCurrentUser } from '../../../api/profileAPI';
-
+import { useNavigate } from "react-router-dom";
 import vector414 from "../../../src/assets/dashboard/vector-414.svg";
 import vector412 from "../../../src/assets/dashboard/vector-412.svg";
 import ellipse from "../../../src/assets/dashboard/ellipse-8@2x.png";
@@ -14,6 +14,7 @@ import bottomElement from "../../../src/assets/dashboard/bottom-element.svg";
 function GHDashboard() {
     const [isMobile, setIsMobile] = useState(false);
     const [username, setUsername] = useState("");
+    const navigate = useNavigate();
 
     useEffect(() => {
         const handleResize = () => {
@@ -31,6 +32,16 @@ function GHDashboard() {
           window.removeEventListener("resize", handleResize);
         };
     }, []);
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+          if (!isMobile) {
+            navigate('/warningpage');
+          } 
+        }, 750);
+    
+        return () => clearTimeout(timeout);
+      }, [isMobile, navigate]);
 
     useEffect(() => {
         const fetchData = async () => {
