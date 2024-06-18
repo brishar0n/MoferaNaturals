@@ -9,11 +9,12 @@ import '../../../style/xyz/xyz_mobile/RescalePackage.css'
 import rescaleBg from '../../../assets/xyz/bgrescale.svg'
 import { motion } from 'framer-motion';
 import { getPackageByID, rescalePackage } from '../../../../api/xyzAPI.js';
+import { useNavigate } from 'react-router-dom';
+
 
 function RescalingPackage() {
     const { packageId } = useParams();
     const parsedPackageId = parseInt(packageId);
-      
     // const packages = [
     //     { id: 200420, weight: 10, expDate: "2024-05-01", status: "READY TO SHIP", shippingId: null, xyz_id: null, centraUnit: 1 },
     //     { id: 200421, weight: 5, expDate: "2024-06-15", status: "SHIPPING", shippingId: 1, xyz_id: null, centraUnit: 2 },   // 
@@ -58,6 +59,16 @@ function RescalingPackage() {
         window.removeEventListener('resize', handleResize);
         };
     }, []);
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+          if (!isMobile) {
+            navigate('/warningpage');
+          } 
+        }, 750);
+    
+        return () => clearTimeout(timeout);
+    }, [isMobile, navigate]);
 
     if (!packageData) {
         // If packageData is not found, you can render a message or redirect to an error page

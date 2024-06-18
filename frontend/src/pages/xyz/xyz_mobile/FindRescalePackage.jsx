@@ -2,9 +2,10 @@ import NavbarXYZ from '../../../components/xyz/xyz_mobile/NavbarXYZ.jsx'
 import SearchRescale from '../../../components/xyz/xyz_mobile/SearchRescale.jsx'
 import { useState, useEffect } from 'react'
 import rescaleBg from '../../../assets/xyz/bgrescale.svg'
-
+import { useNavigate } from 'react-router-dom'
 function FindRescalePackage() {
     const [isMobile, setIsMobile] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const handleResize = () => {
@@ -23,6 +24,16 @@ function FindRescalePackage() {
         };
     }, []);
 
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+          if (!isMobile) {
+            navigate('/warningpage');
+          } 
+        }, 750);
+    
+        return () => clearTimeout(timeout);
+      }, [isMobile, navigate]);
+    
     return (
         <div className='bg-quaternary w-screen h-screen overflow-y-scroll'>
             {isMobile && (
