@@ -375,7 +375,7 @@ function AdminSidebar({ isMinimized, toggleMenu, onPageDataChange }) {
               >
                 <BsDatabaseFillGear className='text-3xl mr-4'></BsDatabaseFillGear>
                 <div className='flex flex-col text-start'>
-                  <p onClick={() => onPageDataChange('Data Master', 'Observe data through their categories', 'MasterDataFolder')}>Data</p>
+                  <p onClick={() => handleSelectDataCategory('Centra')}>Data</p>
                   <p>Management</p>
                 </div>
               </li>
