@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 function AddCheckpoint() {
     const [isMobile, setIsMobile] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const handleResize = () => {

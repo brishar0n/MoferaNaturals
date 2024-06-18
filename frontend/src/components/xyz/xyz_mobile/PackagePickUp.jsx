@@ -71,7 +71,7 @@ function PackagePickUp({searchResult, shippingData}) {
     };
 
     function handleConfirm() {
-        nav("/addcheckpoint");
+        nav("/receptionpackage");
     }
 
     const [statusFilter, setStatusFilter] = useState("ALL");

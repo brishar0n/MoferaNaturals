@@ -13,6 +13,7 @@ const ConfirmNotification = ({onClose, text, confirmationText, confirmedText, co
             icon: "warning",
             showCancelButton: true,
             confirmButtonText: confirmationText,
+            confirmButtonColor: '#016B45',
             cancelButtonText: "No, cancel!",
             reverseButtons: true,
             customClass: {
@@ -26,6 +27,7 @@ const ConfirmNotification = ({onClose, text, confirmationText, confirmedText, co
                 title: confirmedTitle,
                 text: confirmedText,
                 icon: "success",
+                confirmButtonColor: "#016B45",
                 customClass: {
                     popup: 'rounded-3xl w-96 montserrat', 
                 }
@@ -40,6 +42,7 @@ const ConfirmNotification = ({onClose, text, confirmationText, confirmedText, co
                 title: "Cancelled",
                 text: cancelledText,
                 icon: "error",
+                confirmButtonColor: "#016B45",
                 customClass: {
                     popup: 'rounded-3xl w-96 montserrat',
                 }
