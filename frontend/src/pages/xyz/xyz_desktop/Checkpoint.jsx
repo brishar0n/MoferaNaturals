@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Sidebar from "../../../components/xyz/Sidebar";
 import BarChart from "./BarChart";
 import RecentActivities from "./RecentActivities";
@@ -8,26 +8,31 @@ import profilepic from "../../../assets/desktop/profilepicdesktop.svg";
 import CheckPointTable from './CheckpointTable';
 import AdminTable from '../../../components/xyz/CheckPointTable';
 import { initialCheckpointRows, columnsCheckpoint} from "../../../components/admin/UserDataSample";
+import { getCheckpointStats, getCheckpointSummary, getCheckpoints } from '../../../../api/xyzAPI';
 
-export const activities = [
-    { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-10@2x.png' },
-    { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-9@2x.png' },
-    { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-22@2x.png' },
-    { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-18@2x.png' },
-    { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-10@2x.png' },
-    { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-9@2x.png' },
-    { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-22@2x.png' },
-    { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-18@2x.png' },
-  ];
+// export const activities = [
+//     { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-10@2x.png' },
+//     { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-9@2x.png' },
+//     { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-22@2x.png' },
+//     { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-18@2x.png' },
+//     { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-10@2x.png' },
+//     { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-9@2x.png' },
+//     { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-22@2x.png' },
+//     { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-18@2x.png' },
+  // ];
 
 const Checkpoint = () => {
     const [isSidebarMinimized, setIsSidebarMinimized] = useState(false);
-    const [centraFilter, setCentraFilter] = useState("1");
     const [statsFilter, setStatsFilter] = useState("daily");
-    const [trendFilter, setTrendFilter] = useState("monthly");
     const [filter, setFilter] = useState('all'); // New state for filtering
     const [rows, setRows] = useState(initialCheckpointRows);
-    const [columnData, setColumnData] = useState(columnsCheckpoint);
+    const [columnData, setColumnData] = useState([]);
+    const [checkpointData, setCheckpointData] = useState([])
+    const [checkpointSummary, setCheckpointSummary] = useState({
+      "total": 0,
+      "monthly": 0,
+      "today": 0 
+    })
     const handleEditUser = (updatedUser) => {
         setRows((prevUsers) =>
           prevUsers.map((row) =>
@@ -43,6 +48,46 @@ const Checkpoint = () => {
     const toggleSidebar = () => {
       setIsSidebarMinimized(!isSidebarMinimized);
     };
+
+    useEffect(() => {
+      const fetchColumnData = async () => {
+        const response = await getCheckpointStats({interval: statsFilter})
+        if(response && response.data) {
+          setColumnData(response.data)
+        }
+      }
+
+      fetchColumnData()
+    }, [statsFilter])
+
+    useEffect(() => {
+      const fetchCheckpointData = async () => {
+        const response = await getCheckpoints()
+        if(response && response.data) {
+          setCheckpointData(response.data.map((data) => ({
+            id: data.id,
+            shipping_id: data.shipping_id,
+            total_packages: data.total_packages,
+            arrival_datetime: data.arrival_datetime,
+            day: new Date(data.arrival_datetime).toLocaleString(),
+            time: "10 mins ago.",
+            description: `Shipping ${data.shipping_id} has been arrived`,
+            image: 'src/assets/DashboardDesktop/ellipse-18@2x.png'
+          })))
+        }
+      }
+
+      fetchCheckpointData()
+
+      const fetchCheckpointSummary = async () => {
+        const response = await getCheckpointSummary()
+        if (response && response.data) {
+          setCheckpointSummary(response.data)
+        }
+      }
+
+      fetchCheckpointSummary()
+    }, [])
     return (
         <div className="bg-primary w-screen h-screen flex relative">
         <Sidebar isMinimized={isSidebarMinimized} toggleSidebar={toggleSidebar} />
@@ -77,19 +122,19 @@ const Checkpoint = () => {
                         <div className="h-24 bg-quinary rounded-3xl flex items-center justify-center dark:bg-gray-800 p-4">
                         <div>
                             <p className="text-sm">Total Checkpoints:</p>
-                            <p className="text-lg font-bold">10,300 kg</p>
+                            <p className="text-lg font-bold">{checkpointSummary.total.toFixed(2)}</p>
                         </div>
                         </div>
                         <div className="h-24 bg-quinary rounded-3xl flex items-center justify-center dark:bg-gray-800 p-4">
                         <div>
                             <p className="text-sm">Average Checkpoints Each Day:</p>
-                            <p className="text-lg font-bold">500 kg</p>
+                            <p className="text-lg font-bold">{checkpointSummary.monthly.toFixed(2)}</p>
                         </div>
                         </div>
                         <div className="h-24 bg-quinary rounded-3xl flex items-center justify-center dark:bg-gray-800 p-4">
                         <div>
-                            <p className="text-sm">Total Packages Arrived:</p>
-                            <p className="text-lg font-bold">102 kg</p>
+                            <p className="text-sm">Today's Total Shipments Arrived:</p>
+                            <p className="text-lg font-bold">{checkpointSummary.today.toFixed(2)}</p>
                         </div>
                         </div>
                     </div>
@@ -103,12 +148,12 @@ const Checkpoint = () => {
                             <option value="daily">Daily</option>
                             <option value="weekly">Weekly</option>
                             <option value="monthly">Monthly</option>
-                            <option value="annually">Annually</option>
+                            <option value="yearly">Annually</option>
                             </select>
                         </form>
                         </div>
                         <div className="flex-1 flex-grow flex-shrink">
-                        <BarChart barData={columnData}/>
+                        <BarChart barData={columnData} label={"Packages"}/>
                         </div>
                     </div>
                 </div>
@@ -116,7 +161,7 @@ const Checkpoint = () => {
                     <div className="flex flex-col bg-quinary rounded-3xl dark:bg-gray-800 p-4">
                         <div className="text-2xl text-left text-black font-semibold px-4 mt-4">Recent Activities</div>              
                         <div>
-                            <RecentActivities activities={activities} />
+                            <RecentActivities activities={checkpointData} />
                         </div>
                     </div>
                 </div>
@@ -137,8 +182,8 @@ const Checkpoint = () => {
                   </div>
                   
                 </div>
-                  {/*<CheckPointTable filter={filter}  />*/}
-                  <AdminTable columns={columnData} rows={rows} deleteRow={deleteRow} editRow={handleEditUser} />
+                  <CheckPointTable data={checkpointData} filter={filter}  />
+                  {/* <AdminTable columns={columnData} rows={rows} deleteRow={deleteRow} editRow={handleEditUser} /> */}
                 </div>
               </div>
               

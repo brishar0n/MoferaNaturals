@@ -5,6 +5,7 @@ import bgcheckpoint1 from '../../assets/guardharbour/bgcheckpoint1.svg';
 import { useNavigate } from 'react-router-dom';
 
 function AddCheckpoint() {
+    const navigate = useNavigate()
     const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
