@@ -5,9 +5,8 @@ import Datepicker from "react-tailwindcss-datepicker";
 import ReceptionHeader from './ReceptionHeader';
 import { useNavigate } from 'react-router-dom';
 import PackageIDInput from './PackageIDInput';
-import SuccessNotification from "../../SuccessNotification";
-import FailedNotification from "../../FailedNotification";
 import { addReception, getArrivedPackage } from '../../../../api/xyzAPI';
+import PDFNotification from '../../PDFNotification';
 
 function PackageReception({handleSubmit}) {
     const successMessage = `You have successfully added package reception data.`;
@@ -22,6 +21,7 @@ function PackageReception({handleSubmit}) {
     const [description, setDescription] = useState('');
     const [trigger, setTrigger] = useState(false);
     const [formSubmitted, setFormSubmitted] = useState(false);
+    const [docId, setDocId] = useState(null); // New state to hold doc_id
 
     const navigate = useNavigate();
 
@@ -47,8 +47,18 @@ function PackageReception({handleSubmit}) {
                 setFormSubmitted(true);
                 setTrigger(!trigger); 
                 
-                doc_id = response.data.id;
-                navigate(`/receptionpackages/${doc_id}`);
+                setDocId(response.data.id);
+
+                // // Reset the form fields
+                // setSelectedPackageIDs([]);
+                // setReceivalDate('');
+                // setReceivalTime('');
+                // setTotalPackagesReceived(0);
+                // setTotalWeight(0);
+                // setCentraUnit('');
+                // setGhName('');
+                // setXYZName('');
+                // setDescription('');
             } 
         } catch (error) {
             console.error('Failed to add reception document:', error);
@@ -91,7 +101,7 @@ function PackageReception({handleSubmit}) {
         
     return (
         <div className='pb-36'>
-            {formSubmitted && <SuccessNotification htmlContent={successMessage} trigger={trigger}/>}
+            {formSubmitted && <PDFNotification htmlContent={successMessage} trigger={trigger} doc_id={docId} />}
             {/* {formSubmitted && weight <= 0 && <FailedNotification htmlContent={failedMessage} />} */}
 
             <ReceptionHeader />
@@ -152,8 +162,8 @@ function PackageReception({handleSubmit}) {
                 <label htmlFor="ghName" className='items-start text-xs mb-2 font-medium'>GH Preparer:</label>
                 <input 
                     type="string" 
-                    id="ghName" 
                     className='mb-2 rounded-md bg-quinary px-2 py-1 w-full text-xs border-none' 
+                    value={ghName}
                     onChange={(e) => setGhName(e.target.value)}
                     required
                 />
@@ -161,8 +171,8 @@ function PackageReception({handleSubmit}) {
                 <label htmlFor="xyzName" className='items-start text-xs mb-2 font-medium'>XYZ Receiver:</label>
                 <input 
                     type="string" 
-                    id="xyzName" 
                     className='mb-2 rounded-md bg-quinary px-2 py-1 w-full text-xs border-none' 
+                    value={xyzName}
                     onChange={(e) => setXYZName(e.target.value)}
                     required
                 />
@@ -170,8 +180,8 @@ function PackageReception({handleSubmit}) {
                 <label htmlFor="description" className='items-start text-xs mb-2 font-medium'>Description:</label>
                 <input 
                     type="string" 
-                    id="description" 
                     className='mb-2 rounded-md bg-quinary px-2 py-1 w-full text-xs border-none' 
+                    value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     required
                 />
