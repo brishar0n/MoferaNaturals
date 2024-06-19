@@ -402,7 +402,7 @@ function AdminPage() {
         }`}
       >
         <PageTitleAll title={pageData.title} description={pageData.description} />
-        <UserProfile />
+        
         
         <div className="flex justify-around items-center pr-10">
             <div className="grow">
