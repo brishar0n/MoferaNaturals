@@ -7,6 +7,7 @@ import PageTitleAll from "../../components/admin/PageTitleAll";
 import UserProfile from "../../components/admin/UserProfile";
 import AdminSidebar from "../../components/admin/AdminSidebar";
 import MasterDataFolder from "../../components/admin/MasterDataFolder";
+import { motion } from "framer-motion";
 
 import {
   getUsers,
@@ -420,7 +421,9 @@ function AdminPage() {
               : "pl-12"
           }`}
         >
-          {renderComponent()}
+          
+            {renderComponent()}
+          
         </div>
       </div>
     </div>
