@@ -12,6 +12,7 @@ import profilepic from "../../../assets/desktop/profilepicdesktop.svg";
 import mascot from "../../../assets/xyz/half-mascot.svg";
 import { getFlourStats, getFlourDatas, getFlourSummary } from '../../../../api/xyzAPI';
 import { getCurrentUser } from '../../../../api/profileAPI';
+import EditProfileDesktop from './EditProfileDesktop';
 
 const activities = [
   { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-10@2x.png' },
@@ -22,7 +23,7 @@ const activities = [
 
 const PowderDashboard = () => {
   const [isSidebarMinimized, setIsSidebarMinimized] = useState(false);
-  const [centraFilter, setCentraFilter] = useState("1");
+  const [centraFilter, setCentraFilter] = useState("0");
   const [statsFilter, setStatsFilter] = useState("daily");
   const [trendFilter, setTrendFilter] = useState("daily");
   const [username, setUsername] = useState("Loading");
@@ -66,6 +67,13 @@ const PowderDashboard = () => {
     "monthly": 0,
     "today": 0
   })
+
+  const formatDate = (dateStr) => {
+    const date = new Date(dateStr);
+    const options = { day: 'numeric', month: 'long', year: 'numeric' };
+    return date.toLocaleDateString('en-GB', options);
+  };
+
   useEffect(() => {
     const fetchPowderData = async () => {
       const response = await getFlourDatas();
@@ -79,12 +87,6 @@ const PowderDashboard = () => {
           }))
         }
     }
-
-    const formatDate = (dateStr) => {
-      const date = new Date(dateStr);
-      const options = { day: 'numeric', month: 'long', year: 'numeric' };
-      return date.toLocaleDateString('en-GB', options);
-    };
 
     fetchPowderData();
     
@@ -125,7 +127,7 @@ const PowderDashboard = () => {
                 <SearchForm isSidebarMinimized={isSidebarMinimized} />
               </div>
               <div className="p-2 bg-quinary rounded-full absolute right-0 top-0 mr-28 mt-12">
-                <a href="/dashboard"><IoNotifications className="text-2xl" /></a>
+                <a href="/notifications"><IoNotifications className="text-2xl" /></a>
               </div>
               <div>
                 <span className="flex items-center mr-6 mt-6">

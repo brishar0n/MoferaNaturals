@@ -23,9 +23,9 @@ const Notifications = ({ children }) => {
                 <div className="flex justify-between items-center">
                     <h1 className='text-4xl font-semibold text-left ml-6 mt-3'>Shipment Notifications</h1>
 
-                    <div className="flex items-center justify-center mt-3 rounded dark:bg-gray-800 relative">
+                    <div className="flex items-center justify-center mt-3 rounded dark:bg-gray-800">
                         <div className="p-2 bg-quinary rounded-full absolute right-0 top-0 mr-28 mt-12">
-                            <a href="/dashboard"><IoNotifications className="text-2xl" /></a>
+                            <a href="/notifications"><IoNotifications className="text-2xl" /></a>
                         </div>
                         <div>
                             <span className="flex items-center mr-6 mt-6">

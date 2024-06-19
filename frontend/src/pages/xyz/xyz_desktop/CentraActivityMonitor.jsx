@@ -8,6 +8,7 @@ import CentraMonitorTable from '../../../components/xyz/CentraMonitorTable';
 import CentraMonitorBar from '../../../components/xyz/CentraMonitorBar';
 import profilepic from "../../../assets/desktop/profilepicdesktop.svg";
 import { getPackageSummary } from '../../../../api/xyzAPI';
+import EditProfileDesktop from './EditProfileDesktop';
 
 const CentraActivityMonitor = () => {
   const [date, setDate] = useState(new Date());
@@ -55,7 +56,7 @@ const CentraActivityMonitor = () => {
         <div className="flex justify-between items-center mb-5">
           <h1 className='text-4xl font-semibold text-left ml-6 mt-6'>Centra Activity Monitor</h1>
             <div className="p-2 bg-quinary rounded-full absolute right-0 top-0 mr-28 mt-12">
-              <a href="/dashboard"><IoNotifications className="text-2xl" /></a>
+              <a href="/notifications"><IoNotifications className="text-2xl" /></a>
             </div>
             <div>
               <span className="flex items-center mr-6 mt-6">
@@ -77,7 +78,7 @@ const CentraActivityMonitor = () => {
               <h2 className='text-left font-medium text-xl mt-6 ml-2'>Statistics</h2>
 
               <form className="h-10 w-40">
-                <select onChange={handleChange} value={filter} className="bg-quaternary border border-primary text-primary text-sm focus:ring-primary focus:border-primary block w-[120px] p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full ml-6 mt-4 py-1 px-1">
+                <select onChange={handleChange} value={filter} className="bg-transparent border border-primary text-primary text-sm focus:ring-primary focus:border-primary block w-[120px] p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full ml-6 mt-4 py-1 px-1">
                   <option value="daily">Daily</option>
                   <option value="monthly">Monthly</option>
                 </select>
