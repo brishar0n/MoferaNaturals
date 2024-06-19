@@ -40,6 +40,12 @@ const DryDashboard = () => {
       
   }, [statsFilter, centraFilter]);
 
+  const formatDate = (dateStr) => {
+    const date = new Date(dateStr);
+    const options = { day: 'numeric', month: 'long', year: 'numeric' };
+    return date.toLocaleDateString('en-GB', options);
+  };
+
   useEffect(() => {
     const fetchLineData = async () => {
         const response = await getDryStats({"interval": trendFilter, "centra_id": centraFilter});
