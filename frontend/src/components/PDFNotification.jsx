@@ -1,9 +1,16 @@
 import { useState, useEffect } from 'react';
 import PDFDownload from './PDFDownload';
+import { motion } from 'framer-motion';
 
 function SuccessModal({ htmlContent, doc_id, onClose }) {
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none px-10">
+        <motion.div 
+            initial={{ opacity: 0, y: -50 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            exit={{ opacity: 0, y: -50 }} 
+            transition={{ duration: 0.3 }} 
+            className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none px-10"
+        >
             <div className="relative w-auto max-w-3xl mx-auto my-6 z-50">
                 {/*content*/}
                 <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
@@ -29,7 +36,7 @@ function SuccessModal({ htmlContent, doc_id, onClose }) {
                 </div>
             </div>
             <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
-        </div>
+        </motion.div>
     );
 }
 
