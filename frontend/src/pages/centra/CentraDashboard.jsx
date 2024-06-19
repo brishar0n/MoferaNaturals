@@ -31,6 +31,7 @@ function CentraDashboardHomePage() {
   const [statsFilter, setStatsFilter] = useState("daily");
   const [barData, setBarData] = useState({});
   const [barLabel, setBarLabel] = useState("");
+  const [submittedWeight, setSubmittedWeight] = useState(0);
 
   useEffect(() => {
     if (currentSection !== "package")  {
@@ -67,6 +68,7 @@ function CentraDashboardHomePage() {
       "retrieval_datetime": date+"T"+time,
     })
     setFormSubmitted(true);
+    setSubmittedWeight(weight);
     setWeight(0);
     setDate("");
     setTime("");
@@ -280,6 +282,7 @@ function CentraDashboardHomePage() {
                           handleTimeChange={handleTimeChange}
                           formSubmitted={formSubmitted}
                           handleSubmit={handleSubmit}
+                          submittedWeight={submittedWeight}
                         />
                       </div>  
                   </motion.div>

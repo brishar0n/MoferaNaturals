@@ -59,21 +59,23 @@ function History() {
 
     const handleValueChange = (newValue) => {
         console.log("newValue:", newValue);
-        setValue(newValue);
+    setValue(newValue);
 
-        if (newValue.startDate) {
-            const selectedDate = new Date(newValue.startDate);
-            const day = selectedDate.getDate();
-            const month = selectedDate.getMonth() + 1; // Months are zero-indexed
-            const year = selectedDate.getFullYear();
+    let selectedDate;
+    if (newValue && newValue.startDate) {
+        selectedDate = new Date(newValue.startDate);
+    } else {
+        selectedDate = new Date(); // use today's date when no date is selected
+    }
 
-            const formattedDate = `${year}-${month < 10 ? "0" + month : month}-${day < 10 ? "0" + day : day}`;
+    const day = selectedDate.getDate();
+    const month = selectedDate.getMonth() + 1; // Months are zero-indexed
+    const year = selectedDate.getFullYear();
 
-            const filtered = collectionData.filter(batch => batch.retrieval_datetime && batch.retrieval_datetime.split("T")[0] === formattedDate);
-            setFilteredBatches(filtered);
-        } else {
-            setFilteredBatches(collectionData);
-        }
+    const formattedDate = `${year}-${month < 10 ? "0" + month : month}-${day < 10 ? "0" + day : day}`;
+
+    const filtered = collectionData.filter(batch => batch.retrieval_datetime && batch.retrieval_datetime.split("T")[0] === formattedDate);
+    setFilteredBatches(filtered);
     };
 
     useEffect(() => {

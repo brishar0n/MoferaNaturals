@@ -2,10 +2,7 @@ import React, { useState } from 'react';
 import SuccessNotification from "../SuccessNotification";
 import FailedNotification from "../FailedNotification";
 
-function CollectorForm({ weight, handleWeightChange, date, handleDateChange, time, handleTimeChange, handleSubmit }) {
-    const successMessage = `You have successfully collected ${weight} wet leaves data.`;
-    const failedMessage = `Failed to collect wet leaves data. Weight must be greater than zero.`;
-
+function CollectorForm({ weight, handleWeightChange, date, handleDateChange, time, handleTimeChange, handleSubmit, submittedWeight }) {
     const [trigger, setTrigger] = useState(0);
     const [isFormValid, setIsFormValid] = useState(true);
     const [formSubmitted, setFormSubmitted] = useState(false);
@@ -30,6 +27,9 @@ function CollectorForm({ weight, handleWeightChange, date, handleDateChange, tim
             console.log("Form submission failed");
         }
     };
+
+    const successMessage = `You have successfully collected ${submittedWeight} wet leaves data.`;
+    const failedMessage = `Failed to collect wet leaves data. Weight must be greater than zero.`;
 
     return (
         <div className="w-[80%] rounded-2xl shadow-lg bg-white rounded px-8 py-5 flex flex-col ">
