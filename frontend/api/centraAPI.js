@@ -67,6 +67,16 @@ export const flourDryLeaves = (Data) => {
         });
 }
 
+export const getCentraLocation = async() => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    const Location = await axios.get(URL + "/centra/location")
+        .catch((error) => {
+            console.error(error);
+        });
+
+    return Location
+}
+
 export const getCollection = async() => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
     const Collection = await axios.get(URL + "/centra/collection")
@@ -178,6 +188,16 @@ export const getCentraNotification = async() => {
         });
 
     return Notifications
+}
+
+export const getRecentCentraNotification = async() => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+    const RecentNotifications = await axios.get(URL + "/centra/recent_notification")
+        .catch((error) => {
+            console.error(error);
+        });
+
+    return RecentNotifications
 }
 
 export const postPackage = (Package) => {

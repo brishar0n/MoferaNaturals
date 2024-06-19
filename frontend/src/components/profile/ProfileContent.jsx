@@ -7,8 +7,9 @@ import trophy from '../../assets/profile/trophy.svg'
 import NavigateTo from './NavigateTo';
 import Account from './Account';
 import ConfirmNotification from '../ConfirmNotification';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from 'axios';
+import { getCentraLocation } from '../../../api/centraAPI';
 
 function ProfileContent({ role, name }) {
     const [showConfirm, setShowConfirm] = useState(false);
@@ -18,7 +19,7 @@ function ProfileContent({ role, name }) {
     const [confirmedTitle, setConfirmedTitle] = useState("");
     const [cancelledText, setCancelledText] = useState("");
     const [confirmationFunction, setConfirmationFunction] = useState({"func": new Function()})
-
+    const [location, setLocation] = useState("");
 
     const confirmLogout = async () => {
         try {
@@ -40,13 +41,10 @@ function ProfileContent({ role, name }) {
 
     const confirmDelete = async () => {
         try {
-            const response = await fetch('http://localhost:8000/auth/delete', {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                credentials: 'include'
-            });
+            axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+            const response = await axios.delete('http://localhost:8000/auth/delete')
+
+            localStorage.removeItem('token');
 
             if (response.status === 200) {
                 window.location.href = '/';
@@ -57,6 +55,34 @@ function ProfileContent({ role, name }) {
             console.error("Error deleting account:", error);
         }
     };
+
+    useEffect(() => {
+        const fetchLocation = async () => {
+            try {
+                const response = await getCentraLocation();
+                setLocation(response.data.location);
+            } catch (error) {
+                console.error("Error fetching location:", error);
+                if (role === "GuardHarbor") {
+                    setLocation("Pelabuhan Labuhan Bajo");
+                } else if (role === "xyz") {
+                    setLocation("Nusa Cendana, NTT");
+                } else {
+                    setLocation("");
+                }
+            }
+        };
+
+        if (role === "centra") {
+            fetchLocation();
+        } else if (role === "GuardHarbor") {
+            setLocation("Pelabuhan Labuhan Bajo"); // Default location if role is GuardHarbor
+        } else if (role === "xyz") {
+            setLocation("Nusa Cendana, NTT"); // Default location if role is xyz
+        } else {
+            setLocation(""); 
+        }
+    }, [role]); 
 
     function handleLogOut() {
         setShowConfirm(true);
@@ -91,7 +117,7 @@ function ProfileContent({ role, name }) {
             <p className='text-primary text-3xl mt-1 font-medium'>{name}</p>
 
             <div className='mt-1 flex justify-center'>
-                <p className='text-primary font-medium flex gap-1 items-center text-base'><IoLocationSharp />Ponchiki, Aroma Ketek</p>
+                <p className='text-primary font-medium flex gap-1 items-center text-base'><IoLocationSharp />{location}</p>
             </div>
 
 
