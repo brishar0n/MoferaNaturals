@@ -93,6 +93,8 @@ const DryDashboard = () => {
       console.log(drySummary)
   }, [])
 
+  const filteredDryDatas = dryDatas.filter(data => data.centra_id === parseInt(centraFilter));
+
   return (
     <div className="bg-primary w-screen h-screen flex relative">
       <Sidebar isMinimized={isSidebarMinimized} toggleSidebar={toggleSidebar} />
@@ -135,15 +137,6 @@ const DryDashboard = () => {
                   {[...Array(32).keys()].map(i => (
                     <option key={i + 1} value={i + 1}>{`Centra ${i + 1}`}</option>
                   ))}
-                </select>
-              </form>
-              <form className="h-10 w-28">
-               <select id="times" className="bg-quinary border border-primary text-black text-sm 
-                focus:ring-primary focus:border-primary block w-full p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-xl py-1 px-2">
-                  <option>Filter</option>
-                  <option>Filter 1</option>
-                  <option>Filter 2</option>
-                  <option>Filter 3</option>
                 </select>
               </form>
             </div>
@@ -210,13 +203,13 @@ const DryDashboard = () => {
             <div className="flex h-[440px] bg-quinary items-center justify-center rounded-3xl dark:bg-gray-800 p-4">
               <div className="text-2xl text-primary dark:text-gray-500 w-full">
                 <div className="text-left text-lg ml-3 text-black font-semibold">Dry Leaves Data</div>
-                <Table data={dryDatas.map((data) => {return {...data, "date":data.received_date}})}/>
+                <Table data={filteredDryDatas.map((data) => ({ ...data, "date": formatDate(data.dried_date)}))}/>
               </div>
             </div>
             <div className="flex flex-col bg-quinary rounded-3xl dark:bg-gray-800 p-4">
               <div className="text-lg text-left text-black font-semibold px-4 mt-4">Recent Activities</div>              
                 <div>
-                  <RecentActivities activities={activities} />
+                  <RecentActivities activities={activities.filter(activity => activity.description.includes(`Centra ${centraFilter}`))} />
                 </div>
             </div>
           </div>
