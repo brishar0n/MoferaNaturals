@@ -65,14 +65,6 @@ const CentraActivityMonitor = () => {
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} className="flex-1 overflow-y-auto">
 
         <div className="ml-6 mb-5 flex items-center justify-between">
-          <p className="text-left text-sm bg-quinary text-black border border-green-800 w-fit px-2 rounded">Date: {date.toLocaleDateString()}</p>
-          <form className="h-10 w-40 mr-6">
-            <select value={filter} className="bg-quinary border border-primary text-primary text-sm focus:ring-primary focus:border-primary block w-full p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full mt-1 py-1 px-1">
-              <option>Centra 1</option>
-              <option>Centra 2</option>
-              <option>Centra 3</option>
-            </select>
-          </form>
         </div>
         <div className='bg-quinary rounded-xl mt-4 mx-6'>
           <CentraMonitorTable dataType={dataType} handleDataTypeChange={handleDataTypeChange} />
