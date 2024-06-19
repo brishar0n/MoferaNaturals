@@ -110,7 +110,7 @@ function AdminTable({ rows, columns, deleteRow, editRow, pageName }) {
                     : columnKeys.key === "status"
                     ? getStatusLabel(item[columnKeys.key])
                     : item[columnKeys.key]}
-                  {columnKeys.key === "actions" ? (
+                  {columnKeys === "actions" ? (
                     <div className="flex gap-2 justify-center">
                       <Button
                         size="md"
