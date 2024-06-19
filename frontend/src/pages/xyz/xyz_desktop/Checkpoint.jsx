@@ -9,6 +9,7 @@ import CheckPointTable from './CheckpointTable';
 import AdminTable from '../../../components/xyz/CheckPointTable';
 import { initialCheckpointRows, columnsCheckpoint} from "../../../components/admin/UserDataSample";
 import { getCheckpointStats, getCheckpointSummary, getCheckpoints } from '../../../../api/xyzAPI';
+import EditProfileDesktop from './EditProfileDesktop';
 
 // export const activities = [
 //     { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-10@2x.png' },
@@ -103,12 +104,13 @@ const Checkpoint = () => {
             </div>
               <div className="flex items-center justify-center gap-20 h-22 rounded dark:bg-gray-800">
                 
-                <div className="p-4 bg-quinary rounded-full absolute right-0 top-0 mr-32 mt-11">
+                <div className="p-2 bg-quinary rounded-full absolute right-0 top-0 mr-28 mt-12">
                   <a href="/dashboard"><IoNotifications className="text-2xl" /></a>
                 </div>
                 <div>
                   <span className="flex items-center mr-6 mt-6">
-                    <img src={profilepic} alt='profile picture' className='flex align-right mb-6 absolute right-0 top-0 mr-12 mt-12'/>
+                    {/* <img src={profilepic} alt='profile picture' className='flex align-right mb-6 absolute right-0 top-0 mr-12 mt-12' /> */}
+                    <EditProfileDesktop />
                   </span>
                 </div>
               </div>

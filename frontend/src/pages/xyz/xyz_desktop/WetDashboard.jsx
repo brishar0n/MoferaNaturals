@@ -12,6 +12,7 @@ import profilepic from "../../../assets/desktop/profilepicdesktop.svg";
 import mascot from "../../../assets/xyz/half-mascot.svg";
 import { getWetLeafDatas, getWetStats, getWetSummary } from '../../../../api/xyzAPI';
 import { getCurrentUser } from '../../../../api/profileAPI';
+import EditProfileDesktop from './EditProfileDesktop';
 
 const WetDashboard = () => {
   const [isSidebarMinimized, setIsSidebarMinimized] = useState(false);
@@ -103,23 +104,23 @@ const WetDashboard = () => {
       <div className="flex-1 bg-white rounded-3xl mt-3 mr-3 mb-3 p-4 flex flex-col overflow-hidden relative">
         <div className="flex justify-between items-center mb-5">
           <div className="grid grid-cols-2 gap-4 mb-4">
-            <div className="flex items-center justify-around h-28 p-8 bg-quinary rounded-3xl dark:bg-gray-800">
-              <div className="flex items-center">
-                <h2 className="text-4xl font-bold">Hello {username}!</h2>
-                <img src={mascot} alt="mascot" className="ml-10" style={{ height: "112px" }} />
-              </div>
+          <div className="flex items-center justify-between h-28 p-8 bg-quinary rounded-3xl dark:bg-gray-800">
+            <div className="flex items-center flex-grow">
+              <h2 className="text-4xl font-bold">Hello {username}!</h2>
             </div>
+            <img src={mascot} alt="mascot" style={{ height: "112px" }} />
+          </div>
 
             <div className="flex items-center justify-center gap-20 h-22 rounded dark:bg-gray-800">
               <div>
                 <SearchForm isSidebarMinimized={isSidebarMinimized} />
               </div>
-              <div className="p-4 bg-quinary rounded-full absolute right-0 top-0 mr-32 mt-11">
+              <div className="p-2 bg-quinary rounded-full absolute right-0 top-0 mr-28 mt-12">
                 <a href="/dashboard"><IoNotifications className="text-2xl" /></a>
               </div>
               <div>
                 <span className="flex items-center mr-6 mt-6">
-                  <img src={profilepic} alt='profile picture' className='flex align-right mb-6 absolute right-0 top-0 mr-12 mt-12' />
+                  <EditProfileDesktop />
                 </span>
               </div>
             </div>
