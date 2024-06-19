@@ -91,7 +91,7 @@ const PowderDashboard = () => {
     fetchPowderSummary();
   }, [])
 
-  const filteredPowderDatas = powderDatas.filter(data => data.centra_id === parseInt(centraFilter));
+  const filteredPowderDatas = centraFilter === "0" ? powderDatas : powderDatas.filter(data => data.centra_id === parseInt(centraFilter));
 
   return (
     <div className="bg-primary w-screen h-screen flex relative">
@@ -132,6 +132,7 @@ const PowderDashboard = () => {
               <select id="times" className="bg-quinary border border-primary text-black text-sm 
                 focus:ring-primary focus:border-primary block w-full p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-xl py-1 px-2"
                   onChange={(e) => setCentraFilter(e.target.value)} >
+                    <option key={0} value={0}>{"All Centra"}</option>
                   {[...Array(32).keys()].map(i => (
                     <option key={i + 1} value={i + 1}>{`Centra ${i + 1}`}</option>
                   ))}
@@ -207,7 +208,7 @@ const PowderDashboard = () => {
             <div className="flex flex-col bg-quinary rounded-3xl dark:bg-gray-800 p-4">
               <div className="text-lg text-left text-black font-semibold px-4 mt-4">Recent Activities</div>              
                 <div>
-                  <RecentActivities activities={activities.filter(activity => activity.description.includes(`Centra ${centraFilter}`))} />
+                  <RecentActivities activities={centraFilter === "0" ? activities : activities.filter(activity => activity.description.includes(`Centra ${centraFilter}`))} />
                 </div>
             </div>
           </div>
