@@ -11,6 +11,7 @@ import { motion } from "framer-motion";
 import profilepic from "../../../assets/desktop/profilepicdesktop.svg";
 import mascot from "../../../assets/xyz/half-mascot.svg";
 import { getFlourStats, getFlourDatas, getFlourSummary } from '../../../../api/xyzAPI';
+import { getCurrentUser } from '../../../../api/profileAPI';
 
 const activities = [
   { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-10@2x.png' },
@@ -24,6 +25,7 @@ const PowderDashboard = () => {
   const [centraFilter, setCentraFilter] = useState("1");
   const [statsFilter, setStatsFilter] = useState("daily");
   const [trendFilter, setTrendFilter] = useState("daily");
+  const [username, setUsername] = useState("Loading");
 
   const toggleSidebar = () => {
     setIsSidebarMinimized(!isSidebarMinimized);
@@ -89,6 +91,12 @@ const PowderDashboard = () => {
     }
 
     fetchPowderSummary();
+    
+    const fetchUsername = async () => {
+      const user = await getCurrentUser();
+      setUsername(user.username);
+    }
+    fetchUsername();
   }, [])
 
   const filteredPowderDatas = centraFilter === "0" ? powderDatas : powderDatas.filter(data => data.centra_id === parseInt(centraFilter));
@@ -101,7 +109,7 @@ const PowderDashboard = () => {
           <div className="grid grid-cols-2 gap-4 mb-4">
             <div className="flex items-center justify-around h-28 p-8 bg-quinary rounded-3xl dark:bg-gray-800">
               <div className="flex items-center">
-                <h2 className="text-4xl font-bold">Hello Maimunah!</h2>
+                <h2 className="text-4xl font-bold">Hello {username}!</h2>
                 <img src={mascot} alt="mascot" className="ml-10" style={{ height: "112px" }} />
               </div>
           </div>

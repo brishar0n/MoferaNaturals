@@ -11,24 +11,14 @@ import { motion } from "framer-motion";
 import profilepic from "../../../assets/desktop/profilepicdesktop.svg";
 import mascot from "../../../assets/xyz/half-mascot.svg";
 import { getDryLeafDatas, getDryStats, getDrySummary } from '../../../../api/xyzAPI';
-
-// const activities = [
-//   { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-10@2x.png' },
-//   { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-9@2x.png' },
-//   { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-22@2x.png' },
-//   { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-18@2x.png' },
-//   { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-10@2x.png' },
-//   { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-9@2x.png' },
-//   { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-22@2x.png' },
-//   { day: new Date().toLocaleString(), time: '10 mins ago', description: 'Centra 1 just added 30kg of dry leaves data into the system.', image: 'src/assets/DashboardDesktop/ellipse-18@2x.png' },
-
-// ];
+import { getCurrentUser } from '../../../../api/profileAPI';
 
 const DryDashboard = () => {
   const [isSidebarMinimized, setIsSidebarMinimized] = useState(false);
   const [centraFilter, setCentraFilter] = useState("1");
   const [statsFilter, setStatsFilter] = useState("daily");
   const [trendFilter, setTrendFilter] = useState("daily");
+  const [username, setUsername] = useState("Loading");
   const [activities, setActivities] = useState([])
 
   const toggleSidebar = () => {
@@ -91,6 +81,13 @@ const DryDashboard = () => {
 
       fetchDrySummary();
       console.log(drySummary)
+
+      
+      const fetchUsername = async () => {
+        const user = await getCurrentUser();
+        setUsername(user.username);
+      }
+      fetchUsername();
   }, [])
 
   const filteredDryDatas = centraFilter === "0" ? dryDatas : dryDatas.filter(data => data.centra_id === parseInt(centraFilter));
@@ -103,7 +100,7 @@ const DryDashboard = () => {
           <div className="grid grid-cols-2 gap-4 mb-4">
             <div className="flex items-center justify-around h-28 p-8 bg-quinary rounded-3xl dark:bg-gray-800">
               <div className="flex items-center">
-                <h2 className="text-4xl font-bold">Hello Maimunah!</h2>
+                <h2 className="text-4xl font-bold">Hello {username}!</h2>
                 <img src={mascot} alt="mascot" className="ml-10" style={{ height: "112px" }} />
               </div>
           </div>

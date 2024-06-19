@@ -11,12 +11,14 @@ import { motion } from "framer-motion";
 import profilepic from "../../../assets/desktop/profilepicdesktop.svg";
 import mascot from "../../../assets/xyz/half-mascot.svg";
 import { getWetLeafDatas, getWetStats, getWetSummary } from '../../../../api/xyzAPI';
+import { getCurrentUser } from '../../../../api/profileAPI';
 
 const WetDashboard = () => {
   const [isSidebarMinimized, setIsSidebarMinimized] = useState(false);
   const [centraFilter, setCentraFilter] = useState("1");
   const [statsFilter, setStatsFilter] = useState("daily");
   const [trendFilter, setTrendFilter] = useState("daily");
+  const [username, setUsername] = useState("Loading");
   const [activities, setActivities] = useState([]);
 
   const toggleSidebar = () => {
@@ -83,6 +85,12 @@ const WetDashboard = () => {
     }
 
     fetchWetSummary();
+
+    const fetchUsername = async () => {
+      const user = await getCurrentUser();
+      setUsername(user.username);
+    }
+    fetchUsername();
   }, []);
 
 
@@ -97,7 +105,7 @@ const WetDashboard = () => {
           <div className="grid grid-cols-2 gap-4 mb-4">
             <div className="flex items-center justify-around h-28 p-8 bg-quinary rounded-3xl dark:bg-gray-800">
               <div className="flex items-center">
-                <h2 className="text-4xl font-bold">Hello Maimunah!</h2>
+                <h2 className="text-4xl font-bold">Hello {username}!</h2>
                 <img src={mascot} alt="mascot" className="ml-10" style={{ height: "112px" }} />
               </div>
             </div>
