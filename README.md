@@ -27,11 +27,12 @@ Mofera Naturals is a web application that provides a link between XYZ (the given
     ```sh
     npm install
 
-4. Run the development server:
+## Usage
+1. Run the development server:
     ```sh
     npm run dev
 
-5. Direct yourself to the given localhost server in your terminal (usually it's `http://localhost:5173` or `http://localhost:8000`).
+2. Direct yourself to the given localhost server in your terminal (usually it's `http://localhost:5173` or `http://localhost:8000`).
 
 ## Main Folder Structure
 - `public/`: Contains public assets and the HTML template.
