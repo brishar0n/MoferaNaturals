@@ -13,6 +13,7 @@ Mofera Naturals is a web application that provides a link between XYZ (the given
 - [Installation](#installation)
 - [Usage](#usage)
 - [Main Folder Structure](#main-folder-structure)
+- [Contributors](#contributors)
 
 ## Installation
 1. Clone the repository:
@@ -43,3 +44,10 @@ Mofera Naturals is a web application that provides a link between XYZ (the given
   - `styles/`: CSS stylesheets.
 - `api/`: Contains code to connect the backend to the frontend
 - `utils/`: Supporting code for API
+
+## Contributors
+- [Brigitte Sharon Alexander](https://github.com/brishar0n)
+- [Felix Ferdinand](https://github.com/ferd78)
+- [Ivandito Rakaputra](https://github.com/IvanditoRakaputra)
+- [Jeffrey (Team Leader)](https://github.com/Jeffrey9427)
+- [Sir Tyrone Raphael Joseph Vargas](https://github.com/tyroneley)
