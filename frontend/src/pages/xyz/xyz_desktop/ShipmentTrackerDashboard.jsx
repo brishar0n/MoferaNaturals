@@ -27,8 +27,8 @@ const shippingData = [
 
 
 const ShipmentTrackerDashboard = () => {
-    const [shippingData, setShippingData] = useState([])
-
+    const [shippingData, setShippingData] = useState([]);
+    const [centraFilter, setCentraFilter] = useState("0");
     const [isSidebarMinimized, setIsSidebarMinimized] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const rowsPerPage = 4;
@@ -55,7 +55,7 @@ const ShipmentTrackerDashboard = () => {
 
     useEffect(() => {
         const fetchBarData = async () => {
-            const response = await getShippingStats({interval: statsFilter})
+            const response = await getShippingStats({interval: statsFilter, centra_id: centraFilter})
             if(response && response.data) {
                 setBarData(response.data)
             }
@@ -64,7 +64,7 @@ const ShipmentTrackerDashboard = () => {
         fetchBarData()
 
         const fetchShippingSummary = async () => {
-            const response = await getShippingSummary({interval: statsFilter})
+            const response = await getShippingSummary({interval: statsFilter, centra_id: centraFilter})
             if(response && response.data) {
                 setShippingSummary(response.data)
             }
@@ -73,7 +73,7 @@ const ShipmentTrackerDashboard = () => {
         fetchShippingSummary()
 
         const fetchActivities = async () => {
-            const response = await getShippingInfo()
+            const response = await getShippingInfo({centra_id: centraFilter})
             if(response && response.data) {
                 setActivities(response.data.map((data) => ({
                     "day": new Date(data.departure_datetime).toLocaleString(),
@@ -95,7 +95,7 @@ const ShipmentTrackerDashboard = () => {
         }
 
         fetchActivities()
-    }, [statsFilter])
+    }, [statsFilter, centraFilter])
 
     return (
     <div className="bg-primary w-screen h-screen flex relative">
@@ -145,20 +145,11 @@ const ShipmentTrackerDashboard = () => {
             <div className="flex justify-center gap-2">
                 <form className="h-10 w-40">
                 <select id="times" className="bg-quaternary border border-primary text-primary text-sm 
-                focus:ring-primary focus:border-primary block w-full p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full py-1 px-1">
-                    <option>Select Centra</option>
-                    <option>Select Centra 1</option>
-                    <option>Select Centra 2</option>
-                    <option>Select Centra 3</option>
-                </select>
-                </form>
-                <form className="h-10 w-28">
-                <select id="times" className="bg-quaternary border border-primary text-primary text-sm 
-                focus:ring-primary focus:border-primary block w-full p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full py-1 px-1">
-                    <option>Filter</option>
-                    <option>Filter 1</option>
-                    <option>Filter 2</option>
-                    <option>Filter 3</option>
+                focus:ring-primary focus:border-primary block w-full p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-full py-1 px-1" onChange={(e) => setCentraFilter(e.target.value)}>
+                    <option key={0} value={0}>{"All Centra"}</option>
+                  {[...Array(32).keys()].map(i => (
+                    <option key={i + 1} value={i + 1}>{`Centra ${i + 1}`}</option>
+                  ))}
                 </select>
                 </form>
             </div>
