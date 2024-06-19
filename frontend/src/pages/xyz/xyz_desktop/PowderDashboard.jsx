@@ -130,11 +130,10 @@ const PowderDashboard = () => {
               <form className="h-10 w-40">
               <select id="times" className="bg-quinary border border-primary text-black text-sm 
                 focus:ring-primary focus:border-primary block w-full p-1 dark:bg-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:primary dark:focus:border-primary rounded-xl py-1 px-2"
-                onChange={(e) => setCentraFilter(e.target.value)} >
-                  <option value="1">Select Centra</option>
-                  <option value="1">Select Centra 1</option>
-                  <option value="2">Select Centra 2</option>
-                  <option value="3">Select Centra 3</option>
+                  onChange={(e) => setCentraFilter(e.target.value)} >
+                  {[...Array(32).keys()].map(i => (
+                    <option key={i + 1} value={i + 1}>{`Centra ${i + 1}`}</option>
+                  ))}
                 </select>
               </form>
               <form className="h-10 w-28">
