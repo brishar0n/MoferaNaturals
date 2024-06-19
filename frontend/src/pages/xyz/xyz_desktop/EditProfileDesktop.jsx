@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Input, useDisclosure, Badge } from "@nextui-org/react";
 import profilepic from "../../../assets/desktop/profilepicdesktop.svg";
+import axios from "axios";
 
 function EditProfileDesktop({ user, onEditUser }) {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -14,10 +15,33 @@ function EditProfileDesktop({ user, onEditUser }) {
         }));
     };
 
-    const handleEditUser = () => {
-        onEditUser(editUser);
-        onOpenChange(false);
-    };
+    async function handleSubmit(event) {
+        event.preventDefault();
+        if (editUser.password !== editUser.confirmPassword) return;
+    
+        const payload = {
+            username: editUser.username,
+            email: editUser.email,
+            new_password: editUser.password,
+            confirm_password: editUser.confirmPassword,
+        };
+    
+        try {
+            const response = await axios.put('http://127.0.0.1:8000/profile/', payload, {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+    
+            if (response.status === 200) {
+                console.log("Success"); 
+            } else {
+                console.error('Failed to update user profile:', error)
+            }
+        } catch (error) {
+            console.error('Failed to update user profile:', error);
+        }
+    }
 
     return (
         <>
@@ -61,7 +85,7 @@ function EditProfileDesktop({ user, onEditUser }) {
                                     size="lg"
                                     label="Email"
                                     placeholder="Enter the updated email:"
-                                    name="username"
+                                    name="email"
                                     value={editUser.email} // Ensure this matches the user object property
                                     onChange={handleInputChange}
                                     className="mb-4"
@@ -74,7 +98,7 @@ function EditProfileDesktop({ user, onEditUser }) {
                                     size="lg"
                                     label="Password"
                                     placeholder="Enter the updated password:"
-                                    name="email"
+                                    name="password"
                                     value={editUser.password}
                                     onChange={handleInputChange}
                                     className="mb-4"
@@ -86,8 +110,8 @@ function EditProfileDesktop({ user, onEditUser }) {
                                     size="lg"
                                     label="Password"
                                     placeholder="Confirm the updated password:"
-                                    name="role"
-                                    value={editUser.password}
+                                    name="confirmPassword"
+                                    value={editUser.confirmPassword}
                                     onChange={handleInputChange}
                                     className="mb-4"
                                 />
@@ -96,7 +120,7 @@ function EditProfileDesktop({ user, onEditUser }) {
                                 <Button color="danger" variant="bordered" onPress={() => onOpenChange(false)} className="font-medium">
                                     Close
                                 </Button>
-                                <Button color="secondary" onClick={handleEditUser} className="font-medium">
+                                <Button color="secondary" onClick={handleSubmit} className="font-medium">
                                     Save Changes
                                 </Button>
                             </ModalFooter>
