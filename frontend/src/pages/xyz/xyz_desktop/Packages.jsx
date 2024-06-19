@@ -6,6 +6,7 @@ import SearchForm from "./Search";
 import Sidebar from '../../../components/xyz/Sidebar';
 import PackagesTable from '../../../components/xyz/PackagesTable';
 import profilepic from "../../../assets/desktop/profilepicdesktop.svg";
+import EditProfileDesktop from './EditProfileDesktop';
 
 const Packages = ({ children }) => {
 
@@ -31,12 +32,12 @@ const Packages = ({ children }) => {
                         <div className='mt-3'>
                             <SearchForm isSidebarMinimized={isSidebarMinimized} onSearch={handleSearch} />
                         </div>
-                        <div className="p-4 bg-quinary rounded-full right-0 top-0 ml-12 mt-3 mr-6">
+                        <div className="p-2 bg-quinary rounded-full absolute right-0 top-0 mr-28 mt-12">
                             <a href="/dashboard"><IoNotifications className="text-2xl" /></a>
                         </div>
                         <div>
-                            <span className="flex items-center mr-7">
-                                <img src={profilepic} alt='profile picture' className='flex align-right right-0 top-0 mt-3'/>
+                            <span className="flex items-center mr-6 mt-6">
+                            <EditProfileDesktop />
                             </span>
                         </div>
                     </div>
