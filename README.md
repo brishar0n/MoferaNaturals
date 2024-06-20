@@ -13,7 +13,7 @@ Mofera Naturals is a web application that provides a link between XYZ (the given
 - [Installation](#installation)
 - [Usage](#usage)
 - [Main Folder Structure](#main-folder-structure)
-- [Promo & Demo Video](#promo-&-demo-video)
+- [Promo Video](#promo-video)
 - [Contributors](#contributors)
 
 ## Installation
@@ -46,7 +46,7 @@ Mofera Naturals is a web application that provides a link between XYZ (the given
 - `api/`: Contains code to connect the backend to the frontend
 - `utils/`: Supporting code for API
 
-## Promo & Demo Video
+## Promo Video
 https://drive.google.com/file/d/1n-pEKj3-bcLcFGwR2tTHd_L5x54H7A1-/view?usp=drivesdk
 
 ## Contributors
