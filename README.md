@@ -47,7 +47,7 @@ Mofera Naturals is a web application that provides a link between XYZ (the given
 - `utils/`: Supporting code for API
 
 ## Promo & Demo Video
-(https://drive.google.com/file/d/1n-pEKj3-bcLcFGwR2tTHd_L5x54H7A1-/view?usp=drivesdk)
+https://drive.google.com/file/d/1n-pEKj3-bcLcFGwR2tTHd_L5x54H7A1-/view?usp=drivesdk
 
 ## Contributors
 - [Brigitte Sharon Alexander](https://github.com/brishar0n)
